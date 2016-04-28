@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Enable Supplies - CRM System</title>
+
+<!-- Compiled and minified Bootstrap CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Compiled and minified FontAwesome CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" media="screen" href="css/style.css" />
+
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="dashboard.html">Enable Supplies</a>
+                    </div>
+    
+                  
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul id="main-nav" class="nav navbar-nav">
+                            <li class="action">
+                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                First Name<br />
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                Last Name<br />
+                                                <input class="form-control" type="text" /><br />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                Company<br />
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <button class="btn btn-primary" type="button">Add contact</button>
+                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
+                                    </form>
+'><i class="fa fa-plus-circle"></i> New Contact</button>
+                            </li>
+                            <li class="action">
+                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                When it&#39;s due?<br />
+                                                <input class="form-control" type="date" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                What category?<br/>
+                                                <select class="form-control"><option>None</option></select>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <button class="btn btn-primary" type="button">Add task</button>
+                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
+                                    </form>
+'><i class="fa fa-plus-circle"></i> New Task</button>
+                            </li>
+                            <li><a href="dashboard.html">Dashboard</a></li>
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="calendar.html">Calendar</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrator <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Account</a></li>
+                                    <li><a href="#">Users</a></li>
+                                    <li><a href="#">Groups</a></li>
+                                    <li><a href="#">Sign out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="navbar-form navbar-right">
+                            <div class="form-group">
+                                <input type="text" class="form-control search" placeholder="Search">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <section>
+            <div class="container">
+                <div class="row">
+
+                    <!-- Sidebar -->
+
+                    <aside class="col-md-3 no-padding">
+    
+                        <nav class="global">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
+                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
+                                <li class="active"><a href="contacts.html"><i class="fa fa-book"></i>  Contacts </a></li>
+                                <li><a href="notes.html"><i class="fa fa-file-text"></i> Notes</a></li>
+                            </ul>
+                        </nav>
+    
+                     <!--   <nav class="subnav recent">
+                            <h4>Recent Contacts</h4>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
+                                        </span>
+                                        <p>John Doe<br>
+                                        <small class="text-muted">Some Company LTD</small></p>
+                                        <address>123 Some Street, LA</address>
+'><h5>John Doe</h5><h6>Some Company LTD</h6></a>
+                                </li>
+                                <li>
+                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
+                                        </span>
+                                        <p>Jane Roe<br>
+                                        <small class="text-muted">Some Company LTD</small></p>
+                                        <address>123 Some Street, LA</address>
+'><h5>Jane Roe</h5><h6>Other Company Inc.</h6></a>
+                                </li>
+                            </ul>
+                        </nav> -->
+    
+                        <nav class="subnav">
+                            <h4>Activities</h4>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="empty">Projects</a></li>
+                                <li><a href="empty">Sales</a></li>
+                                <li><a href="empty">Jobs</a></li>
+                                
+                            </ul>
+                        </nav>
+                    </aside>
+    
+                    <!-- Sidebar End -->
+                    
+    
+                    <!-- Main Section -->
+    
+                    <section class="col-md-9 no-padding">
+                        <div class="main-section">
+
+                            <div class="main-content panel panel-default">
+                                <header class="panel-heading clearfix">
+                                    <a data-target="documentation/index.html" href="#" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>
+                                    <h2 class="panel-title">
+                                        Styles
+                                    </h2>
+                                </header>
+                                <section class="panel-body container-fluid">
+                                    <div>
+                                        <h2>Modal Dialogs</h2>
+            
+                                        <!-- the triggers -->
+                                        <p>
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#simpledialog">Simple Dialog</button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#yesno" data-backdrop="static">Yes or no?</button>
+                                            <button class="btn btn-warning" data-toggle="modal" data-target="#prompt" data-keyboard="true" data-backdrop="static">User input</button>
+                                        </p>
+                                    </div>
+                
+                                    <div class="leading">
+                                    	  <form id="form" class="form-horizontal panel panel-default">
+                                            <header class="panel-heading"><h2 class="panel-title">HTML5 form with validation</h2></header>
+            
+                                            <fieldset class="panel-body">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">email *</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="email" required="required" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">username *</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="text" name="username" required="required" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">Password</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="password" name="password" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">Password check</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="password" name="check" data-equals="password" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">website *</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="url" required="required" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">name *</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="text" name="name" required="required" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">age</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="number" name="age" value="0" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">time *</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="time" name="time" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">Select</label>
+                                                    <div class="col-sm-10">
+                                                      <select class="form-control"><option>Lorem</option><option>Dolor</option><option>Sit amet</option></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">Textarea</label>
+                                                    <div class="col-sm-10">
+                                                      <textarea class="form-control" rows="5" cols="90"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">datepicker</label>
+                                                    <div class="col-sm-10">
+                                                      <input class="form-control" type="date" name="date" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">radio button</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="radio">
+                                                          <label><input type="radio" name="radio" />Radio 1</label>
+                                                          <label><input type="radio" name="radio" />Radio 2</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2">Checkbox</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input class="checkbox" type="checkbox" checked="checked"/>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+            
+                                            <footer class="panel-footer">
+                                                <button class="btn btn-primary" type="submit">Submit form</button>
+                                                <button class="btn btn-default" type="reset">Reset</button>
+                                            </footer>
+                                        </form>
+                                    </div>
+                
+                                    <div class="leading">
+                                        <h2>Tabs</h2>
+            
+                                        <!-- the tabs -->
+                                        <div class="tabbed-pane">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#tab1" data-toggle="tab">Tab 1</a></li>
+                                                <li><a href="#tab2" data-toggle="tab">Tab 2</a></li>
+                                                <li><a href="#tab3" data-toggle="tab">Tab 3</a></li>
+                                            </ul>
+            
+                                            <!-- tab "panes" -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab1"><h4>First tab content.</h4> Tab contents are called "panes"</div>
+                                                <div class="tab-pane" id="tab2">Second tab content</div>
+                                                <div class="tab-pane" id="tab3">Third tab content</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="leading">
+                                        <h2>Panels</h2>
+            
+                                        <div class="panel panel-default">
+                                            <header class="panel-heading"><h2 class="panel-title">Panel</h2></header>
+                                            <section class="panel-body">
+                                                <p>This is a normal panel</p>
+                                            </section>
+                                        </div>
+            
+                                        <div class="panel panel-info">
+                                            <header class="panel-heading"><h2 class="panel-title">Info</h2></header>
+                                            <section class="panel-body">
+                                                <p>This is a panel widget</p>
+                                            </section>
+                                        </div>
+            
+                                        <div class="panel panel-success">
+                                            <header class="panel-heading"><h2 class="panel-title">Success</h2></header>
+                                            <section class="panel-body">
+                                                <p>This is a panel widget</p>
+                                            </section>
+                                        </div>
+            
+                                        <div class="panel panel-warning">
+                                            <header class="panel-heading"><h2 class="panel-title">Warning</h2></header>
+                                            <section class="panel-body">
+                                                <p>This is a panel widget</p>
+                                            </section>
+                                        </div>
+            
+                                        <div class="panel panel-danger">
+                                            <header class="panel-heading"><h2 class="panel-title">Danger</h2></header>
+                                            <section class="panel-body">
+                                                <p>This is a panel widget</p>
+                                            </section>
+                                        </div>
+            
+                                        <div class="panel panel-default">
+                                            <header class="panel-heading"><h2 class="panel-title">Panel with footer</h2></header>
+                                            <section class="panel-body">
+                                                <p>This is a normal panel</p>
+                                            </section>
+                                            <footer class="panel-footer">
+                                                <a class="btn btn-primary">OK</a>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+    
+                    </section>
+    
+                    <!-- Main Section End -->
+
+                </div>
+            </div>
+            <div id="push"></div>
+        </section>
+    </div>
+    
+    <footer>
+        <div id="footer-inner" class="container">
+            <div><span class="pull-right"><a href="#">Documentation</a> | <a href="#">Feedback</a></span>Last account activity from 127.0.0.1 - <a href="#">Details</a> | &copy;2016. All rights reserved. Designed by Colin Curran</div>
+        </div>
+    </footer>
+
+
+    <!-- simple dialog -->
+    <div class="modal fade" id="simpledialog" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- yes/no dialog -->
+    <div class="modal fade" id="yesno" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- user input dialog -->
+    <div class="modal fade" id="prompt" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">This is a modal dialog</h4>
+          </div>
+          <div class="modal-body">
+              <p>
+                  You can only interact with elements that are inside this dialog.
+                  To close it click a button or use the ESC key.
+              </p>
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="control-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="control-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- render blocking scripts -->
+
+    <!-- jQuery JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- Main Script -->
+    <script src="js/global.js"></script>
+</body>
+</html>
