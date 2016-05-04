@@ -187,7 +187,7 @@
                                                 <ul>
                                                     <li><a href="contacts.php?contact=privatecustomer">Private Customers</a></li>
                                                     <li><a href="contacts.php?contact=companies">Companies</a></li>
-                                                    <li><a href="contacts.php?contact=all">All Customers &amp; Companies</a></li>
+                                                    <!--<li><a href="contacts.php?contact=all">All Customers &amp; Companies</a></li>-->
                                                     <li class="separator"></li>
                                                     <li>Recently viewed...</li>
                                                     <li class="separator"></li>
@@ -198,12 +198,13 @@
                                         </header>
                                         <section class="panel-body">
 											<?php
-											//check which php file to load
+												//check which php file to load
 												$contact = $_GET['contact'];
-												//echo $contact;
 												if($contact != 'companies'){
+													//echo 'customer names';
 													require_once 'php/customer_names.php';
 												}else{
+													//echo 'company names';
 													require_once 'php/company_names.php';
 												}	
 											?>
@@ -217,7 +218,7 @@
                                         </div>
                                     </div>
                                     <div class="preview clearfix">
-                                    </div>
+                                    </div> 
                                 </div>
 								
                             </div>

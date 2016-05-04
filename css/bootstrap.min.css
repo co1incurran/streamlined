@@ -19,7 +19,7 @@ audio,canvas,progress,video {
 }
 audio:not([controls]) {
 	display:none;
-	height:0
+	height:
 }
 [hidden],template {
 	display:none
@@ -1409,11 +1409,16 @@ pre code {
 	.container {
 		width:95%
 	}
+	.asset-list{
+		font-size: 8xp;
+	}
+	
 }
 @media (min-width:1200px) {
 	.container {
 		width:95%
 	}
+
 }
 .container-fluid {
 	padding-right:15px;
@@ -1904,9 +1909,6 @@ pre code {
 		margin-left:0
 	}
 	#details{
-		font-size:11px;
-	}
-	#asset-list{
 		font-size:11px;
 	}
 }

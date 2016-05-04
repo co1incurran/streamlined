@@ -2,14 +2,17 @@
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
-define("DB_DATABASE", "enable_supplies_db");
+define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
- 
+ if($con == false){
+    //try to reconnect
+	echo'false';
+}
 $sql = "SELECT customerid, first_name, last_name, county, last_contacted FROM customer; ";
  
 $res = mysqli_query($con,$sql);
- 
+
 $result = array();
  
 while($row = mysqli_fetch_array($res)){
@@ -34,7 +37,7 @@ echo '<ul id="contacts" class="listing list-view clearfix">';
 					  <div class="avatar"><img src="images/circle-icons/64px/profle.png" width="32" height="32" /></div>';
 					  //ucwods makes the first letter in the names capital
 			$customerid = $results['customerid'];
-			echo	 '<a href = "profile.php?customerid='.$customerid.' " class="name">'. ucwords($results['first_name']) . ' ' . ucwords($results['last_name']) .'</a>';
+			echo	 '<a href = "profile.php?customerid='.$customerid.'&companyid=0 " class="name">'. ucwords($results['first_name']) . ' ' . ucwords($results['last_name']) .'</a>';
 			echo nl2br("\n");
 			echo nl2br("\n");
 			$date = $results['last_contacted'];

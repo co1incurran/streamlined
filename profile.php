@@ -125,11 +125,11 @@
     
                         <nav class="global">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
+                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview </a></li>
+                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity </a></li>
                                 <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="notes.html"><i class="fa fa-file-text"></i> Notes</a></li>
+                                <li><a href="notes.html"><i class="fa fa-file-text"></i> Notes </a></li>
                             </ul>
                         </nav>
     
@@ -174,7 +174,12 @@
                     <section class="col-md-9 no-padding">
                         <?php
 							$customerid = $_GET['customerid'];
-							require_once 'php/customer_details.php';
+							$companyid = $_GET['companyid'];
+							if ($customerid != 0){
+								require_once 'php/customer_details.php';
+							}else{
+								require_once 'php/company_details.php';
+							}
 						?>
 
                     </section>

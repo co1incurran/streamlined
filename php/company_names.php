@@ -2,11 +2,11 @@
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
-define("DB_DATABASE", "enable_supplies_db");
+define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
  
-$sql = "SELECT companyid, name, county, last_contacted FROM company; ";
+$sql = "SELECT companyid, name, county FROM company; ";
  
 $res = mysqli_query($con,$sql);
  
@@ -33,7 +33,7 @@ echo '<ul id="contacts" class="listing list-view clearfix">';
 					  <div class="avatar"><img src="images/circle-icons/64px/profle.png" width="32" height="32" /></div>';
 					  //ucwods makes the first letter in the names capital
 			$companyid = $results['companyid'];
-			echo	 '<a href = "profile.php?customerid='.$companyid.' " class="name">'. ucwords($results['name']) .'</a>';
+			echo	 '<a href = "profile.php?customerid=0&companyid='.$companyid.' " class="name">'. ucwords($results['name']) .'</a>';
 			echo nl2br("\n");
 			echo nl2br("\n");
 			//$date = $results['last_contacted'];
