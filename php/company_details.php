@@ -133,10 +133,9 @@ foreach ($result as $results){
 							echo '<div class="preview-pane col-md-5">
 								<div class="content">';
 							foreach ($result3 as $results3){
-								$date = $results3['last_contacted'];
-								$properDate = date("d/m/Y", strtotime($date));
+								
 									echo '<h3>'.ucwords($results3['first_name']) .' '.ucwords($results3['last_name']).'<a id="edit" href="editcontact.php?firstname='
-									.$results3['first_name'].'&lastname='.$results3['last_name'].'&email'.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$properDate.'"><i class="fa fa-gear"></i></a></li></h3>
+									.$results3['first_name'].'&lastname='.$results3['last_name'].'&email='.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$results3['last_contacted'].'"><i class="fa fa-gear"></i></a></li></h3>
 									<ul class="fa-ul">';
 									if(!empty ($results3['email'])){
 										echo '<li id = "details"><i class="fa-li fa fa-envelope"></i><small class="pull-right text-muted">Email</small>'. ($results3['email']) .'<br></li>';
@@ -153,7 +152,8 @@ foreach ($result as $results){
 									if(!empty ($results3['fax'])){
 										echo '<li id = "details"><i class="fa-li fa fa-fax"></i><small class="pull-right text-muted">Fax</small>'. ($results3['fax']) .'<br></li>';
 									}
-										
+									$date = $results3['last_contacted'];
+									$properDate = date("d/m/Y", strtotime($date));
 										echo '</li>
 										<li id = "details"><i class="fa-li fa fa-calendar"></i><small class="pull-right text-muted">Last Contacted</small>'. ($properDate) .'<br></li>
 									</ul>
@@ -172,15 +172,15 @@ foreach ($result as $results){
 											echo $ad1.',';
 											echo nl2br("\n");
 										}
-										if(!empty($ad2)){ 
+										if(!empty($ad2) && $ad2 != $ad1){ 
 											echo $ad2.',';
 											echo nl2br("\n");
 										}
-										if(!empty($ad3)){ 
+										if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){ 
 											echo $ad3.',';
 											echo nl2br("\n");
 										}
-										if(!empty($ad4)){ 
+										if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){ 
 											echo $ad4.',';
 											echo nl2br("\n");
 										}
@@ -203,5 +203,4 @@ foreach ($result as $results){
 				</div>';
 }
 mysqli_close($con);
- 
 ?>

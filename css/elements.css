@@ -45,7 +45,7 @@ left: 0;
 right: 0;
 
 margin: auto;
-margin-top: 5%;
+margin-top: 2.5%;
 }
 p {
 margin-top:30px
@@ -65,7 +65,7 @@ border-top:1px solid #ccc
 input[type=text] {
 width:82%;
 padding:10px;
-margin-top:30px;
+
 border:1px solid #ccc;
 padding-left:40px;
 font-size:16px;
@@ -74,7 +74,7 @@ font-family:raleway
 input[type=email] {
 width:82%;
 padding:10px;
-margin-top:30px;
+
 border:1px solid #ccc;
 padding-left:40px;
 font-size:16px;
@@ -83,7 +83,7 @@ font-family:raleway
 input[type=number] {
 width:82%;
 padding:10px;
-margin-top:30px;
+
 border:1px solid #ccc;
 padding-left:40px;
 font-size:16px;
@@ -92,11 +92,14 @@ font-family:raleway
 input[type=date] {
 width:82%;
 padding:10px;
-margin-top:30px;
+margin-top:2px;
 border:1px solid #ccc;
 padding-left:40px;
 font-size:16px;
 font-family:raleway
+}
+input{
+	margin-bottom:10px;
 }
 #name {
 background-image:url(../images/name.jpg);

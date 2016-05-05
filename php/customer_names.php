@@ -111,4 +111,3 @@ echo '</ul>
 mysqli_close($con);
  
 ?>
->>>>>>> origin/master

@@ -19,11 +19,6 @@ audio,canvas,progress,video {
 }
 audio:not([controls]) {
 	display:none;
-<<<<<<< HEAD
-	height:
-=======
-	height:0
->>>>>>> origin/master
 }
 [hidden],template {
 	display:none
@@ -1413,22 +1408,16 @@ pre code {
 	.container {
 		width:95%
 	}
-<<<<<<< HEAD
 	.asset-list{
 		font-size: 8xp;
 	}
-	
-=======
->>>>>>> origin/master
+
 }
 @media (min-width:1200px) {
 	.container {
 		width:95%
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 }
 .container-fluid {
 	padding-right:15px;
@@ -1921,12 +1910,11 @@ pre code {
 	#details{
 		font-size:11px;
 	}
-<<<<<<< HEAD
-=======
+
 	#asset-list{
 		font-size:11px;
 	}
->>>>>>> origin/master
+
 }
 @media (min-width:1085px) {
 		#details{

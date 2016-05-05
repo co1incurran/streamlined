@@ -51,7 +51,7 @@ if (!empty ($jobtitle)){
 $lastcontacted = $_GET['lastcontacted'];
 //settype($lastcontacted, "date");
 if (!empty ($lastcontacted)){
-	$line8 = 'placeholder="Last Contacted" value="'.$lastcontacted.'"';
+	$line8 = 'value="'.$lastcontacted.'"';
 }else{
 	$line8 = 'placeholder="Last Contacted"';
 }
@@ -75,15 +75,24 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
 					<hr>
+					<label for="firstname"><small>First Name</small></label>
 					<input id="firstname" name="firstname"' .$line1. 'type="text">
+					<label for="lastname"><small>Last Name</small></label>
 					<input id="lastname" name="lastname"' .$line2. 'type="text">
-					<input id="email" name="email"' .$line3. 'type="email">
+					<label for="email"><small>Email</small></label>
+					<input id="email" name="email"' .$line3. 'type="text">
+					<label for="phone"><small>Phone Number</small></label>
 					<input id="phone" name="phone"' .$line4. 'type="number">
+					<label for="mobile"><small>Mobile Number</small></label>
 					<input id="mobile" name="mobile"' .$line5. 'type="number">
+					<label for="fax"><small>Fax</small></label>
 					<input id="fax" name="fax"' .$line6. 'type="number">
+					<label for="job_title"><small>Job Title</small></label>
 					<input id="job_title" name="job_title"' .$line7. 'type="text">
-					<input id="last_contacted" name="last_contacted"' .$line8. 'type="text" onfocus="(this.type="date")">
+					<label for="last_contacted"><small>Last Contacted</small></label>
+					<input id="last_contacted" name="last_contacted"' .$line8. 'type="date">
 					<a href="javascript:%20check_empty()" id="submit">Save</a>
+					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->

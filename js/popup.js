@@ -15,3 +15,7 @@ document.getElementById('abc').style.display = "block";
 //function div_hide(){
 //document.getElementById('abc').style.display = "none";
 //}
+
+function goBack() {
+    window.history.back();
+}
