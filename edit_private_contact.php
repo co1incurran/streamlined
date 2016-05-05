@@ -41,12 +41,6 @@ if (!empty ($fax)){
 	$line6 = 'placeholder="Fax"';
 }
 
-$jobtitle = $_GET['jobtitle'];
-if (!empty ($jobtitle)){
-	$line7 = 'placeholder="Job Title" value="'.$jobtitle.'"';
-}else{
-	$line7 = 'placeholder="Job Title"';
-}
 
 $lastcontacted = $_GET['lastcontacted'];
 if (!empty ($lastcontacted)){
@@ -86,8 +80,6 @@ echo'
 					<input id="mobile" name="mobile"' .$line5. 'type="number">
 					<label for="fax"><small>Fax</small></label>
 					<input id="fax" name="fax"' .$line6. 'type="number">
-					<label for="job_title"><small>Job Title</small></label>
-					<input id="job_title" name="job_title"' .$line7. 'type="text">
 					<label for="last_contacted"><small>Last Contacted</small></label>
 					<input id="last_contacted" name="last_contacted"' .$line8. 'type="date">
 					<a href="javascript:%20check_empty()" id="submit">Save</a>

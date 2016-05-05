@@ -112,12 +112,25 @@ echo '<div class="main-section">
 
 						<div class="preview-pane col-md-5">
 							<div class="content">
-						  <h3>Details</h3>
+						  <h3>Details<a id="edit" href="edit_private_contact.php?firstname='
+									.$results['first_name'].'&lastname='.$results['last_name'].'&email='.$results['email'].'&phonenumber='.$results['phone_num'].'&mobilenumber='.$results['mobile_phone_num'].'&fax='.$results['fax'].'&lastcontacted='.$results['last_contacted'].'"><i class="fa fa-gear"></i></a></li></h3>
 								<ul class="fa-ul">';
+								if(!empty ($results['email'])){
 									echo '<li id = "details"><i class="fa-li fa fa-envelope"></i><small class="pull-right text-muted">Email</small>'. ($results['email']) .'<br></li>';
+								}
+								
+								if(!empty ($results['phone_num'])){
 									echo '<li id = "details"><i class="fa-li fa fa-phone"></i><small class="pull-right text-muted">Phone</small>'. ($results['phone_num']) .'<br></li>';
+								}
+								
+								if(!empty ($results['mobile_phone_num'])){
 									echo '<li id = "details"><i class="fa-li fa fa-mobile"></i><small class="pull-right text-muted">Mobile</small>'. ($results['mobile_phone_num']) .'<br></li>';
+								}
+								
+								if(!empty ($results['fax'])){
 									echo '<li id = "details"><i class="fa-li fa fa-fax"></i><small class="pull-right text-muted">Fax</small>'. ($results['fax']) .'<br></li>';
+								}
+								
 									echo '<li id = "details"><i class="fa-li fa fa-home"></i><small class="pull-right text-muted">Address</small>';
 									$ad1 = ucwords($results['address_line1']);
 									$ad2 = ucwords($results['address_line2']);
@@ -155,8 +168,12 @@ echo '<div class="main-section">
 								<div>';
 								echo'<h4 style = "padding-top:8px">Additional info</h4>
 								<ul class="fa-ul">
-									<li id = "details"><i class="fa-li fa fa-calendar"></i><small class="pull-right text-muted">Last Contacted</small>'. ($properDate) .'<br></li>
-									<li id = "details"><i class="fa-li fa fa-clipboard"></i><small class="pull-right text-muted">Sage ID</small>'. ($results['sage_id']) . '<br></li>
+									<li id = "details"><i class="fa-li fa fa-calendar"></i><small class="pull-right text-muted">Last Contacted</small>'. ($properDate) .'<br></li>';
+									
+									if(!empty($results['sage_id'])){ 
+									echo 'li id = "details"><i class="fa-li fa fa-clipboard"></i><small class="pull-right text-muted">Sage ID</small>'. ($results['sage_id']) . '<br></li>';
+									}
+									echo '
 								</ul>
 								</div>
 							</div>
