@@ -134,7 +134,7 @@ foreach ($result as $results){
 								<div class="content">';
 							foreach ($result3 as $results3){
 								
-									echo '<h3>'.ucwords($results3['first_name']) .' '.ucwords($results3['last_name']).'<a id="edit" href="editcontact.php?firstname='
+									echo '<h3>'.ucwords($results3['first_name']) .' '.ucwords($results3['last_name']).'<a id="edit" href="edit_company_contact.php?firstname='
 									.$results3['first_name'].'&lastname='.$results3['last_name'].'&email='.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$results3['last_contacted'].'"><i class="fa fa-gear"></i></a></li></h3>
 									<ul class="fa-ul">';
 									if(!empty ($results3['email'])){

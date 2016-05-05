@@ -70,7 +70,7 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="update_contact.php" id="form" method="post" name="form">
+				<form action="update_worker_info.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
 					<hr>
