@@ -21,19 +21,31 @@ cursor:pointer
 }*/
 div#popupContact {
 position:absolute;
-left:50%;
-top:17%;
-margin-left:-202px;
+/*left:50%;
+top:17%;*/
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
 font-family:'Raleway',sans-serif
 }
 form {
 max-width:300px;
 min-width:250px;
 padding:10px 50px;
-border:2px solid gray;
+border:5px solid rgb(176,212,229);
 border-radius:10px;
 font-family:raleway;
-background-color:#fff
+background-color:#fff;
+top:0;
+bottom: 0;
+left: 0;
+right: 0;
+
+margin: auto;
+margin-top: 5%;
 }
 p {
 margin-top:30px
@@ -116,13 +128,14 @@ text-decoration:none;
 width:100%;
 text-align:center;
 display:block;
-background-color:#FFBC00;
-color:#fff;
+background-color:rgb(176,212,229);
+color:black;
 border:1px solid #FFCB00;
 padding:10px 0;
 font-size:20px;
 cursor:pointer;
-border-radius:5px
+border-radius:5px;
+margin-top: 10px;
 }
 span {
 color:red;
