@@ -35,7 +35,7 @@ body {
 h1, h2, h3, h4 {
     font-family: 'Raleway', serif;
 }
-<<<<<<< HEAD
+
 #edit{
 	float:right;
 	color:black;
@@ -44,9 +44,7 @@ h1, h2, h3, h4 {
 	padding-left: 5px;
 	padding-right: 5px;
 }
-=======
 
->>>>>>> origin/master
 .no-border {
     border: none !important;
     -moz-border-radius: 0 !important;
@@ -54,14 +52,12 @@ h1, h2, h3, h4 {
     -khtml-border-radius: 0 !important;
     border-radius: 0 !important;
 }
-<<<<<<< HEAD
+
 .asset-list{
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-=======
 
->>>>>>> origin/master
 .no-padding {
     padding: 0 !important;
 }

@@ -116,10 +116,10 @@ foreach ($result as $results){
 										<td class = "asset-list">'. ucwords($results2['model']) . '</td>
 										<td class = "asset-list">'. ucwords($results2['manufacturer']) . '</td>';
 										$date1 = $results2['installation_date'];
-										$properDate1 = date("d-m-Y", strtotime($date1));
+										$properDate1 = date("d/m/Y", strtotime($date1));
 										echo '<td class = "asset-list">'. ($properDate1) . '</td>';
 										$date2 = $results2['service_date'];
-										$properDate2 = date("d-m-Y", strtotime($date2));
+										$properDate2 = date("d/m/Y", strtotime($date2));
 										echo '<td class = "asset-list">'. ($properDate2) . '</td>
 										<td class = "asset-list">'. ($results2['serialid']) . '</td>
 								</tr>';
@@ -133,7 +133,10 @@ foreach ($result as $results){
 							echo '<div class="preview-pane col-md-5">
 								<div class="content">';
 							foreach ($result3 as $results3){
-									echo '<h3>'.ucwords($results3['first_name']) .' '.ucwords($results3['last_name']).'<a id="edit" href="editcontact.html"><i class="fa fa-gear"></i></a></li></h3>
+								$date = $results3['last_contacted'];
+								$properDate = date("d/m/Y", strtotime($date));
+									echo '<h3>'.ucwords($results3['first_name']) .' '.ucwords($results3['last_name']).'<a id="edit" href="editcontact.php?firstname='
+									.$results3['first_name'].'&lastname='.$results3['last_name'].'&email'.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$properDate.'"><i class="fa fa-gear"></i></a></li></h3>
 									<ul class="fa-ul">';
 									if(!empty ($results3['email'])){
 										echo '<li id = "details"><i class="fa-li fa fa-envelope"></i><small class="pull-right text-muted">Email</small>'. ($results3['email']) .'<br></li>';
@@ -150,8 +153,7 @@ foreach ($result as $results){
 									if(!empty ($results3['fax'])){
 										echo '<li id = "details"><i class="fa-li fa fa-fax"></i><small class="pull-right text-muted">Fax</small>'. ($results3['fax']) .'<br></li>';
 									}
-										$date = $results3['last_contacted'];
-										$properDate = date("d-m-Y", strtotime($date));
+										
 										echo '</li>
 										<li id = "details"><i class="fa-li fa fa-calendar"></i><small class="pull-right text-muted">Last Contacted</small>'. ($properDate) .'<br></li>
 									</ul>
