@@ -1,4 +1,6 @@
 <?php
+$workerid= $_GET['worker_number'];
+
 $firstname = ucwords($_GET['firstname']);
 if (!empty ($firstname)){
 	$line1 = 'placeholder="First Name" value="'.$firstname.'"';
@@ -70,12 +72,17 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="update_worker_info.php" id="form" method="post" name="form">
+				<form action="php/update_worker_info.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
 					<hr>
+					<input type="hidden" name="workerid" id="workerid" value="'.$workerid.'">';
+					echo $workerid;
+					echo '
 					<label for="firstname"><small>First Name</small></label>
-					<input id="firstname" name="firstname"' .$line1. 'type="text">
+					<input id="firstname" name="firstname"' .$line1. 'type="text">';
+					echo $line1;
+					echo '
 					<label for="lastname"><small>Last Name</small></label>
 					<input id="lastname" name="lastname"' .$line2. 'type="text">
 					<label for="email"><small>Email</small></label>
@@ -90,7 +97,8 @@ echo'
 					<input id="job_title" name="job_title"' .$line7. 'type="text">
 					<label for="last_contacted"><small>Last Contacted</small></label>
 					<input id="last_contacted" name="last_contacted"' .$line8. 'type="date">
-					<a href="javascript:%20check_empty()" id="submit">Save</a>
+					<input type="submit" id="submit" value="Save">
+					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>
 			</div>
