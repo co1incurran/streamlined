@@ -76,13 +76,9 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
 					<hr>
-					<input type="hidden" name="workerid" id="workerid" value="'.$workerid.'">';
-					echo $workerid;
-					echo '
+					<input type="hidden" name="workerid" id="workerid" value="'.$workerid.'">
 					<label for="firstname"><small>First Name</small></label>
-					<input id="firstname" name="firstname"' .$line1. 'type="text">';
-					echo $line1;
-					echo '
+					<input id="firstname" name="firstname"' .$line1. 'type="text">
 					<label for="lastname"><small>Last Name</small></label>
 					<input id="lastname" name="lastname"' .$line2. 'type="text">
 					<label for="email"><small>Email</small></label>
