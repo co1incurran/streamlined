@@ -37,21 +37,19 @@ echo $_POST["phone"];
 $myphone = $_POST["phone"];
 $myphone = trim($myphone);
 //do this to teh rest 
-settype($myphone, "integer");
+//settype($myphone, "integer");
 $filterphone = filter_var($myphone, FILTER_VALIDATE_INT);
 //$cleanphone = mysqli_real_escape_string($con, $filterphone);
 
 //MOBILENUMBER
 $mymobile = $_POST["mobile"];
 $mymobile = trim($mymobile);
-$filtermobile = filter_var($mymobile, FILTER_VALIDATE_INT);
-$cleanmobile = mysqli_real_escape_string($con, $filtermobile);
+//settype($mymobile, "integer");
 
 //FAX
 $myfax = $_POST["fax"];
 $myfax = trim($myfax);
-$filterfax = filter_var($myfax, FILTER_VALIDATE_INT);
-$cleanfax = mysqli_real_escape_string($con, $filterfax);
+//settype($myfax, "integer");
 
 //JOBTITLE
 $myjobtitle = $_POST["job_title"];
@@ -64,7 +62,7 @@ $mylastcontacted = $_POST["last_contacted"];
 $mylastcontacted = trim($mylastcontacted);
 $cleanlastcontacted = mysqli_real_escape_string($con, $mylastcontacted);
 
-$sql = "UPDATE workers SET first_name= '$cleanfname', last_name= '$cleanlname', phone_num= '$myphone', mobile_phone_num= '$cleanmobile', email= '$cleanemail', fax= '$cleanfax', job_title= '$cleanjobtitle', last_contacted= '$cleanlastcontacted' WHERE workerid= $cleanworkerid; ";
+$sql = "UPDATE workers SET first_name= '$cleanfname', last_name= '$cleanlname', phone_num= '$myphone', mobile_phone_num= '$mymobile', email= '$cleanemail', fax= '$myfax', job_title= '$cleanjobtitle', last_contacted= '$cleanlastcontacted' WHERE workerid= $cleanworkerid; ";
 //echo $cleanphone;
 echo $sql;
 //$res = mysqli_query($con,$sql);

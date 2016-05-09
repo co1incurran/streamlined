@@ -566,7 +566,23 @@ ul.action-buttons li a i.fa {
     width: 32px;
     height: 32px;
 }
+/*business card navigation*/
 
+#business-card-menu > li a  {
+	display: block;
+    width: 60px;
+}
+#business-card-menu  {
+    list-style-type: none;
+	margin-bottom:0;
+    padding-bottom: 20px;
+}
+
+#business-card-menu > li {
+    display: inline-block;
+	text-align: center;
+	height: 100%;
+}
 /**
  * Grid View
  */

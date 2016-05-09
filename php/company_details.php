@@ -22,11 +22,6 @@ $result2 = array();
 $sql3 = "SELECT * FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
 $res3 = mysqli_query($con,$sql3);
 $result3 = array();
-
-
-
-//this is for the pop up form
-
  
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
@@ -88,13 +83,55 @@ foreach ($result as $results){
 
 									 <span class="avatar"></span>
 									 <hgroup>';
-										 /*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
+										/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
 											 echo	'<h2>'. ucwords($results['name']).'<br></h2>';
-											 echo '<h3>Assets</h3>';
+												$ad1 = ucwords($results['address_line1']);
+												$ad2 = ucwords($results['address_line2']);
+												$ad3 = ucwords($results['address_line3']);
+												$ad4 = ucwords($results['address_line4']);
+												$county = ucwords($results['county']);
+												$country = ucwords($results['country']);
+												if(!empty($ad1)){ 
+													echo $ad1.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($ad2) && $ad2 != $ad1){ 
+													echo $ad2.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){ 
+													echo $ad3.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){ 
+													echo $ad4.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($county)&& $county != $ad4 && $county != $ad3){ 
+													echo $county.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($country)){ 
+													echo $country;
+												}
+											 $counter = 0;
+											 foreach ($result2 as $results2){
+												 $counter ++;
+											 }
+											 //menu for the business card
+											 
+											 //echo '<h3>Assets: '.$counter.'</h3>';
 								echo	'</hgroup>
 								</header>
-								<section class="panel-body" style = "width:100%">
-									
+								<section class="panel-body" style = "width:100%">';
+									 
+									 require_once 'php/company_assets.php';
+											 /*<ul id="business-card-menu">
+											 <li class= "current-tab"><a href>Assets</a></li>
+											 <li><a>Contacts</a></li>
+											 <li><a>History</a></li>
+											 <li><a>Notes</a></li>
+											 </ul>
 									<table align="center">
 										<th><tr class = "blue-row">
 										<td class = "asset-list"><strong>Product</strong></td>
@@ -125,12 +162,12 @@ foreach ($result as $results){
 								</tr>';
 								$i++;
 						}
-							echo '</table>
-							</section>
+							echo '</table>*/
+							echo '</section>
 							</div>
 						</div>';
 						
-							echo '<div class="preview-pane col-md-5">
+							/* echo '<div class="preview-pane col-md-5">
 								<div class="content">';
 							foreach ($result3 as $results3){
 								
@@ -197,7 +234,7 @@ foreach ($result as $results){
 									</ul>
 									</div>
 								</div>
-							</div>';
+							</div>';*/
 						
 					echo '</div>
 				</div>';
