@@ -9,10 +9,28 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $companyid = $_GET['companyid'];
 $companyid = mysqli_real_escape_string($con ,$companyid);
 
+$sql = "SELECT * FROM company WHERE companyid ='$companyid' ; ";
+$res = mysqli_query($con,$sql);
+$result = array();
+
 $sql3 = "SELECT * FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
 $res3 = mysqli_query($con,$sql3);
 $result3 = array();
 
+
+while($row = mysqli_fetch_array($res)){
+	array_push($result,
+		array('companyid'=>$row[0],
+		'name'=>$row[1],
+		'address_line1'=>$row[2],
+		'address_line2'=>$row[3],
+		'address_line3'=>$row[4],
+		'address_line4'=>$row[5],
+		'county'=>$row[6],
+		'country'=>$row[7],
+		'sage_id'=>$row[8]
+	));
+}
 
 while($row = mysqli_fetch_array($res3)){
 	array_push($result3,
@@ -29,13 +47,58 @@ while($row = mysqli_fetch_array($res3)){
 		'last_contacted'=>$row[10]
 	));
 } //print_r (array_values($result3));
-									echo'									 
-											 <ul id="business-card-menu">
-											 <li><a href>Assets</a></li>
-											 <li class= "current-tab"><a>Contacts</a></li>
-											 <li><a>History</a></li>
-											 <li><a>Notes</a></li>
-											 </ul>
+foreach ($result as $results){
+echo '<div class="main-section">
+				
+					<div class="container-fluid no-padding">
+						<div class="col-md-7 no-padding">
+							<div class="main-content panel panel-default no-margin">
+								<header class="panel-heading clearfix">
+
+									 <span class="avatar"></span>
+									 <hgroup>';
+										/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
+											 echo	'<h2>'. ucwords($results['name']).'<br></h2>';
+												$ad1 = ucwords($results['address_line1']);
+												$ad2 = ucwords($results['address_line2']);
+												$ad3 = ucwords($results['address_line3']);
+												$ad4 = ucwords($results['address_line4']);
+												$county = ucwords($results['county']);
+												$country = ucwords($results['country']);
+												if(!empty($ad1)){ 
+													echo $ad1.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($ad2) && $ad2 != $ad1){ 
+													echo $ad2.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){ 
+													echo $ad3.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){ 
+													echo $ad4.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($county)&& $county != $ad4 && $county != $ad3){ 
+													echo $county.', ';
+													//echo nl2br("\n");
+												}
+												if(!empty($country)){ 
+													echo $country;
+												}
+												//to count the number of assets 
+											 $counter = 0;
+											 foreach ($result3 as $results3){
+												 $counter ++;
+											 }
+											 //menu for the business card
+											 
+											 echo '<h3>Contacts: '.$counter.'</h3>
+								</hgroup>
+								</header>
+								<section class="panel-body" style = "width:100%">
 									<table align="center">
 										<th><tr class = "blue-row">
 										<td class = "asset-list"></td>
@@ -76,6 +139,6 @@ while($row = mysqli_fetch_array($res3)){
 						</div>
 					</div>
 				</div>';
-
+}
 mysqli_close($con);
 ?>

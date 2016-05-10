@@ -127,7 +127,7 @@
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview </a></li>
                                 <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity </a></li>
-                                <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
+                                <li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="notes.html"><i class="fa fa-file-text"></i> Notes </a></li>
                             </ul>
@@ -170,17 +170,68 @@
                     
     
                     <!-- Main Section -->
-    
-                    <section class="col-md-9 no-padding">
-                        <?php
+					<?php
+							if(isset($_GET['customerid'])) {
 							$customerid = $_GET['customerid'];
-							$companyid = $_GET['companyid'];
-							if ($customerid != 0){
-								require_once 'php/customer_details.php';
 							}else{
-								require_once 'php/company_details.php';
+								$customerid= 0;
 							}
-						?>
+							
+							
+							if(isset($_GET['companyid'])) {
+							$companyid = $_GET['companyid'];
+							}else{
+								$companyid = 0;
+							}
+							
+							echo'
+										<ul id="business-card-menu">
+										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=assets">Assets</a></li>
+										 <li><a href ="profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=contacts">Contacts</a></li>
+										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history">History</a></li>
+										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes">Notes</a></li>
+										 </ul>
+							<section class="col-md-9 no-padding">';
+								
+									//if you are looking at companies
+									if ($companyid != 0){
+										if(isset($_GET['page'])) {
+											$page =$_GET['page'];
+										}else{
+											$page = 'assets';
+										}
+										
+										//check which page to load
+										if($page != 'assets'){
+											require_once 'php/company_contacts.php';
+										}elseif($page != 'contacts'){
+											require_once 'php/company_assets.php';
+										}elseif($page = 'history'){
+											require_once 'php/company_history.php';
+										}elseif($page = 'notes'){
+											require_once 'php/company_notes.php';
+										}
+										
+									//if you are looking at private customers
+									}else{
+										if(isset($_GET['page'])) {
+											$page =$_GET['page'];
+										}else{
+											$page = 'assets';
+										}
+										
+										//check which page to load
+										if($page = 'assets'){
+											require_once 'php/customer_assets.php';
+										}elseif($page = 'contacts'){
+											require_once 'php/customer_contacts.php';
+										}elseif($page = 'history'){
+											require_once 'php/customer_history.php';
+										}elseif($page = 'notes'){
+											require_once 'php/customer_notes.php';
+										}
+									}				
+					?>
 
                     </section>
 

@@ -1,21 +1,20 @@
-<?php
-echo'
-<button type="button">Click Me</button>
-<p></p>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("button").click(function(){
-
-            $.ajax({
-                type: "POST",
-                url: "company_assets.php",
-                success: function(data) {
-                    alert(data);
-                    $("p").text(data);
-
-                }
-            });
-   });
-});
-</script>';
+<?PHP
+ 
+$a="hello";
+ 
 ?>
+<script>
+function echoHello(){
+ alert("<?PHP hello(); ?>");
+ }
+</script>
+ 
+<?PHP
+FUNCTION hello(){
+ GLOBAL $a;
+ ECHO $a;
+ }
+ 
+?>
+ 
+<button onclick="echoHello()">Say Hello</button>

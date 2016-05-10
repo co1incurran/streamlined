@@ -37,7 +37,7 @@ while($row = mysqli_fetch_array($res)){
 	));
 }
  //print_r (array_values($result));
- echo '<br>';
+ //echo '<br>';
 while($row = mysqli_fetch_array($res2)){
 	array_push($result2,
 		array('stockid'=>$row[0],
@@ -56,7 +56,7 @@ while($row = mysqli_fetch_array($res2)){
 		'last_results'=>$row[13]
 	));
 } //print_r (array_values($result2));
-echo '<br>';
+//echo '<br>';
 while($row = mysqli_fetch_array($res3)){
 	array_push($result3,
 		array('workerid'=>$row[0],
@@ -72,7 +72,7 @@ while($row = mysqli_fetch_array($res3)){
 		'last_contacted'=>$row[10]
 	));
 } //print_r (array_values($result3));
-echo '<br>';
+//echo '<br>';
 foreach ($result as $results){
 	echo '<div class="main-section">
 				
@@ -124,15 +124,25 @@ foreach ($result as $results){
 								echo	'</hgroup>
 								</header>
 								<section class="panel-body" style = "width:100%">';
-									 
-									 require_once 'php/company_assets.php';
-											 /*<ul id="business-card-menu">
-											 <li class= "current-tab"><a href>Assets</a></li>
-											 <li><a>Contacts</a></li>
-											 <li><a>History</a></li>
-											 <li><a>Notes</a></li>
-											 </ul>
-									<table align="center">
+								 echo 'assests';
+								
+								/*if(isset($_GET['page'])) {
+									$page = $_GET['page'];
+									if($page='contacts'){
+										require_once 'php/company_contacts.php?companyid='.$customerid.'&companyid=0';
+									}elseif($page='contacts'){
+										require_once 'php/company_assets.php?companyid='.$customerid.'&companyid=0';
+									}elseif($page='contacts'){
+										require_once 'php/company_assets.php?companyid='.$customerid.'&companyid=0';
+									}elseif($page='assets'){
+										require_once 'php/company_assets.php?companyid='.$customerid.'&companyid=0';
+									}
+								
+								}else{
+									 require_once 'php/company_assets.php?companyid='.$customerid.'&companyid=0';
+								}
+											 
+									/*<table align="center">
 										<th><tr class = "blue-row">
 										<td class = "asset-list"><strong>Product</strong></td>
 										<td class = "asset-list"><strong>Model</strong></td>

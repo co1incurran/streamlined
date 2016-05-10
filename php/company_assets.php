@@ -108,6 +108,7 @@ foreach ($result as $results){
 									echo'		 
 									<table align="center">
 										<th><tr class = "blue-row">
+										<td class = "asset-list"></td>
 										<td class = "asset-list"><strong>Product</strong></td>
 										<td class = "asset-list"><strong>Model</strong></td>
 										<td class = "asset-list"><strong>Manufacturer</strong></td>
@@ -123,6 +124,9 @@ foreach ($result as $results){
 								$rowClass = 'white-row';
 							} 
 							echo '<tr class = "' .$rowClass. '">
+										<td class = "asset-list"><a id="edit"'; /*href="edit_asset.php?worker_number='.$results3['workerid'].'&firstname='
+										.$results3['first_name'].'&lastname='.$results3['last_name'].'&email='.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$results3['last_contacted'].'"*/echo '><i class="fa fa-gear"></i></a></td>
+										
 										<td class = "asset-list">'. ucwords($results2['name']) . '</td>
 										<td class = "asset-list">'. ucwords($results2['model']) . '</td>
 										<td class = "asset-list">'. ucwords($results2['manufacturer']) . '</td>';

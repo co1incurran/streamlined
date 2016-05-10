@@ -197,7 +197,9 @@
                                                 </ul>
                                             </div>
                                         </header>
+										
                                         <section class="panel-body">
+										
 											<?php
 												//check which php file to load
 												$contact = $_GET['contact'];
