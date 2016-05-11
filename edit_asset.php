@@ -1,60 +1,88 @@
 <?php
-$workerid= $_GET['worker_number'];
+$stockid= $_GET['stockid'];
 
-$firstname = ucwords($_GET['firstname']);
-if (!empty ($firstname)){
-	$line1 = 'placeholder="First Name" value="'.$firstname.'"';
+$name = ucwords($_GET['name']);
+if (!empty ($name)){
+	$line1 = 'placeholder="Product" value="'.$name.'"';
 }else{
-	$line1 = 'placeholder="First Name"';
+	$line1 = 'placeholder="Product"';
 }
 
-$lastname = ucwords($_GET['lastname']);
-if (!empty ($lastname)){
-	$line2 = 'placeholder="Last Name" value="'.$lastname.'"';
+$model = ucwords($_GET['model']);
+if (!empty ($model)){
+	$line2 = 'placeholder="Model" value="'.$model.'"';
 }else{
-	$line2 = 'placeholder="Last Name"';
+	$line2 = 'placeholder="Model"';
 }
 
-$email = $_GET['email'];
-if (!empty ($email)){
-	$line3 = 'placeholder="Email" value="'.$email.'"';
+$manufacturer = $_GET['manufacturer'];
+if (!empty ($manufacturer)){
+	$line3 = 'placeholder="Manufacturer" value="'.$manufacturer.'"';
 }else{
-	$line3 = 'placeholder="Email"';
+	$line3 = 'placeholder="Manufacturer"';
 }
 
-$phonenumber = $_GET['phonenumber'];
-if (!empty ($phonenumber)){
-	$line4 = 'placeholder="Phone Number" value="'.$phonenumber.'"';
+$installationdate = $_GET['installationdate'];
+if (!empty ($installationdate)){
+	$line4 = 'placeholder="Install Date" value="'.$installationdate.'"';
 }else{
-	$line4 = 'placeholder="Phone Number"';
+	$line4 = 'placeholder="Install Date"';
 }
 
-$mobilenumber = $_GET['mobilenumber'];
-if (!empty ($mobilenumber)){
-	$line5 = 'placeholder="Mobile Number" value="'.$mobilenumber.'"';
+$inspectiondate = $_GET['inspectiondate'];
+if (!empty ($inspectiondate)){
+	$line5 = 'placeholder="Inspection Date" value="'.$inspectiondate.'"';
 }else{
-	$line5 = 'placeholder="Mobile Number"';
+	$line5 = 'placeholder="Inspection Date"';
 }
 
-$fax = $_GET['fax'];
-if (!empty ($fax)){
-	$line6 = 'placeholder="Fax" value="'.$fax.'"';
+$servicedate = $_GET['servicedate'];
+if (!empty ($servicedate)){
+	$line6 = 'placeholder="Service Date" value="'.$servicedate.'"';
 }else{
-	$line6 = 'placeholder="Fax"';
+	$line6 = 'placeholder="Service Date"';
 }
 
-$jobtitle = $_GET['jobtitle'];
-if (!empty ($jobtitle)){
-	$line7 = 'placeholder="Job Title" value="'.$jobtitle.'"';
+$location = $_GET['location'];
+if (!empty ($location)){
+	$line7 = 'placeholder="Location" value="'.$location.'"';
 }else{
-	$line7 = 'placeholder="Job Title"';
+	$line7 = 'placeholder="Location"';
 }
 
-$lastcontacted = $_GET['lastcontacted'];
-if (!empty ($lastcontacted)){
-	$line8 = 'value="'.$lastcontacted.'"';
+$contractrenewaldate = $_GET['contractrenewaldate'];
+if (!empty ($contractrenewaldate)){
+	$line8 = 'placeholder="Contract Renewal Date" value="'.$contractrenewaldate.'"';
 }else{
-	$line8 = 'placeholder="Last Contacted"';
+	$line8 = 'placeholder="Contract Renewal Date"';
+}
+
+$lastresults = $_GET['lastresults'];
+if (!empty ($lastresults)){
+	$line9 = 'placeholder="Last Results" value="'.$lastresults.'"';
+}else{
+	$line9 = 'placeholder="Last Results"';
+}
+
+$fundedby = $_GET['fundedby'];
+if (!empty ($fundby)){
+	$line10 = 'placeholder="Funded By" value="'.$fundedby.'"';
+}else{
+	$line10 = 'placeholder="Funded By"';
+}
+
+$productdescription = $_GET['productdescription'];
+if (!empty ($productdescription)){
+	$line11 = 'placeholder="Product Description" value="'.$productdescription.'"';
+}else{
+	$line11 = 'placeholder="Product Description"';
+}
+
+$serialid = $_GET['serialid'];
+if (!empty ($serialid)){
+	$line12 = 'placeholder="Serial Number" value="'.$serialid.'"';
+}else{
+	$line12 = 'placeholder="Serial Number"';
 }
 
 echo'
@@ -72,27 +100,47 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="php/update_worker_info.php" id="form" method="post" name="form">
+				<form action="php/update_asset.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Asset</h2>
 					<hr>
 					<input type="hidden" name="stockid" id="stockid" value="'.$stockid.'">
 					<label for="name"><small>Product</small></label>
 					<input id="name" name="name"' .$line1. 'type="text">
+					
 					<label for="model"><small>Model</small></label>
 					<input id="model" name="model"' .$line2. 'type="text">
-					<label for="maufacturer"><small>Manufacturer</small></label>
-					<input id="maufacturer" name="maufacturer"' .$line3. 'type="text">
+					
+					<label for="manufacturer"><small>Manufacturer</small></label>
+					<input id="manufacturer" name="manufacturer"' .$line3. 'type="text">
+					
+					<label for="serialid"><small>Serial Number</small></label>
+					<input id="serialid" name="serialid"' .$line12. 'type="text">
+					
 					<label for="installationdate"><small>Install Date</small></label>
 					<input id="installationdate" name="installationdate"' .$line4. 'type="date">
-					<label for="mobile"><small>Mobile Number</small></label>
-					<input id="mobile" name="mobile"' .$line5. 'type="number">
-					<label for="fax"><small>Fax</small></label>
-					<input id="fax" name="fax"' .$line6. 'type="number">
-					<label for="job_title"><small>Job Title</small></label>
-					<input id="job_title" name="job_title"' .$line7. 'type="text">
-					<label for="last_contacted"><small>Last Contacted</small></label>
-					<input id="last_contacted" name="last_contacted"' .$line8. 'type="date">
+					
+					<label for="inspectiondate"><small>Inspection Date</small></label>
+					<input id="inspectiondate" name="inspectiondate"' .$line5. 'type="date">
+					
+					<label for="servicedate"><small>Service Due</small></label>
+					<input id="servicedate" name="servicedate"' .$line6. 'type="date">
+					
+					<label for="location"><small>Location</small></label>
+					<input id="location" name="location"' .$line7. 'type="text">
+					
+					<label for="contractrenewaldate"><small>Service Contract Renewal Date</small></label>
+					<input id="contractrenewaldate" name="contractrenewaldate"' .$line8. 'type="date">
+					
+					<label for="lastresults"><small>Last Results</small></label>
+					<textarea maxlength="300" class ="form-textarea" id="lastresults" name="lastresults"' .$line9. 'type="text"></textarea>
+					
+					<label for="fundedby"><small>Maintenance Funded By<small> (eg owner or HSE etc)</small></small></label>
+					<input id="fundedby" name="fundedby"' .$line10. 'type="text">
+					
+					<label for="productdescription"><small>Product Description</small></label>
+					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription"' .$line11. 'type="text"></textarea>
+					
 					<input type="submit" id="submit" value="Save">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
 					<a onclick="goBack()" id="submit">Cancel</a>

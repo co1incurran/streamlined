@@ -124,8 +124,8 @@ foreach ($result as $results){
 								$rowClass = 'white-row';
 							} 
 							echo '<tr class = "' .$rowClass. '">
-										<td class = "asset-list"><a id="edit"'; /*href="edit_asset.php?worker_number='.$results3['workerid'].'&firstname='
-										.$results3['first_name'].'&lastname='.$results3['last_name'].'&email='.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$results3['last_contacted'].'"*/echo '><i class="fa fa-gear"></i></a></td>
+										<td class = "asset-list"><a id="edit"href="edit_asset.php?stockid='.$results2['stockid'].'&name='
+										.$results2['name'].'&model='.$results2['model'].'&manufacturer='.$results2['manufacturer'].'&installationdate='.$results2['installation_date'].'&inspectiondate='.$results2['inspection_date'].'&servicedate='.$results2['service_date'].'&location='.$results2['location'].'&contractrenewaldate='.$results2['contract_renewal_date'].'&lastresults='.$results2['last_results'].'&fundedby='.$results2['funded_by_owner'].'&productdescription='.$results2['product_description'].'&serialid='.$results2['serialid'].'"><i class="fa fa-gear"></i></a></td>
 										
 										<td class = "asset-list">'. ucwords($results2['name']) . '</td>
 										<td class = "asset-list">'. ucwords($results2['model']) . '</td>

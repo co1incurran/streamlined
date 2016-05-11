@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -220,7 +219,7 @@
                                         <div class="message info">
                                         </div>
                                     </div>
-                                    <div class="preview clearfix">
+                                    <!--<div class="preview clearfix">-->
                                     </div> 
                                 </div>
 								
@@ -257,4 +256,4 @@
     <!-- Main Script -->
     <script src="js/global.js"></script>
 </body>
-</html>
+<?php echo'</html>'; ?>
