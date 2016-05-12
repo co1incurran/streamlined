@@ -1,4 +1,5 @@
 <?php
+$url= $_GET['url'];
 $workerid= $_GET['worker_number'];
 
 $firstname = ucwords($_GET['firstname']);
@@ -72,10 +73,11 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="php/update_worker_info.php" id="form" method="post" name="form">
+				<form action="update_company_contact.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
 					<hr>
+					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="workerid" id="workerid" value="'.$workerid.'">
 					<label for="firstname"><small>First Name</small></label>
 					<input id="firstname" name="firstname"' .$line1. 'type="text">

@@ -5,6 +5,8 @@ define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+//Back URL
+$url= $_POST["url"];
 
 //STOCKID
 $stockid = $_POST["stockid"];
@@ -100,68 +102,32 @@ echo'
 <html>
 	<head>
 	<title>Update Successful</title>
-	<link href="../css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
 	<body>
-	<div id="bbody">
+	<div id="body" style="overflow:hidden;">
 		<div id="abc">
 			<!-- Popup Div Starts Here -->
-			<div id="ppopupContact">
+			<div id="popupContact">
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Update Successful</h2>
 					<hr>
-					<input type="hidden" name="stockid" id="stockid" value="$stockid">
-					<label for="name"><small>Product</small></label>
-					<input id="name" name="name"type="text">';
-					
-					/*<label for="model"><small>Model</small></label>
-					<input id="model" name="model"' .$line2. 'type="text">
-					
-					<label for="manufacturer"><small>Manufacturer</small></label>
-					<input id="manufacturer" name="manufacturer"' .$line3. 'type="text">
-					
-					<label for="serialid"><small>Serial Number</small></label>
-					<input id="serialid" name="serialid"' .$line12. 'type="text">
-					
-					<label for="installationdate"><small>Install Date</small></label>
-					<input id="installationdate" name="installationdate"' .$line4. 'type="date">
-					
-					<label for="inspectiondate"><small>Inspection Date</small></label>
-					<input id="inspectiondate" name="inspectiondate"' .$line5. 'type="date">
-					
-					<label for="servicedate"><small>Service Due</small></label>
-					<input id="servicedate" name="servicedate"' .$line6. 'type="date">
-					
-					<label for="location"><small>Location<small> (eg room 1 - first floor)</small></small></label>
-					<input id="location" name="location"' .$line7. 'type="text">
-					
-					<label for="contractrenewaldate"><small>Service Contract Renewal Date</small></label>
-					<input id="contractrenewaldate" name="contractrenewaldate"' .$line8. 'type="date">
-					
-					<label for="lastresults"><small>Last Results</small></label>
-					<textarea maxlength="300" class ="form-textarea" id="lastresults" name="lastresults"' .$line9. 'type="text"></textarea>
-					
-					<label for="fundedby"><small>Maintenance Funded By<small> (eg owner or HSE etc)</small></small></label>
-					<input id="fundedby" name="fundedby"' .$line10. 'type="text">
-					
-					<label for="productdescription"><small>Product Description</small></label>
-					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription"' .$line11. 'type="text"></textarea>
-					
-					<input type="submit" id="submit" value="Save">
-					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->*/
-					echo'
-					<a onclick="goBack()" id="submit">Cancel</a>
+					<a href="'.$url.'" id="submit">OK</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->
 		</div>
 	</div>
 	</body>
+	
 	<script type="text/javascript">
+	function goBack() {
+		window.history.go(-2);
+	}
 	window.onload = div_show();
 	</script>
 <!-- Body Ends Here -->

@@ -2095,8 +2095,10 @@ pre code {
 table {
 	background-color:transparent;
 	margin: auto;
-	width: 95%;
+	width: 100%;
+	
 }
+
 caption {
 	padding-top:8px;
 	padding-bottom:8px;
@@ -4555,7 +4557,11 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:focus,a.list-gro
 	box-shadow:0 1px 1px rgba(0,0,0,.05)
 }
 .panel-body {
-	padding:15px
+	padding-bottom:15px;
+	padding-left:15px;
+	padding-right:15px;
+	position: relative;
+	
 }
 .panel-heading {
 	padding:10px 15px;

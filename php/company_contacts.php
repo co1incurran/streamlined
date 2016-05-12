@@ -47,6 +47,11 @@ while($row = mysqli_fetch_array($res3)){
 		'last_contacted'=>$row[10]
 	));
 } //print_r (array_values($result3));
+
+//used to ensure a proper page reload if details are updated
+$url = $_SERVER['REQUEST_URI'];
+$url = str_replace('&', '%26', $url);
+
 foreach ($result as $results){
 echo '<div class="main-section">
 				
@@ -57,6 +62,7 @@ echo '<div class="main-section">
 
 									 <span class="avatar"></span>
 									 <hgroup>';
+									 
 										/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
 											 echo	'<h2>'. ucwords($results['name']).'<br></h2>';
 												$ad1 = ucwords($results['address_line1']);
@@ -118,7 +124,7 @@ echo '<div class="main-section">
 								$rowClass = 'white-row';
 							} 
 							echo '<tr class = "' .$rowClass. '">
-										<td class = "asset-list"><a id="edit" href="edit_company_contact.php?worker_number='.$results3['workerid'].'&firstname='
+										<td class = "asset-list"><a id="edit" href="edit_company_contact.php?url='.$url.'&worker_number='.$results3['workerid'].'&firstname='
 									.$results3['first_name'].'&lastname='.$results3['last_name'].'&email='.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$results3['last_contacted'].'"><i class="fa fa-gear"></i></a></td>
 										<td class = "asset-list">'.ucwords($results3['first_name']).' '.ucwords($results3['last_name']).'</td>
 										<td class = "asset-list">'.$results3['phone_num'].'</td>

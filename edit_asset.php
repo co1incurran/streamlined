@@ -1,4 +1,5 @@
 <?php
+$url= $_GET['url'];
 $stockid= $_GET['stockid'];
 
 $name = ucwords($_GET['name']);
@@ -100,10 +101,11 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="php/update_asset.php" id="form" method="post" name="form">
+				<form action="update_asset.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Asset</h2>
 					<hr>
+					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="stockid" id="stockid" value="'.$stockid.'">
 					<label for="name"><small>Product</small></label>
 					<input id="name" name="name"' .$line1. 'type="text">
@@ -126,7 +128,7 @@ echo'
 					<label for="servicedate"><small>Service Due</small></label>
 					<input id="servicedate" name="servicedate"' .$line6. 'type="date">
 					
-					<label for="location"><small>Location</small></label>
+					<label for="location"><small>Location<small> (eg room 1 - first floor)</small></small></label>
 					<input id="location" name="location"' .$line7. 'type="text">
 					
 					<label for="contractrenewaldate"><small>Service Contract Renewal Date</small></label>

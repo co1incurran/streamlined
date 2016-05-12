@@ -6,32 +6,40 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$companyid = $_GET['companyid'];
-$companyid = mysqli_real_escape_string($con ,$companyid);
-$sql = "SELECT * FROM company WHERE companyid ='$companyid' ; ";
+$customerid = $_GET['customerid'];
+$customerid = mysqli_real_escape_string($con ,$customerid);
+$sql = "SELECT * FROM customer WHERE customerid ='$customerid' ; ";
 $res = mysqli_query($con,$sql);
 $result = array();
 
 
 $sql2 = "SELECT * FROM `stock` WHERE stockid IN (SELECT stockid FROM uses WHERE jobid IN 
-(SELECT jobid FROM jobs WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid'))); ";
+(SELECT jobid FROM jobs WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid = '$customerid'))); ";
 $res2 = mysqli_query($con,$sql2);
 $result2 = array();
  
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
-		array('companyid'=>$row[0],
-		'name'=>$row[1],
-		'address_line1'=>$row[2],
-		'address_line2'=>$row[3],
-		'address_line3'=>$row[4],
-		'address_line4'=>$row[5],
-		'county'=>$row[6],
-		'country'=>$row[7],
-		'sage_id'=>$row[8]
+		array('customerid'=>$row[0],
+		'name_prefix'=>$row[1],
+		'first_name'=>$row[2],
+		'last_name'=>$row[3],
+		'phone_num'=>$row[4],
+		'mobile_phone_num'=>$row[5],
+		'first_name'=>$row[6],
+		'last_name'=>$row[7],
+		'address_line1'=>$row[8],
+		'address_line2'=>$row[9],
+		'address_line3'=>$row[10],
+		'address_line4'=>$row[11],
+		'county'=>$row[12],
+		'country'=>$row[13],
+		'last_contacted'=>$row[14],
+		'pref_cintact_type'=>$row[15],
+		'sage_id'=>$row[16]
 	));
 }
- //print_r (array_values($result));
+ print_r (array_values($result));
  //echo '<br>';
 while($row = mysqli_fetch_array($res2)){
 	array_push($result2,
@@ -67,8 +75,8 @@ foreach ($result as $results){
 
 									 <span class="avatar"></span>
 									 <hgroup>';
-										/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
-											 echo	'<h2>'. ucwords($results['name']).'<br></h2>';
+									 
+											 echo'<h2>'. ucwords($results['first_name']) . ' ' . ucwords($results['last_name']) .'<br></h2>';
 												$ad1 = ucwords($results['address_line1']);
 												$ad2 = ucwords($results['address_line2']);
 												$ad3 = ucwords($results['address_line3']);
