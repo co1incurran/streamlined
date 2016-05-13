@@ -26,8 +26,8 @@ while($row = mysqli_fetch_array($res)){
 		'last_name'=>$row[3],
 		'phone_num'=>$row[4],
 		'mobile_phone_num'=>$row[5],
-		'first_name'=>$row[6],
-		'last_name'=>$row[7],
+		'email'=>$row[6],
+		'fax'=>$row[7],
 		'address_line1'=>$row[8],
 		'address_line2'=>$row[9],
 		'address_line3'=>$row[10],
@@ -35,11 +35,11 @@ while($row = mysqli_fetch_array($res)){
 		'county'=>$row[12],
 		'country'=>$row[13],
 		'last_contacted'=>$row[14],
-		'pref_cintact_type'=>$row[15],
+		'pref_contact_type'=>$row[15],
 		'sage_id'=>$row[16]
 	));
 }
- print_r (array_values($result));
+ //print_r (array_values($result));
  //echo '<br>';
 while($row = mysqli_fetch_array($res2)){
 	array_push($result2,
@@ -83,6 +83,7 @@ foreach ($result as $results){
 												$ad4 = ucwords($results['address_line4']);
 												$county = ucwords($results['county']);
 												$country = ucwords($results['country']);
+												echo'<div class = "address">';
 												if(!empty($ad1)){ 
 													echo $ad1.', ';
 													//echo nl2br("\n");
@@ -106,6 +107,36 @@ foreach ($result as $results){
 												if(!empty($country)){ 
 													echo $country;
 												}
+												
+												echo'
+												</div>
+												<table id="contact-details">
+												<tbody>';
+												if(!empty ($results['email'])){
+													echo '<tr><td class = "contact-details"><small>Email</small></td><td class = "contact-details">'. ($results['email']) .'</td></tr>';
+												}
+												
+												if(!empty ($results['phone_num'])){
+													echo '<tr><td class = "contact-details"><small>Phone</small></td><td class = "contact-details">'. ($results['phone_num']) .'</td></tr>';
+												}
+												
+												if(!empty ($results['mobile_phone_num'])){
+													echo '<tr><td class = "contact-details"><small>Mobile</small></td><td class = "contact-details">'. ($results['mobile_phone_num']) .'</td></tr>';
+												}
+												
+												if(!empty ($results['fax'])){
+													echo '<tr><td class = "contact-details"><small>Fax</small></td><td class = "contact-details">'. ($results['fax']) .'</td></tr>';
+												}
+												
+												$date1 = $results['last_contacted'];
+												$properDate1 = date("d/m/Y", strtotime($date1));
+												if(!empty ($results['last_contacted'])){
+													echo '<tr><td class = "contact-details"><small>Last Contacted</small></td><td class = "contact-details">'. $properDate1 .'</td></tr>';
+												}
+												echo'
+												</tbody>
+												</table>';
+												
 												//to count the number of assets 
 											 $counter = 0;
 											 foreach ($result2 as $results2){
@@ -125,6 +156,7 @@ foreach ($result as $results){
 										<td class = "asset-list"><strong>Model</strong></td>
 										<td class = "asset-list"><strong>Manufacturer</strong></td>
 										<td class = "asset-list"><strong>Install Date</strong></td>
+										<td class = "asset-list"><strong>Inspection Date</strong></td>
 										<td class = "asset-list"><strong>Last Service</strong></td>
 										<td class = "asset-list"><strong>Serial Number</strong></td>
 										<td class = "asset-list"><strong>Location</strong></td>
@@ -146,6 +178,9 @@ foreach ($result as $results){
 										$date1 = $results2['installation_date'];
 										$properDate1 = date("d/m/Y", strtotime($date1));
 										echo '<td class = "asset-list">'. ($properDate1) . '</td>';
+										$date3 = $results2['inspection_date'];
+										$properDate3 = date("d/m/Y", strtotime($date3));
+										echo '<td class = "asset-list">'. ($properDate3) . '</td>';
 										$date2 = $results2['service_date'];
 										$properDate2 = date("d/m/Y", strtotime($date2));
 										echo '<td class = "asset-list">'. ($properDate2) . '</td>

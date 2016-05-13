@@ -5,10 +5,7 @@ define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
- if($con == false){
-    //try to reconnect
-	echo'false';
-}
+
 $sql = "SELECT customerid, first_name, last_name, phone_num, mobile_phone_num, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id FROM customer; ";
  
 $res = mysqli_query($con,$sql);
