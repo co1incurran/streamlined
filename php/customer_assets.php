@@ -76,7 +76,7 @@ foreach ($result as $results){
 									 <span class="avatar"></span>
 									 <hgroup>';
 									 
-											 echo'<h2>'. ucwords($results['first_name']) . ' ' . ucwords($results['last_name']) .'<br></h2>';
+											 echo'<h2>'. ucwords($results['first_name']) . ' ' . ucwords($results['last_name']) .'<a id="edit" href="edit_private_contact.php?url='.$url.'&customerid='.$customerid.'&firstname='.$results['first_name'].'&lastname='.$results['last_name'].'&email='.$results['email'].'&phonenumber='.$results['phone_num'].'&mobilenumber='.$results['mobile_phone_num'].'&fax='.$results['fax'].'&lastcontacted='.$results['last_contacted'].'"><i class="fa fa-gear"></i></a><br></h2>';
 												$ad1 = ucwords($results['address_line1']);
 												$ad2 = ucwords($results['address_line2']);
 												$ad3 = ucwords($results['address_line3']);

@@ -38,7 +38,7 @@ echo'
 							<th><tr class = "blue-row">
 							<td class = "asset-list"></td>
 							
-							<td id = "first-table-column" class = "asset-list"><strong>Name</strong></td>
+							<td id = "first-table-column" class = "asset-list"><strong>Customer</strong></td>
 							
 							<td class = "asset-list"><strong>Phone Number</strong></td>
 							
