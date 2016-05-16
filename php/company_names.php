@@ -1,4 +1,7 @@
 <?php
+echo'
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.js"></script> 
+	<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>';
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
@@ -28,14 +31,14 @@ while($row = mysqli_fetch_array($res)){
 		'sector'=>$row[9]
 	));
 }
-//print_r (array_values($result));
+//print_r (array_values($result));listing list-view clearfix
 
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
 echo'		 
-						<table id="contactts" class="listing list-view clearfix tablesorter" align="center">
-							<tbody>
-							<th><tr class = "blue-row">
+						<table id="companyNames" class="tablesorter" align="center">
+							<thead>
+							<tr class = "blue-row">
 							<td class = "asset-list"></td>
 							
 							<td id = "first-table-column" class = "asset-list"><strong>Company</strong></td>
@@ -48,7 +51,8 @@ echo'
 							<td class = "asset-list"><strong>Assets</strong></td>
 							
 							
-							</tr></th>';
+							</tr></thead>
+							<tbody>';
 
 		$i = 1;
 		foreach ($result as $results){
@@ -72,9 +76,9 @@ echo'
 			}else{
 				$rowClass = 'white-row';
 			}
-			echo'<tr class="company clearfix ' .$rowClass. '">
-					<div class="clearfix">';
-					  /*<div class="avatar"><img src="images/circle-icons/64px/profle.png" width="32" height="32" /></div>*/
+			echo'<tr class="company clearfix ' .$rowClass. '">';
+					/*<div class="clearkfix">
+					  <div class="avatar"><img src="images/circle-icons/64px/profle.png" width="32" height="32" /></div>*/
 					  //ucwods makes the first letter in the names capital
 			
 			echo	 '<td><a href = "profile.php?customerid=0&companyid='.$companyid.' " class="name">'. ucwords($results['name']) . '</a></td>';
@@ -184,13 +188,20 @@ echo'
 				<td>'.$mostRecent.'</td>
 				<td>'.ucwords($results['sector']).'</td>
 				<td>'.$assetCount.'</td>
-				</tr>
-					</div>';
+				</tr>';
 					$i++;
 		}
 echo '</tbody>
 	</table>
-	</div>';
+	</div>
+	
+	<script>
+    $(document).ready(function() 
+        { 
+            $("#companyNames").tablesorter(); 
+        } 
+    );
+    </script>';
  
 mysqli_close($con);
  
