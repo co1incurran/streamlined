@@ -24,7 +24,8 @@ while($row = mysqli_fetch_array($res)){
 		'address_line4'=>$row[5],
 		'county'=>$row[6],
 		'country'=>$row[7],
-		'sage_id'=>$row[8]
+		'sage_id'=>$row[8],
+		'sector'=>$row[9]
 	));
 }
 //print_r (array_values($result));
@@ -32,7 +33,7 @@ while($row = mysqli_fetch_array($res)){
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
 echo'		 
-						<table id="contacts" class="listing list-view clearfix" align="center">
+						<table id="contactts" class="listing list-view clearfix tablesorter" align="center">
 							<tbody>
 							<th><tr class = "blue-row">
 							<td class = "asset-list"></td>
@@ -40,16 +41,32 @@ echo'
 							<td id = "first-table-column" class = "asset-list"><strong>Company</strong></td>
 							
 							<td class = "asset-list"><strong>Address</strong></td>
-							
+							<td class = "asset-list"><strong>City</strong></td>
+							<td class = "asset-list"><strong>County</strong></td>
 							<td class = "asset-list"><strong>Last Contacted</strong></td>
+							<td class = "asset-list"><strong>Sector</strong></td>
+							<td class = "asset-list"><strong>Assets</strong></td>
 							
-							<td id = "last-table-column" class = "asset-list"><strong>Sage ID</strong></td>
 							
 							</tr></th>';
 
 		$i = 1;
 		foreach ($result as $results){
 			$companyid = $results['companyid'];
+			
+			//To get the number of assets
+			$sql2 = "SELECT stockid FROM `stock` WHERE stockid IN (SELECT stockid FROM uses WHERE jobid IN 
+			(SELECT jobid FROM jobs WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid'))); ";
+			$res2 = mysqli_query($con,$sql2);
+			$result2 = array();
+			$assetCount = 0;
+			while($row = mysqli_fetch_array($res2)){
+				array_push($result2,
+					array('stockid'=>$row[0]
+				));
+				$assetCount++;
+			}
+			
 			if (1 != $i % 2){
 				$rowClass = 'blue-row';
 			}else{
@@ -66,32 +83,66 @@ echo'
 						$ad3 = ucwords($results['address_line3']);
 						$ad4 = ucwords($results['address_line4']);
 						$county = ucwords($results['county']);
+
 						$country = ucwords($results['country']);
+						$city=0;
 						echo'
 						<td>';
+						
 						if(!empty($ad1)){ 
-							echo $ad1.', ';
+							echo $ad1;
 							//echo nl2br("\n");
 						}
-						if(!empty($ad2) && $ad2 != $ad1){ 
-							echo $ad2.', ';
-							//echo nl2br("\n");
+						
+						if(!empty($ad2) && $ad2 != $ad1){
+							if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){
+								if(!empty($ad1)){
+									echo', ';
+								}
+								echo $ad2;
+							}elseif(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){
+								if(!empty($ad1)){
+									echo', ';
+								}
+								echo $ad2;
+							}else{
+								$city = $ad2;
+							}
 						}
-						if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){ 
-							echo $ad3.', ';
-							//echo nl2br("\n");
+						if($city < 1){
+							if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){ 
+								if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){
+									if(!empty($ad1) || !empty($ad2)){
+										echo', ';
+									}
+									echo $ad3;
+								}else{
+									$city = $ad3;
+								}
+							}
+							if($city < 1){
+								if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){ 
+									$city = $ad4;
+								}'</td>';
+							}	
+								
 						}
-						if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){ 
-							echo $ad4.', ';
-							//echo nl2br("\n");
+						
+						if($city === 0){
+							$city = '';
 						}
-						if(!empty($county)&& $county != $ad4 && $county != $ad3){ 
-							echo $county.', ';
-							//echo nl2br("\n");
-						}
-						if(!empty($country)){ 
-							echo $country;
-						}echo'</td>';
+						echo'
+								<td>'.$city.'</td>';
+						
+						echo'
+							<td>';
+							if(!empty($county)){ 
+								echo $county;
+								//echo nl2br("\n");
+							}
+					echo'</td>';
+						
+						
 					
 				/*$date = $results['last_contacted'];
 				$properDate = date("d-m-Y", strtotime($date));
@@ -126,13 +177,14 @@ echo'
 			if($mostRecent != 0){
 				$mostRecent = date("d/m/Y", strtotime($mostRecent));
 			}else{
-				$mostRecent = '----';
+				$mostRecent = '';
 			}
 			//echo $ok;
 				echo'
 				<td>'.$mostRecent.'</td>
-				<td>'.$results['sage_id'].'</td>';
-				echo	'</tr>
+				<td>'.ucwords($results['sector']).'</td>
+				<td>'.$assetCount.'</td>
+				</tr>
 					</div>';
 					$i++;
 		}

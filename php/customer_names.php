@@ -33,24 +33,26 @@ while($row = mysqli_fetch_array($res)){
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
 echo'		 
-						<table id="contacts" class="listing list-view clearfix" align="center">
-							<tbody>
-							<th><tr class = "blue-row">
+						<table id="contacts" class="listing list-view clearfix tablesorter" align="center">
+							<thead>
+							<tr class = "blue-row">
 							<td class = "asset-list"></td>
 							
 							<td id = "first-table-column" class = "asset-list"><strong>Customer</strong></td>
 							
-							<td class = "asset-list"><strong>Phone Number</strong></td>
+							<td class = "asset-list"><strong>Phone</strong></td>
 							
-							<td class = "asset-list"><strong>Mobile Number</strong></td>
+							<td class = "asset-list"><strong>Mobile</strong></td>
 							
 							<td class = "asset-list"><strong>Address</strong></td>
+							<td class = "asset-list"><strong>City</strong></td>
+							<td class = "asset-list"><strong>County</strong></td>
 							
 							<td class = "asset-list"><strong>Last Contacted</strong></td>
 							
-							<td id = "last-table-column" class = "asset-list"><strong>Sage ID</strong></td>
 							
-							</tr></th>';
+							</tr></thead>
+							<tbody>';
 
 		$i = 1;
 		foreach ($result as $results){
@@ -64,6 +66,8 @@ echo'
 					  /*<div class="avatar"><img src="images/circle-icons/64px/profle.png" width="32" height="32" /></div>*/
 					  //ucwods makes the first letter in the names capital
 			$customerid = $results['customerid'];
+			
+			
 			echo	 '<td><a href = "profile.php?customerid='.$customerid.'&companyid=0 " class="name">'. ucwords($results['first_name']) . ' ' . ucwords($results['last_name']) .'</a></td>
 					<td>'.$results['phone_num'].'</td>
 					<td>'.$results['mobile_phone_num'].'</td>';
@@ -73,38 +77,67 @@ echo'
 						$ad4 = ucwords($results['address_line4']);
 						$county = ucwords($results['county']);
 						$country = ucwords($results['country']);
+						$city = 0;
 						echo'
 						<td>';
 						if(!empty($ad1)){ 
-							echo $ad1.', ';
+							echo $ad1;
 							//echo nl2br("\n");
 						}
-						if(!empty($ad2) && $ad2 != $ad1){ 
-							echo $ad2.', ';
-							//echo nl2br("\n");
+						
+						if(!empty($ad2) && $ad2 != $ad1){
+							if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){
+								if(!empty($ad1)){
+									echo', ';
+								}
+								echo $ad2;
+							}elseif(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){
+								if(!empty($ad1)){
+									echo', ';
+								}
+								echo $ad2;
+							}else{
+								$city = $ad2;
+							}
 						}
-						if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){ 
-							echo $ad3.', ';
-							//echo nl2br("\n");
+						if($city < 1){
+							if(!empty($ad3)&& $ad3 != $ad2 && $ad3 != $ad1){ 
+								if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){
+									if(!empty($ad1) || !empty($ad2)){
+										echo', ';
+									}
+									echo $ad3;
+								}else{
+									$city = $ad3;
+								}
+							}
+							if($city < 1){
+								if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){ 
+									$city = $ad4;
+								}'</td>';
+							}	
+								
 						}
-						if(!empty($ad4)&& $ad4 != $ad3 && $ad4 != $ad2 && $ad4 != $ad1){ 
-							echo $ad4.', ';
-							//echo nl2br("\n");
+						
+						if($city === 0){
+							$city = '';
 						}
-						if(!empty($county)&& $county != $ad4 && $county != $ad3){ 
-							echo $county.', ';
-							//echo nl2br("\n");
-						}
-						if(!empty($country)){ 
-							echo $country;
-						}echo'</td>';
+						echo'
+								<td>'.$city.'</td>';
+						
+						echo'
+							<td>';
+							if(!empty($county)){ 
+								echo $county;
+								//echo nl2br("\n");
+							}
+					echo'</td>';
 					
 			$date = $results['last_contacted'];
-			$properDate = date("d-m-Y", strtotime($date));
+			$properDate = date("d/m/Y", strtotime($date));
 			echo'
 			<td>'.$properDate.'</td>
-			<td>'.$results['sage_id'].'</td>';
-			echo	'</tr>
+				</tr>
 				</div>';
 				$i++;
 		}
