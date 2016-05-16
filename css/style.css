@@ -105,7 +105,7 @@ a:hover {
 	
 }
 a.name{
-	padding: 1em 1em 1em 1em;
+	padding: 1em 1em 1em 0em;
 	text-decoration: underline;
 	color: black;
 }
