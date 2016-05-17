@@ -33,7 +33,7 @@ while($row = mysqli_fetch_array($res)){
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
 echo'		 
-						<table id="contacts" class="listing list-view clearfix tablesorter" align="center">
+						<table id="contacts" class="tablesorter" align="center">
 							<thead>
 							<tr class = "blue-row">
 							<td class = "asset-list"></td>

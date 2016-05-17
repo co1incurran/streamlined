@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.js"></script> 
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
 <script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
-<!--<link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style.css">-->
+<link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -210,9 +210,10 @@
 													require_once 'php/customer_names.php';
 												}else{
 													//echo 'company names';
-													require_once 'php/company_names.php';
+													require_once 'table_test.php';
 												}	
 											?>
+											
                                         </section>
                                     </div>
                                 </div>
@@ -249,15 +250,25 @@
 
 
     <!-- render blocking scripts -->
+	
 
     <!-- jQuery JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	
+	
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 
-    <!-- Bootstrap JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
 
-    <!-- Main Script -->
-    <script src="js/global.js"></script>
+    <!-- Main Script 
+    <script src="js/global.js"></script>-->
+	<script>
+    $(document).ready(function() 
+        { 
+            $("#companyNames").tablesorter(); 
+        } 
+    );
+    </script>
 
 </body>
-<?php echo'</html>'; ?>
+</html>

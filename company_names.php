@@ -2,7 +2,7 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.js"></script> 
-<script type="text/javascript" src="../__jquery.tablesorter/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
 <!--<link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style.css">-->
 </head>
 <body>
@@ -42,22 +42,22 @@ while($row = mysqli_fetch_array($res)){
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
 ?>	 
+
 						<table id="companyNames" class="tablesorter" align="center">
 							<thead>
-							<tr class = "blue-row">
-							<td class = "asset-list"></td>
+								<tr class = "blue-row">
+									<th class = "asset-list"></th>
+									
+									<th id = "first-table-column" class = "asset-list"><strong>Company</strong></th>
+									<th class = "asset-list"><strong>Address</strong></th>
+									<th class = "asset-list"><strong>City</strong></th>
+									<th class = "asset-list"><strong>County</strong></th>
+									<th class = "asset-list"><strong>Last Contacted</strong></th>
+									<th class = "asset-list"><strong>Sector</strong></th>
+									<th class = "asset-list"><strong>Assets</strong></th>
+								</tr>
+							</thead>
 							
-							<td id = "first-table-column" class = "asset-list"><strong>Company</strong></td>
-							
-							<td class = "asset-list"><strong>Address</strong></td>
-							<td class = "asset-list"><strong>City</strong></td>
-							<td class = "asset-list"><strong>County</strong></td>
-							<td class = "asset-list"><strong>Last Contacted</strong></td>
-							<td class = "asset-list"><strong>Sector</strong></td>
-							<td class = "asset-list"><strong>Assets</strong></td>
-							
-							
-							</tr></thead>
 							<tbody>
 		<?php
 		$i = 1;
@@ -165,7 +165,7 @@ while($row = mysqli_fetch_array($res)){
 				
 				
 
-			
+			//get last contacted 
 			<?php
 			//for getting the date of last contacted 
 			$sql3 = "SELECT last_contacted FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
@@ -177,7 +177,7 @@ while($row = mysqli_fetch_array($res)){
 			array('last_contacted'=>$row[0]
 			));
 			} 
-		//print_r (array_values($result3));
+			//print_r (array_values($result3));
 			$mostRecent =0;
 			foreach ($result3 as $results3){
 				  $curDate= $results3['last_contacted'];
@@ -198,15 +198,22 @@ while($row = mysqli_fetch_array($res)){
 				<td><?php echo $mostRecent; ?></td>
 				<td><?php echo ucwords($results['sector']); ?></td>
 				<td><?php echo $assetCount; ?></td>
-				</tr>
+				
+			</tr>
 			<?php
-					$i++;
+			$i++;
 		}
 			?>
-	</tbody>
+		</tbody>
 	</table>
-	</div>
-	
+	<!--</div>-->
+<?php
+mysqli_close($con);
+ 
+?>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.js"></script> 
+<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.min.js"></script>
+
 	<script>
     $(document).ready(function() 
         { 
@@ -214,9 +221,14 @@ while($row = mysqli_fetch_array($res)){
         } 
     );
     </script>
-<?php
-mysqli_close($con);
- 
-?>
+	<script>
+    $(document).ready(function() 
+        { 
+            $("#domainsTable").tablesorter(); 
+        } 
+    );
+    </script>
+	
+
 </body>
 </html>

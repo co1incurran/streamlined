@@ -89,7 +89,7 @@ a {
     outline: none;
     text-decoration: none;
 }
-td {
+td, th {
     outline: none;
     text-decoration: none;
 	padding-right: 2em;
