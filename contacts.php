@@ -3,7 +3,7 @@
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
 <script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
-<link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style.css">
+
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -207,7 +207,7 @@
 												$contact = $_GET['contact'];
 												if($contact != 'companies'){
 													//echo 'customer names';
-													require_once 'php/customer_names.php';
+													require_once 'table_test2.php';
 												}else{
 													//echo 'company names';
 													require_once 'table_test.php';
@@ -269,6 +269,12 @@
         } 
     );
     </script>
-
+<script>
+    $(document).ready(function() 
+        { 
+            $("#privateCustomers").tablesorter(); 
+        } 
+    );
+    </script>
 </body>
 </html>

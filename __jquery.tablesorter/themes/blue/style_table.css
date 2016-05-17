@@ -4,22 +4,26 @@ table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
 	margin:10px 0pt 15px;
-	font-size: 8pt;
 	width: 100%;
 	text-align: left;
 	font-size: 14px;
 }
 
-tr.blue-row td{
-	background-color: rgb(176,212,229);
+tr td{
+	background-color: white;
 }
-tr.white-row td{
+tr.whitte-row td{
 	background-color: #FFF;
+}
+tr{
+	border-top: 5px solid;
+	border-bottom: 5px solid;
+	border-color:rgb(176,212,229);
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	background-color: rgb(176,212,229);
 	border: 1px solid #FFF;
-	font-size: 13pt;
+	font-size: 12pt;
 	padding: 4px;
 }
 table.tablesorter thead tr .header {
@@ -27,6 +31,8 @@ table.tablesorter thead tr .header {
 	background-repeat: no-repeat;
 	background-position: center right;
 	cursor: pointer;
+	    background-position: left center;
+    padding-left: 20px;
 }
 table.tablesorter tbody td {
 	color: #3D3D3D;
@@ -47,7 +53,5 @@ table.tablesorter thead tr .headerSortDown {
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
 background-color: #8dbdd8;
 }
-.wide {
-	padding-right; 2em;
-}
+
 

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
 <?php
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
@@ -33,22 +34,22 @@ while($row = mysqli_fetch_array($res)){
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
 echo'		 
-						<table id="contacts" class="tablesorter" align="center">
+						<table id="privateCustomers" class="tablesorter" align="center">
 							<thead>
 							<tr class = "blue-row">
-							<td class = "asset-list"></td>
 							
-							<td id = "first-table-column" class = "asset-list"><strong>Customer</strong></td>
 							
-							<td class = "asset-list"><strong>Phone</strong></td>
+							<th id = "first-table-column" class = "asset-list"><strong>Customer</strong></th>
 							
-							<td class = "asset-list"><strong>Mobile</strong></td>
+							<th class = "asset-list"><strong>Phone</strong></th>
 							
-							<td class = "asset-list"><strong>Address</strong></td>
-							<td class = "asset-list"><strong>City</strong></td>
-							<td class = "asset-list"><strong>County</strong></td>
+							<th class = "asset-list"><strong>Mobile</strong></th>
 							
-							<td class = "asset-list"><strong>Last Contacted</strong></td>
+							<th class = "asset-list"><strong>Address</strong></th>
+							<th class = "asset-list"><strong>City</strong></th>
+							<th class = "asset-list"><strong>County</strong></th>
+							
+							<th class = "asset-list"><strong>Last Contacted</strong></th>
 							
 							
 							</tr></thead>
@@ -57,9 +58,9 @@ echo'
 		$i = 1;
 		foreach ($result as $results){
 			if (1 != $i % 2){
-				$rowClass = 'blue-row';
+				$rowClass = 'bllue-row';
 			}else{
-				$rowClass = 'white-row';
+				$rowClass = 'whhite-row';
 			}
 			echo'<tr class="company clearfix ' .$rowClass. '">
 					<div class="clearfix">';

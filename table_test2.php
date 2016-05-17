@@ -7,26 +7,27 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT * FROM company; ";
+$sql = "SELECT customerid, first_name, last_name, phone_num, mobile_phone_num, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id FROM customer; ";
  
 $res = mysqli_query($con,$sql);
 
 $result = array();
-
-
  
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
-		array('companyid'=>$row[0],
-		'name'=>$row[1],
-		'address_line1'=>$row[2],
-		'address_line2'=>$row[3],
-		'address_line3'=>$row[4],
-		'address_line4'=>$row[5],
-		'county'=>$row[6],
-		'country'=>$row[7],
-		'sage_id'=>$row[8],
-		'sector'=>$row[9]
+		array('customerid'=>$row[0],
+		'first_name'=>$row[1],
+		'last_name'=>$row[2],
+		'phone_num'=>$row[3],
+		'mobile_phone_num'=>$row[4],
+		'address_line1'=>$row[5],
+		'address_line2'=>$row[6],
+		'address_line3'=>$row[7],
+		'address_line4'=>$row[8],
+		'county'=>$row[9],
+		'country'=>$row[10],
+		'last_contacted'=>$row[11],
+		'sage_id'=>$row[12]
 	));
 }
 //print_r (array_values($result));listing list-view clearfix
@@ -37,32 +38,33 @@ while($row = mysqli_fetch_array($res)){
 
 	
 <!-- ... -->
-</tbody> 
-    </table> 
-	
-	<table id="companyNames" class="tablesorter">
-		<thead>
-			<tr class = "blue-row">				
-				<!--<th class = "asset-list"></th>-->
-				<th id = "first-table-column" class = "asset-list"><strong>Company</strong></th>
-				<th><strong>Address</strong></th>
-				<th><strong>City</strong></th>
-				<th><strong>County</strong></th>
-				<th><strong>Last Contacted</strong></th>
-				<th><strong>Sector </strong></th>
-				<th><strong>Assets </strong></th>			
-			</tr>
-		</thead>
-		
-		<tbody>
+<table id="privateCustomers" class="tablesorter" align="center">
+	<thead>
+		<tr class = "blue-row">
+
+			<th id = "first-table-column" class = "asset-list"><strong>Customer</strong></th>
+
+			<th class = "asset-list"><strong>Phone</strong></th>
+
+			<th class = "asset-list"><strong>Mobile</strong></th>
+
+			<th class = "asset-list"><strong>Address</strong></th>
+			<th class = "asset-list"><strong>City</strong></th>
+			<th class = "asset-list"><strong>County</strong></th>
+
+			<th class = "asset-list"><strong>Last Contacted</strong></th>
+			<th class = "asset-list"><strong>Assets</strong></th>
+
+		</tr>
+	</thead>
+<tbody>
 	<?php
-	$i=1;
 		foreach ($result as $results){
-			$companyid = $results['companyid'];
+			$customerid = $results['customerid'];
 			
 			//To get the number of assets
 			$sql2 = "SELECT stockid FROM `stock` WHERE stockid IN (SELECT stockid FROM uses WHERE jobid IN 
-			(SELECT jobid FROM jobs WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid'))); ";
+			(SELECT jobid FROM jobs WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid = '$customerid'))); ";
 			$res2 = mysqli_query($con,$sql2);
 			$result2 = array();
 			$assetCount = 0;
@@ -71,17 +73,12 @@ while($row = mysqli_fetch_array($res)){
 					array('stockid'=>$row[0]
 				));
 				$assetCount++;
-			}
-			
-			if (1 != $i % 2){
-				$rowClass = 'bltttttue-row';
-			}else{
-				$rowClass = 'whittttte-row';
-			}
-		
+			}		
 	?>
-			<tr class = "<?php echo $rowClass;?>">	
-				<td><a href = "profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo ucwords($results['name']);?></a></td>
+			<tr>	
+				<td><a href = "profile.php?customerid=<?php echo $customerid;?>&companyid=0 " class="name"><?php echo ucwords($results['first_name']).' '.ucwords($results['last_name']);?></a></td>
+				<td><?php echo $results['phone_num']?></td>
+				<td><?php echo $results['mobile_phone_num']?></td>
 				<?php
 					$ad1 = ucwords($results['address_line1']);
 					$ad2 = ucwords($results['address_line2']);
@@ -147,42 +144,17 @@ while($row = mysqli_fetch_array($res)){
 							//echo nl2br("\n");
 						}
 					?>
+				</td>				
+				<td>
+					<?php 
+						$date = $results['last_contacted'];
+						$properDate = date("d/m/Y", strtotime($date));
+						echo $properDate; 
+					?>
 				</td>
-				<?php
-					//for getting the date of last contacted 
-					$sql3 = "SELECT last_contacted FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
-					$res3 = mysqli_query($con,$sql3);
-					$result3 = array();
-
-					while($row = mysqli_fetch_array($res3)){
-					array_push($result3,
-					array('last_contacted'=>$row[0]
-					));
-					} 
-					//print_r (array_values($result3));
-					$mostRecent =0;
-					foreach ($result3 as $results3){
-						  $curDate= $results3['last_contacted'];
-						  if ($curDate > $mostRecent) {
-							 $mostRecent = $curDate;
-							 //$ok = $mostRecent;
-							 //echo 'in the if';
-						  }
-					}
-					//$mostRecent = $results['last_contacted'];
-					if($mostRecent != 0){
-						$mostRecent = date("d/m/Y", strtotime($mostRecent));
-					}else{
-						$mostRecent = '';
-					}
-				?>
-				
-				<td><?php echo $mostRecent; ?></td>
-				<td><?php echo ucwords($results['sector']); ?></td>
 				<td><?php echo $assetCount ?></td>
 			</tr>
 	<?php
-			$i++;
 		}
 	?>
 		</tbody>
