@@ -52,6 +52,14 @@ while($row = mysqli_fetch_array($res2)){
 	));
 } //print_r (array_values($result2));
 //echo '<br>';
+//to count the number of each type of asset
+$sql2 = "SELECT name FROM `stock` WHERE stockid IN (SELECT stockid FROM uses WHERE jobid IN 
+(SELECT jobid FROM jobs WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid'))); ";
+$res3 = mysqli_query($con,$sql2);
+$assets = array();
+while($row = mysqli_fetch_array($res3)){
+	$assets[] = $row;
+}print_r (array_values($assets));
 
 //used to ensure a proper page reload if details are updated
 $url = $_SERVER['REQUEST_URI'];
@@ -98,14 +106,76 @@ foreach ($result as $results){
 												if(!empty($country)){ 
 													echo $country;
 												}
+												
+
+													function bubble_sort($assets) {
+														$size = count($assets);
+														for ($i=0; $i<$size; $i++) {
+															for ($j=0; $j<$size-1-$i; $j++) {
+																if ($assets[$j+1] < $assets[$j]) {
+																	swap($assets, $j, $j+1);
+																}
+															}
+														}
+														return $assets;
+													}
+
+													function swap(&$assets, $a, $b) {
+														$tmp = $assets[$a];
+														$assets[$a] = $assets[$b];
+														$assets[$b] = $tmp;
+													}
+													$assets = bubble_sort($assets);
+													
+													
+													/* test bubble sort 
+													print("Before sorting");
+													print_r (array_values($assets));
+
+													
+													print("After sorting by using bubble sort");
+													print_r (array_values($assets));*/
+
+												
+												
 												//to count the number of assets 
 											 $counter = 0;
 											 foreach ($result2 as $results2){
+												 
 												 $counter ++;
 											 }
 											 //menu for the business card
 											 
-											 echo '<h3>Assets: '.$counter.'</h3>
+											 echo '<h3>Assets: '.$counter;
+											 //this counts the number of each type of asset
+													$typeCounter = 1;
+													$arrayPosition = 1;
+													$size = count($assets);
+													$currentType = $assets[0];
+													//echo $assets['name'];
+													$done = false;
+													echo 'here ';
+													while($done != true){
+														if($arrayPosition < $size){
+															echo '<br>now here ';
+															if($currentType == $assets[$arrayPosition]){
+																$typeCounter ++;
+																$arrayPosition ++;
+																echo $arrayPosition;
+															}else{
+																echo '<br>'; 
+																echo $currentType.': '.$typeCounter;
+																$currentType = $assets[$arrayPosition];
+																$typeCounter = 1;
+																$arrayPosition++;
+															}
+														}else{
+															$done = true;
+														}
+													}
+											 
+											 
+											 echo '</h3>
 								</hgroup>
 								</header>
 								<section class="panel-body" style = "width:100%">';
