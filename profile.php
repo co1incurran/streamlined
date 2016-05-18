@@ -191,7 +191,12 @@
 										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history">History</a></li>
 										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes">Notes</a></li>
 										 </ul>
-							<section class="col-md-9 no-padding">';
+							<section class="col-md-9 no-padding">
+							<ul>
+								<li><a id="add_job" href="#"><img src="icons/add_job.png" alt="Add Job" style="width:30px;height:30px;"></a></li>
+								<li><a id="add_contact" href="#"><img src="icons/add_contact.png" alt="Add Contact" style="width:30px;height:30px;"></a></li>
+								<li><a id="add_asset" href="#"><img src="icons/add_asset.png" alt="Add Contact" style="width:30px;height:30px;"></a></li>
+							</ul>';
 								
 									//if you are looking at companies
 									if ($companyid != 0){

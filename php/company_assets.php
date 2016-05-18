@@ -59,7 +59,7 @@ $res3 = mysqli_query($con,$sql2);
 $assets = array();
 while($row = mysqli_fetch_array($res3)){
 	$assets[] = $row;
-}print_r (array_values($assets));
+}//print_r (array_values($assets));
 
 //used to ensure a proper page reload if details are updated
 $url = $_SERVER['REQUEST_URI'];
@@ -146,30 +146,36 @@ foreach ($result as $results){
 											 }
 											 //menu for the business card
 											 
-											 echo '<h3>Assets: '.$counter;
+											 echo '<h3>Total: '.$counter;
 											 //this counts the number of each type of asset
 													$typeCounter = 1;
 													$arrayPosition = 1;
 													$size = count($assets);
-													$currentType = $assets[0];
+													$currentType = $assets[0]['name'];
 													//echo $assets['name'];
 													$done = false;
-													echo 'here ';
 													while($done != true){
 														if($arrayPosition < $size){
-															echo '<br>now here ';
-															if($currentType == $assets[$arrayPosition]){
+															if($currentType == $assets[$arrayPosition]['name'] && $arrayPosition < $size){
 																$typeCounter ++;
 																$arrayPosition ++;
-																echo $arrayPosition;
+																//echo $arrayPosition;
 															}else{
+																if($currentType == ''){
+																	$currentType = 'Undefined';
+																}
 																echo '<br>'; 
-																echo $currentType.': '.$typeCounter;
-																$currentType = $assets[$arrayPosition];
+																echo ucwords($currentType).': '.$typeCounter.' ';
+																$currentType = $assets[$arrayPosition]['name'];
 																$typeCounter = 1;
 																$arrayPosition++;
 															}
 														}else{
+															if($currentType == ''){
+																	$currentType = 'Undefined';
+																}
+															echo '<br>'; 
+															echo ucwords($currentType).': '.$typeCounter.' ';
 															$done = true;
 														}
 													}
