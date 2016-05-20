@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 
 <title>Enable Supplies - CRM System</title>
 
@@ -21,6 +21,16 @@
 <link rel="stylesheet" type="text/css" href="markitup/sets/default/style.css" />
 
 <link rel="stylesheet" media="screen" href="css/style.css" />
+<script>	
+$('#jobType').on('change',function(){
+    if( $(this).val()===10){
+    $("#properJob").show()
+    }
+    else{
+    $("#properJob").hide()
+    }
+});
+</script>
 
 </head>
 <body>
@@ -65,32 +75,79 @@
                                         <button class="btn btn-primary" type="button">Add contact</button>
                                         <button class="btn btn-default popover-close" type="button">Cancel</button>
                                     </form>
-'><i class="fa fa-plus-circle"></i> New Contact</button>
+'><i class="fa fa-user"></i> Add Customer</button>
                             </li>
                             <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
+                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new job" data-placement="bottom" data-content='                                    <form class="form-horizontal" action = "add_job.php" method = "post">
                                         <div class="form-group">
                                             <div class="col-sm-12">
-                                                <input class="form-control" type="text" />
+											Customer type:<br>
+                                                <input type="radio" name="customerType" value="private resedent" checked> Private resedent<br>
+												<input type="radio" name="customerType" value="company"> Company
+                                            </div>
+                                        </div>
+										<div class="form-group">
+                                            <div class="col-sm-12">
+											Customer:
+                                                <select  class="form-control">
+												
+												</select>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
-                                                When it&#39;s due?<br />
+                                                Due date:<br />
                                                 <input class="form-control" type="date" />
                                             </div>
                                         </div>
-                                        <div class="form-group">
+										<div class="form-group">
                                             <div class="col-sm-12">
-                                                What category?<br/>
-                                                <select class="form-control"><option>None</option></select>
+                                                Time:<br />
+                                                <input class="form-control" type="time" />
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                Job type:<br/>
+                                                <select id="jobType" class="form-control">
+													<option value= "2">Installation</option>
+													<option value= "3">Inspection</option>
+													<option value= "4">Service</option>
+													<option value= "5">Repair</option>
+													<option value= "6">Delivery</option>
+													<option value= "7">Collection</option>
+													<option value= "8">Training</option>
+													<option value= "9">Meeting</option>
+													<option value= "10">Phone call</option>
+													<option value= "11">Presentation</option>
+												</select>
+                                            </div>
+                                        </div>
+										<div class="form-group">
+                                            <div class="col-sm-12">
+                                                Job description:<br />
+                                                <textarea maxlength="300" class ="form-control" id="jobdescription" name="jobdescription" type="text"></textarea>
+                                            </div>
+                                        </div>
+										<div id = "properJob">
+											<div class="form-group">
+												<div class="col-sm-12">
+												Job number:
+													<input class="form-control" type="text" />
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-12">
+												PO number:
+													<input class="form-control" type="text" />
+												</div>
+											</div>
+										</div>
                                         <hr />
-                                        <button class="btn btn-primary" type="button">Add task</button>
+										<input class="btn btn-primary" type="submit" id="submit" value="Add job">
                                         <button class="btn btn-default popover-close" type="button">Cancel</button>
                                     </form>
-'><i class="fa fa-plus-circle"></i> New Task</button>
+'><i class="fa fa-wrench"></i> Add Job</button>
                             </li>
                             <li><a href="dashboard.html">Dashboard</a></li>
                             <li class="active"><a href="profile.html">Profile</a></li>
@@ -192,11 +249,34 @@
 										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes">Notes</a></li>
 										 </ul>
 							<section class="col-md-9 no-padding">
-							<ul>
-								<li><a id="add_job" href="#"><img src="icons/add_job.png" alt="Add Job" style="width:30px;height:30px;"></a></li>
-								<li><a id="add_contact" href="#"><img src="icons/add_contact.png" alt="Add Contact" style="width:30px;height:30px;"></a></li>
-								<li><a id="add_asset" href="#"><img src="icons/add_asset.png" alt="Add Contact" style="width:30px;height:30px;"></a></li>
+							<ul id = "icons">
+							
+								<li><a id="add_job" class = "icons" href="#"><i class="fa fa-wrench"></i> Add Job </a></li>
+								<li><a id="add_contact" class = "icons" href="#"><i class="fa fa-users"></i> Add Contact </a></a></li>
+								<li><a id="add_asset" class = "icons" href="#"><i class="fa fa-gift"></i> Add Asset </a></a></li>
 							</ul>';
+							
+							/*<div data-role="main" class="ui-content">
+								<a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ui-btn-icon-left">Show Popup Form</a>
+							//fin
+								<div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
+								  <form method="post" action="demoform.asp">
+									<div>
+									  <h3>Login information</h3>
+									  <label for="usrnm" class="ui-hidden-accessible">Username:</label>
+									  <input type="text" name="user" id="usrnm" placeholder="Username">
+									  <label for="pswd" class="ui-hidden-accessible">Password:</label>
+									  <input type="password" name="passw" id="pswd" placeholder="Password">
+									  <label for="log">Keep me logged in</label>
+									  <input type="checkbox" name="login" id="log" value="1" data-mini="true">
+									  <input type="submit" data-inline="true" value="Log in">
+									</div>
+								  </form>
+								</div>
+							  </div>
+							  </html>
+							  <a>scr = href.276/*/
+							//put a forloop here to iterate through the entire dataset and then
 								
 									//if you are looking at companies
 									if ($companyid != 0){
@@ -205,7 +285,7 @@
 										}else{
 											$page = 'assets';
 										}
-										
+
 										//check which page to load
 										if($page != 'assets'){
 											require_once 'php/company_contacts.php';
@@ -278,5 +358,17 @@
         $('.markItUpTextarea').markItUp(mySettings, { root:'markitup/skins/simple/' });
     });
     </script>
+	<!-- This is use to make the add job form bigger based on the selection of job type-->
+	<script>	
+$('#jobType').on('change',function(){
+    if( $(this).val()==10){
+    $("#properJob").show()
+    }
+    else{
+    $("#properJob").hide()
+    }
+});
+</script>
+
 </body>
 </html>

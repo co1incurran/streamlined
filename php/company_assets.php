@@ -187,7 +187,7 @@ foreach ($result as $results){
 								<section class="panel-body" style = "width:100%">';
 									echo'		 
 									<table align="center">
-										<th><tr class = "blue-row">
+										<tr class = "blue-row">
 										<td class = "asset-list"></td>
 										<td class = "asset-list"><strong>Product</strong></td>
 										<td class = "asset-list"><strong>Model</strong></td>
