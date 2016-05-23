@@ -54,6 +54,7 @@ echo'
 						<option value= "meeting">Meeting</option>
 						<option value= "phone call">Phone call</option>
 						<option value= "presentation">Presentation</option>
+						<option value= "other">Other</option>
 					</select><br>
 					
 					<label for="job_description"><small>Job description</small></label>

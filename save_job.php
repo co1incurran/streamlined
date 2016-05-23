@@ -113,7 +113,7 @@ echo'
 <html>
 	<head>
 	<title>Job Created</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
