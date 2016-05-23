@@ -18,7 +18,7 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="php/save_job.php" id="form" method="post" name="form">
+				<form action="save_job.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Add job</h2>
 					<hr>
@@ -33,31 +33,31 @@ echo'
 					
 					<label for="status"><small>Job status</small></label>
 					<select id="status" class="drop_down" name = "status" class="form-control">
-						<option value= "2">Pending</option>
-						<option value= "3">Order Stock</option>
-						<option value= "4">Goods on order</option>
-						<option value= "5">Shipping to site</option>
-						<option value= "6">Ready to start</option>
-						<option value= "7">Ongoing</option>
-						<option value= "7">Complete</option>
+						<option value= "pending">Pending</option>
+						<option value= "order stock">Order Stock</option>
+						<option value= "goods on order">Goods on order</option>
+						<option value= "shipping to site">Shipping to site</option>
+						<option value= "ready to start">Ready to start</option>
+						<option value= "ongoing">Ongoing</option>
+						<option value= "complete">Complete</option>
 					</select><br>
 					
 					<label for="jobType"><small>Job type</small></label>
 					<select id="jobType"class="drop_down"  name = "jobType" class="form-control">
-						<option value= "2">Installation</option>
-						<option value= "3">Inspection</option>
-						<option value= "4">Service</option>
-						<option value= "5">Repair</option>
-						<option value= "6">Delivery</option>
-						<option value= "7">Collection</option>
-						<option value= "8">Training</option>
-						<option value= "9">Meeting</option>
-						<option value= "10">Phone call</option>
-						<option value= "11">Presentation</option>
+						<option value= "installation">Installation</option>
+						<option value= "inspection">Inspection</option>
+						<option value= "service">Service</option>
+						<option value= "repair">Repair</option>
+						<option value= "delivery">Delivery</option>
+						<option value= "collection">Collection</option>
+						<option value= "training">Training</option>
+						<option value= "meeting">Meeting</option>
+						<option value= "phone call">Phone call</option>
+						<option value= "presentation">Presentation</option>
 					</select><br>
 					
 					<label for="job_description"><small>Job description</small></label>
-					<textarea maxlength="300" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
+					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
 					
 					<label for="name"><small>Job number</small></label>
 					<input id="job_number" name="job_number" type="text">
