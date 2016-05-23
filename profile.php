@@ -78,7 +78,7 @@ $('#jobType').on('change',function(){
 '><i class="fa fa-user"></i> Add Customer</button>
                             </li>
                             <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new job" data-placement="bottom" data-content='                                    <form class="form-horizontal" action = "add_job.php" method = "post">
+                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new job" data-placement="bottom" data-content='<form class="form-horizontal" action = "add_job.php" method = "post">
                                         <div class="form-group">
                                             <div class="col-sm-12">
 											Customer type:<br>
@@ -90,7 +90,7 @@ $('#jobType').on('change',function(){
                                             <div class="col-sm-12">
 											Customer:
                                                 <select  class="form-control">
-												
+												<option></option>
 												</select>
                                             </div>
                                         </div>
@@ -248,12 +248,15 @@ $('#jobType').on('change',function(){
 										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history">History</a></li>
 										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes">Notes</a></li>
 										 </ul>
-							<section class="col-md-9 no-padding">
+							<section class="col-md-9 no-padding">';
+							$url = $_SERVER['REQUEST_URI'];
+							$url = str_replace('&', '%26', $url);
+							echo'
 							<ul id = "icons">
-							
-								<li><a id="add_job" class = "icons" href="#"><i class="fa fa-wrench"></i> Add Job </a></li>
-								<li><a id="add_contact" class = "icons" href="#"><i class="fa fa-users"></i> Add Contact </a></a></li>
-								<li><a id="add_asset" class = "icons" href="#"><i class="fa fa-gift"></i> Add Asset </a></a></li>
+								<li><a id="add_job" class = "icons" href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='
+										.$companyid.'"><i class ="fa fa-wrench"></i> Add Job </a></li>
+								<li><a id="add_contact" class = "icons" href="#"><i class="fa fa-users"></i> Add Contact </a></li>
+								<li><a id="add_asset" class = "icons" href="#"><i class="fa fa-gift"></i> Add Asset </a></li>
 							</ul>';
 							
 							/*<div data-role="main" class="ui-content">
