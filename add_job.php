@@ -25,11 +25,11 @@ echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
-					<label for="name"><small>Due date</small></label>
-					<input id="date" name="date" type="date">
+					<label for="date"><small>Due date</small></label>
+					<input id="date" name="date" type="date" required>
 					
-					<label for="name"><small>Time</small></label>
-					<input id="time" name="time" type="time">
+					<label for="time"><small>Time</small></label>
+					<input id="time" name="time" type="time" required>
 					
 					<label for="status"><small>Job status</small></label>
 					<select id="status" class="drop_down" name = "status" class="form-control">
@@ -60,7 +60,7 @@ echo'
 					<label for="job_description"><small>Job description</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
 					
-					<label for="name"><small>Job number</small></label>
+					<label for="job_number"><small>Job number</small></label>
 					<input id="job_number" name="job_number" type="text">
 					
 					<label for="po_number"><small>PO number</small></label>
