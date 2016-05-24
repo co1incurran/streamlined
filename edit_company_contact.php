@@ -46,7 +46,7 @@ if (!empty ($fax)){
 
 $jobtitle = $_GET['jobtitle'];
 if (!empty ($jobtitle)){
-	$line7 = 'placeholder="Job Title" value="'.$jobtitle.'"';
+	$line7 = 'placeholder="Job Title" value="'.ucwords($jobtitle).'"';
 }else{
 	$line7 = 'placeholder="Job Title"';
 }
