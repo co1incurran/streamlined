@@ -255,7 +255,8 @@ $('#jobType').on('change',function(){
 							<ul id = "icons">
 								<li><a id="add_job" class = "icons" href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='
 										.$companyid.'"><i class ="fa fa-wrench"></i> Add Job </a></li>
-								<li><a id="add_contact" class = "icons" href="#"><i class="fa fa-users"></i> Add Contact </a></li>
+								<li><a id="add_contact" class = "icons" href="add_contact.php?url='.$url.'&customerid='.$customerid.'&companyid='
+										.$companyid.'"><i class="fa fa-users"></i> Add Contact </a></li>
 								<li><a id="add_asset" class = "icons" href="#"><i class="fa fa-gift"></i> Add Asset </a></li>
 							</ul>';
 							
