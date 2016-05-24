@@ -101,6 +101,7 @@ if (mysqli_num_rows($result) > 0) {
 $sql3 = "INSERT INTO works_with (workerid, companyid) VALUES ('$workerid', '$companyid'); ";
 
 $result2 = mysqli_query($con,$sql3);
+
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
