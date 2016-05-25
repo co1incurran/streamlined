@@ -106,7 +106,7 @@ echo '<div class="main-section">
 								</header>
 								<section class="panel-body" style = "width:100%">
 									<table align="center">
-										<th><tr class = "blue-row">
+										<thead><tr class = "blue-row">
 										<td class = "asset-list"></td>
 										<td class = "asset-list"><strong>Name</strong></td>
 										<td class = "asset-list"><strong>Phone</strong></td>
@@ -115,7 +115,7 @@ echo '<div class="main-section">
 										<td class = "asset-list"><strong>Fax</strong></td>
 										<td class = "asset-list"><strong>Job Title</strong></td>
 										<td class = "asset-list"><strong>Last Contacetd</strong></td>
-										</tr></th>';
+										</thead>';
 										$i = 1;
 						foreach ($result3 as $results3){
 							if (1 != $i % 2){

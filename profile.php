@@ -242,17 +242,19 @@ $('#jobType').on('change',function(){
 							}
 							
 							echo'
-										<ul id="business-card-menu">
-										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=assets">Assets</a></li>
-										 <li><a href ="profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=contacts">Contacts</a></li>
-										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history">History</a></li>
-										 <li><a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes">Notes</a></li>
-										 </ul>
 							<section class="col-md-9 no-padding">';
 							$url = $_SERVER['REQUEST_URI'];
 							$url = str_replace('&', '%26', $url);
 							echo'
 							<ul id = "icons">
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=assets"><i class="fa fa-cubes"></i> Assets </a></li>';
+							if($companyid != 0){
+								echo'<li><a class = "icons" href ="profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=contacts"><i class="fa fa-book"></i> Contacts </a></li>';
+							}
+							echo'
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> History </a></li>
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes"><i class="fa fa-edit"></i> Notes </a></li>
+								
 								<li><a id="add_job" class = "icons" href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='
 										.$companyid.'"><i class ="fa fa-wrench"></i> Add Job </a></li>';
 										if($companyid != 0){
@@ -295,33 +297,37 @@ $('#jobType').on('change',function(){
 										}
 
 										//check which page to load
-										if($page != 'assets'){
-											require_once 'php/company_contacts.php';
-										}elseif($page != 'contacts'){
+									if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes'){
+										require_once 'php/company_assets.php';
+									}else{
+										if($page === 'assets'){
 											require_once 'php/company_assets.php';
-										}elseif($page = 'history'){
+										}elseif($page === 'contacts'){
+											require_once 'php/company_contacts.php';
+										}/*elseif($page = 'history'){
 											require_once 'php/company_history.php';
 										}elseif($page = 'notes'){
 											require_once 'php/company_notes.php';
-										}
-										
+										}*/
+									}	
 									//if you are looking at private customers
 									}else{
-										if(isset($_GET['page'])) {
-											$page =$_GET['page'];
+											if(isset($_GET['page'])) {
+												$page =$_GET['page'];
+											}else{
+												$page = 'assets';
+											}
+										if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes'){
+											require_once 'php/company_assets.php';
 										}else{
-											$page = 'assets';
-										}
-										
-										//check which page to load
-										if($page = 'assets'){
-											require_once 'php/customer_assets.php';
-										}elseif($page = 'contacts'){
-											require_once 'php/customer_contacts.php';
-										}elseif($page = 'history'){
-											require_once 'php/customer_history.php';
-										}elseif($page = 'notes'){
-											require_once 'php/customer_notes.php';
+											//check which page to load
+											if($page === 'assets'){
+												require_once 'php/customer_assets.php';
+											}elseif($page = 'history'){
+												require_once 'php/customer_history.php';
+											}elseif($page = 'notes'){
+												require_once 'php/customer_notes.php';
+											}
 										}
 									}				
 					?>
