@@ -66,7 +66,7 @@ echo'
 					<input id="manudacturer" name="manufacturer" type="text" maxlenght = "50">
 					
 					<label for="productdescription"><small>Product description</small></label>
-					<input id="productdescription" name="productdescription" type="text">
+					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription" type="text"></textarea>
 					
 					<label for="installdate"><small>Install date</small></label>
 					<input id="installdate" name="installdate" type="date" required>

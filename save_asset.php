@@ -22,86 +22,127 @@ $filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
 $cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
 //echo $cleancustomerid.'<br>';
 
-//First name
-$firstname = $_POST["firstname"];
-$firstname = trim($firstname);
-$firstname = strtolower($firstname);
-$filterfirstname = filter_var($firstname, FILTER_SANITIZE_STRING);
-$cleanfirstname = mysqli_real_escape_string($con, $filterfirstname);
+//job number
+$jobnumber = $_POST["jobnumber"];
+$jobnumber = trim($jobnumber);
+$jobnumber = strtolower($jobnumber);
+$filterjobnumber = filter_var($jobnumber, FILTER_SANITIZE_STRING);
+$cleanjobnumber = mysqli_real_escape_string($con, $filterjobnumber);
 
-//last name
-$lastname = $_POST["lastname"];
-$lastname = trim($lastname);
-$lastname = strtolower($lastname);
-$filterlastname = filter_var($lastname, FILTER_SANITIZE_STRING);
-$cleanlastname = mysqli_real_escape_string($con, $filterlastname);
+//serial number
+$serialnumber = $_POST["serialnumber"];
+$serialnumber = trim($serialnumber);
+$serialnumber = strtolower($serialnumber);
+$filterserialnumber = filter_var($serialnumber, FILTER_SANITIZE_STRING);
+$cleanserialnumber = mysqli_real_escape_string($con, $filterserialnumber);
 
-//phone
-$phone = $_POST["phone"];
-$phone = trim($phone);
-$filterphone = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
-$cleanphone= mysqli_real_escape_string($con, $filterphone);
+//product type
+$type = $_POST["type"];
+$type = trim($type);
+$filtertype = filter_var($type, FILTER_SANITIZE_STRING);
+$cleantype= mysqli_real_escape_string($con, $filtertype);
 
-//mobile
-$mobile = $_POST["mobile"];
-$mobile = trim($mobile);
-$filtermobile = filter_var($mobile, FILTER_SANITIZE_NUMBER_INT);
-$cleanmobile= mysqli_real_escape_string($con, $filtermobile);
+//model
+$model = $_POST["model"];
+$model = trim($model);
+$filtermodel = filter_var($model, FILTER_SANITIZE_STRING);
+$cleanmodel= mysqli_real_escape_string($con, $filtermodel);
 
-//email
-$email = $_POST["email"];
-$email = trim($email);
-$email = strtolower($email);
-$filteremail = filter_var($email, FILTER_SANITIZE_EMAIL);
-$cleanemail = mysqli_real_escape_string($con, $filteremail);
+//manufacturer
+$manufacturer = $_POST["manufacturer"];
+$manufacturer = trim($manufacturer);
+$manufacturer = strtolower($manufacturer);
+$filtermanufacturer = filter_var($manufacturer, FILTER_SANITIZE_STRING);
+$cleanmanufacturer = mysqli_real_escape_string($con, $filtermanufacturer);
 
-//fax
-$fax = $_POST["fax"];
-$fax = trim($fax);
-$filterfax = filter_var($fax, FILTER_SANITIZE_NUMBER_INT);
-$cleanfax= mysqli_real_escape_string($con, $filterfax);
+//product description
+$productdescription = $_POST["productdescription"];
+$productdescription = trim($productdescription);
+$filterproductdescription = filter_var($productdescription, FILTER_SANITIZE_STRING);
+$cleanproductdescription= mysqli_real_escape_string($con, $filterproductdescription);
 
-//job title
-$jobtitle = $_POST["jobtitle"];
-$jobtitle = trim($jobtitle);
-$jobtitle = strtolower($jobtitle);
-$filterjobtitle = filter_var($jobtitle, FILTER_SANITIZE_STRING);
-$cleanjobtitle= mysqli_real_escape_string($con, $filterjobtitle);
+//install date
+$installdate = $_POST["installdate"];
+$installdate = trim($installdate);
+$cleaninstalldate= mysqli_real_escape_string($con, $filterinstalldate);
 
+//inspection due 
+$inspectiondue = $_POST["inspectiondue"];
+$inspectiondue = trim($inspectiondue);
+$cleaninspectiondue= mysqli_real_escape_string($con, $filterinspectiondue);
+
+//service due
+$servicedue = $_POST["servicedue"];
+$servicedue = trim($servicedue);
+$cleanservicedue= mysqli_real_escape_string($con, $filterservicedue);
+
+//location
+$location = $_POST["location"];
+$location = trim($location);
+$location = strtolower($location);
+$filterlocation = filter_var($location, FILTER_SANITIZE_STRING);
+$cleanlocation = mysqli_real_escape_string($con, $filterlocation);
+
+//contract type
+$contracttype = $_POST["contracttype"];
+$contracttype = trim($contracttype);
+$contracttype = strtolower($contracttype);
+$filtercontracttype = filter_var($contracttype, FILTER_SANITIZE_STRING);
+$cleancontracttype = mysqli_real_escape_string($con, $filtercontracttype);
+
+//contract renewal date
+$renewaldate = $_POST["renewaldate"];
+$renewaldate = trim($renewaldate);
+$cleanrenewaldate= mysqli_real_escape_string($con, $filterrenewaldate);
+
+//maintenance funded by
+$fundedby = $_POST["fundedby"];
+$fundedby = trim($fundedby);
+$fundedby = strtolower($fundedby);
+$filterfundedby = filter_var($fundedby, FILTER_SANITIZE_STRING);
+$cleanfundedby = mysqli_real_escape_string($con, $filterfundedby);
+
+//put the asset info into the stock table
+$sql1 "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, inspection_date, service_date, location, contract_renewal_date, contract_type, funded_by) VALUES ('$cleanserialnumber', '$cleantype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$cleaninstalldate', '$cleaninspectiondue', '$cleanservicedue', '$cleanlocation', '$cleanrenewaldate', '$cleancontracttype', '$cleanfundedby')"
+$res1 = mysqli_query($con,$sql1);
 /*
-//echo $creationdate;
-echo $cleanjobtype.'<br>';
-echo $cleanjobdescription.'<br>';
-echo $cleanstatus.'<br>';
-echo $cleandate.'<br>';
-//echo $cleantime.'<br>';
-echo $creationdate.'<br>';
-echo $cleansagereference.'<br>';
-echo $cleanponumber.'<br>';
-echo $cleanjobnumber.'<br>';*/
+//get the stock id of the asset
+	$sql3 = "SELECT stockid FROM stock ORDER BY stockid DESC LIMIT 1; ";
+	$res3 = mysqli_query($con,$sql3);
+	$row = mysqli_fetch_assoc($res3);
+    $stockid = $row["stockid"];
 
-$sql = "INSERT INTO workers (first_name, last_name, phone_num, mobile_phone_num, email, fax, job_title) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanjobtitle'); ";
-
-$res = mysqli_query($con,$sql);
-//echo $sql;
-
-$sql2 = "SELECT workerid FROM workers ORDER BY workerid DESC LIMIT 1; ";
-$result = mysqli_query($con,$sql2);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        $workerid = $row["workerid"];
-		//echo $workerid;
-		//echo $companyid;
-    }
-} else {
-    echo "0 results";
+//if an existing job numbre has been choosen
+if($jobnumber != "not available"){
+	//get the jobid that corresponds to that job number
+	$sql2 = "SELECT jobid FROM jobs WHERE job_number = '$jobnumber';";
+	$res2 = mysqli_query($con,$sql2);
+	$row = mysqli_fetch_assoc($res2);
+    $jobid = $row["jobid"];
+	
+}else{
+	//this creates a row in the job table for the asset
+	$sql5 = "INSERT INTO jobs (job_number) VALUES ('$job_number');";
+	$res5 = mysqli_query($con,$sql5);
+	
+	//get the jobid of the newly created job
+	$sql6 = "SELECT jobid FROM jobs ORDER BY jobid DESC LIMIT 1; ";
+	$res6 = mysqli_query($con,$sql6);
+	$row = mysqli_fetch_assoc($res6);
+    $jobid = $row["jobid"];
+	
+	//this check to assign it to a private customer or a company
+	if($customerid != 0){
+		$sql7 = "INSERT INTO customer_requires (jobid, customerid) VALUES('$jobid', '$customerid')"
+	}else{
+		$sql7 = "INSERT INTO company_requires (companyid, jobid) VALUES('$companyid', '$jobid')"
+	}
+	$res7 = mysqli_query($con,$sql7);
 }
-
-$sql3 = "INSERT INTO works_with (workerid, companyid) VALUES ('$workerid', '$companyid'); ";
-
-$result2 = mysqli_query($con,$sql3);
-
+//assign the asset to a job by putting stockid and jobid into the 'uses' table
+	$sql4 = "INSERT INTO uses (stockid, jobid) VALUES ('$stockid', '$jobid');"
+    $res4 = mysqli_query($con,$sql4);
+*/
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
