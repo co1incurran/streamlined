@@ -44,7 +44,9 @@ echo'
 					<select id="jobnumber" class="drop_down" name = "jobnumber" class="form-control" required>';
 					if (mysqli_num_rows($result) > 0) {
 						while($row = mysqli_fetch_assoc($result)) {
+							if(!empty($row["job_number"])){
 							echo'<option value="'.$row["job_number"].'">'.$row["job_number"].'</option>';
+							}
 						}
 						echo '<option value= "not available">Not available</option>';
 					}else{
@@ -96,7 +98,7 @@ echo'
 					<input id="renewaldate" name="renewaldate" type="date">
 					
 					<label for="fundedby"><small>Maintenance funded by</small></label>
-					<input id="fundedby" name="renewaldate" type="text" required>
+					<input id="fundedby" name="fundedby" type="text" maxlength = "50" required>
 					
 					<input type="submit" id="submit" value="Save">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
