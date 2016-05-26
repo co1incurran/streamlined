@@ -1,6 +1,6 @@
 <?php
 define("DB_HOST", "127.0.0.1");
-define("DB_USER", "user");//remember to chanege these when all is working
+define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
  
@@ -70,17 +70,7 @@ $cleansagereference= mysqli_real_escape_string($con, $filtersagereference);
 
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
-/*
-//echo $creationdate;
-echo $cleanjobtype.'<br>';
-echo $cleanjobdescription.'<br>';
-echo $cleanstatus.'<br>';
-echo $cleandate.'<br>';
-//echo $cleantime.'<br>';
-echo $creationdate.'<br>';
-echo $cleansagereference.'<br>';
-echo $cleanponumber.'<br>';
-echo $cleanjobnumber.'<br>';*/
+
 
 $sql = "INSERT INTO jobs (job_type, job_description, job_status, due_date, time, creation_date, sage_reference, po_number, job_number) VALUES ('$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$cleantime', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber'); ";
 
