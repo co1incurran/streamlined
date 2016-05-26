@@ -108,16 +108,16 @@ echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="stockid" id="stockid" value="'.$stockid.'">
 					<label for="name"><small>Product</small></label>
-					<input id="name" name="name"' .$line1. 'type="text">
+					<input id="name" name="name"' .$line1. 'type="text" required>
 					
 					<label for="model"><small>Model</small></label>
-					<input id="model" name="model"' .$line2. 'type="text">
+					<input id="model" name="model"' .$line2. 'type="text" required>
 					
 					<label for="manufacturer"><small>Manufacturer</small></label>
-					<input id="manufacturer" name="manufacturer"' .$line3. 'type="text">
+					<input id="manufacturer" name="manufacturer"' .$line3. 'type="text" required>
 					
 					<label for="serialid"><small>Serial Number</small></label>
-					<input id="serialid" name="serialid"' .$line12. 'type="text">
+					<input id="serialid" name="serialid"' .$line12. 'type="text" required>
 					
 					<label for="installationdate"><small>Install Date</small></label>
 					<input id="installationdate" name="installationdate"' .$line4. 'type="date">
