@@ -304,9 +304,9 @@ $('#jobType').on('change',function(){
 											require_once 'php/company_assets.php';
 										}elseif($page === 'contacts'){
 											require_once 'php/company_contacts.php';
-										}/*elseif($page = 'history'){
-											require_once 'php/company_history.php';
-										}elseif($page = 'notes'){
+										}elseif($page = 'history'){
+											require_once 'php/history.php';
+										}/*elseif($page = 'notes'){
 											require_once 'php/company_notes.php';
 										}*/
 									}	
