@@ -1,4 +1,11 @@
 <?php
+define("DB_HOST", "127.0.0.1");
+define("DB_USER", "user");
+define("DB_PASSWORD", "1234");
+define("DB_DATABASE", "database");
+ 
+$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
 $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
@@ -57,6 +64,23 @@ echo'
 						<option value= "other">Other</option>
 					</select><br>
 					
+					<label for="assign"><small>Assign to</small></label>
+					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
+						$sql = "SELECT userid FROM users;";
+						$res = mysqli_query($con,$sql);
+
+						if (mysqli_num_rows($result) > 0) {
+						while($row = mysqli_fetch_assoc($result)) {
+							if(!empty($row["userid"])){
+							echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							}
+						}
+					}else{
+						echo '<option value= "not available">Not available</option>';
+					}
+					echo'
+					</select><br>
+					
 					<label for="job_description"><small>Job description</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
 					
@@ -83,4 +107,5 @@ echo'
 	</script>
 <!-- Body Ends Here -->
 </html>';
+mysqli_close($con);
 ?>
