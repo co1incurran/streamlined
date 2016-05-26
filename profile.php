@@ -252,8 +252,10 @@ $('#jobType').on('change',function(){
 								echo'<li><a class = "icons" href ="profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=contacts"><i class="fa fa-book"></i> Contacts </a></li>';
 							}
 							echo'
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> History </a></li>
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> Job History </a></li>
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-area-chart"></i> Sales History </a></li>
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes"><i class="fa fa-edit"></i> Notes </a></li>
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=salestask"><i class="fa fa-cart-plus"></i> Add Sales Task </a></li>
 								
 								<li><a id="add_job" class = "icons" href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='
 										.$companyid.'"><i class ="fa fa-wrench"></i> Add Job </a></li>';
@@ -313,7 +315,7 @@ $('#jobType').on('change',function(){
 									//if you are looking at private customers
 									}else{
 											if(isset($_GET['page'])) {
-												$page =$_GET['page'];
+												$page = $_GET['page'];
 											}else{
 												$page = 'assets';
 											}
@@ -324,7 +326,7 @@ $('#jobType').on('change',function(){
 											if($page === 'assets'){
 												require_once 'php/customer_assets.php';
 											}elseif($page = 'history'){
-												require_once 'php/customer_history.php';
+												require_once 'php/history.php';
 											}elseif($page = 'notes'){
 												require_once 'php/customer_notes.php';
 											}

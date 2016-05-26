@@ -69,8 +69,8 @@ echo'
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 
-						if (mysqli_num_rows($result) > 0) {
-						while($row = mysqli_fetch_assoc($result)) {
+						if (mysqli_num_rows($res) > 0) {
+						while($row = mysqli_fetch_assoc($res)) {
 							if(!empty($row["userid"])){
 							echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
 							}

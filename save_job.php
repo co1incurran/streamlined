@@ -20,6 +20,7 @@ $customerid = trim($customerid);
 $filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
 $cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
 //echo $cleancustomerid.'<br>';
+
 //DUE DATE
 $date = $_POST["date"];
 $date = trim($date);
@@ -43,6 +44,12 @@ $jobType = trim($jobType);
 $jobType = strtolower($jobType);
 $filterjobtype = filter_var($jobType, FILTER_SANITIZE_STRING);
 $cleanjobtype= mysqli_real_escape_string($con, $filterjobtype);
+
+//assigned to
+$assigned = $_POST["assign"];
+$assigned = trim($assigned);
+$filterassigned = filter_var($assigned, FILTER_SANITIZE_STRING);
+$cleanassigned = mysqli_real_escape_string($con, $filterassigned);
 
 //JOB DESCRIPTION
 $job_description = $_POST["job_description"];
@@ -89,14 +96,17 @@ if (mysqli_num_rows($result) > 0) {
 }
 if($customerid != 0){
 	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$customerid'); ";
-	echo $customerid;
-	echo '<br>'. $jobid;
+	//echo $customerid;
+	//echo '<br>'. $jobid;
 }else{
 	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$companyid', '$jobid'); ";
 	//echo $companyid;
 	//echo '<br>'. $jobid;
 }
 $result2 = mysqli_query($con,$sql3);
+
+$sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
+$result4 = mysqli_query($con,$sql4);
 mysqli_close($con);
 echo'
 <!DOCTYPE html>
