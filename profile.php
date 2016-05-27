@@ -184,7 +184,7 @@ $('#jobType').on('change',function(){
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview </a></li>
                                 <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity </a></li>
-                                <li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
+                                <li class="active"><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="notes.html"><i class="fa fa-file-text"></i> Notes </a></li>
                             </ul>
@@ -253,19 +253,15 @@ $('#jobType').on('change',function(){
 							}
 							echo'
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> Job History </a></li>
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-area-chart"></i> Sales History </a></li>
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=notes"><i class="fa fa-edit"></i> Notes </a></li>
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=salestask"><i class="fa fa-cart-plus"></i> Add Sales Task </a></li>
-								
-								<li><a id="add_job" class = "icons" href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='
-										.$companyid.'"><i class ="fa fa-wrench"></i> Add Job </a></li>';
-										if($companyid != 0){
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-area-chart"></i> Activity History </a></li>
+								<li><a id="add_asset" class = "icons" href="add_asset.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-gift"></i> Add Asset </a></li>';
+								if($companyid != 0){
 											echo '<li><a id="add_contact" class = "icons" href="add_contact.php?url='.$url.'&customerid='.$customerid.'&companyid='
 											.$companyid.'"><i class="fa fa-users"></i> Add Contact </a></li>';
-										}
+								}
 								echo'
-								<li><a id="add_asset" class = "icons" href="add_asset.php?url='.$url.'&customerid='.$customerid.'&companyid='
-											.$companyid.'"><i class="fa fa-gift"></i> Add Asset </a></li>
+								<li><a id="add_job" class = "icons" href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class ="fa fa-wrench"></i> Add Job </a></li>
+								<li><a class = "icons" href = "add_activity.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-gears"></i> Add Activity </a></li>
 							</ul>';
 							
 							/*<div data-role="main" class="ui-content">
