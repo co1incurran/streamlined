@@ -85,22 +85,6 @@ echo'
 	<script type="text/javascript">
 	window.onload = div_show();
 	</script>
-	<script type = "text/javascript">
-		$("#activitytype").on("change", function(){
-			console.log($("#activitytype").val());
-			$("#activitytype2").html("");
-			if($("#activitytype").val()==15){
-				$("#activitytype2").append("<option value="19">19</option>");
-				$("#activitytype2").append("<option value="20">20</option>");
-				$("#activitytype2").append("<option value="21">21</option>");
-			}else{
-				$("#activitytype2").append("<option value="6">6</option>");
-				$("#activitytype2").append("<option value="7">7</option>");
-				$("#activitytype2").append("<option value="8">8</option>");
-				$("#activitytype2").append("<option value="9">9</option>");
-			}
-		});
-	</script>
 	
 <!-- Body Ends Here -->
 </html>';

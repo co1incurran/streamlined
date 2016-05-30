@@ -33,6 +33,12 @@ $activitydescription = trim($activitydescription);
 $filteractivitydescription = filter_var($activitydescription, FILTER_SANITIZE_STRING);
 $cleanactivitydescription = mysqli_real_escape_string($con, $filteractivitydescription);
 
+//assigned to
+$assign = $_POST["assign"];
+$assign = trim($assign);
+$filterassign = filter_var($assign, FILTER_SANITIZE_STRING);
+$cleanassign = mysqli_real_escape_string($con, $filterassign);
+
 //due date
 $date = $_POST["date"];
 $date = trim($date);
@@ -45,54 +51,30 @@ $cleantime = mysqli_real_escape_string($con, $time);
 
 
 //put the activity into the activty table
-$sql1 = "INSERT INTO activity (assigned, type, description, due_date, time) VALUES ('$cleanserialnumber', '$cleantype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$cleaninstalldate', '$cleaninspectiondue', '$cleanservicedue', '$cleanlocation', '$cleanrenewaldate', '$cleancontracttype', '$cleanfundedby');";
+$sql1 = "INSERT INTO activity (type, description, due_date, time) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime');";
 $res1 = mysqli_query($con,$sql1);
-//echo $sql1;
+echo $sql1;
 
-//get the stockid of the asset
-	$sql3 = "SELECT stockid FROM stock ORDER BY stockid DESC LIMIT 1; ";
-	$res3 = mysqli_query($con,$sql3);
-	$row = mysqli_fetch_assoc($res3);
-    $stockid = $row["stockid"];
-	//echo $stockid.'<br>';
-
-//if an existing job number has been choosen
-if($jobnumber != "not available"){
-	//get the jobid that corresponds to that job number
-	$sql2 = "SELECT jobid FROM jobs WHERE job_number = '$jobnumber';";
+//get the activityid of the asset
+	$sql2 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
 	$res2 = mysqli_query($con,$sql2);
 	$row = mysqli_fetch_assoc($res2);
-    $jobid = $row["jobid"];
-	//echo $jobnumber.'<br>';
-	//echo $jobid.'<br>';
+    $activityid = $row["activityid"];
+	//echo '<br>' .$activityid;
 	
-}else{
-	//this creates a row in the job table for the asset
-	$sql5 = "INSERT INTO jobs (job_number) VALUES ('$jobnumber');";
-	$res5 = mysqli_query($con,$sql5);
+//add the activity to the assigned activity table
+	$sql3 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$cleanassign', '$activityid');";
+	$res3 = mysqli_query($con,$sql3);
+	echo $sql3;
 	
-	//get the jobid of the newly created job
-	$sql6 = "SELECT jobid FROM jobs ORDER BY jobid DESC LIMIT 1; ";
-	$res6 = mysqli_query($con,$sql6);
-	$row = mysqli_fetch_assoc($res6);
-    $jobid = $row["jobid"];
-	//echo $jobnumber.'<br>';
-	//echo $jobid.'<br>';
-	
-	//this check to assign it to a private customer or a company
-	if($customerid != 0){
-		$sql7 = "INSERT INTO customer_requires (jobid, customerid) VALUES('$jobid', '$customerid')";
+	if($companyid !=0){
+		$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
+		echo $sql4;
 	}else{
-		$sql7 = "INSERT INTO company_requires (companyid, jobid) VALUES('$companyid', '$jobid')";
+		$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
+		echo $sql4;
 	}
-	$res7 = mysqli_query($con,$sql7);
-	
-}
-
-//assign the asset to a job by putting stockid and jobid into the 'uses' table
-	$sql4 = "INSERT INTO uses (stockid, jobid) VALUES ('$stockid', '$jobid');";
-    $res4 = mysqli_query($con,$sql4);
-	//echo $stockid;
+	$res4 = mysqli_query($con,$sql4);
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
