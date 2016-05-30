@@ -35,25 +35,12 @@ echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
-					
-					<label for="type"><small>Type</small></label><br>
-					<select id="type"class="drop_down"  name = "type" class="form-control">
-						<option value= "phone call">Phone call</option>
-						<option value= "door step">Door step</option>
-						<option value= "left brochure">Left brochure</option>
-						<option value= "left business card">Left business card</option>
-						<option value= "courtesy call">Courtesy call</option>
-						<option value= "demo">Demo</option>
-						<option value= "c.p.d">C.P.D</option>
-						<option value= "followup meeting">Followup meeting</option>
-						<option value= "other">Other</option>
-					</select><br>
-										
+															
 					<label for="result"><small>Result</small></label><br>
 					<select id="result" class="drop_down"  name = "result" class="form-control">
+						<option value= "on going">On going</option>
+						<option value= "proceed to next stage">Proceed to next stage</option>
 						<option value= "no interest">No interest</option>
-						<option value= "not available">Not available</option>
-						<option value= "got an appointment">Got an appointment</option>
 						<option value= "other">Other</option>
 					</select>
 					
@@ -63,11 +50,11 @@ echo'
 					<label for="next_action"><small>Next action</small></label>
 					<select id="next_action" class="drop_down"  name = "next_action" class="form-control">
 						<option value= "no further action">No further action</option>
-						<option value= "call again">Call again</option>
-						<option value= "schedule qualify meeting">Schedule qualify meeting</option>
-						<option value= "schedule presentation meeting">Schedule presentation meeting</option>
-						<option value= "schedule quote meeting">Schedule quote meeting</option>
-						<option value= "schedule close meeting">Schedule close meeting</option>
+						<option value= "contact again">Contact again</option>
+						<option value= "qualifying">Schedule qualify meeting</option>
+						<option value= "presentation">Schedule presentation meeting</option>
+						<option value= "quotation">Schedule quote meeting</option>
+						<option value= "close meeting">Schedule close meeting</option>
 					</select><br>
 					
 					<label for="date"><small>Due date</small></label>

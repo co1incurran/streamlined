@@ -36,7 +36,7 @@ echo'
 					<label for="activitytype"><small>Activity type</small></label>
 					<select id="activitytype"class="drop_down"  name = "activitytype" class="form-control">
 						<option value= "prospecting">Prospecting</option>
-						<option value= "qualifying">Qualifying call</option>
+						<option value= "qualifying">Qualifying</option>
 						<option value= "presentation">Presentation</option>
 						<option value= "quotation">Quotation</option>
 						<option value= "closing meeting">Closing meeting</option>

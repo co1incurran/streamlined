@@ -197,7 +197,7 @@
 										
 										<?php
 										
-											require_once 'table_test2.php';
+											require_once 'activity_list.php';
 													
 										?>
                                             <!--<ul class="listing list-view">
