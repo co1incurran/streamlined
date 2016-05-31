@@ -7,27 +7,66 @@ define("DB_DATABASE", "database");
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 $activityid = $_GET['activityid'];
+//echo $activityid;
 $activityid = mysqli_real_escape_string($con ,$activityid);
 $sql = "SELECT * FROM activity WHERE activityid = $activityid; ";
- 
 $res = mysqli_query($con,$sql);
+$row = mysqli_fetch_assoc($res);
 
-$result = array();
- 
-while($row = mysqli_fetch_array($res)){
-	array_push($result,
-		array('activityid'=>$row[0],
-		'type'=>$row[1],
-		'description'=>$row[2],
-		'due_date'=>$row[3],
-		'time'=>$row[4]
-	));
-}
-//print_r (array_values($result));
-
+$complete = $row["complete"];
+$type = ucwords($row["type"]);
+$prospectingType = ucwords($row["prospecting_type"]);
+$description = $row["description"];
+$dueDate = $row["due_date"];
+$dueDate = date("d.m.Y", strtotime($dueDate));
+$time = $row["time"];
+$result = ucwords($row["result"]);
+$resultDescription = $row["result_description"];
+$creationDate = $row["creation_date"];
+$creationDate = date("d.m.Y", strtotime($creationDate));
+//echo $creationDate;
+echo ' 
+<table>
+	<tbody>';
+	if(!empty($complete)|| !$complete ==''){
+		if($complete == 0){
+			$complete = 'Incomplete';
+		}else{
+			$complete = 'Complete';
+		}
+		echo'<tr><td>Status:</td><td>'.$complete.'</td></tr>';
+	}
+	if(!empty($type)|| !$type ==''){
+		echo'<tr><td>Type:</td><td>'.$type.'</td></tr>';
+	}
+	if(!empty($prospectingType)|| !$prospectingType ==''){
+		echo'<tr><td>Prospecting type:</td><td>'.$prospectingType.'</td></tr>';
+	}
+	if(!empty($description)|| !$description ==''){
+		echo'<tr><td>Description:</td><td>'.$description.'</td></tr>';
+	}
+	if(!empty($dueDate)|| !$dueDate ==''){
+		echo'<tr><td>Due date:</td><td>'.$dueDate.'</td></tr>';
+	}
+	if(!empty($time)|| !$time ==''){
+		echo'<tr><td>Time:</td><td>'.$time.'</td></tr>';
+	}
+	if(!empty($result)|| !$result ==''){
+		echo'<tr><td>Type:</td><td>'.$result.'</td></tr>';
+	}
+	if(!empty($resultDescription)|| !$resultDescription ==''){
+		echo'<tr><td>Result description:</td><td>'.$resultDescription.'</td></tr>';
+	}
+	if(!empty($creationDate)|| !$creationDate ==''){
+		echo'<tr><td>Creation date:</td><td>'.$creationDate.'</td></tr>';
+	}
+		echo'
+	<tbody>
+<table>';
+		/*
 ?>	 
 
-	
+
 <!-- ... -->
 <table id="activityList" class="tablesorter" align="center">
 	<thead>
@@ -86,9 +125,10 @@ while($row = mysqli_fetch_array($res)){
 				</a></td>
 				<td><?php echo ucwords($row['county']); ?></td>
 				
-			</tr>
-	<?php
-		}
+			</tr>*/
+	//<?php
+		//}
+		mysqli_close($con);
 	?>
 		</tbody>
 	</table>
