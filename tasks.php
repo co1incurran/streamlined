@@ -201,7 +201,8 @@
 										<?php
 											if(isset($_GET['details'])) {
 												$details = $_GET['details'];
-												if($details = 'true'){
+												if($details === 'true'){
+													$activityid = $_GET['activityid'];
 													require_once 'activity_details.php';
 												}else{
 												require_once 'activity_list.php';
