@@ -85,8 +85,13 @@ while($row = mysqli_fetch_array($res)){
 				?>
 				</a></td>
 				<td><?php echo ucwords($row['county']); ?></td>
-				<td id= "complete-button"><a href="#" id="submit">Complete</a></td>
-				
+				<?php
+					if($results['type'] == 'prospecting'){
+						echo'<td id= "complete-button"><a href="prospecting_results.php" id="submit">Complete</a></td>';
+					}else{
+						echo'<td id= "complete-button"><a href="activity_results.php" id="submit">Complete</a></td>';
+					}
+				?>
 			</tr>
 	<?php
 		}
