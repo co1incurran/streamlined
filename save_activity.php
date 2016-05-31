@@ -49,11 +49,14 @@ $time = $_POST["time"];
 $time = trim($time);
 $cleantime = mysqli_real_escape_string($con, $time);
 
+//get the current date 
+$dt = new DateTime();
+$creationdate = $dt->format('Y-m-d');
 
 //put the activity into the activty table
-$sql1 = "INSERT INTO activity (type, description, due_date, time) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime');";
+$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate');";
 $res1 = mysqli_query($con,$sql1);
-echo $sql1;
+//echo $sql1;
 
 //get the activityid of the asset
 	$sql2 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
@@ -65,14 +68,14 @@ echo $sql1;
 //add the activity to the assigned activity table
 	$sql3 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$cleanassign', '$activityid');";
 	$res3 = mysqli_query($con,$sql3);
-	echo $sql3;
+	//echo $sql3;
 	
 	if($companyid !=0){
 		$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-		echo $sql4;
+		//echo $sql4;
 	}else{
 		$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-		echo $sql4;
+		//echo $sql4;
 	}
 	$res4 = mysqli_query($con,$sql4);
 mysqli_close($con);

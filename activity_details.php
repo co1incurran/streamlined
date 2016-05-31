@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
 <?php
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
@@ -7,7 +6,9 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = 0; ";
+$activityid = $_GET['activityid'];
+$activityid = mysqli_real_escape_string($con ,$activityid);
+$sql = "SELECT * FROM activity WHERE activityid = $activityid; ";
  
 $res = mysqli_query($con,$sql);
 

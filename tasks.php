@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
+<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -196,9 +199,16 @@
                                         <section class="panel-body">
 										
 										<?php
-										
-											require_once 'activity_list.php';
-													
+											if(isset($_GET['details'])) {
+												$details = $_GET['details'];
+												if($details = 'true'){
+													require_once 'activity_details.php';
+												}else{
+												require_once 'activity_list.php';
+												}
+											}else{
+												require_once 'activity_list.php';
+											}
 										?>
                                             <!--<ul class="listing list-view">
                                                 <li class="tick">
@@ -260,13 +270,20 @@
 
     <!-- render blocking scripts -->
 
-    <!-- jQuery JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- jQuery JS 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <!-- Main Script -->
     <script src="js/global.js"></script>
+	<script>
+    $(document).ready(function() 
+        { 
+            $("#activityList").tablesorter(); 
+        } 
+    );
+    </script>
 </body>
 </html>
