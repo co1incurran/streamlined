@@ -156,6 +156,7 @@ while($row = mysqli_fetch_array($res)){
 			</tr>
 	<?php
 		}
+		mysqli_close($con);
 	?>
 		</tbody>
 	</table>

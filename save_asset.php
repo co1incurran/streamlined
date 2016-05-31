@@ -165,7 +165,8 @@ if($jobnumber != "not available"){
     $res4 = mysqli_query($con,$sql4);
 	//echo $stockid;
 mysqli_close($con);
-echo'<!DOCTYPE html>
+echo'
+<!DOCTYPE html>
 <html>
 	<head>
 	<title>Asset added</title>
@@ -190,6 +191,12 @@ echo'<!DOCTYPE html>
 		</div>
 	</div>
 	</body>
+	<script type="text/javascript">
+	function goBack() {
+		window.history.go(-2);
+	}
+	window.onload = div_show();
+	</script>
 <!-- Body Ends Here -->
 </html>';
 ?>

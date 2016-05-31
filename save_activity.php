@@ -82,7 +82,7 @@ mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
 	<head>
-	<title>Asset added</title>
+	<title>Activity added</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -95,7 +95,7 @@ echo'<!DOCTYPE html>
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Asset added</h2>
+					<h2>Activity added</h2>
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
 				</form>
@@ -104,6 +104,12 @@ echo'<!DOCTYPE html>
 		</div>
 	</div>
 	</body>
+	<script type="text/javascript">
+	function goBack() {
+		window.history.go(-2);
+	}
+	window.onload = div_show();
+	</script>
 <!-- Body Ends Here -->
 </html>';
 ?>

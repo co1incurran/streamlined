@@ -12,6 +12,12 @@ table.tablesorter {
 tr td{
 	background-color: white;
 }
+tr td#td-header.asset-list {
+	background-color: rgb(176,212,229);
+}
+td#complete-button{
+	text-align: center;
+}
 tr.whitte-row td{
 	background-color: #FFF;
 }

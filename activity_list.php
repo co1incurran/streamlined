@@ -40,6 +40,7 @@ while($row = mysqli_fetch_array($res)){
 			<th class = "asset-list"><strong>Customer</strong></th>
 			
 			<th class = "asset-list"><strong>County</strong></th>
+			<td id = "td-header" class = "asset-list"></td>
 			
 		</tr>
 	</thead>
@@ -84,10 +85,12 @@ while($row = mysqli_fetch_array($res)){
 				?>
 				</a></td>
 				<td><?php echo ucwords($row['county']); ?></td>
+				<td id= "complete-button"><a href="#" id="submit">Complete</a></td>
 				
 			</tr>
 	<?php
 		}
+		mysqli_close($con);
 	?>
 		</tbody>
 	</table>
