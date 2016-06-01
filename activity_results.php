@@ -54,6 +54,7 @@ echo'
 						<option value= "presentation">Schedule presentation meeting</option>
 						<option value= "quotation">Schedule quote meeting</option>
 						<option value= "close meeting">Schedule close meeting</option>
+						<option value= "followup meeting">Followup meeting</option>
 					</select><br>
 					
 					<label for="nextactivity_description"><small>Further details</small></label>

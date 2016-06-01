@@ -72,43 +72,63 @@ $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
 //put the data into the completed activity row in the activty table
-$sql1 = "INSERT INTO activity (complete, prospecting_type, result, result_description, next_action) VALUES (1,'$cleantype', '$cleanresult', '$cleandescription', '$cleannextaction') WHERE activityid = $activityid;";
-//$res1 = mysqli_query($con,$sql1);
-echo $sql1.'<br>';
+$sql1 = "UPDATE activity SET complete = 1, prospecting_type = '$cleantype', result = '$cleanresult', result_description= '$cleandescription', next_action = '$cleannextaction' WHERE activityid = $activityid;";
+$res1 = mysqli_query($con,$sql1);
+//echo $sql1.'<br>';
 //make a new activity for the next action data
-
-//put the activity into the activty table
-$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate');";
-//$res2 = mysqli_query($con,$sql2);
-echo $sql2.'<br>';
-
-//get the activityid of the asset
-	$sql3 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
-	$res3 = mysqli_query($con,$sql3);
-	$row = mysqli_fetch_assoc($res3);
-    $activityid = $row["activityid"];
-	echo $activityid.'<br>';
-	
-//add the activity to the assigned activity table
-	$sql4 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('Colin', '$activityid');";
-	//$res4 = mysqli_query($con,$sql4);
-	echo $sql4;
-	
-	if($companyid !=0){
-		$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-		echo $sql4;
-	}else{
-		$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-		echo $sql4;
-		echo $customerid;
-		echo $companyid;
+if($cleannextaction != 'no further action'){
+	//this changes the strings to be in the same format as new activities
+	if($cleannextaction == 'contact again'){
+		$cleannextaction = 'prospecting';
 	}
-	//$res4 = mysqli_query($con,$sql4);
+	if($cleannextaction == 'schedule qualify meeting'){
+		$cleannextaction = 'qualifying';
+	}
+	if($cleannextaction == 'schedule presentation meeting'){
+		$cleannextaction = 'presentation';
+	}
+	if($cleannextaction == 'schedule quote meeting'){
+		$cleannextaction = 'quotaion';
+	}
+	if($cleannextaction == 'schedule close meeting'){
+		$cleannextaction = 'closing meeting';
+	}
+	if($cleannextaction == 'followup meeting'){
+		$cleannextaction = 'followup meeting';
+	}
+	//put the activity into the activty table
+	$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate');";
+	$res2 = mysqli_query($con,$sql2);
+	//echo $sql2.'<br>';
+
+	//get the activityid of the asset
+		$sql3 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
+		$res3 = mysqli_query($con,$sql3);
+		$row = mysqli_fetch_assoc($res3);
+		$activityid = $row["activityid"];
+		//echo $activityid.'<br>';
+		
+	//add the activity to the assigned activity table
+		$sql4 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('Colin', '$activityid');";
+		$res4 = mysqli_query($con,$sql4);
+		//echo $sql4;
+		
+		if($companyid !=0){
+			$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
+			//echo $sql4;
+		}else{
+			$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
+			//echo $sql4;
+			//echo $customerid;
+			//echo $companyid;
+		}
+		$res4 = mysqli_query($con,$sql4);
+}
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
 	<head>
-	<title>Asset added</title>
+	<title>Activity added</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -121,7 +141,7 @@ echo'<!DOCTYPE html>
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Asset added</h2>
+					<h2>Activity added</h2>
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
 				</form>
@@ -130,6 +150,12 @@ echo'<!DOCTYPE html>
 		</div>
 	</div>
 	</body>
+	<script type="text/javascript">
+	function goBack() {
+		window.history.go(-2);
+	}
+	window.onload = div_show();
+	</script>
 <!-- Body Ends Here -->
 </html>';
 ?>

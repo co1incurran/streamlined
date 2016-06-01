@@ -62,11 +62,12 @@ echo'
 					<label for="next_action"><small>Next action</small></label>
 					<select id="next_action" class="drop_down"  name = "next_action" class="form-control">
 						<option value= "no further action">No further action</option>
-						<option value= "call again">Call again</option>
-						<option value= "schedule qualify meeting">Schedule qualify meeting</option>
-						<option value= "schedule presentation meeting">Schedule presentation meeting</option>
-						<option value= "schedule quote meeting">Schedule quote meeting</option>
-						<option value= "schedule close meeting">Schedule close meeting</option>
+						<option value= "contact again">Contact again</option>
+						<option value= "qualifying">Schedule qualify meeting</option>
+						<option value= "presentation">Schedule presentation meeting</option>
+						<option value= "quotation">Schedule quote meeting</option>
+						<option value= "close meeting">Schedule close meeting</option>
+						<option value= "followup meeting">Followup meeting</option>
 					</select><br>
 					
 					<label for="nextactivity_description"><small>Further details</small></label>

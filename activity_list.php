@@ -10,7 +10,7 @@ $url = str_replace('&', '%26', $url);
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = 0; ";
+$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
  
 $res = mysqli_query($con,$sql);
 
