@@ -4,7 +4,10 @@ define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
- 
+
+$url = $_SERVER['REQUEST_URI'];
+$url = str_replace('&', '%26', $url);
+
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 $sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = 0; ";
@@ -65,7 +68,36 @@ while($row = mysqli_fetch_array($res)){
 			}
 	?>
 			<tr>
-				<td><a href = "tasks.php?details=true&activityid=<?php echo $results['activityid'] ?>" class="name"><?php echo ucwords($results['type']); ?></td>
+				<td>
+				<?php 
+					if ($results['type'] == 'prospecting'){
+						echo '<i class="fa fa-binoculars"> </i>';
+					}
+					if ($results['type'] == 'qualifying'){
+						echo '<i class="fa fa-spinner"></i>';
+					}
+					if ($results['type'] == 'presentation'){
+						echo '<i class="fa fa-bar-chart"></i>';
+					}
+					if ($results['type'] == 'quotation'){
+						echo '<i class="fa fa-tag"></i>';
+					}
+					if ($results['type'] == 'closing meeting'){
+						echo '<i class="fa fa-lock"></i>';
+						echo ' ';
+					}
+					if ($results['type'] == 'followup meeting'){
+						echo '<i class="fa fa-coffee"></i>';
+					}
+					if ($results['type'] == 'other'){
+						echo '<i class="fa fa-question"></i>';
+					}
+				?>
+				<a href = "tasks.php?details=true&activityid=<?php echo $results['activityid'] ?>" class="name">
+				<?php
+					echo ucwords($results['type']);
+				?>
+				</td>
 				<td>
 					<?php $originalDate = $results['due_date'];
 						$newDate = date("d.m.Y", strtotime($originalDate));
@@ -87,9 +119,9 @@ while($row = mysqli_fetch_array($res)){
 				<td><?php echo ucwords($row['county']); ?></td>
 				<?php
 					if($results['type'] == 'prospecting'){
-						echo'<td id= "complete-button"><a href="prospecting_results.php" id="submit">Complete</a></td>';
+						echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
 					}else{
-						echo'<td id= "complete-button"><a href="activity_results.php" id="submit">Complete</a></td>';
+						echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
 					}
 				?>
 			</tr>

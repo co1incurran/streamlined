@@ -5,14 +5,11 @@ define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-/*
+
 $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
-*/
-$url = 2;
-$customerid = 3;
-$companyid = 7;
+$activityid = $_GET['activityid'];
 echo'
 <!DOCTYPE html>
 <html>
@@ -28,19 +25,21 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="" id="form" method="post" name="form">
+				<form action="save_activity_result.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Result</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
+					<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
 															
 					<label for="result"><small>Result</small></label><br>
 					<select id="result" class="drop_down"  name = "result" class="form-control">
 						<option value= "on going">On going</option>
 						<option value= "proceed to next stage">Proceed to next stage</option>
 						<option value= "no interest">No interest</option>
+						<option value= "awaiting feedback">Awaiting feedback</option>
 						<option value= "other">Other</option>
 					</select>
 					
@@ -57,11 +56,14 @@ echo'
 						<option value= "close meeting">Schedule close meeting</option>
 					</select><br>
 					
+					<label for="nextactivity_description"><small>Further details</small></label>
+					<textarea maxlength="200" class ="form-textarea" id="nextactivity_description" name="nextactivity_description" type="text"></textarea>
+					
 					<label for="date"><small>Due date</small></label>
-					<input id="date" name="date" type="date" required>
+					<input id="date" name="date" type="date">
 					
 					<label for="time"><small>Time</small></label>
-					<input id="time" name="time" type="time" required>
+					<input id="time" name="time" type="time">
 					
 					<input type="submit" id="submit" value="Save">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->

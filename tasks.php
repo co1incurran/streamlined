@@ -199,6 +199,8 @@
                                         <section class="panel-body">
 										
 										<?php
+										$url = $_SERVER['REQUEST_URI'];
+										$url = str_replace('&', '%26', $url);
 											if(isset($_GET['details'])) {
 												$details = $_GET['details'];
 												if($details === 'true'){
