@@ -126,8 +126,8 @@
                                 <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
                                 <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
                                 <li class="active"><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="notes.html"><i class="fa fa-file-text"></i> Notes</a></li>
+                                <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
+                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
                             </ul>
                         </nav>
     
@@ -186,16 +186,23 @@
                                             </div>
 
                                             <div class="view-switcher">
-                                                <h2 class="panel-title">Private Customers <a href="#">&darr;</a></h2>
+											<?php
+												if(isset ($_GET['contact'])){
+													$contact = $_GET['contact'];
+													if($contact == 'companies'){
+														$setter = 'Companies';
+													}else{
+														$setter= 'Private Customers';
+													}
+												}else{
+													$setter= 'Private Customers';
+												}
+											?>
+                                                <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>
                                                 <ul>
-                                                    <li><a href="contacts.php?contact=privatecustomer">Private Customers</a></li>
-                                                    <li><a href="contacts.php?contact=companies">Companies</a></li>
-                                                    <!--<li><a href="contacts.php?contact=all">All Customers &amp; Companies</a></li>-->
-                                                    <li class="separator"></li>
-                                                    <li>Recently viewed...</li>
-                                                    <li class="separator"></li>
-                                                    <li><a href="#">Contacts</a></li>
-                                                    <li><a href="#">Companies</a></li>
+                                                    <li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
+                                                    <li><a href="contacts.php?contact=companies">Companies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                                                    
                                                 </ul>
                                             </div>
                                         </header>

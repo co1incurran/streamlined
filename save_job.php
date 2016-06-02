@@ -79,7 +79,7 @@ $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
 
-$sql = "INSERT INTO jobs (job_type, job_description, job_status, due_date, time, creation_date, sage_reference, po_number, job_number) VALUES ('$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$cleantime', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber'); ";
+$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, time, creation_date, sage_reference, po_number, job_number) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$cleantime', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber'); ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;

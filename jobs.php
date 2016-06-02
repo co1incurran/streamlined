@@ -126,8 +126,9 @@
                                 <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
                                 <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
                                 <li><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li class="active"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
+                                <li ><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
+                                <li class="active"><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
+								
                             </ul>
                         </nav>
     
@@ -185,29 +186,29 @@
 											if(isset($_GET['status'])){
 												$status = $_GET['status'];
 												if($status == 'all'){
-													$setter = 'All Tasks';
+													$setter = 'All Jobs';
 												}elseif($status == 'today'){
-													$setter = "Today's Tasks";
+													$setter = "Today's Jobs";
 												}elseif($status == 'tomorrow'){
-													$setter = "Tomorrow's Tasks";
+													$setter = "Tomorrow's Jobs";
 												}elseif($status == 'week'){
-													$setter = "This Week's Tasks";
+													$setter = "This Week's Jobs";
 												}elseif($status == 'month'){
-													$setter = "This Month's Tasks";
+													$setter = "This Month's Jobs";
 												}elseif($status == 'overdue'){
-													$setter = 'Over Due Tasks';
+													$setter = 'Over Due Jobs';
 												}elseif($status == 'completed'){
-													$setter = 'Completed Tasks';
+													$setter = 'Completed Jobs';
 												}else{
-													$setter = 'All Tasks';
+													$setter = 'All Jobs';
 												}
 											}else{
-													$setter = 'All Tasks';
+													$setter = 'All Jobs';
 												}
 											?>
                                                 <h2><?php echo $setter; ?> <a href="#">&darr;</a></h2>
                                                 <ul>
-                                                    <li><a href="tasks.php?status=all">All tasks</a></li>
+                                                    <li><a href="tasks.php?status=all">All jobs</a></li>
                                                     <li><a href="tasks.php?status=today">Today</a></li>
                                                     <li><a href="tasks.php?status=tomorrow">Tomorrow</a></li>
                                                     <li><a href="tasks.php?status=week">This week</a></li>
@@ -226,13 +227,13 @@
 											if(isset($_GET['details'])) {
 												$details = $_GET['details'];
 												if($details === 'true'){
-													$activityid = $_GET['activityid'];
-													require_once 'task_details.php';
+													$jobid = $_GET['jobid'];
+													require_once 'job_details.php';
 												}else{
-												require_once 'task_list.php';
+												require_once 'job_list.php';
 												}
 											}else{
-												require_once 'task_list.php';
+												require_once 'job_list.php';
 											}
 										?>
                                             <!--<ul class="listing list-view">
@@ -306,7 +307,7 @@
 	<script>
     $(document).ready(function() 
         { 
-            $("#activityList").tablesorter(); 
+            $("#jobList").tablesorter(); 
         } 
     );
     </script>

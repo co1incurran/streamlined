@@ -58,9 +58,6 @@ echo'
 						<option value= "delivery">Delivery</option>
 						<option value= "collection">Collection</option>
 						<option value= "training">Training</option>
-						<option value= "meeting">Meeting</option>
-						<option value= "phone call">Phone call</option>
-						<option value= "presentation">Presentation</option>
 						<option value= "other">Other</option>
 					</select><br>
 					

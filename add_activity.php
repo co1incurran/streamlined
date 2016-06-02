@@ -14,7 +14,7 @@ echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Add activity</title>
+	<title>Add task</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -27,7 +27,7 @@ echo'
 			<!-- Contact Us Form -->
 				<form action="save_activity.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Add activity</h2>
+					<h2>Add task</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">

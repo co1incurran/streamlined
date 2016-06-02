@@ -7,10 +7,56 @@ define("DB_DATABASE", "database");
 
 $url = $_SERVER['REQUEST_URI'];
 $url = str_replace('&', '%26', $url);
+//get the current date 
+$dt = new DateTime();
+$currentDate = $dt->format('Y-m-d');
+//echo $currentDate.'<br>';
+$tomorrow = new DateTime('tomorrow');
+$tomorrow = $tomorrow->format('Y-m-d');
+//echo $tomorrow->format('Y-m-d');
+
+//getting the date of the start and end of the current week
+$monday = date("Y-m-d", strtotime("monday this week"));
+$sunday = date("Y-m-d", strtotime("sunday this week"));
+//echo '<br>'.$monday;
+//echo '<br>'.$sunday.'<br>';
+
+//getting the start and end dates if the current month
+// First day of the month.
+$startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
+
+// Last day of the month.
+$endMonth = date('Y-m-t', strtotime($currentDate)).'<br>';
+
+$status = '';
+if(isset($_GET['status'])){
+	$status = $_GET['status'];
+	//echo $status;
+	
+	if($status == 'all'){
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
+	}elseif($status == 'today'){
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date = '$currentDate'; ";
+	}elseif($status == 'tomorrow'){
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date = '$tomorrow'; ";
+	}elseif($status == 'week'){
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
+	}elseif($status == 'month'){
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
+	}elseif($status == 'overdue'){
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
+	}elseif($status == 'completed'){
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '1' ORDER BY due_date DESC; ";
+	}else{
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
+	}
+}else{
+		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
+}
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
+
  
 $res = mysqli_query($con,$sql);
 
@@ -26,7 +72,6 @@ while($row = mysqli_fetch_array($res)){
 	));
 }
 //print_r (array_values($result));
-
 ?>	 
 
 	
@@ -44,7 +89,6 @@ while($row = mysqli_fetch_array($res)){
 			
 			<th class = "asset-list"><strong>County</strong></th>
 			<td id = "td-header" class = "asset-list"></td>
-			
 		</tr>
 	</thead>
 <tbody>
@@ -118,11 +162,15 @@ while($row = mysqli_fetch_array($res)){
 				</a></td>
 				<td><?php echo ucwords($row['county']); ?></td>
 				<?php
+				if($status != 'completed'){
 					if($results['type'] == 'prospecting'){
 						echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
 					}else{
 						echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
 					}
+				}else{
+					echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" id="submit">Incomplete</a></td>';
+				}
 				?>
 			</tr>
 	<?php
