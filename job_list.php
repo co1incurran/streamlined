@@ -102,10 +102,10 @@ while($row = mysqli_fetch_array($res)){
 			$jobid = $results['jobid'];
 			
 			//To get the company or customer the activity is for
-			$sql2 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_activity WHERE activityid = '$jobid'); ";
+			$sql2 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_requires WHERE jobid = '$jobid'); ";
 			$res2 = mysqli_query($con,$sql2);
 			if(mysqli_num_rows($res2) < 1){
-				$sql3 = "SELECT customerid, first_name, last_name, county FROM customer WHERE customerid IN (SELECT customerid FROM customer_activity WHERE activityid = '$jobid'); ";
+				$sql3 = "SELECT customerid, first_name, last_name, county FROM customer WHERE customerid IN (SELECT customerid FROM customer_requires WHERE jobid = '$jobid'); ";
 				$res3 = mysqli_query($con,$sql3);
 				$row = mysqli_fetch_assoc($res3);
 				$customerid = $row["customerid"];
@@ -122,7 +122,7 @@ while($row = mysqli_fetch_array($res)){
 					}elseif ($results['job_type'] == 'inspection'){
 						echo '<i class="fa fa-search"></i>';
 					}elseif ($results['job_type'] == 'service'){
-						echo '<i class="fa fa-bar-check-square-o"></i>';
+						echo '<i class="fa fa-check-square-o"></i>';
 					}elseif ($results['job_type'] == 'repair'){
 						echo '<i class="fa fa-medkit"></i>';
 					}elseif ($results['job_type'] == 'delivery'){

@@ -186,7 +186,7 @@ $('#jobType').on('change',function(){
                                 <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity </a></li>
                                 <li class="active"><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="notes.html"><i class="fa fa-file-text"></i> Notes </a></li>
+                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
                             </ul>
                         </nav>
     

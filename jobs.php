@@ -208,13 +208,13 @@
 											?>
                                                 <h2><?php echo $setter; ?> <a href="#">&darr;</a></h2>
                                                 <ul>
-                                                    <li><a href="tasks.php?status=all">All jobs</a></li>
-                                                    <li><a href="tasks.php?status=today">Today</a></li>
-                                                    <li><a href="tasks.php?status=tomorrow">Tomorrow</a></li>
-                                                    <li><a href="tasks.php?status=week">This week</a></li>
-                                                    <li><a href="tasks.php?status=month">This month</a></li>
-													<li><a href="tasks.php?status=overdue">Over due</a></li>
-													<li><a href="tasks.php?status=completed">Completed</a></li>
+                                                    <li><a href="jobs.php?status=all">All jobs</a></li>
+                                                    <li><a href="jobs.php?status=today">Today</a></li>
+                                                    <li><a href="jobs.php?status=tomorrow">Tomorrow</a></li>
+                                                    <li><a href="jobs.php?status=week">This week</a></li>
+                                                    <li><a href="jobs.php?status=month">This month</a></li>
+													<li><a href="jobs.php?status=overdue">Over due</a></li>
+													<li><a href="jobs.php?status=completed">Completed</a></li>
                                                 </ul>
                                             </div>
                                         </header>

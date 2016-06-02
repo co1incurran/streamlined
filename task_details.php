@@ -20,13 +20,14 @@ $description = $row["description"];
 $dueDate = $row["due_date"];
 $dueDate = date("d.m.Y", strtotime($dueDate));
 $time = $row["time"];
+$time = date('h:ia', strtotime($time));
 $result = ucwords($row["result"]);
 $resultDescription = $row["result_description"];
 $creationDate = $row["creation_date"];
 $creationDate = date("d.m.Y", strtotime($creationDate));
 //echo $creationDate;
 echo ' 
-<table>
+<table class = "work-details">
 	<tbody>';
 	if(!empty($complete)|| !$complete ==''){
 		if($complete == 0){
@@ -34,31 +35,31 @@ echo '
 		}else{
 			$complete = 'Complete';
 		}
-		echo'<tr><td>Status:</td><td>'.$complete.'</td></tr>';
+		echo'<tr><td><strong>Status:</strong></td><td>'.$complete.'</td></tr>';
 	}
 	if(!empty($type)|| !$type ==''){
-		echo'<tr><td>Type:</td><td>'.$type.'</td></tr>';
+		echo'<tr><td><strong>Type:</strong></td><td>'.$type.'</td></tr>';
 	}
 	if(!empty($prospectingType)|| !$prospectingType ==''){
-		echo'<tr><td>Prospecting type:</td><td>'.$prospectingType.'</td></tr>';
+		echo'<tr><td><strong>Prospecting type:</strong></td><td>'.$prospectingType.'</td></tr>';
 	}
 	if(!empty($description)|| !$description ==''){
-		echo'<tr><td>Description:</td><td>'.$description.'</td></tr>';
+		echo'<tr><td><strong>Description:</strong></td><td>'.$description.'</td></tr>';
 	}
 	if(!empty($dueDate)|| !$dueDate ==''){
-		echo'<tr><td>Due date:</td><td>'.$dueDate.'</td></tr>';
+		echo'<tr><td><strong>Due date:</strong></td><td>'.$dueDate.'</td></tr>';
 	}
 	if(!empty($time)|| !$time ==''){
-		echo'<tr><td>Time:</td><td>'.$time.'</td></tr>';
+		echo'<tr><td><strong>Time:</strong></td><td>'.$time.'</td></tr>';
 	}
 	if(!empty($result)|| !$result ==''){
-		echo'<tr><td>Type:</td><td>'.$result.'</td></tr>';
+		echo'<tr><td><strong>Type:</strong></td><td>'.$result.'</td></tr>';
 	}
 	if(!empty($resultDescription)|| !$resultDescription ==''){
-		echo'<tr><td>Result description:</td><td>'.$resultDescription.'</td></tr>';
+		echo'<tr><td><strong>Result description:</strong></td><td>'.$resultDescription.'</td></tr>';
 	}
 	if(!empty($creationDate)|| !$creationDate ==''){
-		echo'<tr><td>Creation date:</td><td>'.$creationDate.'</td></tr>';
+		echo'<tr><td><strong>Creation date:</strong></td><td>'.$creationDate.'</td></tr>';
 	}
 		echo'
 	<tbody>

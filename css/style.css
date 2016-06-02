@@ -48,7 +48,12 @@ body {
 h1, h2, h3, h4 {
     font-family: 'Raleway', serif;
 }
-
+table.work-details tr{
+	border: 5px solid rgb(176,212,229) ;
+}
+table.work-details{
+	width:50%;
+}
 #icons {
     list-style-type: none;
     margin: 0;
