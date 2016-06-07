@@ -171,7 +171,11 @@ while($row = mysqli_fetch_array($res)){
 				<td><?php echo ucwords($row['county']); ?></td>
 				<?php
 				if($status != 'completed'){
-						echo'<td id= "complete-button"><a href="job_results.php?url='.$url.'&activityid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
+					if($results['job_type'] == 'installation'){
+						echo'<td id= "complete-button"><a href="installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
+					}else{
+						echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
+					}
 				}else{
 					echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'" id="submit">Incomplete</a></td>';
 				}

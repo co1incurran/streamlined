@@ -45,8 +45,6 @@ echo'
 						<option value= "goods on order">Goods on order</option>
 						<option value= "shipping to site">Shipping to site</option>
 						<option value= "ready to start">Ready to start</option>
-						<option value= "ongoing">Ongoing</option>
-						<option value= "complete">Complete</option>
 					</select><br>
 					
 					<label for="jobType"><small>Job type</small></label>
@@ -82,13 +80,13 @@ echo'
 					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
 					
 					<label for="job_number"><small>Job number</small></label>
-					<input id="job_number" name="job_number" type="text">
+					<input id="job_number" name="job_number" type="text" maxlength="20">
 					
 					<label for="po_number"><small>PO number</small></label>
-					<input id="po_number" name="po_number" type="text">
+					<input id="po_number" name="po_number" type="text"maxlength="30" >
 					
 					<label for="sage_reference"><small>Sage reference</small></label>
-					<input id="sage_reference" name="sage_reference" type="text">
+					<input id="sage_reference" name="sage_reference" type="text" maxlength="20">
 					
 					<input type="submit" id="submit" value="Save">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
