@@ -11,7 +11,46 @@ $manufacturer = $_POST['manufacturer'];
 $productdescription = $_POST['productdescription'];
 $inspectiondate = $_POST['inspectiondate'];
 $servicedate = $_POST['servicedate'];
+if($assetquantity > $numberOfAssets){
+echo'
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Result</title>
+	<link href="css/elements.css" rel="stylesheet">
+	<script src="js/popup.js"></script>
+	</head>
+<!-- Body Starts Here -->
+	<body>
+	<div id="body" style="overflow:hidden;">
+		<div id="abc">
+			<!-- Popup Div Starts Here -->
+			<div id="popupContact">
+			<!-- Contact Us Form -->
+				<form action="add_serial_numbers.php" id="form" method="post" name="form">
+					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
+					<h2>ERROR</h2>
+					<hr>
+					<p>The number of this type of asset is greater than the total number of assets you claim to have installed.</p>
+					<p>Total number of assets: '.$numberOfAssets.'</p>
+					<p>Number of this type of asset: '.$assetquantity.'.</p>
+					
+					<a onclick="goBack()" id="submit">Change total number of assets</a>
+					<a onclick="goBack()" id="submit">Change number of this asset</a>
+					<a href = "'.$url.'" id="submit">Cancel</a>
+				</form>
+			</div>
+		<!-- Popup Div Ends Here -->
+		</div>
+	</div>
+	</body>
+	<script type="text/javascript">
+	window.onload = div_show();
+	</script>
 
+<!-- Body Ends Here -->
+</html>';
+}else{
 echo'
 <!DOCTYPE html>
 <html>
@@ -69,4 +108,5 @@ echo'
 
 <!-- Body Ends Here -->
 </html>';
+}
 ?>

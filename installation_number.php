@@ -20,14 +20,14 @@ echo'
 			<!-- Contact Us Form -->
 				<form action="add_installed_assets.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Installation Results</h2>
+					<h2>Job complete</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
 															
-					<label for="assetnumber"><small>Number of assets installed</small></label><br>
+					<label for="assetnumber"><small>Total number of assets installed</small></label><br>
 					<input id="assetnumber" name="assetnumber" type="number" required>
 					
 					<input type="submit" id="submit" value="Next">
