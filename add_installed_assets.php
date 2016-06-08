@@ -1,9 +1,43 @@
 <?php
-$url= $_POST['url'];
-$customerid= $_POST['customerid'];
-$companyid= $_POST['companyid'];
+define("DB_HOST", "127.0.0.1");
+define("DB_USER", "user");
+define("DB_PASSWORD", "1234");
+define("DB_DATABASE", "database");
+
+$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+$url = $_POST['url'];
+$customerid = $_POST['customerid'];
+$companyid = $_POST['companyid'];
 $jobid = $_POST['jobid'];
 $numberOfAssets = $_POST['assetnumber'];
+if(isset ($_POST['totalAssetsAdded'])){
+	$totalAssetsAdded = $_POST['totalAssetsAdded'];
+}
+
+$sql = "SELECT name FROM manufacturers ORDER BY name; ";
+$res = mysqli_query($con,$sql);
+$manufacturers = array();
+
+while($row = mysqli_fetch_array($res)){
+	array_push($manufacturers,
+		array('name'=>$row[0]
+	));
+}
+//print_r (array_values($manufacturers));
+
+$sql2 = "SELECT asset_type FROM asset_type ORDER BY asset_type; ";
+$res2 = mysqli_query($con,$sql2);
+$assetType = array();
+
+while($row = mysqli_fetch_array($res2)){
+	array_push($assetType,
+		array('asset_type'=>$row[0]
+	));
+}
+//print_r (array_values($assetType));
+
 if($numberOfAssets < 1){
 	echo'
 <!DOCTYPE html>
@@ -20,7 +54,7 @@ if($numberOfAssets < 1){
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="add_serial_numbers.php" id="form" method="post" name="form">
+				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>ERROR</h2>
 					<hr>
@@ -69,7 +103,14 @@ echo'
 					<input type="hidden" name="numberofassets" id="numberofassets" value="'.$numberOfAssets.'">
 															
 					<label for="assettype"><small>Asset type</small></label><br>
-					<input id="assettype" name="assettype" type="text" maxlength="50" required>
+					<select id="assettype"class="drop_down"  name = "assettype" class="form-control">';
+					foreach ($assetType as $at){
+						$type = $at['asset_type'];
+						echo'<option value= "'.$type.'">'.ucwords($type).'</option>';
+					}
+					echo'
+					</select><br>
+					
 					
 					<label for="assetquantity"><small>Quantity of this asset type</small></label><br>
 					<input id="assetquantity" name="assetquantity" type="number" required>
@@ -78,7 +119,13 @@ echo'
 					<input id="model" name="model" type="text" maxlength="50" required>
 					
 					<label for="manufacturer"><small>Manufacturer</small></label><br>
-					<input id="manufacturer" name="manufacturer" type="text" maxlength="50" required>
+					<select id="manufacturer"class="drop_down"  name = "manufacturer" class="form-control">';
+					foreach ($manufacturers as $m){
+						$man = $m['name'];
+						echo'<option value= "'.$man.'">'.ucwords($man).'</option>';
+					}
+					echo'
+					</select><br>
 					
 					<label for="productdescription"><small>Product description</small></label><br>
 					<input id="productdescription" name="productdescription" type="text" maxlength="200">
@@ -104,4 +151,5 @@ echo'
 <!-- Body Ends Here -->
 </html>';
 }
+mysqli_close($con);
 ?>

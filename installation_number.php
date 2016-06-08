@@ -3,6 +3,7 @@ $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
 $jobid = $_GET['jobid'];
+
 echo'
 <!DOCTYPE html>
 <html>

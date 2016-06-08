@@ -5,6 +5,8 @@ define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
 
+$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
 $url = $_SERVER['REQUEST_URI'];
 $url = str_replace('&', '%26', $url);
 //get the current date 
@@ -54,7 +56,7 @@ if(isset($_GET['status'])){
 		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' ORDER BY due_date; ";
 }
 
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
 
 
  

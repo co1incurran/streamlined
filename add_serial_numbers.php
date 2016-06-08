@@ -11,7 +11,15 @@ $manufacturer = $_POST['manufacturer'];
 $productdescription = $_POST['productdescription'];
 $inspectiondate = $_POST['inspectiondate'];
 $servicedate = $_POST['servicedate'];
-if($assetquantity > $numberOfAssets){
+
+if(isset ($_POST['totalAssetsAdded'])){
+	$totalAssetsAdded = $_POST['totalAssetsAdded'];
+	$totalAssetsAdded = $totalAssetsAdded + $assetquantity;
+}else{
+	$totalAssetsAdded = $assetquantity;
+}
+
+if($totalAssetsAdded > $numberOfAssets){
 echo'
 <!DOCTYPE html>
 <html>
@@ -31,12 +39,15 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>ERROR</h2>
 					<hr>
-					<p>The number of this type of asset is greater than the total number of assets you claim to have installed.</p>
+					<p>The number of assets is greater than the total number of assets you claim to have installed.</p>
 					<p>Total number of assets: '.$numberOfAssets.'</p>
-					<p>Number of this type of asset: '.$assetquantity.'.</p>
-					
-					<a onclick="goBack()" id="submit">Change total number of assets</a>
+					<p>Number of this type of asset: '.$assetquantity.'.</p>';
+					if($totalAssetsAdded > $assetquantity){
+						echo '<p>Total of all assets you are attempting to add: '.$totalAssetsAdded.'.</p>';
+					}
+					echo'
 					<a onclick="goBack()" id="submit">Change number of this asset</a>
+					<a href= "'.$url.'" id="submit">Start again</a>
 					<a href = "'.$url.'" id="submit">Cancel</a>
 				</form>
 			</div>
@@ -71,6 +82,7 @@ echo'
 					<h2>Serial number & location</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
+					<input type="hidden" name="totalAssetsAdded" id="totalAssetsAdded" value="'.$totalAssetsAdded.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
@@ -89,8 +101,12 @@ echo'
 					<label for="serialnumber'.$i.'"><small>Serial Number</small></label><br>
 					<input id="serialnumber'.$i.'" name="serialnumber'.$i.'" type="text" maxlength="50" required>
 					
+					<label for="worksheetnumber'.$i.'"><small>Work sheet number</small></label><br>
+					<input id="worksheetnumber'.$i.'" name="worksheetnumber'.$i.'" type="text" maxlength="65" required>
+					
 					<label for="location'.$i.'"><small>Location <small>eg Room 12</small></small></label><br>
 					<input id="location'.$i.'" name="location'.$i.'" type="text" maxlength="65" required>';
+					
 					$i++;
 				}
 				echo'	
