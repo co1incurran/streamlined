@@ -36,24 +36,24 @@ if(isset($_GET['status'])){
 	//echo $status;
 	
 	if($status == 'all'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' ORDER BY due_date; ";
 	}elseif($status == 'today'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date = '$currentDate'; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date = '$currentDate'; ";
 	}elseif($status == 'tomorrow'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date = '$tomorrow'; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date = '$tomorrow'; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number, number_of_assets FROM jobs WHERE complete = '1' ORDER BY due_date DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '1' ORDER BY due_date DESC; ";
 	}else{
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' ORDER BY due_date; ";
 	}
 }else{
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' ORDER BY due_date; ";
 }
 
 
@@ -67,16 +67,22 @@ $result = array();
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
 		array('jobid'=>$row[0],
-		'job_type'=>$row[1],
-		'job_status'=>$row[2],
-		'due_date'=>$row[3],
-		'time'=>$row[4],
-		'creation_date'=>$row[5],
-		'job_number'=>$row[6],
-		'number_of_assets'=>$row[7]
+		'complete'=>$row[1],
+		'job_type'=>$row[2],
+		'job_description'=>$row[3],
+		'job_status'=>$row[4],
+		'due_date'=>$row[5],
+		'time'=>$row[6],
+		'creation_date'=>$row[7],
+		'sage_reference'=>$row[8],
+		'po_number'=>$row[9],
+		'job_number'=>$row[10],
+		'number_of_assets'=>$row[11],
+		'notes'=>$row[12]
 	));
 }
 //print_r (array_values($result));
+
 ?>	 
 
 	
@@ -105,6 +111,18 @@ while($row = mysqli_fetch_array($res)){
 			$companyid = 0;
 			$customerid = 0;
 			$jobid = $results['jobid'];
+			$complete = $results['complete'];
+			$jobType = $results['job_type'];
+			$jobDescription = $results['job_description'];
+			$jobStatus = $results['job_status'];
+			$dueDate = $results['due_date'];
+			//$time = $results['time'];
+			//$creationDate = $results['creation_date'];
+			$sageReference = $results['sage_reference'];
+			$poNumber = $results['po_number'];
+			$jobNumber = $results['job_number'];
+			$numberOfAssets = $results['number_of_assets'];
+			$notes = $results['notes'];
 			
 			//To get the company or customer the activity is for
 			$sql2 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_requires WHERE jobid = '$jobid'); ";
@@ -123,28 +141,54 @@ while($row = mysqli_fetch_array($res)){
 				<td>
 				<?php 
 					if ($results['job_type'] == 'installation'){
-						echo '<i class="fa fa-sign-in"> </i>';
+						$icon = '<i class="fa fa-sign-in"> </i>';
 					}elseif ($results['job_type'] == 'inspection'){
-						echo '<i class="fa fa-search"></i>';
+						$icon = '<i class="fa fa-search"></i>';
 					}elseif ($results['job_type'] == 'service'){
-						echo '<i class="fa fa-check-square-o"></i>';
+						$icon = '<i class="fa fa-check-square-o"></i>';
 					}elseif ($results['job_type'] == 'repair'){
-						echo '<i class="fa fa-medkit"></i>';
+						$icon = '<i class="fa fa-medkit"></i>';
 					}elseif ($results['job_type'] == 'delivery'){
-						echo '<i class="fa fa-truck"></i>';
+						$icon = '<i class="fa fa-truck"></i>';
 					}elseif ($results['job_type'] == 'collection'){
-						echo '<i class="fa fa-bus"></i>';
+						$icon = '<i class="fa fa-bus"></i>';
 					}elseif ($results['job_type'] == 'training'){
-						echo '<i class="fa fa-male"></i>';
+						$icon = '<i class="fa fa-male"></i>';
 					}elseif ($results['job_type'] == 'other'){
-						echo '<i class="fa fa-question"></i>';
+						$icon = '<i class="fa fa-question"></i>';
 					}else{
-						echo '<i class="fa fa-question"></i>';
+						$icon =  '<i class="fa fa-question"></i>';
 					}
+					
+				echo'
+				<form action="job_details.php" id="job-list" method="post" name="job-list">
+					<input type="hidden" name="url" id="url" value="'.$url.'">
+					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
+					
+					<input type="hidden" name="complete" id="complete" value="'.$complete.'">
+					<input type="hidden" name="jobType" id="jobType" value="'.$jobType.'">
+					
+					<input type="hidden" name="jobDescription" id="jobDescription" value="'.$jobDescription.'">
+					<input type="hidden" name="jobStatus" id="jobStatus" value="'.$jobStatus.'">
+					
+					<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
+					<input type="hidden" name="sageReference" id="sageReference" value="'.$sageReference.'">
+					
+					<input type="hidden" name="poNumber" id="poNumber" value="'.$poNumber.'">
+					<input type="hidden" name="jobNumber" id="jobNumber" value="'.$jobNumber.'">
+					
+					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
+					<input type="hidden" name="notes" id="notes" value="'.$notes.'">
+					';
 				?>
-				<a href = "tasks.php?details=true&activityid=<?php echo $results['jobid'] ?>" class="name">
+					<?php
+					echo'
+					'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['job_type']).'">';
+					?>
+				</form>
+				<!--<a href = "jobs.php?details=true&jobid=<?php echo $results['jobid'] ?>" class="name">-->
 				<?php
-					echo ucwords($results['job_type']);
+					//echo ucwords($results['job_type']);
 				?>
 				</td>
 				<td>

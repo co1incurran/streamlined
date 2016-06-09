@@ -25,7 +25,17 @@ footer, #push {
 /**
  * Base Styles
  */
-
+#job-type {
+    border: 0;
+    padding: 0;
+    display: inline;
+    background: none;
+    text-decoration: underline;
+    color: black;
+}
+#job-type:hover {
+    cursor: pointer;
+}
 body {
     font-family: 'Open Sans', sans-serif;
     overflow: -moz-scrollbars-vertical;
