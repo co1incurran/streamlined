@@ -21,7 +21,7 @@ echo'
 			<!-- Contact Us Form -->
 				<form action="add_installed_assets.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Job complete</h2>
+					<h2>Installation complete</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">

@@ -1,5 +1,4 @@
 <?php
-
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
@@ -9,7 +8,12 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 //Back URL
 $url= $_POST["url"];
+
 $jobid = $_POST["jobid"];
+$jobid = trim($jobid);
+$filterjobid = filter_var($jobid, FILTER_SANITIZE_STRING);
+$cleanjobid= mysqli_real_escape_string($con, $filterjobid);
+
 $numberOfAssets = $_POST['numberofassets'];
 //asset quantity
 $assetquantity = $_POST["assetquantity"];
@@ -65,6 +69,40 @@ $servicedate = $_POST["servicedate"];
 $servicedate = trim($servicedate);
 $cleanservicedate = mysqli_real_escape_string($con, $servicedate);
 
+if ($totalAssetsAdded == $numberOfAssets ){
+	echo'
+	<!DOCTYPE html>
+	<html>
+		<head>
+		<title>All assets added</title>
+		<link href="css/elements.css" rel="stylesheet">
+		<script src="js/popup.js"></script>
+		</head>
+	<!-- Body Starts Here -->
+		<body>
+		<div id="body" style="overflow:hidden;">
+			<div id="abc">
+				<!-- Popup Div Starts Here -->
+				<div id="popupContact">
+				<!-- Contact Us Form -->
+					<form action="" id="form" method="post" name="form">
+						<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
+						<h2>All asstes added</h2>
+						<hr>
+						<a href="'.$url.'" id="submit">OK</a>
+					</form>
+				</div>
+			<!-- Popup Div Ends Here -->
+			</div>
+		</div>
+		</body>
+		<script type="text/javascript">
+		window.onload = div_show();
+		</script>
+	<!-- Body Ends Here -->
+	</html>';
+}else{
+
 //sorting the serial number and location of the assets
 $i =0;
 $serialAndLocation = array();
@@ -106,65 +144,40 @@ foreach($serialAndLocation as $s){
 	$location = $s['location'];
 	$sql1 = "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, inspection_date, service_date, location) VALUES ('$serialnumber', '$cleanassettype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$installdate', '$cleaninspectiondate', '$cleanservicedate', '$location');";
 	
-	//$res1 = mysqli_query($con,$sql1);
-	echo $sql1.'<br>';
-}
-
-//get the stockid of the asset
-	$sql2 = "SELECT stockid FROM stock ORDER BY stockid DESC LIMIT $assetquantity; ";
+	$res1 = mysqli_query($con,$sql1);
+	//echo $sql1.'<br>';
+	
+	$worksheetnumber = $s['worksheetnumber'];
+	
+	$sql2 = "SELECT stockid FROM stock ORDER BY stockid DESC LIMIT 1; ";
 	$res2 = mysqli_query($con,$sql2);
-	//$row = mysqli_fetch_assoc($res2);
-    //$stockid = $row["stockid"];
+	$row = mysqli_fetch_assoc($res2);
+    $stockid = $row["stockid"];
 	//echo $stockid.'<br>';
-$stockidArray = array();
-//array of the stockid numbers
-while($row = mysqli_fetch_array($res2)){
-	array_push($stockidArray,
-		array('stockid'=>$row[0]
-	));
-} 
-//print_r (array_values($stockidArray));
-
-//assign the asset to a job by putting stockid and jobid into the 'uses' table
-foreach($stockidArray as $stockid){
-	$stockid = $stockid['stockid'];
-	$sql3 = "INSERT INTO uses (stockid, jobid) VALUES ('$stockid', '$jobid');";
-    //$res3 = mysqli_query($con,$sql3);
-	echo $sql3.'<br>';
+	
+	$sql3 = "INSERT INTO work_sheets (worksheet_number) VALUES ('$worksheetnumber');";
+	$res3 = mysqli_query($con,$sql3);
+	//echo $sql3.'<br>';
+	
+	$sql4 = "SELECT worksheetid FROM work_sheets ORDER BY worksheetid DESC LIMIT 1; ";
+	$res4 = mysqli_query($con,$sql4);
+	$row = mysqli_fetch_assoc($res4);
+    $worksheetid = $row["worksheetid"];
+	//echo $worksheetid.'<br>';
+	
+	$sql5 = "INSERT INTO stock_to_worksheets (stockid, worksheetid) VALUES ('$stockid','$worksheetid');";
+	$res5 = mysqli_query($con,$sql5);
+	//echo $sql5.'<br>';
+	//echo $cleanjobid.'<br>';
+	
+	//linking the stock to the job
+	$sql6 = "INSERT INTO uses (stockid, jobid) VALUES ($stockid, $jobid);";
+	$res6 = mysqli_query($con,$sql6);
+	//echo $sql6;
+	//echo'<br><br>';
 }
-if ($totalAssetsAdded == $numberOfAssets ){
-	echo'
-	<!DOCTYPE html>
-	<html>
-		<head>
-		<title>All assets added</title>
-		<link href="css/elements.css" rel="stylesheet">
-		<script src="js/popup.js"></script>
-		</head>
-	<!-- Body Starts Here -->
-		<body>
-		<div id="body" style="overflow:hidden;">
-			<div id="abc">
-				<!-- Popup Div Starts Here -->
-				<div id="popupContact">
-				<!-- Contact Us Form -->
-					<form action="" id="form" method="post" name="form">
-						<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-						<h2>All asstes added</h2>
-						<hr>
-						<a href="'.$url.'" id="submit">OK</a>
-					</form>
-				</div>
-			<!-- Popup Div Ends Here -->
-			</div>
-		</div>
-		</body>
-		<script type="text/javascript">
-		window.onload = div_show();
-		</script>
-	<!-- Body Ends Here -->
-	</html>';
-}else{
+
+
 echo'
 <!DOCTYPE html>
 <html>
@@ -188,7 +201,7 @@ echo'
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
-					<input type="hidden" name="numberofassets" id="numberofassets" value="'.$numberOfAssets.'">
+					<input type="hidden" name="assetnumber" id="assetnumber" value="'.$numberOfAssets.'">
 					<input type="hidden" name="totalAssetsAdded" id="totalAssetsAdded" value="'.$totalAssetsAdded.'">
 					
 					<input type="submit" id="submit" value="Add more assets">

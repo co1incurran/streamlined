@@ -101,6 +101,8 @@ $fundedby = trim($fundedby);
 $fundedby = strtolower($fundedby);
 $filterfundedby = filter_var($fundedby, FILTER_SANITIZE_STRING);
 $cleanfundedby = mysqli_real_escape_string($con, $filterfundedby);
+
+
 /*
 echo $cleanserialnumber .'<br>';
 echo $cleantype .'<br>';

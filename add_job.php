@@ -59,6 +59,9 @@ echo'
 						<option value= "other">Other</option>
 					</select><br>
 					
+					<label for="number_of_assets"><small>Number of assets involved</small></label>
+					<input id="number_of_assets" name="number_of_assets" type="number" required>
+					
 					<label for="assign"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
 						$sql = "SELECT userid FROM users;";

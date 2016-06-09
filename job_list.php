@@ -36,24 +36,24 @@ if(isset($_GET['status'])){
 	//echo $status;
 	
 	if($status == 'all'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' ORDER BY due_date; ";
 	}elseif($status == 'today'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' AND due_date = '$currentDate'; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date = '$currentDate'; ";
 	}elseif($status == 'tomorrow'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' AND due_date = '$tomorrow'; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date = '$tomorrow'; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '1' ORDER BY due_date DESC; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number, number_of_assets FROM jobs WHERE complete = '1' ORDER BY due_date DESC; ";
 	}else{
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' ORDER BY due_date; ";
 	}
 }else{
-		$sql = "SELECT jobid, job_type, job_status, due_date, time, job_number FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT jobid, job_type, job_status, due_date, time, creation_date, job_number, number_of_assets FROM jobs WHERE complete = '0' ORDER BY due_date; ";
 }
 
 
@@ -71,7 +71,9 @@ while($row = mysqli_fetch_array($res)){
 		'job_status'=>$row[2],
 		'due_date'=>$row[3],
 		'time'=>$row[4],
-		'job_number'=>$row[5]
+		'creation_date'=>$row[5],
+		'job_number'=>$row[6],
+		'number_of_assets'=>$row[7]
 	));
 }
 //print_r (array_values($result));
@@ -87,9 +89,10 @@ while($row = mysqli_fetch_array($res)){
 
 			<th class = "asset-list"><strong>Status</strong></th>
 			<th class = "asset-list"><strong>Date</strong></th>
+			<th class = "asset-list"><strong>Days Open</strong></th>
 
-			<th class = "asset-list"><strong>Time</strong></th>
-			
+			<!--<th class = "asset-list"><strong>Time</strong></th>-->
+			<th class = "asset-list"><strong>Assets</strong></th>
 			<th class = "asset-list"><strong>Job Number</strong></th>
 			<th class = "asset-list"><strong>Customer</strong></th>
 			<th class = "asset-list"><strong>County</strong></th>
@@ -156,8 +159,34 @@ while($row = mysqli_fetch_array($res)){
 					?>
 				</td>
 				<td>
-					<?php echo date('h:ia', strtotime($results['time']));?>
+				<?php
+				//works out days open 
+				
+					//get the current date 
+					$dt = new DateTime();
+					$installdate = $dt->format('Y-m-d');
+					$openDate = $results['creation_date'];
+					
+					//convert it to a timestamp
+					$openDate = strtotime($openDate);
+					//Get the current timestamp.
+					$now = time();
+					
+					//Calculate the difference.
+					$difference = $now - $openDate;
+					
+					$days = floor($difference / (60*60*24) );
+					echo $days;
+				?>
 				</td>
+				<td>
+					<?php
+						echo ucwords($results['number_of_assets']);
+					?>
+				</td>
+				<!--<td>
+					<?php //echo date('h:ia', strtotime($results['time']));?>
+				</td>-->
 				<td>
 					<?php echo $results['job_number'];?>
 				</td>

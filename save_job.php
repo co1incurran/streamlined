@@ -75,11 +75,17 @@ $sage_reference = trim($sage_reference);
 $filtersagereference = filter_var($sage_reference, FILTER_SANITIZE_STRING);
 $cleansagereference= mysqli_real_escape_string($con, $filtersagereference);
 
+//number of assets involved in the job
+$numberOfAssets = $_POST["number_of_assets"];
+$numberOfAssets = trim($numberOfAssets);
+$filternumberOfAssets = filter_var($numberOfAssets, FILTER_SANITIZE_STRING);
+$cleannumberOfAssets= mysqli_real_escape_string($con, $filternumberOfAssets);
+
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
 
-$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, time, creation_date, sage_reference, po_number, job_number) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$cleantime', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber'); ";
+$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, time, creation_date, sage_reference, po_number, job_number, number_of_assets) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$cleantime', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets'); ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;
