@@ -72,13 +72,12 @@ while($row = mysqli_fetch_array($res)){
 		'job_description'=>$row[3],
 		'job_status'=>$row[4],
 		'due_date'=>$row[5],
-		'time'=>$row[6],
-		'creation_date'=>$row[7],
-		'sage_reference'=>$row[8],
-		'po_number'=>$row[9],
-		'job_number'=>$row[10],
-		'number_of_assets'=>$row[11],
-		'notes'=>$row[12]
+		'creation_date'=>$row[6],
+		'sage_reference'=>$row[7],
+		'po_number'=>$row[8],
+		'job_number'=>$row[9],
+		'number_of_assets'=>$row[10],
+		'notes'=>$row[11]
 	));
 }
 //print_r (array_values($result));
