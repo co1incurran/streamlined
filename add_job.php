@@ -35,9 +35,6 @@ echo'
 					<label for="date"><small>Due date</small></label>
 					<input id="date" name="date" type="date" required>
 					
-					<label for="time"><small>Time</small></label>
-					<input id="time" name="time" type="time" required>
-					
 					<label for="status"><small>Job status</small></label>
 					<select id="status" class="drop_down" name = "status" class="form-control">
 						<option value= "pending">Pending</option>
@@ -60,7 +57,7 @@ echo'
 					</select><br>
 					
 					<label for="number_of_assets"><small>Number of assets involved</small></label>
-					<input id="number_of_assets" name="number_of_assets" type="number" required>
+					<input id="number_of_assets" name="number_of_assets" type="number" max="9999999999" min ="1" required>
 					
 					<label for="assign"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
@@ -81,6 +78,9 @@ echo'
 					
 					<label for="job_description"><small>Job description</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
+					
+					<label for="notes"><small>Notes</small></label>
+					<textarea maxlength="200" class ="form-textarea" id="notes" name="notes" type="text"></textarea>
 					
 					<label for="job_number"><small>Job number</small></label>
 					<input id="job_number" name="job_number" type="text" maxlength="20">

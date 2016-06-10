@@ -26,11 +26,6 @@ $date = $_POST["date"];
 $date = trim($date);
 $cleandate = mysqli_real_escape_string($con, $date);
 
-//TIME
-$time = $_POST["time"];
-$time = trim($time);
-$cleantime = mysqli_real_escape_string($con, $time);
-
 //STATUS
 $status = $_POST["status"];
 $status = trim($status);
@@ -57,6 +52,12 @@ $job_description = trim($job_description);
 $filterjobdescription = filter_var($job_description, FILTER_SANITIZE_STRING);
 $cleanjobdescription= mysqli_real_escape_string($con, $filterjobdescription);
 
+//NOTES
+$notes = $_POST["notes"];
+$notes = trim($notes);
+$filternotes = filter_var($notes, FILTER_SANITIZE_STRING);
+$cleannotes= mysqli_real_escape_string($con, $filternotes);
+
 //JOB NUMBER
 $job_number = $_POST["job_number"];
 $job_number = trim($job_number);
@@ -81,11 +82,12 @@ $numberOfAssets = trim($numberOfAssets);
 $filternumberOfAssets = filter_var($numberOfAssets, FILTER_SANITIZE_STRING);
 $cleannumberOfAssets= mysqli_real_escape_string($con, $filternumberOfAssets);
 
+//gets the current date
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
 
-$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, time, creation_date, sage_reference, po_number, job_number, number_of_assets) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$cleantime', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets'); ";
+$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes'); ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;
