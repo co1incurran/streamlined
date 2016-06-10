@@ -77,41 +77,34 @@ $cleannumberOfAssets= mysqli_real_escape_string($con, $filternumberOfAssets);
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
+$sql2 = "SELECT * FROM jobs WHERE jobid = '$jobid'; ";
+$res2 = mysqli_query($con,$sql2);
+$row = mysqli_fetch_assoc($res2);
+$originalJobid = $row["jobid"];
+$originalCompletee = $row["complete"];
+$originalJobType = $row["job_type"];
+$originalJobDescription = $row["job_description"];
+$originalJobStatus = $row["job_status"];
+$originalDueDate = $row["due_date"];
+$originalCreationDate = $row["creation_date"];
+$originalSageReference = $row["sage_reference"];
+$originalPoNumber = $row["po_number"];
+$originalJobNumber = $row["job_number"];
+$originalNumberOfAssets = $row["number_of_assets"];
+$originalNotes = $row["notes"];
 
-$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes'); ";
+if($cleanjobtype != $originalJobType || $cleanjobdescription != $originalJobDescription ||  $cleanstatus != $originalJobStatus || $cleandate != $originalDueDate || $cleansagereference != $originalSageReference || $cleanponumber != $originalPoNumber || $cleanjobnumber != $originalJobNumber || $cleannumberOfAssets != $originalNumberOfAssets || $cleannotes != $originalNotes){
+
+$sql = "UPDATE jobs SET job_type = '$cleanjobtype', job_description = '$cleanjobdescription', job_status = '$cleanstatus', due_date = '$cleandate', sage_reference = '$cleansagereference', po_number = '$cleanponumber', job_number = '$cleanjobnumber', number_of_assets = '$cleannumberOfAssets', notes = '$cleannotes' WHERE jobid = '$jobid'; ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;
 
-$sql2 = "SELECT jobid FROM jobs ORDER BY jobid DESC LIMIT 1; ";
-$result = mysqli_query($con,$sql2);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        $jobid = $row["jobid"];
-    }
-} else {
-    echo "0 results";
-}
-if($customerid != 0){
-	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$customerid'); ";
-	//echo $customerid;
-	//echo '<br>'. $jobid;
-}else{
-	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$companyid', '$jobid'); ";
-	//echo $companyid;
-	//echo '<br>'. $jobid;
-}
-$result2 = mysqli_query($con,$sql3);
-
-$sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
-$result4 = mysqli_query($con,$sql4);
-mysqli_close($con);
 echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Job Created</title>
+	<title>Job Updated</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -124,9 +117,10 @@ echo'
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Job Created</h2>
+					<h2>Job Updated</h2>
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
+					
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->
@@ -142,4 +136,42 @@ echo'
 	</script>
 <!-- Body Ends Here -->
 </html>';
+}else{
+	echo'
+	<!DOCTYPE html>
+<html>
+	<head>
+	<title>Job Updated</title>
+	<link href="css/elements.css" rel="stylesheet">
+	<script src="js/popup.js"></script>
+	</head>
+<!-- Body Starts Here -->
+	<body>
+	<div id="body" style="overflow:hidden;">
+		<div id="abc">
+			<!-- Popup Div Starts Here -->
+			<div id="popupContact">
+			<!-- Contact Us Form -->
+				<form action="" id="form" method="post" name="form">
+					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
+					<h2>You did not make any changes</h2>
+					<hr>
+					<a href="'.$url.'" id="submit">OK</a>
+					<a onclick="goBack()" id="submit">Make changes</a>
+				</form>
+			</div>
+		<!-- Popup Div Ends Here -->
+		</div>
+	</div>
+	</body>
+	
+	<script type="text/javascript">
+	function goBack() {
+		window.history.go(-1);
+	}
+	window.onload = div_show();
+	</script>
+<!-- Body Ends Here -->
+</html>';
+}
 ?>

@@ -38,7 +38,7 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="vbhsave_job.php" id="form" method="post" name="form">
+				<form action="update_job_details.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Job details</h2>
 					<hr>
