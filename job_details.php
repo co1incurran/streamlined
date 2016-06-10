@@ -6,27 +6,28 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$url= $_GET['url'];
-$jobid= $_GET['jobid'];
-$complete= $_GET['complete'];
+$url= $_POST['url'];
+$jobid= $_POST['jobid'];
+$complete= $_POST['complete'];
 
-$jobType= $_GET['jobType'];
-$jobDescription= $_GET['jobDescription'];
-$jobStatus= $_GET['jobStatus'];
+$jobType= $_POST['jobType'];
+$jobDescription= $_POST['jobDescription'];
+$jobStatus= $_POST['jobStatus'];
 
-$dueDate= $_GET['dueDate'];
-$= $_GET['customerid'];
-$companyid= $_GET['companyid'];
+$dueDate= $_POST['dueDate'];
+$sageReference= $_POST['sageReference'];
+$poNumber= $_POST['poNumber'];
 
-$url= $_GET['url'];
-$customerid= $_GET['customerid'];
-$companyid= $_GET['companyid'];
+$jobNumber= $_POST['jobNumber'];
+$numberOfAssets= $_POST['numberOfAssets'];
+$notes= $_POST['notes'];
+
 
 echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Add job</title>
+	<title>Job details</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -37,42 +38,108 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="save_job.php" id="form" method="post" name="form">
+				<form action="vbhsave_job.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Add job</h2>
+					<h2>Job details</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
-					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
-					<label for="date"><small>Due date</small></label>
-					<input id="date" name="date" type="date" required>
+					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
 					
-					<label for="time"><small>Time</small></label>
-					<input id="time" name="time" type="time" required>
+					<label for="date"><small>Due date</small></label>
+					<input id="date" name="date" value ="'.$dueDate.'" type="date" required>
 					
 					<label for="status"><small>Job status</small></label>
-					<select id="status" class="drop_down" name = "status" class="form-control">
-						<option value= "pending">Pending</option>
-						<option value= "order stock">Order Stock</option>
-						<option value= "goods on order">Goods on order</option>
-						<option value= "shipping to site">Shipping to site</option>
-						<option value= "ready to start">Ready to start</option>
+					<select id="status" class="drop_down" name = "status" class="form-control">';
+					
+					if($jobStatus === 'pending'){
+						echo'<option selected = "selected "value= "pending">Pending</option>';
+					}else{
+						echo'<option value= "pending">Pending</option>';
+					}
+					
+					if($jobStatus === 'order stock'){
+						echo'<option selected = "selected "value= "order stock">Order Stock</option>';
+					}else{
+						echo'<option value= "order stock">Order Stock</option>';
+					}
+					
+					if($jobStatus === 'goods on order'){
+						echo'<option selected = "selected" value= "goods on order">Goods on order</option>';
+					}else{
+						echo'<option value= "goods on order">Goods on order</option>';
+					}
+					
+					if($jobStatus === 'shipping to site'){
+						echo'<option selected = "selected" value= "shipping to site">Shipping to site</option>';
+					}else{
+						echo'<option value= "shipping to site">Shipping to site</option>';
+					}
+					
+					if($jobStatus === 'ready to start'){
+						echo'<option selected = "ready to start">Ready to start</option>';
+					}else{
+						echo'<option value= "ready to start">Ready to start</option>';
+					}
+						
+					echo'
 					</select><br>
 					
 					<label for="jobType"><small>Job type</small></label>
-					<select id="jobType"class="drop_down"  name = "jobType" class="form-control">
-						<option value= "installation">Installation</option>
-						<option value= "inspection">Inspection</option>
-						<option value= "service">Service</option>
-						<option value= "repair">Repair</option>
-						<option value= "delivery">Delivery</option>
-						<option value= "collection">Collection</option>
-						<option value= "training">Training</option>
-						<option value= "other">Other</option>
+					<select id="jobType"class="drop_down"  name = "jobType" class="form-control">';
+					
+					if($jobType === 'installation'){
+						echo'<option selected = "selected" value= "installation">Installation</option>';
+					}else{
+						echo'<option value= "installation">Installation</option>';
+					}
+					
+					if($jobType === 'inspection'){
+						echo'<option selected = "selected" value= "inspection">Inspection</option>';
+					}else{
+						echo'<option value= "inspection">Inspection</option>';
+					}
+					
+					if($jobType === 'service'){
+						echo'<option selected = "selected" value= "service">Service</option>';
+					}else{
+						echo'<option value= "service">Service</option>';
+					}
+					
+					if($jobType === 'repair'){
+						echo'<option selected = "selected" value= "repair">Repair</option>';
+					}else{
+						echo'<option value= "repair">Repair</option>';
+					}
+					
+					if($jobType === 'delivery'){
+						echo'<option selected = "selected" value= "delivery">Delivery</option>';
+					}else{
+						echo'<option value= "delivery">Delivery</option>';
+					}
+					
+					if($jobType === 'collection'){
+						echo'<option selected = "selected" value= "collection">Collection</option>';
+					}else{
+						echo'<option value= "collection">Collection</option>';
+					}
+					
+					if($jobType === 'training'){
+						echo'<option selected = "selected" value= "training">Training</option>';
+					}else{
+						echo'<option value= "training">Training</option>';
+					}
+					
+					if($jobType === 'other'){
+						echo'<option selected = "selected" value= "other">Other</option>';
+					}else{
+						echo'<option value= "other">Other</option>';
+					}
+					
+					echo'
 					</select><br>
 					
 					<label for="number_of_assets"><small>Number of assets involved</small></label>
-					<input id="number_of_assets" name="number_of_assets" type="number" required>
+					<input id="number_of_assets" name="number_of_assets" value ="'.$numberOfAssets.'" type="number" max="9999999999" min ="1" required>
 					
 					<label for="assign"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
@@ -92,18 +159,21 @@ echo'
 					</select><br>
 					
 					<label for="job_description"><small>Job description</small></label>
-					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
+					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text">'.$jobDescription.'</textarea>
+					
+					<label for="notes"><small>Notes</small></label>
+					<textarea maxlength="200" class ="form-textarea" id="notes" name="notes" type="text">'.$notes.'</textarea>
 					
 					<label for="job_number"><small>Job number</small></label>
-					<input id="job_number" name="job_number" type="text" maxlength="20">
+					<input id="job_number" name="job_number"value ="'.$jobNumber.'" type="text" maxlength="20">
 					
 					<label for="po_number"><small>PO number</small></label>
-					<input id="po_number" name="po_number" type="text"maxlength="30" >
+					<input id="po_number" name="po_number" value ="'.$poNumber.'" type="text"maxlength="30" >
 					
 					<label for="sage_reference"><small>Sage reference</small></label>
-					<input id="sage_reference" name="sage_reference" type="text" maxlength="20">
+					<input id="sage_reference" name="sage_reference" value ="'.$sageReference.'" type="text" maxlength="20">
 					
-					<input type="submit" id="submit" value="Save">
+					<input type="submit" id="submit" value="Update">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>
