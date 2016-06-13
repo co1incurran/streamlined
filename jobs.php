@@ -186,28 +186,28 @@
 											if(isset($_GET['status'])){
 												$status = $_GET['status'];
 												if($status == 'all'){
-													$setter = 'All Jobs';
+													$setter = 'All Jobs ';
 												}elseif($status == 'today'){
-													$setter = "Today's Jobs";
+													$setter = "Today's Jobs ";
 												}elseif($status == 'tomorrow'){
-													$setter = "Tomorrow's Jobs";
+													$setter = "Tomorrow's Jobs ";
 												}elseif($status == 'week'){
-													$setter = "This Week's Jobs";
+													$setter = "This Week's Jobs ";
 												}elseif($status == 'month'){
-													$setter = "This Month's Jobs";
+													$setter = "This Month's Jobs ";
 												}elseif($status == 'overdue'){
-													$setter = 'Over Due Jobs';
+													$setter = 'Over Due Jobs ';
 												}elseif($status == 'completed'){
-													$setter = 'Completed Jobs';
+													$setter = 'Completed Jobs ';
 												}else{
-													$setter = 'All Jobs';
+													$setter = 'All Jobs ';
 												}
 											}else{
-													$setter = 'All Jobs';
+													$setter = 'All Jobs ';
 												}
 												if (!isset ($_GET['history'])){
 													echo'
-													<h2>' .$setter. '<a href="#">&darr;</a></h2>
+													<h2>' .$setter. '<a href="#"> &darr;</a></h2>
 													<ul>
 														<li><a href="jobs.php?status=all">All jobs</a></li>
 														<li><a href="jobs.php?status=today">Today</a></li>
@@ -219,7 +219,7 @@
 													</ul>';
 												}else{
 													echo'
-													<h2>History</h2>';
+													<h2>Job History</h2>';
 												}
 											?>
                                             </div>

@@ -89,19 +89,15 @@ while($row = mysqli_fetch_array($res)){
 <table id="jobList" class="tablesorter" align="center">
 	<thead>
 		<tr class = "blue-row">
-
+			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 			<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
-
 			<th class = "asset-list"><strong>Status</strong></th>
 			<th class = "asset-list"><strong>Date</strong></th>
 			<th class = "asset-list"><strong>Days Open</strong></th>
-
-			<!--<th class = "asset-list"><strong>Time</strong></th>-->
 			<th class = "asset-list"><strong>Assets</strong></th>
 			<th class = "asset-list"><strong>Job Number</strong></th>
 			<th class = "asset-list"><strong>Customer</strong></th>
 			<th class = "asset-list"><strong>County</strong></th>
-			<td id = "td-header" class = "asset-list"></td>
 		</tr>
 	</thead>
 <tbody>
@@ -137,6 +133,17 @@ while($row = mysqli_fetch_array($res)){
 			}
 	?>
 			<tr>
+				<?php
+				if($status != 'completed'){
+					if($results['job_type'] == 'installation'){
+						echo'<td id= "complete-button"><a href="installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit"><i class="fa fa-square-o"></i></a></td>';
+					}else{
+						echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit"><i class="fa fa-square-o"></i></a></td>';
+					}
+				}else{
+					echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'" id="submit">Incomplete</a></td>';
+				}
+				?>
 				<td>
 				<?php 
 					if ($results['job_type'] == 'installation'){
@@ -197,7 +204,7 @@ while($row = mysqli_fetch_array($res)){
 				</td>
 				<td>
 					<?php $originalDate = $results['due_date'];
-						$newDate = date("d.m.Y", strtotime($originalDate));
+						$newDate = date("d/m/Y", strtotime($originalDate));
 						echo $newDate;
 					?>
 				</td>
@@ -227,9 +234,7 @@ while($row = mysqli_fetch_array($res)){
 						echo ucwords($results['number_of_assets']);
 					?>
 				</td>
-				<!--<td>
-					<?php //echo date('h:ia', strtotime($results['time']));?>
-				</td>-->
+				
 				<td>
 					<?php echo $results['job_number'];?>
 				</td>
@@ -243,17 +248,6 @@ while($row = mysqli_fetch_array($res)){
 				?>
 				</a></td>
 				<td><?php echo ucwords($row['county']); ?></td>
-				<?php
-				if($status != 'completed'){
-					if($results['job_type'] == 'installation'){
-						echo'<td id= "complete-button"><a href="installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
-					}else{
-						echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
-					}
-				}else{
-					echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'" id="submit">Incomplete</a></td>';
-				}
-				?>
 			</tr>
 	<?php
 		}

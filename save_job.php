@@ -116,11 +116,14 @@ $result2 = mysqli_query($con,$sql3);
 $sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
 $result4 = mysqli_query($con,$sql4);
 
+//this gets the current timestamp
+$date = new DateTime();
+$timestamp = $date->getTimestamp();
 //this adds the data to the job history table as the first entry for this job
-$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes'); ";
+$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes, timestamp) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes', '$timestamp'); ";
 
 $res5 = mysqli_query($con,$sql5);
-//echo $sql5;
+echo $sql5;
 
 
 $sql6 = "SELECT historyid FROM job_history ORDER BY historyid DESC LIMIT 1; ";
