@@ -205,17 +205,23 @@
 											}else{
 													$setter = 'All Jobs';
 												}
+												if (!isset ($_GET['history'])){
+													echo'
+													<h2>' .$setter. '<a href="#">&darr;</a></h2>
+													<ul>
+														<li><a href="jobs.php?status=all">All jobs</a></li>
+														<li><a href="jobs.php?status=today">Today</a></li>
+														<li><a href="jobs.php?status=tomorrow">Tomorrow</a></li>
+														<li><a href="jobs.php?status=week">This week</a></li>
+														<li><a href="jobs.php?status=month">This month</a></li>
+														<li><a href="jobs.php?status=overdue">Over due</a></li>
+														<li><a href="jobs.php?status=completed">Completed</a></li>
+													</ul>';
+												}else{
+													echo'
+													<h2>History</h2>';
+												}
 											?>
-                                                <h2><?php echo $setter; ?> <a href="#">&darr;</a></h2>
-                                                <ul>
-                                                    <li><a href="jobs.php?status=all">All jobs</a></li>
-                                                    <li><a href="jobs.php?status=today">Today</a></li>
-                                                    <li><a href="jobs.php?status=tomorrow">Tomorrow</a></li>
-                                                    <li><a href="jobs.php?status=week">This week</a></li>
-                                                    <li><a href="jobs.php?status=month">This month</a></li>
-													<li><a href="jobs.php?status=overdue">Over due</a></li>
-													<li><a href="jobs.php?status=completed">Completed</a></li>
-                                                </ul>
                                             </div>
                                         </header>
 
@@ -224,51 +230,24 @@
 										<?php
 										$url = $_SERVER['REQUEST_URI'];
 										$url = str_replace('&', '%26', $url);
-											if(isset($_GET['details'])) {
-												$details = $_GET['details'];
-												if($details === 'true'){
-													$jobid = $_GET['jobid'];
-													require_once 'job_details.php';
+										if(isset ($_GET['history'])){
+											$jobid = $_GET['jobid'];
+											require_once 'job_history.php';
+										}else{
+												if(isset($_GET['details'])) {
+													$details = $_GET['details'];
+													if($details === 'true'){
+														$jobid = $_GET['jobid'];
+														require_once 'job_details.php';
+													}else{
+													require_once 'job_list.php';
+													}
 												}else{
-												require_once 'job_list.php';
+													require_once 'job_list.php';
 												}
-											}else{
-												require_once 'job_list.php';
-											}
+										}
 										?>
-                                            <!--<ul class="listing list-view">
-                                                <li class="tick">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">Dec 28, 2010</span>
-                                                    <a href="#">Today</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                                <li class="calendar">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">Dec 29, 2010</span>
-                                                    <a href="#">Tomorrow</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                                <li class="calendar">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">January 6, 2010</span>
-                                                    <a href="#">Next Week</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                                <li class="calendar">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">January 28, 2010</span>
-                                                    <a href="#">Next Month</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                            </ul>
-                                            <ul class="pagination">
-                                                <li><a href="#">&laquo;</a></li>
-                                                <li class="active"><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">&raquo;</a></li>
-                                            </ul>-->
+                                            
                                         </section>
                                     </div>
                                 </div>

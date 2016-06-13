@@ -100,6 +100,24 @@ $sql = "UPDATE jobs SET job_type = '$cleanjobtype', job_description = '$cleanjob
 $res = mysqli_query($con,$sql);
 //echo $sql;
 
+//this adds the data to the job history table as the first entry for this job
+$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes'); ";
+
+$res5 = mysqli_query($con,$sql5);
+//echo $sql5;
+
+
+$sql6 = "SELECT historyid FROM job_history ORDER BY historyid DESC LIMIT 1; ";
+//echo $sql6;
+$res6 = mysqli_query($con,$sql6);
+$row6= mysqli_fetch_assoc($res6);
+$historyid = $row6["historyid"];
+
+$sql7 = "INSERT INTO jobs_to_history (jobid, historyid) VALUES ($jobid, $historyid);";
+$res7 = mysqli_query($con,$sql7);
+//echo $sql7;
+
+
 echo'
 <!DOCTYPE html>
 <html>
