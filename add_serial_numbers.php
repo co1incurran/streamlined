@@ -3,23 +3,17 @@ $url= $_POST['url'];
 $customerid= $_POST['customerid'];
 $companyid= $_POST['companyid'];
 $jobid = $_POST['jobid'];
-$numberOfAssets = $_POST['numberofassets'];
+$numberOfAssets = $_POST['numberOfAssets'];
 $assettype = $_POST['assettype'];
-$assetquantity = $_POST['assetquantity'];
+$thisAssetQuantity = $_POST['thisAssetQuantity'];
 $model = $_POST['model'];
 $manufacturer = $_POST['manufacturer'];
 $productdescription = $_POST['productdescription'];
 $inspectiondate = $_POST['inspectiondate'];
 $servicedate = $_POST['servicedate'];
 
-if(isset ($_POST['totalAssetsAdded'])){
-	$totalAssetsAdded = $_POST['totalAssetsAdded'];
-	$totalAssetsAdded = $totalAssetsAdded + $assetquantity;
-}else{
-	$totalAssetsAdded = $assetquantity;
-}
 
-if($totalAssetsAdded > $numberOfAssets){
+if($thisAssetQuantity > $numberOfAssets){
 echo'
 <!DOCTYPE html>
 <html>
@@ -41,11 +35,7 @@ echo'
 					<hr>
 					<p>The number of assets is greater than the total number of assets you claim to have installed.</p>
 					<p>Total number of assets: '.$numberOfAssets.'</p>
-					<p>Number of this type of asset: '.$assetquantity.'.</p>';
-					if($totalAssetsAdded > $assetquantity){
-						echo '<p>Total of all assets you are attempting to add: '.$totalAssetsAdded.'.</p>';
-					}
-					echo'
+					<p>Number of this type of asset: '.$thisAssetQuantity.'.</p>
 					<a onclick="goBack()" id="submit">Change number of this asset</a>
 					<a href= "'.$url.'" id="submit">Start again</a>
 					<a href = "'.$url.'" id="submit">Cancel</a>
@@ -62,6 +52,7 @@ echo'
 <!-- Body Ends Here -->
 </html>';
 }else{
+	
 echo'
 <!DOCTYPE html>
 <html>
@@ -88,14 +79,14 @@ echo'
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
 					<input type="hidden" name="numberofassets" id="numberofassets" value="'.$numberOfAssets.'">
 					<input type="hidden" name="assettype" id="assettype" value="'.$assettype.'">
-					<input type="hidden" name="assetquantity" id="assetquantity" value="'.$assetquantity.'">
+					<input type="hidden" name="thisAssetQuantity" id="thisAssetQuantity" value="'.$thisAssetQuantity.'">
 					<input type="hidden" name="model" id="model" value="'.$model.'">
 					<input type="hidden" name="manufacturer" id="manufacturer" value="'.$manufacturer.'">
 					<input type="hidden" name="productdescription" id="productdescription" value="'.$productdescription.'">
 					<input type="hidden" name="inspectiondate" id="inspectiondate" value="'.$inspectiondate.'">
 					<input type="hidden" name="servicedate" id="servicedate" value="'.$servicedate.'">';
 					$i=0;
-				while($i < $assetquantity){
+				while($i < $thisAssetQuantity){
 					echo'
 					<h3>'.($i+1).'</h3>
 					<label for="serialnumber'.$i.'"><small>Serial Number</small></label><br>

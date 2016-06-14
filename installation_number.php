@@ -3,6 +3,7 @@ $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
 $jobid = $_GET['jobid'];
+$number0fAssets = $_GET['numberOfAssets']; 
 
 echo'
 <!DOCTYPE html>
@@ -28,8 +29,8 @@ echo'
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
 															
-					<label for="assetnumber"><small>Total number of assets installed</small></label><br>
-					<input id="assetnumber" name="assetnumber" type="number" required>
+					<label for="numberOfAssets"><small>Total number of assets installed</small></label><br>
+					<input id="numberOfAssets" name="numberOfAssets" type="number" value = "'.$number0fAssets.'" required>
 					
 					<input type="submit" id="submit" value="Next">
 					<a onclick="goBack()" id="submit">Cancel</a>

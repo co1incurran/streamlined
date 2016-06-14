@@ -15,7 +15,7 @@ tr td{
 tr td#td-header.asset-list {
 	background-color: rgb(176,212,229);
 	text-align: center;
-	padding: 0;
+	padding: 10px;
 }
 td#complete-button{
 	text-align: center;

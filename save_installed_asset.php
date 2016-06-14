@@ -16,7 +16,7 @@ $cleanjobid= mysqli_real_escape_string($con, $filterjobid);
 
 $numberOfAssets = $_POST['numberofassets'];
 //asset quantity
-$assetquantity = $_POST["assetquantity"];
+$thisAssetQuantity = $_POST["thisAssetQuantity"];
 
 $totalAssetsAdded = $_POST['totalAssetsAdded'];
 
@@ -69,44 +69,14 @@ $servicedate = $_POST["servicedate"];
 $servicedate = trim($servicedate);
 $cleanservicedate = mysqli_real_escape_string($con, $servicedate);
 
-if ($totalAssetsAdded == $numberOfAssets ){
-	echo'
-	<!DOCTYPE html>
-	<html>
-		<head>
-		<title>All assets added</title>
-		<link href="css/elements.css" rel="stylesheet">
-		<script src="js/popup.js"></script>
-		</head>
-	<!-- Body Starts Here -->
-		<body>
-		<div id="body" style="overflow:hidden;">
-			<div id="abc">
-				<!-- Popup Div Starts Here -->
-				<div id="popupContact">
-				<!-- Contact Us Form -->
-					<form action="" id="form" method="post" name="form">
-						<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-						<h2>All asstes added</h2>
-						<hr>
-						<a href="'.$url.'" id="submit">OK</a>
-					</form>
-				</div>
-			<!-- Popup Div Ends Here -->
-			</div>
-		</div>
-		</body>
-		<script type="text/javascript">
-		window.onload = div_show();
-		</script>
-	<!-- Body Ends Here -->
-	</html>';
-}else{
+$numberOfAssets = $numberOfAssets - $thisAssetQuantity;
+
+
 
 //sorting the serial number and location of the assets
 $i =0;
 $serialAndLocation = array();
-while($i < $assetquantity){
+while($i < $thisAssetQuantity){
 	$serialnumber = $_POST["serialnumber$i"];
 	$serialnumber = trim($serialnumber);
 	$serialnumber = strtolower($serialnumber);
@@ -176,8 +146,44 @@ foreach($serialAndLocation as $s){
 	//echo $sql6;
 	//echo'<br><br>';
 }
-
-
+if ($numberOfAssets == 0){
+	echo'
+	<!DOCTYPE html>
+	<html>
+		<head>
+		<title>All assets added</title>
+		<link href="css/elements.css" rel="stylesheet">
+		<script src="js/popup.js"></script>
+		</head>
+	<!-- Body Starts Here -->
+		<body>
+		<div id="body" style="overflow:hidden;">
+			<div id="abc">
+				<!-- Popup Div Starts Here -->
+				<div id="popupContact">
+				<!-- Contact Us Form -->
+					<form action="" id="form" method="post" name="form">
+						<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
+						<h2>All asstes added</h2>
+						<hr>
+						<a href="'.$url.'" id="submit">OK</a>
+					</form>
+				</div>
+			<!-- Popup Div Ends Here -->
+			</div>
+		</div>
+		</body>
+		<script type="text/javascript">
+		window.onload = div_show();
+		</script>
+	<!-- Body Ends Here -->
+	</html>';
+}else{
+	if ($numberOfAssets == 1){
+		$word = 'asset';
+	}else{
+		$word = 'assets';
+	}
 echo'
 <!DOCTYPE html>
 <html>
@@ -195,7 +201,7 @@ echo'
 			<!-- Contact Us Form -->
 				<form action="add_installed_assets.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>You have '.($numberOfAssets - $totalAssetsAdded).' asset(s) to account for. </h2>
+					<h2>You have '.$numberOfAssets.' '.$word.' to account for. </h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
@@ -205,7 +211,7 @@ echo'
 					<input type="hidden" name="totalAssetsAdded" id="totalAssetsAdded" value="'.$totalAssetsAdded.'">
 					
 					<input type="submit" id="submit" value="Add more assets">
-					<a href = "'.$url.'" id="submit">Cancel</a>
+					<!--<a href = "'.$url.'" id="submit">Cancel</a>-->
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->

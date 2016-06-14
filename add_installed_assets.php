@@ -11,10 +11,7 @@ $url = $_POST['url'];
 $customerid = $_POST['customerid'];
 $companyid = $_POST['companyid'];
 $jobid = $_POST['jobid'];
-$numberOfAssets = $_POST['assetnumber'];
-if(isset ($_POST['totalAssetsAdded'])){
-	$totalAssetsAdded = $_POST['totalAssetsAdded'];
-}
+$numberOfAssets = $_POST['numberOfAssets'];
 
 $sql = "SELECT name FROM manufacturers ORDER BY name; ";
 $res = mysqli_query($con,$sql);
@@ -100,11 +97,7 @@ echo'
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
-					<input type="hidden" name="numberofassets" id="numberofassets" value="'.$numberOfAssets.'">';
-					if(isset ($_POST['totalAssetsAdded'])){
-						echo '<input type="hidden" name="numberofassets" id="numberofassets" value="'.$numberOfAssets.'">';
-					}
-					echo'										
+					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">										
 					<label for="assettype"><small>Asset type</small></label><br>
 					<select id="assettype"class="drop_down"  name = "assettype" class="form-control">';
 					foreach ($assetType as $at){
