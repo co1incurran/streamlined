@@ -11,6 +11,7 @@ $manufacturer = $_POST['manufacturer'];
 $productdescription = $_POST['productdescription'];
 $inspectiondate = $_POST['inspectiondate'];
 $servicedate = $_POST['servicedate'];
+$totalNumberOfAssets = $_POST['totalNumberOfAssets'];
 
 
 if($thisAssetQuantity > $numberOfAssets){
@@ -34,7 +35,7 @@ echo'
 					<h2>ERROR</h2>
 					<hr>
 					<p>The number of assets is greater than the total number of assets you claim to have installed.</p>
-					<p>Total number of assets: '.$numberOfAssets.'</p>
+					<p>Total number of assets left to add: '.$numberOfAssets.'</p>
 					<p>Number of this type of asset: '.$thisAssetQuantity.'.</p>
 					<a onclick="goBack()" id="submit">Change number of this asset</a>
 					<a href= "'.$url.'" id="submit">Start again</a>
@@ -73,7 +74,6 @@ echo'
 					<h2>Serial number & location</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="totalAssetsAdded" id="totalAssetsAdded" value="'.$totalAssetsAdded.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
@@ -84,6 +84,7 @@ echo'
 					<input type="hidden" name="manufacturer" id="manufacturer" value="'.$manufacturer.'">
 					<input type="hidden" name="productdescription" id="productdescription" value="'.$productdescription.'">
 					<input type="hidden" name="inspectiondate" id="inspectiondate" value="'.$inspectiondate.'">
+					<input type="hidden" name="totalNumberOfAssets" id="totalNumberOfAssets" value="'.$totalNumberOfAssets.'">
 					<input type="hidden" name="servicedate" id="servicedate" value="'.$servicedate.'">';
 					$i=0;
 				while($i < $thisAssetQuantity){

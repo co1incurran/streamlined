@@ -9,6 +9,8 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //Back URL
 $url= $_POST["url"];
 
+$totalNumberOfAssets = $_POST['totalNumberOfAssets'];
+
 $jobid = $_POST["jobid"];
 $jobid = trim($jobid);
 $filterjobid = filter_var($jobid, FILTER_SANITIZE_STRING);
@@ -18,7 +20,7 @@ $numberOfAssets = $_POST['numberofassets'];
 //asset quantity
 $thisAssetQuantity = $_POST["thisAssetQuantity"];
 
-$totalAssetsAdded = $_POST['totalAssetsAdded'];
+//$totalAssetsAdded = $_POST['totalAssetsAdded'];
 
 //COMPANYID
 $companyid = $_POST["companyid"];
@@ -147,12 +149,15 @@ foreach($serialAndLocation as $s){
 	//echo'<br><br>';
 }
 if ($numberOfAssets == 0){
+	//change the complete status of the job to complete
+	$sql7 = "UPDATE jobs SET complete = '1' WHERE jobid = '$jobid';";
+	$res7 = mysqli_query($con,$sql7);
 	echo'
 	<!DOCTYPE html>
 	<html>
 		<head>
 		<title>All assets added</title>
-		<link href="css/elements.css" rel="stylesheet">
+		<link href=".css/elements.css" rel="stylesheet">
 		<script src="js/popup.js"></script>
 		</head>
 	<!-- Body Starts Here -->
@@ -189,7 +194,7 @@ echo'
 <html>
 	<head>
 	<title>Result</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -207,8 +212,8 @@ echo'
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
-					<input type="hidden" name="assetnumber" id="assetnumber" value="'.$numberOfAssets.'">
-					<input type="hidden" name="totalAssetsAdded" id="totalAssetsAdded" value="'.$totalAssetsAdded.'">
+					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
+					<input type="hidden" name="totalNumberOfAssets" id="totalNumberOfAssets" value="'.$totalNumberOfAssets.'">
 					
 					<input type="submit" id="submit" value="Add more assets">
 					<!--<a href = "'.$url.'" id="submit">Cancel</a>-->

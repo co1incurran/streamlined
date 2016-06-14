@@ -150,7 +150,7 @@ foreach ($result as $results){
 								<section class="panel-body" style = "width:100%">';
 									echo'		 
 									<table align="center">
-										<th><tr class = "blue-row">
+										<tr class = "blue-row">
 										<td class = "asset-list"></td>
 										<td class = "asset-list"><strong>Product</strong></td>
 										<td class = "asset-list"><strong>Model</strong></td>
@@ -160,7 +160,7 @@ foreach ($result as $results){
 										<td class = "asset-list"><strong>Last Service</strong></td>
 										<td class = "asset-list"><strong>Serial Number</strong></td>
 										<td class = "asset-list"><strong>Location</strong></td>
-										</tr></th>';
+										</tr>';
 										$i = 1;
 						foreach ($result2 as $results2){
 							if (1 != $i % 2){

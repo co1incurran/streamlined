@@ -6,6 +6,13 @@ define("DB_DATABASE", "database");
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
+if(isset($_POST['setter'])){
+	$totalNumberOfAssets = $_POST['numberOfAssets'];
+}
+
+if(isset($_POST['totalNumberOfAssets'])){
+	$totalNumberOfAssets = $_POST['totalNumberOfAssets'];
+}
 
 $url = $_POST['url'];
 $customerid = $_POST['customerid'];
@@ -35,7 +42,7 @@ while($row = mysqli_fetch_array($res2)){
 }
 //print_r (array_values($assetType));
 
-if($numberOfAssets < 1){
+if($totalNumberOfAssets < 1){
 	echo'
 <!DOCTYPE html>
 <html>
@@ -56,7 +63,7 @@ if($numberOfAssets < 1){
 					<h2>ERROR</h2>
 					<hr>
 					<p>The number of assets installed must be at least 1.</p>
-					<p>The number you provided was: '.$numberOfAssets.'</p>
+					<p>The number you provided was: '.$totalNumberOfAssets.'</p>
 					<p>Please change this to the correct value.</p>
 					
 					<a onclick="goBack()" id="submit">Change</a>
@@ -97,7 +104,8 @@ echo'
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
-					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">										
+					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
+					<input type="hidden" name="totalNumberOfAssets" id="totalNumberOfAssets" value="'.$totalNumberOfAssets.'">	
 					<label for="assettype"><small>Asset type</small></label><br>
 					<select id="assettype"class="drop_down"  name = "assettype" class="form-control">';
 					foreach ($assetType as $at){
@@ -108,8 +116,8 @@ echo'
 					</select><br>
 					
 					
-					<label for="assetquantity"><small>Quantity of this asset type</small></label><br>
-					<input id="assetquantity" name="assetquantity" type="number" required>
+					<label for="thisAssetQuantity"><small>Quantity of this asset type</small></label><br>
+					<input id="thisAssetQuantity" name="thisAssetQuantity" type="number" required>
 					
 					<label for="model"><small>Model</small></label><br>
 					<input id="model" name="model" type="text" maxlength="50" required>

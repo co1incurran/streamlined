@@ -28,6 +28,7 @@ echo'
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
+					<input type="hidden" name="setter" id="setter" value="setter">
 															
 					<label for="numberOfAssets"><small>Total number of assets installed</small></label><br>
 					<input id="numberOfAssets" name="numberOfAssets" type="number" value = "'.$number0fAssets.'" required>

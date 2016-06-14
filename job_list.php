@@ -210,23 +210,27 @@ while($row = mysqli_fetch_array($res)){
 				</td>
 				<td>
 				<?php
-				//works out days open 
-				
-					//get the current date 
-					$dt = new DateTime();
-					$installdate = $dt->format('Y-m-d');
-					$openDate = $results['creation_date'];
+					if($results['complete'] == 0){
+					//works out days open 
 					
-					//convert it to a timestamp
-					$openDate = strtotime($openDate);
-					//Get the current timestamp.
-					$now = time();
-					
-					//Calculate the difference.
-					$difference = $now - $openDate;
-					
-					$days = floor($difference / (60*60*24) );
-					echo $days;
+						//get the current date 
+						$dt = new DateTime();
+						$installdate = $dt->format('Y-m-d');
+						$openDate = $results['creation_date'];
+						
+						//convert it to a timestamp
+						$openDate = strtotime($openDate);
+						//Get the current timestamp.
+						$now = time();
+						
+						//Calculate the difference.
+						$difference = $now - $openDate;
+						
+						$days = floor($difference / (60*60*24) );
+						echo $days;
+					}else{
+						echo 'Closed';
+					}
 				?>
 				</td>
 				<td>
