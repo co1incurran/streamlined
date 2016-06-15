@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
+
 <?php
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
@@ -89,8 +90,8 @@ while($row = mysqli_fetch_array($res)){
 <table id="jobList" class="tablesorter" align="center">
 	<thead>
 		<tr class = "blue-row">
-			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
-			<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
+			<!--<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>-->
+			<th class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Status</strong></th>
 			<th class = "asset-list"><strong>Date</strong></th>
 			<th class = "asset-list"><strong>Days Open</strong></th>
@@ -131,9 +132,29 @@ while($row = mysqli_fetch_array($res)){
 				$row = mysqli_fetch_assoc($res2);
 				$companyid = $row["companyid"];
 			}
+			
+			if ($results['job_type'] == 'installation'){
+						$icon = '<i class="fa fa-sign-in"> </i>';
+			}elseif ($results['job_type'] == 'inspection'){
+				$icon = '<i class="fa fa-search"></i>';
+			}elseif ($results['job_type'] == 'service'){
+				$icon = '<i class="fa fa-check-square-o"></i>';
+			}elseif ($results['job_type'] == 'repair'){
+				$icon = '<i class="fa fa-medkit"></i>';
+			}elseif ($results['job_type'] == 'delivery'){
+				$icon = '<i class="fa fa-truck"></i>';
+			}elseif ($results['job_type'] == 'collection'){
+				$icon = '<i class="fa fa-bus"></i>';
+			}elseif ($results['job_type'] == 'training'){
+				$icon = '<i class="fa fa-male"></i>';
+			}elseif ($results['job_type'] == 'other'){
+				$icon = '<i class="fa fa-question"></i>';
+			}else{
+				$icon =  '<i class="fa fa-question"></i>';
+			}
 	?>
 			<tr>
-				<?php
+				<!--<00?php
 				if($status != 'completed'){
 					if($results['job_type'] == 'installation'){
 						echo'<td id= "complete-button"><a href="installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'&numberOfAssets='.$numberOfAssets.'"><i class="fa fa-square-o"></i></a></td>';
@@ -143,60 +164,37 @@ while($row = mysqli_fetch_array($res)){
 				}else{
 					echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'"><i class="fa fa-check-square-o"></i></a></td>';
 				}
-				?>
+				?>-->
 				<td>
-				<?php 
-					if ($results['job_type'] == 'installation'){
-						$icon = '<i class="fa fa-sign-in"> </i>';
-					}elseif ($results['job_type'] == 'inspection'){
-						$icon = '<i class="fa fa-search"></i>';
-					}elseif ($results['job_type'] == 'service'){
-						$icon = '<i class="fa fa-check-square-o"></i>';
-					}elseif ($results['job_type'] == 'repair'){
-						$icon = '<i class="fa fa-medkit"></i>';
-					}elseif ($results['job_type'] == 'delivery'){
-						$icon = '<i class="fa fa-truck"></i>';
-					}elseif ($results['job_type'] == 'collection'){
-						$icon = '<i class="fa fa-bus"></i>';
-					}elseif ($results['job_type'] == 'training'){
-						$icon = '<i class="fa fa-male"></i>';
-					}elseif ($results['job_type'] == 'other'){
-						$icon = '<i class="fa fa-question"></i>';
-					}else{
-						$icon =  '<i class="fa fa-question"></i>';
-					}
-					
-				echo'
-				<form action="job_details.php" id="job-list" method="post" name="job-list">
-					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
-					
-					<input type="hidden" name="complete" id="complete" value="'.$complete.'">
-					<input type="hidden" name="jobType" id="jobType" value="'.$jobType.'">
-					
-					<input type="hidden" name="jobDescription" id="jobDescription" value="'.$jobDescription.'">
-					<input type="hidden" name="jobStatus" id="jobStatus" value="'.$jobStatus.'">
-					
-					<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
-					<input type="hidden" name="sageReference" id="sageReference" value="'.$sageReference.'">
-					
-					<input type="hidden" name="poNumber" id="poNumber" value="'.$poNumber.'">
-					<input type="hidden" name="jobNumber" id="jobNumber" value="'.$jobNumber.'">
-					
-					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
-					<input type="hidden" name="notes" id="notes" value="'.$notes.'">
-					';
-				?>
-					<?php
+				<?php 					
 					echo'
-					'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['job_type']).'">';
-					?>
-				</form>
-				<!--<a href = "jobs.php?details=true&jobid=<?php echo $results['jobid'] ?>" class="name">-->
-				<?php
-					//echo ucwords($results['job_type']);
+					<form action="job_details.php" id="job-list" method="post" name="job-list">
+						<input type="hidden" name="url" id="url" value="'.$url.'">
+						<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
+						
+						<input type="hidden" name="complete" id="complete" value="'.$complete.'">
+						<input type="hidden" name="jobType" id="jobType" value="'.$jobType.'">
+						
+						<input type="hidden" name="jobDescription" id="jobDescription" value="'.$jobDescription.'">
+						<input type="hidden" name="jobStatus" id="jobStatus" value="'.$jobStatus.'">
+						
+						<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
+						<input type="hidden" name="sageReference" id="sageReference" value="'.$sageReference.'">
+						
+						<input type="hidden" name="poNumber" id="poNumber" value="'.$poNumber.'">
+						<input type="hidden" name="jobNumber" id="jobNumber" value="'.$jobNumber.'">
+						
+						<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
+						<input type="hidden" name="notes" id="notes" value="'.$notes.'">
+						'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['job_type']).'">
+					</form>';
 				?>
 				</td>
+					<?php
+					//echo'
+					//'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['job_type']).'">';
+					?>
+				
 				<td>
 					<?php
 						if($results['complete'] == 0){
@@ -263,5 +261,6 @@ while($row = mysqli_fetch_array($res)){
 	?>
 		</tbody>
 	</table>
+	
 </body>
 </html>
