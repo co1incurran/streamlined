@@ -79,7 +79,7 @@ while($row = mysqli_fetch_array($res)){
 <table id="activityList" class="tablesorter" align="center">
 	<thead>
 		<tr class = "blue-row">
-
+			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 			<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
 
 			<th class = "asset-list"><strong>Date</strong></th>
@@ -88,7 +88,7 @@ while($row = mysqli_fetch_array($res)){
 			<th class = "asset-list"><strong>Customer</strong></th>
 			
 			<th class = "asset-list"><strong>County</strong></th>
-			<td id = "td-header" class = "asset-list"></td>
+			
 		</tr>
 	</thead>
 <tbody>
@@ -112,6 +112,17 @@ while($row = mysqli_fetch_array($res)){
 			}
 	?>
 			<tr>
+				<?php
+					if($status != 'completed'){
+						if($results['type'] == 'prospecting'){
+							echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+						}else{
+							echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" ><i class="fa fa-square-o"></i></a></td>';
+						}
+					}else{
+						echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
+					}
+				?>
 				<td>
 				<?php 
 					if ($results['type'] == 'prospecting'){
@@ -161,17 +172,6 @@ while($row = mysqli_fetch_array($res)){
 				?>
 				</a></td>
 				<td><?php echo ucwords($row['county']); ?></td>
-				<?php
-				if($status != 'completed'){
-					if($results['type'] == 'prospecting'){
-						echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
-					}else{
-						echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" id="submit">Complete</a></td>';
-					}
-				}else{
-					echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" id="submit">Incomplete</a></td>';
-				}
-				?>
 			</tr>
 	<?php
 		}

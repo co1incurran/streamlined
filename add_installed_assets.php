@@ -107,7 +107,9 @@ echo'
 					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
 					<input type="hidden" name="totalNumberOfAssets" id="totalNumberOfAssets" value="'.$totalNumberOfAssets.'">	
 					<label for="assettype"><small>Asset type</small></label><br>
-					<select id="assettype"class="drop_down"  name = "assettype" class="form-control">';
+					<select id="assettype"class="drop_down"  name = "assettype" class="form-control" required>
+					<option value="" disabled selected>Please Choose</option>
+					<option value= "hoist">Hoist</option>';
 					foreach ($assetType as $at){
 						$type = $at['asset_type'];
 						echo'<option value= "'.$type.'">'.ucwords($type).'</option>';
@@ -115,21 +117,24 @@ echo'
 					echo'
 					</select><br>
 					
-					
-					<label for="thisAssetQuantity"><small>Quantity of this asset type</small></label><br>
-					<input id="thisAssetQuantity" name="thisAssetQuantity" type="number" required>
-					
-					<label for="model"><small>Model</small></label><br>
-					<input id="model" name="model" type="text" maxlength="50" required>
-					
 					<label for="manufacturer"><small>Manufacturer</small></label><br>
-					<select id="manufacturer"class="drop_down"  name = "manufacturer" class="form-control">';
+					<select id="manufacturer"class="drop_down"  name = "manufacturer" class="form-control" required>
+					<option value="" disabled selected>Please Choose</option>
+					<option value= "guldmann">Guldmann</option>';
 					foreach ($manufacturers as $m){
 						$man = $m['name'];
 						echo'<option value= "'.$man.'">'.ucwords($man).'</option>';
 					}
 					echo'
 					</select><br>
+					
+					<label for="model"><small>Model</small></label><br>
+					<input id="model" name="model" type="text" maxlength="50" required>
+					
+					
+					<label for="thisAssetQuantity"><small>Quantity of this asset type</small></label><br>
+					<input id="thisAssetQuantity" name="thisAssetQuantity" type="number" required>			
+					
 					
 					<label for="productdescription"><small>Product description</small></label><br>
 					<input id="productdescription" name="productdescription" type="text" maxlength="200">

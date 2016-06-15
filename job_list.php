@@ -199,7 +199,11 @@ while($row = mysqli_fetch_array($res)){
 				</td>
 				<td>
 					<?php
-						echo ucwords($results['job_status']);
+						if($results['complete'] == 0){
+							echo ucwords($results['job_status']);
+						}else{
+							echo 'Complete';
+						}
 					?>
 				</td>
 				<td>

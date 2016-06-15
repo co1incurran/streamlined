@@ -152,6 +152,46 @@ if ($numberOfAssets == 0){
 	//change the complete status of the job to complete
 	$sql7 = "UPDATE jobs SET complete = '1' WHERE jobid = '$jobid';";
 	$res7 = mysqli_query($con,$sql7);
+	
+//everything below this is for adding the completion to the job_history table
+	//gets the current date
+$dt = new DateTime();
+$creationdate = $dt->format('Y-m-d');
+
+//gets the current data for the job
+$sql2 = "SELECT * FROM jobs WHERE jobid = '$jobid'; ";
+$res2 = mysqli_query($con,$sql2);
+$row = mysqli_fetch_assoc($res2);
+$originalJobid = $row["jobid"];
+$originalCompletee = $row["complete"];
+$originalJobType = $row["job_type"];
+$originalJobDescription = $row["job_description"];
+$originalJobStatus = $row["job_status"];
+$originalDueDate = $row["due_date"];
+$originalCreationDate = $row["creation_date"];
+$originalSageReference = $row["sage_reference"];
+$originalPoNumber = $row["po_number"];
+$originalJobNumber = $row["job_number"];
+$originalNumberOfAssets = $row["number_of_assets"];
+$originalNotes = $row["notes"];
+
+//this gets the current timestamp
+$timestamp = time();
+
+//this adds the data to the job history table as the first entry for this job
+$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes, timestamp) VALUES ('1', '$originalJobType', '$originalJobDescription', '$originalJobStatus', '$originalDueDate', '$creationdate', '$originalSageReference', '$originalPoNumber', '$originalJobNumber', '$originalNumberOfAssets', '$originalNotes', '$timestamp'); ";
+
+$res5 = mysqli_query($con,$sql5);
+
+$sql6 = "SELECT historyid FROM job_history ORDER BY historyid DESC LIMIT 1; ";
+//echo $sql6;
+$res6 = mysqli_query($con,$sql6);
+$row6= mysqli_fetch_assoc($res6);
+$historyid = $row6["historyid"];
+
+$sql7 = "INSERT INTO jobs_to_history (jobid, historyid) VALUES ($jobid, $historyid);";
+$res7 = mysqli_query($con,$sql7);
+	
 	echo'
 	<!DOCTYPE html>
 	<html>
@@ -194,7 +234,7 @@ echo'
 <html>
 	<head>
 	<title>Result</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
