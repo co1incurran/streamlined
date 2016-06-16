@@ -2,7 +2,10 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
-<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
+<!--<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>-->
+<script type="text/javascript" src="table_filter/ddtf.js"></script>
+
+<script>$('#activityList').ddTableFilter();</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -131,32 +134,10 @@
                             </ul>
                         </nav>
     
-                       <!-- <nav class="subnav recent">
-                            <h4>Recent Contacts</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li>
-                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
-                                        </span>
-                                        <p>John Doe<br>
-                                        <small class="text-muted">Some Company LTD</small></p>
-                                        <address>123 Some Street, LA</address>
-'><h5>John Doe</h5><h6>Some Company LTD</h6></a>
-                                </li>
-                                <li>
-                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
-                                        </span>
-                                        <p>Jane Roe<br>
-                                        <small class="text-muted">Some Company LTD</small></p>
-                                        <address>123 Some Street, LA</address>
-'><h5>Jane Roe</h5><h6>Other Company Inc.</h6></a>
-                                </li>
-                            </ul>
-                        </nav> -->
-    
                         <nav class="subnav">
                             <h4>Activities</h4>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="empty">Projects</a></li>
+                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
                                 <li><a href="empty">Sales</a></li>
                                 <li><a href="empty">Jobs</a></li>
                                 
@@ -310,5 +291,6 @@
         } 
     );
     </script>
+	<script>$('#activityList').ddTableFilter();</script>
 </body>
 </html>

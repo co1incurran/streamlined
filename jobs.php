@@ -136,7 +136,7 @@
                         <nav class="subnav">
                             <h4>Activities</h4>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="empty">Projects</a></li>
+                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
                                 <li><a href="empty">Sales</a></li>
                                 <li><a href="empty">Jobs</a></li>
                                 

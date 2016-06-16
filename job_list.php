@@ -90,7 +90,7 @@ while($row = mysqli_fetch_array($res)){
 <table id="jobList" class="tablesorter" align="center">
 	<thead>
 		<tr class = "blue-row">
-			<!--<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>-->
+			<th id = "td-header" class = "asset-list"><i class="fa fa-check"></i></th>
 			<th class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Status</strong></th>
 			<th class = "asset-list"><strong>Date</strong></th>
@@ -154,17 +154,18 @@ while($row = mysqli_fetch_array($res)){
 			}
 	?>
 			<tr>
-				<!--<00?php
-				if($status != 'completed'){
-					if($results['job_type'] == 'installation'){
-						echo'<td id= "complete-button"><a href="installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'&numberOfAssets='.$numberOfAssets.'"><i class="fa fa-square-o"></i></a></td>';
+					<?php
+					if($status != 'completed'){
+						if($results['job_type'] == 'installation'){
+							echo'<td id= "complete-button"><a href="installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'&numberOfAssets='.$numberOfAssets.'"><i class="fa fa-square-o"></i></a></td>';
+						}else{
+							echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+						}
 					}else{
-						echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+						echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'"><i class="fa fa-check-square-o"></i></a></td>';
 					}
-				}else{
-					echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'"><i class="fa fa-check-square-o"></i></a></td>';
-				}
-				?>-->
+					?>
+				
 				<td>
 				<?php 					
 					echo'
@@ -190,10 +191,6 @@ while($row = mysqli_fetch_array($res)){
 					</form>';
 				?>
 				</td>
-					<?php
-					//echo'
-					//'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['job_type']).'">';
-					?>
 				
 				<td>
 					<?php
