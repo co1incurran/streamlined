@@ -57,7 +57,7 @@ $cleanaddress1 = mysqli_real_escape_string($con, $filteraddress1);
 //address2
 $address2 = $_POST["address2"];
 $address2 = trim($address2);
-$address2 = strtolower($address1);
+$address2 = strtolower($address2);
 $filteraddress2 = filter_var($address2, FILTER_SANITIZE_STRING);
 $cleanaddress2 = mysqli_real_escape_string($con, $filteraddress2);
 
@@ -85,7 +85,7 @@ $cleancounty = mysqli_real_escape_string($con, $filtercounty);
 //country
 $country = $_POST["country"];
 $country = trim($country);
-$county = strtolower($county);
+$country = strtolower($country);
 $filtercountry = filter_var($country, FILTER_SANITIZE_STRING);
 $cleancountry = mysqli_real_escape_string($con, $filtercountry);
 
@@ -96,26 +96,29 @@ $sageid = strtolower($sageid);
 $filtersageid = filter_var($sageid, FILTER_SANITIZE_STRING);
 $cleansageid = mysqli_real_escape_string($con, $filtersageid);
 
-$sql1 = "SELECT * FROM customer WHERE first_name = '$cleanfirstname' AND last_name = '$cleanlastname' AND phone_num = '$cleanphone' AND  mobile_phone_num = '$cleanmobile' AND email = '$cleanemail' AND fax = '$cleanfax' AND  address_line1 = '$cleanaddress1' AND  address_line2 = '$cleanaddress2' AND  address_line3 = '$cleanaddress3' AND  address_line4 = '$cleanaddress4' AND county = '$cleanaddress1' AND country = '$cleanaddress2' ;";
+// this is used to ensure a page reload doesnt put the data in a secon time
+$sql1 = "SELECT * FROM customer WHERE first_name = '$cleanfirstname' AND last_name = '$cleanlastname' AND phone_num = '$cleanphone' AND  mobile_phone_num = '$cleanmobile' AND email = '$cleanemail' AND fax = '$cleanfax' AND  address_line1 = '$cleanaddress1' AND  address_line2 = '$cleanaddress2' AND  address_line3 = '$cleanaddress3' AND  address_line4 = '$cleanaddress4' AND county = '$cleancounty' AND country = '$cleancountry' ;";
 
 $res1 = mysqli_query($con,$sql1);
+if (mysqli_num_rows($res1) == 0){
 
-if (mysql_num_rows($res1) == 0){
-	echo 'checker working';
+	$sql2 = "INSERT INTO customer (first_name, last_name, phone_num, mobile_phone_num, email, fax, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanaddress1','$cleanaddress2', '$cleanaddress3', '$cleanaddress4', '$cleancounty', '$cleancountry', '2000-01-01', '$cleansageid'); ";
+
+	$res2 = mysqli_query($con,$sql2);
+	//echo $sql2;
+	$title = 'Contact created';
+}else{
+	$title = 'Contact already exists';
 }
 
-$sql2 = "INSERT INTO customer (first_name, last_name, phone_num, mobile_phone_num, email, fax, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanaddress1','$cleanaddress2', '$cleanaddress3', '$cleanaddress4', '$cleancounty', '$cleancountry', '2000-01-01', '$cleansageid'); ";
-
-//$res2 = mysqli_query($con,$sql2);
-//echo $sql;
-
 mysqli_close($con);
+
 echo'
 <!DOCTYPE html>
 <html>
 	<head>
 	<title>Contact Created</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -126,7 +129,7 @@ echo'
 			<div id="popupContact">
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
-					<h2>Job Created</h2>
+					<h2>'.$title.'</h2>
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
 				</form>
