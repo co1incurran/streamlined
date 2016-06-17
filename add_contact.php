@@ -22,9 +22,9 @@ echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					
 					<label for="contact"><small>Contact type:</small></label><br><br>
-					<input type="radio" name="contact" value="company" > Trade Customer<br>
-					<input type="radio" name="contact" value="private customer"> Private Customer<br>
-					<input type="radio" name="contact" value="lead" checked> Lead<br>
+					<input type="radio" name="contactType" value="company" > Trade Customer<br>
+					<input type="radio" name="contactType" value="private customer"> Private Customer<br>
+					<input type="radio" name="contactType" value="lead" checked> Lead<br>
 					<input type="submit" id="submit" value="Next">
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>
