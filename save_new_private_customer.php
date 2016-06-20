@@ -7,6 +7,7 @@ define("DB_DATABASE", "database");
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //Back URL
 $url= $_POST["url"];
+$contactType = $_POST['contactType'];
 
 //First name
 $firstname = $_POST["firstname"];
@@ -100,9 +101,14 @@ $cleansageid = mysqli_real_escape_string($con, $filtersageid);
 $sql1 = "SELECT * FROM customer WHERE first_name = '$cleanfirstname' AND last_name = '$cleanlastname' AND phone_num = '$cleanphone' AND  mobile_phone_num = '$cleanmobile' AND email = '$cleanemail' AND fax = '$cleanfax' AND  address_line1 = '$cleanaddress1' AND  address_line2 = '$cleanaddress2' AND  address_line3 = '$cleanaddress3' AND  address_line4 = '$cleanaddress4' AND county = '$cleancounty' AND country = '$cleancountry' ;";
 
 $res1 = mysqli_query($con,$sql1);
+	if($contactType == 'lead'){
+		$lead = 1;
+	}else{
+		$lead = 0;
+	}
 if (mysqli_num_rows($res1) == 0){
 
-	$sql2 = "INSERT INTO customer (first_name, last_name, phone_num, mobile_phone_num, email, fax, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanaddress1','$cleanaddress2', '$cleanaddress3', '$cleanaddress4', '$cleancounty', '$cleancountry', '2000-01-01', '$cleansageid'); ";
+	$sql2 = "INSERT INTO customer (first_name, last_name, phone_num, mobile_phone_num, email, fax, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id, lead) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanaddress1','$cleanaddress2', '$cleanaddress3', '$cleanaddress4', '$cleancounty', '$cleancountry', '2000-01-01', '$cleansageid', '$lead'); ";
 
 	$res2 = mysqli_query($con,$sql2);
 	//echo $sql2;

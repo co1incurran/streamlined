@@ -148,6 +148,7 @@ foreach ($result as $results){
 											 
 											 echo '<h3>Total: '.$counter;
 											 //this counts the number of each type of asset
+											if($counter > 0){
 													$typeCounter = 1;
 													$arrayPosition = 1;
 													$size = count($assets);
@@ -179,7 +180,7 @@ foreach ($result as $results){
 															$done = true;
 														}
 													}
-											 
+											}
 											 
 											 echo '</h3>
 								</hgroup>

@@ -67,7 +67,7 @@ echo'
 				</form>';
 					}elseif ($contactType == 'company'|| $leadType == 'company'){
 						echo'						
-						<form action=".save_new_contact.php" id="form" method="post" name="form">
+						<form action="add_company_contact.php" id="form" method="post" name="form">
 							<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 							<h2>Contact details</h2>
 							<hr>
