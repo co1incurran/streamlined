@@ -104,8 +104,8 @@ echo'
 							<input type="hidden" name="contactType" id="contactType" value="'.$contactType.'">
 						
 							<label for="contact"><small>Lead type:</small></label><br><br>
-							<input type="radio" name="leadtype" value="company" checked> Trade Customer<br>
-							<input type="radio" name="leadtype" value="private customer"> Private Customer<br>
+							<input type="radio" name="leadtype" value="company" checked> Trade<br>
+							<input type="radio" name="leadtype" value="private customer"> Private<br>
 							
 							<input type="submit" id="submit" value="Next">
 							<a onclick="goBack()" id="submit">Cancel</a>

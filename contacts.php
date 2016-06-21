@@ -174,7 +174,11 @@
 													$contact = $_GET['contact'];
 													if($contact == 'companies'){
 														$setter = 'Companies';
-													}else{
+													}
+													if($contact == 'lead'){
+														$setter = 'Leads';
+													}
+													else{
 														$setter= 'Private Customers';
 													}
 												}else{
@@ -185,6 +189,7 @@
                                                 <ul>
                                                     <li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
                                                     <li><a href="contacts.php?contact=companies">Companies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+													<li><a href="contacts.php?contact=lead">Leads </a></li>
                                                     
                                                 </ul>
                                             </div>
@@ -195,13 +200,18 @@
 											<?php
 												//check which php file to load
 												$contact = $_GET['contact'];
-												if($contact != 'companies'){
+												if($contact == 'privatecustomer'){
 													//echo 'customer names';
-													require_once 'table_test2.php';
-												}else{
+													require_once 'customer_names.php';
+												}elseif ($contact == 'lead'){
+													// get the list of leads
+													require_once 'lead_list.php';
+												}elseif ($contact == 'companies'){
 													//echo 'company names';
-													require_once 'table_test.php';
-												}	
+													require_once 'company_list.php';
+												}else{
+													require_once 'company_list.php';
+												}
 											?>
 											
                                         </section>

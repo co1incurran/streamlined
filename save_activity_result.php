@@ -96,6 +96,9 @@ if($cleannextaction != 'no further action'){
 	if($cleannextaction == 'followup meeting'){
 		$cleannextaction = 'followup meeting';
 	}
+	if($cleannextaction == 'create job number'){
+		$cleannextaction = 'create job number';
+	}
 	//put the activity into the activty table
 	$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate');";
 	$res2 = mysqli_query($con,$sql2);

@@ -77,7 +77,7 @@ echo'
 					}
 					
 					if($jobStatus === 'ready to start'){
-						echo'<option selected = "ready to start">Ready to start</option>';
+						echo'<option selected = "selected" value = "ready to start">Ready to start</option>';
 					}else{
 						echo'<option value= "ready to start">Ready to start</option>';
 					}

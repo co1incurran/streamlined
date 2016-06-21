@@ -50,9 +50,10 @@ echo'
 					<label for="result"><small>Result</small></label><br>
 					<select id="result" class="drop_down"  name = "result" class="form-control">
 						<option value= "no interest">No interest</option>
-						<option value= "not available">Not available</option>
-						<option value= "got an appointment">Got an appointment</option>
+						<option value= "not available">Not available to talk</option>
 						<option value= "awaiting feedback">Awaiting feedback</option>
+						<option value= "advance">Advance</option>
+						<option value= "sold">Sold</option>
 						<option value= "other">Other</option>
 					</select>
 					

@@ -7,7 +7,7 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT * FROM company; ";
+$sql = "SELECT * FROM company WHERE lead = 1 ORDER BY name; ";
  
 $res = mysqli_query($con,$sql);
 
@@ -26,7 +26,8 @@ while($row = mysqli_fetch_array($res)){
 		'county'=>$row[6],
 		'country'=>$row[7],
 		'sage_id'=>$row[8],
-		'sector'=>$row[9]
+		'sector'=>$row[9],
+		'lead'=>$row[10]
 	));
 }
 //print_r (array_values($result));listing list-view clearfix
@@ -48,9 +49,8 @@ while($row = mysqli_fetch_array($res)){
 				<th><strong>Address</strong></th>
 				<th><strong>City</strong></th>
 				<th><strong>County</strong></th>
+				<th><strong>Sector</strong></th>
 				<th><strong>Last Contacted</strong></th>
-				<th><strong>Sector </strong></th>
-				<th><strong>Assets </strong></th>			
 			</tr>
 		</thead>
 		
@@ -59,19 +59,6 @@ while($row = mysqli_fetch_array($res)){
 	$i=1;
 		foreach ($result as $results){
 			$companyid = $results['companyid'];
-			
-			//To get the number of assets
-			$sql2 = "SELECT stockid FROM `stock` WHERE stockid IN (SELECT stockid FROM uses WHERE jobid IN 
-			(SELECT jobid FROM jobs WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid'))); ";
-			$res2 = mysqli_query($con,$sql2);
-			$result2 = array();
-			$assetCount = 0;
-			while($row = mysqli_fetch_array($res2)){
-				array_push($result2,
-					array('stockid'=>$row[0]
-				));
-				$assetCount++;
-			}
 			
 			if (1 != $i % 2){
 				$rowClass = 'bltttttue-row';
@@ -177,9 +164,9 @@ while($row = mysqli_fetch_array($res)){
 					}
 				?>
 				
-				<td><?php echo $mostRecent; ?></td>
+				
 				<td><?php echo ucwords($results['sector']); ?></td>
-				<td><?php echo $assetCount ?></td>
+				<td><?php echo $mostRecent; ?></td>
 			</tr>
 	<?php
 			$i++;

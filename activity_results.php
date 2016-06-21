@@ -36,10 +36,11 @@ echo'
 															
 					<label for="result"><small>Result</small></label><br>
 					<select id="result" class="drop_down"  name = "result" class="form-control">
-						<option value= "on going">On going</option>
-						<option value= "proceed to next stage">Proceed to next stage</option>
 						<option value= "no interest">No interest</option>
-						<option value= "awaiting feedback">Awaiting feedback</option>
+						<option value= "on going">On going</option>
+						<option value= "advance">Advance</option>
+						<option value= "no sale">No sale</option>
+						<option value= "sold">Sold</option>
 						<option value= "other">Other</option>
 					</select>
 					
@@ -55,6 +56,7 @@ echo'
 						<option value= "quotation">Schedule quote meeting</option>
 						<option value= "close meeting">Schedule close meeting</option>
 						<option value= "followup meeting">Followup meeting</option>
+						<option value= "create job number">Create job number</option>
 					</select><br>
 					
 					<label for="nextactivity_description"><small>Further details</small></label>

@@ -34,24 +34,24 @@ if(isset($_GET['status'])){
 	//echo $status;
 	
 	if($status == 'all'){
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 	}elseif($status == 'today'){
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date = '$currentDate'; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$currentDate'; ";
 	}elseif($status == 'tomorrow'){
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date = '$tomorrow'; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$tomorrow'; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '1' ORDER BY due_date DESC; ";
+		$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY due_date DESC; ";
 	}else{
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 	}
 }else{
-		$sql = "SELECT activityid, type, description, due_date, time FROM activity WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 }
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -65,10 +65,17 @@ $result = array();
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
 		array('activityid'=>$row[0],
-		'type'=>$row[1],
-		'description'=>$row[2],
-		'due_date'=>$row[3],
-		'time'=>$row[4]
+		'complete'=>$row[1],
+		'type'=>$row[2],
+		'prospecting_type'=>$row[3],
+		'description'=>$row[4],
+		'due_date'=>$row[5],
+		'time'=>$row[6],
+		'result'=>$row[7],
+		'result_description'=>$row[8],
+		'next_action'=>$row[9],
+		'next_action_description'=>$row[10],
+		'creation_date'=>$row[11]
 	));
 }
 //print_r (array_values($result));
@@ -97,6 +104,18 @@ while($row = mysqli_fetch_array($res)){
 			$companyid = 0;
 			$customerid = 0;
 			$activityid = $results['activityid'];
+			$complete = $results['complete'];
+			$type = $results['type'];
+			$prospectingType = $results['prospecting_type'];
+			$description = $results['description'];
+			$dueDate = $results['due_date'];
+			$time = $results['time'];
+			$result = $results['result'];
+			$resultDescription = $results['result_description'];
+			$nextAction = $results['next_action'];
+			$nextActionDescription = $results['next_action_description'];
+			$creationDate = $results['creation_date'];
+			
 			
 			//To get the company or customer the activity is for
 			$sql2 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_activity WHERE activityid = '$activityid'); ";
@@ -126,31 +145,53 @@ while($row = mysqli_fetch_array($res)){
 				<td>
 				<?php 
 					if ($results['type'] == 'prospecting'){
-						echo '<i class="fa fa-binoculars"> </i>';
+						$icon = '<i class="fa fa-binoculars"> </i>';
 					}
 					if ($results['type'] == 'qualifying'){
-						echo '<i class="fa fa-spinner"></i>';
+						$icon = '<i class="fa fa-spinner"></i>';
 					}
 					if ($results['type'] == 'presentation'){
-						echo '<i class="fa fa-bar-chart"></i>';
+						$icon = '<i class="fa fa-bar-chart"></i>';
 					}
 					if ($results['type'] == 'quotation'){
-						echo '<i class="fa fa-tag"></i>';
+						$icon = '<i class="fa fa-tag"></i>';
 					}
 					if ($results['type'] == 'closing meeting'){
-						echo '<i class="fa fa-lock"></i>';
+						$icon = '<i class="fa fa-lock"></i>';
 						echo ' ';
 					}
 					if ($results['type'] == 'followup meeting'){
-						echo '<i class="fa fa-coffee"></i>';
+						$icon = '<i class="fa fa-coffee"></i>';
 					}
 					if ($results['type'] == 'other'){
-						echo '<i class="fa fa-question"></i>';
+						$icon = '<i class="fa fa-question"></i>';
+					}
+					if ($results['type'] == 'create job number'){
+						$icon = '<i class="fa fa-file-text"></i>';
 					}
 				?>
-				<a href = "tasks.php?details=true&activityid=<?php echo $results['activityid'] ?>" class="name">
-				<?php
-					echo ucwords($results['type']);
+				<?php 					
+					echo'
+					<form action="task_details.php" id="job-list" method="post" name="job-list">
+						<input type="hidden" name="url" id="url" value="'.$url.'">
+						<input type="hidden" name="jobid" id="jobid" value="'.$activityid.'">
+						
+						<input type="hidden" name="complete" id="complete" value="'.$complete.'">
+						<input type="hidden" name="type" id="type" value="'.$type.'">
+						
+						<input type="hidden" name="prospectingType" id="prospectingType" value="'.$prospectingType.'">
+						<input type="hidden" name="description" id="description" value="'.$description.'">
+						
+						<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
+						<input type="hidden" name="time" id="time" value="'.$time.'">
+						
+						<input type="hidden" name="result" id="result" value="'.$result.'">
+						<input type="hidden" name="resultDescription" id="resultDescription" value="'.$resultDescription.'">
+						
+						<input type="hidden" name="nextAction" id="nextAction" value="'.$nextAction.'">
+						<input type="hidden" name="nextActionDescription" id="nextActionDescription" value="'.$nextActionDescription.'">
+						'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['type']).'">
+					</form>';
 				?>
 				</td>
 				<td>
