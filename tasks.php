@@ -2,8 +2,8 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
-<!--<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>-->
-<script type="text/javascript" src="table_filter/ddtf.js"></script>
+<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
+<!--<script type="text/javascript" src="table_filter/ddtf.js"></script>-->
 
 <script>$('#activityList').ddTableFilter();</script>
 

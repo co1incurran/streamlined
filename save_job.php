@@ -136,6 +136,11 @@ $sql7 = "INSERT INTO jobs_to_history (jobid, historyid) VALUES ($jobid, $history
 $res7 = mysqli_query($con,$sql7);
 //echo $sql7;
 
+//The below code if for handling jobs created form the "create job number" task
+if(isset($_POST['activityid'])){
+	$activityid = $_POST['activityid'];
+}
+
 mysqli_close($con);
 echo'
 <!DOCTYPE html>

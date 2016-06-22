@@ -9,6 +9,17 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
+if (isset($_GET['task'])){
+	$task = true;
+	$activityid = $_GET['activityid']
+}else{
+	$task = false;
+}
+if(isset($_GET['activityid'])){
+	$activityid = $_GET['activityid']
+}else{
+	$activityid = false;
+}
 
 echo'
 <!DOCTYPE html>
@@ -28,7 +39,11 @@ echo'
 				<form action="save_job.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Add job</h2>
-					<hr>
+					<hr>';
+					if($activityid != false){
+						echo'<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">';
+					}
+					echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">

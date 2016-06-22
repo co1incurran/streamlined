@@ -27,7 +27,7 @@ $startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
 
 // Last day of the month.
 $endMonth = date('Y-m-t', strtotime($currentDate)).'<br>';
-
+$heading = 'Time';
 $status = '';
 if(isset($_GET['status'])){
 	$status = $_GET['status'];
@@ -47,6 +47,7 @@ if(isset($_GET['status'])){
 		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
 	}elseif($status == 'completed'){
 		$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY due_date DESC; ";
+		$heading = 'Result';
 	}else{
 		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 	}
@@ -88,13 +89,14 @@ while($row = mysqli_fetch_array($res)){
 		<tr class = "blue-row">
 			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 			<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
-
+			<th class = "asset-list"><strong>Description</strong></th>
 			<th class = "asset-list"><strong>Date</strong></th>
-			<th class = "asset-list"><strong>Time</strong></th>
+			<th class = "asset-list"><strong><?php echo $heading; ?></strong></th>
 
 			<th class = "asset-list"><strong>Customer</strong></th>
 			
 			<th class = "asset-list"><strong>County</strong></th>
+			<th class = "asset-list"><strong>Employee</strong></th>
 			
 		</tr>
 	</thead>
@@ -129,12 +131,20 @@ while($row = mysqli_fetch_array($res)){
 				$row = mysqli_fetch_assoc($res2);
 				$companyid = $row["companyid"];
 			}
+			
+			//to get the employee the task is assigned to
+			$sql4 = "SELECT first_name, last_name FROM users WHERE userid IN(SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
+			$res4 = mysqli_query($con,$sql4);
+			$user = mysqli_fetch_assoc($res4);
+			$employee = $user["first_name"].' '.$user["last_name"];
 	?>
 			<tr>
 				<?php
 					if($status != 'completed'){
 						if($results['type'] == 'prospecting'){
 							echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+						}elseif ($type == 'create job number'){
+							echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
 						}else{
 							echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" ><i class="fa fa-square-o"></i></a></td>';
 						}
@@ -174,7 +184,7 @@ while($row = mysqli_fetch_array($res)){
 					echo'
 					<form action="task_details.php" id="job-list" method="post" name="job-list">
 						<input type="hidden" name="url" id="url" value="'.$url.'">
-						<input type="hidden" name="jobid" id="jobid" value="'.$activityid.'">
+						<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
 						
 						<input type="hidden" name="complete" id="complete" value="'.$complete.'">
 						<input type="hidden" name="type" id="type" value="'.$type.'">
@@ -195,13 +205,24 @@ while($row = mysqli_fetch_array($res)){
 				?>
 				</td>
 				<td>
+					<?php 
+						echo $results['description'];
+					?>
+				</td>
+				<td>
 					<?php $originalDate = $results['due_date'];
 						$newDate = date("d.m.Y", strtotime($originalDate));
 						echo $newDate;
 					?>
 				</td>
 				<td>
-					<?php echo date('h:ia', strtotime($results['time']));?>
+					<?php 
+						if($heading == 'Result'){
+							echo ucwords($result);
+						}else{
+							echo date('h:ia', strtotime($results['time']));
+						}
+					?>
 				</td>
 				<td><a href = "profile.php?customerid=<?php echo $customerid.'&companyid='.$companyid?>" class="name">
 				<?php
@@ -213,6 +234,7 @@ while($row = mysqli_fetch_array($res)){
 				?>
 				</a></td>
 				<td><?php echo ucwords($row['county']); ?></td>
+				<td><?php echo ucwords($employee); ?></td>
 			</tr>
 	<?php
 		}

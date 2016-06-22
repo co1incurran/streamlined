@@ -43,7 +43,7 @@ echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Job details</title>
+	<title>Task details</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -54,18 +54,14 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="update_job_details.php" id="form" method="post" name="form">
+				<form action="sdghter.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Job details</h2>
-					<!-- <small><a href = "jobs.php?history=true&jobid='..'">Job Histroy</a></small> -->
+					<h2>Task details</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
 					
-					<label for="date"><small>Due date</small></label>
-					<input id="date" name="date" value ="'.$dueDate.'" type="date" required>
-					
-					<label for="type"><small>Activity type</small></label>
+					<label for="type"><small>Task type</small></label>
 					<select id="type" class="drop_down" name = "type" class="form-control">';
 					
 					if($type === 'prospecting'){
@@ -181,63 +177,94 @@ echo'
 					
 					echo'
 					<label for="description"><small>Task description</small></label>
-					<textarea maxlength="200" class ="form-textarea" id="description" name="description" type="text">'.$description.'</textarea>
+					<textarea maxlength="80" class ="form-textarea" id="description" name="description" type="text">'.$description.'</textarea>
 					
 					<label for="dueDate"><small>Due date</small></label>
 					<input id="dueDate" name="dueDate" value ="'.$dueDate.'" type="date" required>
 					
 					<label for="time"><small>Time</small></label>
-					<input id="time" name="time" value ="'.$time.'" type="time" required>
+					<input id="time" name="time" value ="'.$time.'" type="time" required>';
 					
-					<label for="result"><small>Result</small></label>
-					<select id="result" class="drop_down"  name = "result" class="form-control">';
-							
-							if($result === 'phone call'){
-								echo'<option selected = "selected" value= "phone call">Phone call</option>';
-							}else{
-								echo'<option value= "phone call">Phone call</option>';
-							}
-							
-							if($result === 'door step'){
-								echo'<option selected = "selected" value= "door step">Door step</option>';
-							}else{
-								echo'<option value= "door step">Door step</option>';
-							}
-							
-							if($result === 'left brochure'){
-								echo'<option selected = "selected" value= "left brochure">Left brochure</option>';
-							}else{
-								echo'<option value= "left brochure">Left brochure</option>';
-							}
-							
-							if($result === 'left business card'){
-								echo'<option selected = "selected" value= "left business card">Left business card</option>';
-							}else{
-								echo'<option value= "left business card">Left business card</option>';
-							}
-							
-							if($result === 'courtesy call'){
-								echo'<option selected = "selected" value= "courtesy call">Courtesy call</option>';
-							}else{
-								echo'<option value= "courtesy call">Courtesy call</option>';
-							}
-							
-							if($result === 'demo'){
-								echo'<option selected = "selected" value= "demo">Demo</option>';
-							}else{
-								echo'<option value= "demo">Demo</option>';
-							}
-					echo'
-							</select><br>
-					<label for="job_number"><small>Job number</small></label>
-					<input id="job_number" name="job_number"value ="'.$jobNumber.'" type="text" maxlength="20">
+					if(isset($_POST['result'])){
+						$result= $_POST['result'];
+						if($result != '' && $result != NULL){
+							echo'
+							<label for="result"><small>Result</small></label><br>
+							<select id="result" class="drop_down"  name = "result" class="form-control">';
+									
+									if($result === 'no interest'){
+										echo'<option selected = "selected" value= "no interest">No interest</option>';
+									}else{
+										echo'<option value= "no interest">No interest</option>';
+									}
+									
+									if($result === 'not available to talk'){
+										echo'<option selected = "selected" value= "not available to talk">Not available to talk</option>';
+									}else{
+										echo'<option value= "not available to talk">Not available to talk</option>';
+									}
+									
+									if($result === 'awaiting feedback'){
+										echo'<option selected = "selected" value= "awaiting feedback">Awaiting feedback</option>';
+									}else{
+										echo'<option value= "awaiting feedback">Awaiting feedback</option>';
+									}
+									if($result === 'wants more info'){
+										echo'<option selected = "selected" value= "wants more info">Wants more info</option>';
+									}else{
+										echo'<option value= "wants more info">Wants more info</option>';
+									}
+									if($result === 'wants a quote'){
+										echo'<option selected = "selected" value= "wants a quote">Wants a quote</option>';
+									}else{
+										echo'<option value= "wants a quote">Wants a quote</option>';
+									}
+									if($result === 'wants another visit'){
+										echo'<option selected = "selected" value= "wants another visit">Wants another visit</option>';
+									}else{
+										echo'<option value= "wants another visit">Wants another visit</option>';
+									}
+									
+									if($result === 'sold'){
+										echo'<option selected = "selected" value= "sold">Sold</option>';
+									}else{
+										echo'<option value= "sold">Sold</option>';
+									}
+									
+									if($result === 'other'){
+										echo'<option selected = "selected" value= "other">Other</option>';
+									}else{
+										echo'<option value= "other">Other</option>';
+									}
+									
+									if($result === 'on going'){
+										echo'<option selected = "selected" value= "on going">On going</option>';
+									}else{
+										echo'<option value= "on going">On going</option>';
+									}
+									
+									if($result === 'no sale'){
+										echo'<option selected = "selected" value= "no sale">No sale</option>';
+									}else{
+										echo'<option value= "no sale">No sale</option>';
+									}
+						
 					
-					<label for="po_number"><small>PO number</small></label>
-					<input id="po_number" name="po_number" value ="'.$poNumber.'" type="text"maxlength="30" >
-					
-					<label for="sage_reference"><small>Sage reference</small></label>
-					<input id="sage_reference" name="sage_reference" value ="'.$sageReference.'" type="text" maxlength="20">
-					
+							
+							
+							echo'
+									</select><br>';
+							if(isset($_POST['resultDescription'])){
+								$resultDescription= $_POST['resultDescription'];
+							}else{
+								$resultDescription= '';
+							}	
+									echo'
+									<label for="job_number"><small>Result description</small></label>
+									<textarea maxlength="200" class ="form-textarea" id="resultDescription" name="resultDescription" type="text">'.$resultDescription.'</textarea>';
+						}
+					}	
+					echo'					
 					<input type="submit" id="submit" value="Update">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
 					<a onclick="goBack()" id="submit">Cancel</a>
