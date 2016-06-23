@@ -11,12 +11,12 @@ $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
 if (isset($_GET['task'])){
 	$task = true;
-	$activityid = $_GET['activityid']
+	$activityid = $_GET['activityid'];
 }else{
 	$task = false;
 }
 if(isset($_GET['activityid'])){
-	$activityid = $_GET['activityid']
+	$activityid = $_GET['activityid'];
 }else{
 	$activityid = false;
 }
@@ -40,6 +40,7 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Add job</h2>
 					<hr>';
+					echo $activityid;
 					if($activityid != false){
 						echo'<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">';
 					}
@@ -82,7 +83,7 @@ echo'
 						if (mysqli_num_rows($res) > 0) {
 						while($row = mysqli_fetch_assoc($res)) {
 							if(!empty($row["userid"])){
-							echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+								echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
 							}
 						}
 					}else{

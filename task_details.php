@@ -10,6 +10,8 @@ $url= $_POST['url'];
 $activityid= $_POST['activityid'];
 $complete= $_POST['complete'];
 
+$userName = $_POST['userName'];
+
 $type= $_POST['type'];
 
 if(isset($_POST['prospectingType'])){
@@ -178,6 +180,27 @@ echo'
 					echo'
 					<label for="description"><small>Task description</small></label>
 					<textarea maxlength="80" class ="form-textarea" id="description" name="description" type="text">'.$description.'</textarea>
+					
+					
+					<label for="assign"><small>Assign to</small></label>
+					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
+						$sql = "SELECT userid FROM users;";
+						$res = mysqli_query($con,$sql);
+
+						if (mysqli_num_rows($res) > 0) {
+						while($row = mysqli_fetch_assoc($res)) {
+							if($row["userid"] == $userid){
+								echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							}else{
+								echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							}
+						}
+					}else{
+						echo '<option value= "not available">Not available</option>';
+					}
+					echo'
+					</select><br>
+					
 					
 					<label for="dueDate"><small>Due date</small></label>
 					<input id="dueDate" name="dueDate" value ="'.$dueDate.'" type="date" required>

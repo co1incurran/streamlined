@@ -133,24 +133,26 @@ while($row = mysqli_fetch_array($res)){
 			}
 			
 			//to get the employee the task is assigned to
-			$sql4 = "SELECT first_name, last_name FROM users WHERE userid IN(SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
+			$sql4 = "SELECT userid, first_name, last_name FROM users WHERE userid IN(SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
 			$res4 = mysqli_query($con,$sql4);
 			$user = mysqli_fetch_assoc($res4);
+			$userName = $user['userid'];
 			$employee = $user["first_name"].' '.$user["last_name"];
 	?>
 			<tr>
 				<?php
 					if($status != 'completed'){
 						if($results['type'] == 'prospecting'){
-							echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+							echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
 						}elseif ($type == 'create job number'){
-							echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+							echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
 						}else{
-							echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'" ><i class="fa fa-square-o"></i></a></td>';
+							echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'" ><i class="fa fa-square-o"></i></a></td>';
 						}
 					}else{
 						echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
 					}
+				
 				?>
 				<td>
 				<?php 
@@ -184,6 +186,7 @@ while($row = mysqli_fetch_array($res)){
 					echo'
 					<form action="task_details.php" id="job-list" method="post" name="job-list">
 						<input type="hidden" name="url" id="url" value="'.$url.'">
+						<input type="hidden" name="userName" id="userName" value="'.$userName.'">
 						<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
 						
 						<input type="hidden" name="complete" id="complete" value="'.$complete.'">

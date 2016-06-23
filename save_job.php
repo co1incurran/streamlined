@@ -99,9 +99,7 @@ if (mysqli_num_rows($result) > 0) {
     while($row = mysqli_fetch_assoc($result)) {
         $jobid = $row["jobid"];
     }
-} else {
-    echo "0 results";
-}
+} 
 if($customerid != 0){
 	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$customerid'); ";
 	//echo $customerid;
@@ -123,7 +121,7 @@ $timestamp = $date->getTimestamp();
 $sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes, timestamp) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes', '$timestamp'); ";
 
 $res5 = mysqli_query($con,$sql5);
-echo $sql5;
+//echo $sql5;
 
 
 $sql6 = "SELECT historyid FROM job_history ORDER BY historyid DESC LIMIT 1; ";
@@ -139,7 +137,19 @@ $res7 = mysqli_query($con,$sql7);
 //The below code if for handling jobs created form the "create job number" task
 if(isset($_POST['activityid'])){
 	$activityid = $_POST['activityid'];
+	
+	$sql8 = "UPDATE activity SET complete  = '1' WHERE activityid = '$activityid' ;";
+	$res8 = mysqli_query($con,$sql8);	
+	//echo $sql8;
 }
+//this ensures that all leads are converted to customers
+if($customerid > 0){
+	$sql9 = "UPDATE customer SET lead  = '0' WHERE customerid = '$cleancustomerid' ;";
+	
+}else{
+	$sql9 = "UPDATE company SET lead  = '0' WHERE companyid = '$cleancompanyid' ;";
+}
+$res9 = mysqli_query($con,$sql9);
 
 mysqli_close($con);
 echo'

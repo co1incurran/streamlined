@@ -10,6 +10,11 @@ $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
 $activityid = $_GET['activityid'];
+
+if(isset($_GET['userName'])){
+	$userName = $_GET['userName'];
+}
+
 echo'
 <!DOCTYPE html>
 <html>
