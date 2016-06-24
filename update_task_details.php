@@ -8,27 +8,47 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //Back URL
 $url= $_POST["url"];
 
-//COMPANYID
-$companyid = $_POST["companyid"];
-$companyid = trim($companyid);
-$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
-$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
+//the id of the task to be updated
+$activityid = $_POST["activityid"];
 
-//CUSTOMERID
-$customerid = $_POST["customerid"];
-$customerid = trim($customerid);
-$filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
-$cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
+//prospectign type
+if(isset($_POST['prospectingType'])){
+	$prospectingType = $_POST["prospectingType"];
+	$prospectingType = trim($prospectingType);
+	$prospectingType = strtolower($prospectingType);
+	$filterProspectingType = filter_var($prospectingType, FILTER_SANITIZE_STRING);
+	$cleanProspectingType = mysqli_real_escape_string($con, $filterProspectingType);
+}else{
+	$cleanProspectingType = '';
+}
+
+//result
+if(isset($_POST['result'])){
+	$result = $_POST["result"];
+	$result = trim($result);
+	$result = strtolower($result);
+	$filterResult = filter_var($result, FILTER_SANITIZE_STRING);
+	$cleanResult = mysqli_real_escape_string($con, $filterResult);
+}
+
+//result description
+if(isset($_POST['resultDescription'])){
+	$resultDescription = $_POST["resultDescription"];
+	$resultDescription = trim($resultDescription);
+	$resultDescription = strtolower($resultDescription);
+	$filterResultDescription = filter_var($resultDescription, FILTER_SANITIZE_STRING);
+	$cleanResultDescription = mysqli_real_escape_string($con, $filterResultDescription);
+}
 
 //activity type
-$activitytype = $_POST["activitytype"];
+$activitytype = $_POST["type"];
 $activitytype = trim($activitytype);
 $activitytype = strtolower($activitytype);
 $filteractivitytype = filter_var($activitytype, FILTER_SANITIZE_STRING);
 $cleanactivitytype = mysqli_real_escape_string($con, $filteractivitytype);
 
 //activity description
-$activitydescription = $_POST["activity_description"];
+$activitydescription = $_POST["description"];
 $activitydescription = trim($activitydescription);
 $filteractivitydescription = filter_var($activitydescription, FILTER_SANITIZE_STRING);
 $cleanactivitydescription = mysqli_real_escape_string($con, $filteractivitydescription);
@@ -40,7 +60,7 @@ $filterassign = filter_var($assign, FILTER_SANITIZE_STRING);
 $cleanassign = mysqli_real_escape_string($con, $filterassign);
 
 //due date
-$date = $_POST["date"];
+$date = $_POST["dueDate"];
 $date = trim($date);
 $cleandate= mysqli_real_escape_string($con, $date);
 
@@ -49,41 +69,42 @@ $time = $_POST["time"];
 $time = trim($time);
 $cleantime = mysqli_real_escape_string($con, $time);
 
-//get the current date 
-$dt = new DateTime();
-$creationdate = $dt->format('Y-m-d');
-
-//put the activity into the activty table
-$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate');";
+//this checks to make sure an actual change was made. if not it does not update the task
+$sql1 = "SELECT * FROM activity WHERE activityid = '$activityid';";
 $res1 = mysqli_query($con,$sql1);
-//echo $sql1;
+$row = mysqli_fetch_assoc($res1);
 
-//get the activityid of the asset
-	$sql2 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
-	$res2 = mysqli_query($con,$sql2);
-	$row = mysqli_fetch_assoc($res2);
-    $activityid = $row["activityid"];
-	//echo '<br>' .$activityid;
-	
-//add the activity to the assigned activity table
-	$sql3 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$cleanassign', '$activityid');";
-	$res3 = mysqli_query($con,$sql3);
-	//echo $sql3;
-	
-	if($companyid !=0){
-		$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-		//echo $sql4;
-	}else{
-		$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-		//echo $sql4;
-	}
-	$res4 = mysqli_query($con,$sql4);
+
+$currentProspectingType = $row["prospecting_type"];
+$currentResult = $row["result"];
+$currentResultDescription = $row["result_description"];
+
+
+$currentActivityType = $row["type"];
+$currentActivityDescription = $row["description"];
+$currentDueDate = $row["due_date"];
+$currentTime = $row["time"];
+
+$sql2 = "SELECT userid FROM users WHERE userid IN (SELECT activityid FROM assigned_activity WHERE activityid = '$activityid');";
+$res2 = mysqli_query($con,$sql2);
+$row2 = mysqli_fetch_assoc($res2);
+$currentUserid = $row2["userid"];
+
+
+if($cleanProspectingType != $currentProspectingType || $cleanResult != $currentResult || $cleanResultDescription != $currentResultDescription || $cleanactivitytype != $currentActivityType || $cleanactivitydescription != $currentActivityDescription || $cleanDueDate != $currentdate || $cleantime != $currentTime){
+
+$sql3 = "UPDATE SET type = '$cleanactivitytype', prospecting_type = '$cleanProspectingType', description = '$cleanactivitydescription', due_date = 'cleandate', time = 'cleantime', result = 'cleanResult', result_description = 'cleanResultDescription'"
+
+$res3 = mysqli_query($con,$sql3);
+
+}
+
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Task added</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
