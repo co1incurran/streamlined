@@ -39,6 +39,7 @@ if(isset($_POST['nextAction'])){
 
 if(isset($_POST['nextActionDescription'])){
 	$nextActionDescription= $_POST['nextActionDescription'];
+
 }
 
 echo'
@@ -56,7 +57,7 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="sdghter.php" id="form" method="post" name="form">
+				<form action="update_task_details.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Task details</h2>
 					<hr>
@@ -283,7 +284,7 @@ echo'
 								$resultDescription= '';
 							}	
 									echo'
-									<label for="job_number"><small>Result description</small></label>
+									<label for="resultDescription"><small>Result description</small></label>
 									<textarea maxlength="200" class ="form-textarea" id="resultDescription" name="resultDescription" type="text">'.$resultDescription.'</textarea>';
 						}
 					}	
