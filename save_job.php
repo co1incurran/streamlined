@@ -64,6 +64,12 @@ $job_number = trim($job_number);
 $filterjobnumber = filter_var($job_number, FILTER_SANITIZE_STRING);
 $cleanjobnumber= mysqli_real_escape_string($con, $filterjobnumber);
 
+//Quote NUMBER
+$quoteNumber = $_POST["quote_number"];
+$quoteNumber = trim($quoteNumber);
+$filterQuoteNumber = filter_var($quoteNumber, FILTER_SANITIZE_STRING);
+$cleanQuoteNumber= mysqli_real_escape_string($con, $filterQuoteNumber);
+
 //PO NUMBER
 $po_number = $_POST["po_number"];
 $po_number = trim($po_number);
@@ -87,7 +93,7 @@ $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
 
-$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes'); ";
+$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes, quote_number) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes', '$cleanQuoteNumber'); ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;

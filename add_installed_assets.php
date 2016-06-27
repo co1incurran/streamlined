@@ -139,11 +139,17 @@ echo'
 					<label for="productdescription"><small>Product description</small></label><br>
 					<input id="productdescription" name="productdescription" type="text" maxlength="200">
 					
-					<label for="inspectiondate"><small>Inspection date</small></label><br>
-					<input id="inspectiondate" name="inspectiondate" type="date" required>
+					<!--<label for="inspectiondate"><small>Inspection date</small></label><br>
+					<input id="inspectiondate" name="inspectiondate" type="date" required>-->
 					
-					<label for="servicedate"><small>Service date</small></label><br>
-					<input id="servicedate" name="servicedate" type="date" required>
+					<input type="checkbox" name="inspection" value="inspection"> Inspection required<br>
+					
+					<!--echo date("F, 1 Y", strtotime("-6 months", strtotime("Feb 2, 2010")));-->
+					
+					<!--<label for="servicedate"><small>Service date</small></label><br>
+					<input id="servicedate" name="servicedate" type="date" required>-->
+					
+					<!--<input type="checkbox" name="service" value="service" checked> Service required<br>-->
 					
 					<input type="submit" id="submit" value="Next">
 					<a href = "'.$url.'" id="submit">Cancel</a>

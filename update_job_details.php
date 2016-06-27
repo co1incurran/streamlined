@@ -55,6 +55,12 @@ $job_number = trim($job_number);
 $filterjobnumber = filter_var($job_number, FILTER_SANITIZE_STRING);
 $cleanjobnumber= mysqli_real_escape_string($con, $filterjobnumber);
 
+//quote number
+$quoteNumber = $_POST["quote_number"];
+$quoteNumber = trim($quoteNumber);
+$filterQuoteNumber = filter_var($quoteNumber, FILTER_SANITIZE_STRING);
+$cleanQuoteNumber = mysqli_real_escape_string($con, $filterQuoteNumber);
+
 //PO NUMBER
 $po_number = $_POST["po_number"];
 $po_number = trim($po_number);
@@ -92,10 +98,11 @@ $originalPoNumber = $row["po_number"];
 $originalJobNumber = $row["job_number"];
 $originalNumberOfAssets = $row["number_of_assets"];
 $originalNotes = $row["notes"];
+$originalQuoteNumber = $row["quote_number"];
 
-if($cleanjobtype != $originalJobType || $cleanjobdescription != $originalJobDescription ||  $cleanstatus != $originalJobStatus || $cleandate != $originalDueDate || $cleansagereference != $originalSageReference || $cleanponumber != $originalPoNumber || $cleanjobnumber != $originalJobNumber || $cleannumberOfAssets != $originalNumberOfAssets || $cleannotes != $originalNotes){
+if($cleanjobtype != $originalJobType || $cleanjobdescription != $originalJobDescription ||  $cleanstatus != $originalJobStatus || $cleandate != $originalDueDate || $cleansagereference != $originalSageReference || $cleanponumber != $originalPoNumber || $cleanjobnumber != $originalJobNumber || $cleannumberOfAssets != $originalNumberOfAssets || $cleannotes != $originalNotes || $cleanQuoteNumber != $originalQuoteNumber){
 
-$sql = "UPDATE jobs SET job_type = '$cleanjobtype', job_description = '$cleanjobdescription', job_status = '$cleanstatus', due_date = '$cleandate', sage_reference = '$cleansagereference', po_number = '$cleanponumber', job_number = '$cleanjobnumber', number_of_assets = '$cleannumberOfAssets', notes = '$cleannotes' WHERE jobid = '$jobid'; ";
+$sql = "UPDATE jobs SET job_type = '$cleanjobtype', job_description = '$cleanjobdescription', job_status = '$cleanstatus', due_date = '$cleandate', sage_reference = '$cleansagereference', po_number = '$cleanponumber', job_number = '$cleanjobnumber', number_of_assets = '$cleannumberOfAssets', notes = '$cleannotes', quote_number = '$quoteNumber' WHERE jobid = '$jobid'; ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;
@@ -126,7 +133,7 @@ echo'
 <html>
 	<head>
 	<title>Job Updated</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -163,7 +170,7 @@ echo'
 <html>
 	<head>
 	<title>Job Updated</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

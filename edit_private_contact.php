@@ -69,6 +69,7 @@ echo'
 				<form action="update_private_contact.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
+					<small><a href = "delete_contact.php?url='.$url.'&customerid='.$customerid.'">Delete contact</a></small>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">

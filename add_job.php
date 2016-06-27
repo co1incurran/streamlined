@@ -102,7 +102,11 @@ echo'
 					<input id="job_number" name="job_number" type="text" maxlength="20">
 					
 					<label for="po_number"><small>PO number</small></label>
-					<input id="po_number" name="po_number" type="text"maxlength="30" >
+					<input id="po_number" name="po_number" type="text" maxlength="30" >
+					
+					<label for="quote_number"><small>Quote number</small></label>
+					<input id="quote_number" name="quote_number" type="text" maxlength="30" >
+					
 					
 					<label for="sage_reference"><small>Sage reference</small></label>
 					<input id="sage_reference" name="sage_reference" type="text" maxlength="20">

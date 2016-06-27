@@ -22,6 +22,7 @@ $jobNumber= $_POST['jobNumber'];
 $numberOfAssets= $_POST['numberOfAssets'];
 $notes= $_POST['notes'];
 
+$quoteNumber = $_POST['quote_number'];
 
 echo'
 <!DOCTYPE html>
@@ -170,6 +171,9 @@ echo'
 					
 					<label for="po_number"><small>PO number</small></label>
 					<input id="po_number" name="po_number" value ="'.$poNumber.'" type="text"maxlength="30" >
+					
+					<label for="quote_number"><small>Quote number</small></label>
+					<input id="quote_number" name="quote_number" value ="'.$quoteNumber.'" type="text"maxlength="30" >
 					
 					<label for="sage_reference"><small>Sage reference</small></label>
 					<input id="sage_reference" name="sage_reference" value ="'.$sageReference.'" type="text" maxlength="20">

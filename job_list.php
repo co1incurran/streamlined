@@ -78,7 +78,8 @@ while($row = mysqli_fetch_array($res)){
 		'po_number'=>$row[8],
 		'job_number'=>$row[9],
 		'number_of_assets'=>$row[10],
-		'notes'=>$row[11]
+		'notes'=>$row[11],
+		'quote_number'=>$row[12]
 	));
 }
 //print_r (array_values($result));
@@ -119,6 +120,7 @@ while($row = mysqli_fetch_array($res)){
 			$jobNumber = $results['job_number'];
 			$numberOfAssets = $results['number_of_assets'];
 			$notes = $results['notes'];
+			$quoteNumber = $results['quote_number'];
 			
 			//To get the company or customer the activity is for
 			$sql2 = "SELECT companyid, name, county, lead FROM company WHERE companyid IN (SELECT companyid FROM company_requires WHERE jobid = '$jobid'); ";
@@ -182,6 +184,7 @@ while($row = mysqli_fetch_array($res)){
 						<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
 						<input type="hidden" name="sageReference" id="sageReference" value="'.$sageReference.'">
 						
+						<input type="hidden" name="quote_number" id="quote_number" value="'.$quoteNumber.'">
 						<input type="hidden" name="poNumber" id="poNumber" value="'.$poNumber.'">
 						<input type="hidden" name="jobNumber" id="jobNumber" value="'.$jobNumber.'">
 						

@@ -62,14 +62,16 @@ $filterproductdescription = filter_var($productdescription, FILTER_SANITIZE_STRI
 $cleanproductdescription= mysqli_real_escape_string($con, $filterproductdescription);
 
 //inspection date 
-$inspectiondate = $_POST["inspectiondate"];
-$inspectiondate = trim($inspectiondate);
-$cleaninspectiondate= mysqli_real_escape_string($con, $inspectiondate);
+$inspection = $_POST["inspection"];
+if($inspection == true){
+	//gets the current date and adds 6 months to get the inspection date
+	$inspectionDate = (new DateTime())->add(new DateInterval('P6M'))->format('Y-m-d');
+}else{
+	$inspectionDate = NULL;
+}
 
 //service date
-$servicedate = $_POST["servicedate"];
-$servicedate = trim($servicedate);
-$cleanservicedate = mysqli_real_escape_string($con, $servicedate);
+$servicedate = (new DateTime())->add(new DateInterval('P12M'))->format('Y-m-d');
 
 $numberOfAssets = $numberOfAssets - $thisAssetQuantity;
 
@@ -108,14 +110,17 @@ while($i < $thisAssetQuantity){
 
 //get the current date 
 $dt = new DateTime();
-$installdate = $dt->format('Y-m-d');
+$installDate = $dt->format('Y-m-d');
 
 foreach($serialAndLocation as $s){
 	
 	$serialnumber = $s['serialnumber'];
 	$location = $s['location'];
-	$sql1 = "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, inspection_date, service_date, location) VALUES ('$serialnumber', '$cleanassettype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$installdate', '$cleaninspectiondate', '$cleanservicedate', '$location');";
-	
+	if($inspection == true){
+		$sql1 = "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, inspection_date, service_date, location) VALUES ('$serialnumber', '$cleanassettype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$installDate', '$inspectionDate', '$servicedate', '$location');";
+	}else{
+		$sql1 = "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, service_date, location) VALUES ('$serialnumber', '$cleanassettype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$installDate', '$servicedate', '$location');";
+	}
 	$res1 = mysqli_query($con,$sql1);
 	//echo $sql1.'<br>';
 	
@@ -197,7 +202,7 @@ $res7 = mysqli_query($con,$sql7);
 	<html>
 		<head>
 		<title>All assets added</title>
-		<link href=".css/elements.css" rel="stylesheet">
+		<link href="css/elements.css" rel="stylesheet">
 		<script src="js/popup.js"></script>
 		</head>
 	<!-- Body Starts Here -->

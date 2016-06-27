@@ -9,9 +9,14 @@ $thisAssetQuantity = $_POST['thisAssetQuantity'];
 $model = $_POST['model'];
 $manufacturer = $_POST['manufacturer'];
 $productdescription = $_POST['productdescription'];
-$inspectiondate = $_POST['inspectiondate'];
-$servicedate = $_POST['servicedate'];
+
+//$servicedate = $_POST['servicedate'];
 $totalNumberOfAssets = $_POST['totalNumberOfAssets'];
+if (isset($_POST['inspection'])){
+	$inspection = true;
+}else{
+	$inspection = false;
+}
 
 
 if($thisAssetQuantity > $numberOfAssets){
@@ -83,9 +88,8 @@ echo'
 					<input type="hidden" name="model" id="model" value="'.$model.'">
 					<input type="hidden" name="manufacturer" id="manufacturer" value="'.$manufacturer.'">
 					<input type="hidden" name="productdescription" id="productdescription" value="'.$productdescription.'">
-					<input type="hidden" name="inspectiondate" id="inspectiondate" value="'.$inspectiondate.'">
-					<input type="hidden" name="totalNumberOfAssets" id="totalNumberOfAssets" value="'.$totalNumberOfAssets.'">
-					<input type="hidden" name="servicedate" id="servicedate" value="'.$servicedate.'">';
+					<input type="hidden" name="inspection" id="inspection" value="'.$inspection.'">
+					<input type="hidden" name="totalNumberOfAssets" id="totalNumberOfAssets" value="'.$totalNumberOfAssets.'">';
 					$i=0;
 				while($i < $thisAssetQuantity){
 					echo'

@@ -174,15 +174,16 @@
 													$contact = $_GET['contact'];
 													if($contact == 'companies'){
 														$setter = 'Companies';
-													}
-													if($contact == 'lead'){
+													}elseif($contact == 'lead'){
 														$setter = 'Leads';
+													}elseif($contact == 'privatecustomer'){
+														$setter = 'Private Customers';
 													}
 													else{
-														$setter= 'Private Customers';
+														$setter= 'Companies';
 													}
 												}else{
-													$setter= 'Private Customers';
+													$setter= 'Companies';
 												}
 											?>
                                                 <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>

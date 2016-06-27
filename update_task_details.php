@@ -29,6 +29,8 @@ if(isset($_POST['result'])){
 	$result = strtolower($result);
 	$filterResult = filter_var($result, FILTER_SANITIZE_STRING);
 	$cleanResult = mysqli_real_escape_string($con, $filterResult);
+}else{
+	$cleanResult = '';
 }
 
 //result description
@@ -38,6 +40,8 @@ if(isset($_POST['resultDescription'])){
 	$resultDescription = strtolower($resultDescription);
 	$filterResultDescription = filter_var($resultDescription, FILTER_SANITIZE_STRING);
 	$cleanResultDescription = mysqli_real_escape_string($con, $filterResultDescription);
+}else{
+	$cleanResultDescription = '';
 }
 
 //activity type
@@ -91,20 +95,23 @@ $row2 = mysqli_fetch_assoc($res2);
 $currentUserid = $row2["userid"];
 
 
-if($cleanProspectingType != $currentProspectingType || $cleanResult != $currentResult || $cleanResultDescription != $currentResultDescription || $cleanactivitytype != $currentActivityType || $cleanactivitydescription != $currentActivityDescription || $cleanDueDate != $currentdate || $cleantime != $currentTime){
+if($cleanProspectingType != $currentProspectingType || $cleanResult != $currentResult || $cleanResultDescription != $currentResultDescription || $cleanactivitytype != $currentActivityType || $cleanactivitydescription != $currentActivityDescription || $cleandate != $currentDueDate || $cleantime != $currentTime){
 
-$sql3 = "UPDATE SET type = '$cleanactivitytype', prospecting_type = '$cleanProspectingType', description = '$cleanactivitydescription', due_date = 'cleandate', time = 'cleantime', result = 'cleanResult', result_description = 'cleanResultDescription'"
+$sql3 = "UPDATE activity SET type = '$cleanactivitytype', prospecting_type = '$cleanProspectingType', description = '$cleanactivitydescription', due_date = '$cleandate', time = '$cleantime', result = '$cleanResult', result_description = '$cleanResultDescription' WHERE activityid = $activityid;";
 
 $res3 = mysqli_query($con,$sql3);
-
+//echo $sql3;
+$text = 'Task updated';
+}else{
+	$text = 'No changes were made';
 }
 
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
 	<head>
-	<title>Task added</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<title>'.$text.'</title>
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -116,7 +123,7 @@ echo'<!DOCTYPE html>
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Task added</h2>
+					<h2>'.$text.'</h2>
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
 				</form>

@@ -4,6 +4,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
 <script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
 <!--<script type="text/javascript" src="table_filter/ddtf.js"></script>-->
+<script type="text/javascript" language="javascript" src="TableFilter/tablefilter.js"></script>
 
 <script>$('#activityList').ddTableFilter();</script>
 
@@ -24,6 +25,10 @@
 <link rel="stylesheet" media="screen" href="css/style.css" />
 
 </head>
+
+<script language="javascript" type="text/javascript">            
+    var tf = setFilterGrid("#activityList");
+</script> 
 <body>
     <div id="wrapper">
         <header>
