@@ -7,7 +7,7 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT * FROM company WHERE lead = 1 AND hide != 1 ORDER BY name; ";
+$sql = "SELECT * FROM projects ORDER BY name; ";
  
 $res = mysqli_query($con,$sql);
 
@@ -17,20 +17,22 @@ $result = array();
  
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
-		array('companyid'=>$row[0],
+		array('projectid'=>$row[0],
 		'name'=>$row[1],
-		'address_line1'=>$row[2],
-		'address_line2'=>$row[3],
-		'address_line3'=>$row[4],
-		'address_line4'=>$row[5],
-		'county'=>$row[6],
-		'country'=>$row[7],
-		'sage_id'=>$row[8],
-		'sector'=>$row[9],
-		'lead'=>$row[10]
+		'planning_number'=>$row[2],
+		'est_start_date'=>$row[3],
+		'address_line1'=>$row[4],
+		'address_line2'=>$row[5],
+		'address_line3'=>$row[6],
+		'address_line4'=>$row[7],
+		'county'=>$row[8],
+		'country'=>$row[9],
+		'regarding'=>$row[10],
+		'notes'=>$row[11],
+		'closed'=>$row[12]
 	));
 }
-//print_r (array_values($result));listing list-view clearfix
+//print_r (array_values($result));
 
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
@@ -45,12 +47,13 @@ while($row = mysqli_fetch_array($res)){
 		<thead>
 			<tr class = "blue-row">				
 				<!--<th class = "asset-list"></th>-->
-				<th id = "first-table-column" class = "asset-list"><strong>Company</strong></th>
-				<th><strong>Address</strong></th>
-				<th><strong>City</strong></th>
-				<th><strong>County</strong></th>
-				<th><strong>Sector</strong></th>
-				<th><strong>Last Contacted</strong></th>
+				<th id = "first-table-column" class = "asset-list"><strong>Name</strong></th>
+				<th><strong>Details</strong></th>
+				<th><strong>Start Date</strong></th>
+				<th><strong>Location</strong></th>
+				<th><strong>Contact</strong></th>
+				<th><strong>Sector </strong></th>
+				<th><strong>Assets </strong></th>			
 			</tr>
 		</thead>
 		
@@ -58,7 +61,8 @@ while($row = mysqli_fetch_array($res)){
 	<?php
 	$i=1;
 		foreach ($result as $results){
-			$companyid = $results['companyid'];
+			$projectid = $results['projectid'];
+			
 			
 			if (1 != $i % 2){
 				$rowClass = 'bltttttue-row';
@@ -68,14 +72,16 @@ while($row = mysqli_fetch_array($res)){
 		
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
-				<td><a href = "profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo ucwords($results['name']);?></a></td>
+				<td><a href = "#" class="name"><?php echo ucwords($results['name']);?></a></td>
+				<td>
+					
+				</td>
 				<?php
-					$ad1 = ucwords($results['address_line1']);
-					$ad2 = ucwords($results['address_line2']);
-					$ad3 = ucwords($results['address_line3']);
-					$ad4 = ucwords($results['address_line4']);
+					$ad1 = ucwords($results['address1']);
+					$ad2 = ucwords($results['address2']);
+					$ad3 = ucwords($results['address3']);
+					$ad4 = ucwords($results['address4']);
 					$county = ucwords($results['county']);
-
 					$country = ucwords($results['country']);
 					$city=0;
 				?>
@@ -164,9 +170,9 @@ while($row = mysqli_fetch_array($res)){
 					}
 				?>
 				
-				
-				<td><?php echo ucwords($results['sector']); ?></td>
 				<td><?php echo $mostRecent; ?></td>
+				<td><?php echo ucwords($results['sector']); ?></td>
+				<td><?php echo $assetCount ?></td>
 			</tr>
 	<?php
 			$i++;

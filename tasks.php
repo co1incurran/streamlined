@@ -136,6 +136,7 @@
                                 <li><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li class="active"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
+								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             </ul>
                         </nav>
     

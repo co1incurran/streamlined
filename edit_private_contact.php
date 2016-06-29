@@ -51,6 +51,48 @@ if (!empty ($lastcontacted)){
 	$line8 = 'placeholder="Last Contacted"';
 }
 
+$address1 = ucwords($_GET['address1']);
+if (!empty ($address1)){
+	$line9 = 'placeholder="Address Line 1" value="'.ucwords($address1).'"';
+}else{
+	$line9 = 'placeholder="Address Line 1"';
+}
+
+$address2 = ucwords($_GET['address2']);
+if (!empty ($address2)){
+	$line10 = 'placeholder="Address Line 2" value="'.ucwords($address2).'"';
+}else{
+	$line10 = 'placeholder="Address Line 2"';
+}
+
+$address3 = ucwords($_GET['address3']);
+if (!empty ($address3)){
+	$line11 = 'placeholder="Address Line 3" value="'.ucwords($address3).'"';
+}else{
+	$line11 = 'placeholder="Address Line 3"';
+}
+
+$address4 = ucwords($_GET['address4']);
+if (!empty ($address4)){
+	$line12 = 'placeholder="Address Line 4" value="'.ucwords($address4).'"';
+}else{
+	$line12 = 'placeholder="Address Line 4"';
+}
+
+$county = $_GET['county'];
+if (!empty ($county)){
+	$line13 = 'placeholder="County" value="'.ucwords($county).'"';
+}else{
+	$line13 = 'placeholder="County"';
+}
+
+$country = $_GET['country'];
+if (!empty ($country)){
+	$line14 = 'placeholder="Country" value="'.ucwords($country).'"';
+}else{
+	$line14 = 'placeholder="Country"';
+}
+
 echo'
 <!DOCTYPE html>
 <html>
@@ -87,6 +129,16 @@ echo'
 					<input id="fax" name="fax"' .$line6. 'type="number">
 					<label for="last_contacted"><small>Last Contacted</small></label>
 					<input id="last_contacted" name="last_contacted"' .$line8. 'type="date">
+					
+					<label for="address"><small>Address</small></label>
+					<input id="address" name="address1"' .$line9. 'type="text" maxlength = "45">
+					<input id="address" name="address2"' .$line10. 'type="text" maxlength = "35">
+					<input id="address" name="address3"' .$line11. 'type="text" maxlength = "35">
+					<input id="address" name="address4"' .$line12. 'type="text" maxlength = "35">
+					<input id="address" name="county"' .$line13. 'type="text" maxlength = "20">
+					<input id="address" name="country"' .$line14. 'type="text" maxlength = "28">
+					
+					
 					<input type="submit" id="submit" value="Save">
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>

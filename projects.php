@@ -125,10 +125,10 @@
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
                                 <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
-                                <li class="active"><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
+                                <li><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
+								<li class="active" ><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             </ul>
                         </nav>
     
@@ -161,37 +161,29 @@
 												$url = $_SERVER['REQUEST_URI'];
 												$url = str_replace('&', '%26', $url);
 												echo'
-												<a href="add_contact.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>';
+												<a href="add_project.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Project</strong></a>';
 											?>
-                                                
-												
-                                                <!--<a href="#" class="btn btn-default" data-toggle="tooltip" title="View as a Grid" onclick="$(this).addClass('current').parent().siblings().find('a').removeClass('current');$('#contacts').removeClass('list-view').addClass('grid-view');return false;"><i class="fa fa-th-large"></i></a>
-                                                <a href="documentation/index.html" class="btn btn-default" rel="#overlay"><i class="fa fa-question-circle"></i></a>-->
                                             </div>
 
                                             <div class="view-switcher">
 											<?php
-												if(isset ($_GET['contact'])){
-													$contact = $_GET['contact'];
-													if($contact == 'companies'){
-														$setter = 'Companies';
-													}elseif($contact == 'lead'){
-														$setter = 'Leads';
-													}elseif($contact == 'privatecustomer'){
-														$setter = 'Private Customers';
-													}
-													else{
-														$setter= 'Companies';
+												if(isset ($_GET['type'])){
+													$type = $_GET['type'];
+													if($type == 'ongoing'){
+														$setter = 'On going';
+													}elseif($type == 'closed'){
+														$setter = 'Closed';
+													}else{
+														$setter= 'On going';
 													}
 												}else{
-													$setter= 'Companies';
+													$setter= 'On going';
 												}
 											?>
                                                 <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>
                                                 <ul>
-                                                    <li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
-                                                    <li><a href="contacts.php?contact=companies">Companies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-													<li><a href="contacts.php?contact=lead">Leads </a></li>
+                                                    <li><a href="projects.php?type=ongoing">On going </a></li>
+                                                    <li><a href="projects.php?type=closed">Closed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                                                     
                                                 </ul>
                                             </div>
@@ -200,25 +192,8 @@
                                         <section class="panel-body">
 										
 											<?php
-												//check which php file to load
-												if(isset ($_GET['contact'])){
-													$contact = $_GET['contact'];
-												
-													if($contact == 'privatecustomer'){
-														//echo 'customer names';
-														require_once 'customer_names.php';
-													}elseif ($contact == 'lead'){
-														// get the list of leads
-														require_once 'lead_list.php';
-													}elseif ($contact == 'companies'){
-														//echo 'company names';
-														require_once 'company_list.php';
-													}else{
-														require_once 'company_list.php';
-													}
-												}else{
-														require_once 'company_list.php';
-												}
+												//get the list of projects
+												require_once 'project_list.php';
 											?>
 											
                                         </section>

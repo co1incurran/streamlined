@@ -7,7 +7,7 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT customerid, first_name, last_name, phone_num, mobile_phone_num, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id FROM customer ORDER BY first_name; ";
+$sql = "SELECT customerid, first_name, last_name, phone_num, mobile_phone_num, address_line1, address_line2, address_line3, address_line4, county, country, last_contacted, sage_id FROM customer WHERE lead != 1 AND hide != 1 ORDER BY first_name; ";
  
 $res = mysqli_query($con,$sql);
 

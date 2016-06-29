@@ -10,19 +10,20 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 if(isset($_POST['delete'])){
 	if(isset($_POST['companyid'])){
 		$companyid = $_POST['companyid'];
-		$sql = "DELETE FROM company WHERE companyid = '$companyid' ";
+		$sql = "UPDATE company SET hide = 1 WHERE companyid = '$companyid'; ";
 	}elseif(isset($_POST['customerid'])){
 		$customerid = $_POST['customerid'];
-		$sql = "DELETE FROM customer WHERE customerid = '$customerid' ";
+		$sql = "UPDATE customer SET hide = 1 WHERE customerid = '$customerid'; ";
 	}
 	$res = mysqli_query($con,$sql);
+	echo $sql;
 	
 	echo'
 <!DOCTYPE html>
 <html>
 	<head>
 	<title>Contact deleted</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -35,7 +36,7 @@ if(isset($_POST['delete'])){
 				<form action="delete_contact.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Contact has been deleted</h2>
-					<a href="'.$url.'" id="submit">OK</a>
+					<a href="contacts.php" id="submit">OK</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->
@@ -55,7 +56,7 @@ echo'
 <html>
 	<head>
 	<title>Delete contact</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

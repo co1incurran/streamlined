@@ -8,54 +8,19 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //Back URL
 $url= $_POST["url"];
 
-//CUSTOMERID
-$customerid = $_POST["customerid"];
-$customerid = trim($customerid);
-$customerid = strtolower($customerid);
-$filtercustomerid = filter_var($customerid, FILTER_VALIDATE_INT);
-$cleancustomerid = mysqli_real_escape_string($con, $filtercustomerid);
+//COMPANYID
+$companyid = $_POST["companyid"];
+$companyid = trim($companyid);
+$companyid = strtolower($companyid);
+$filterCompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
+$cleanCompanyid = mysqli_real_escape_string($con, $filterCompanyid);
 
-//FIRSTNAME
-$myfname = $_POST["firstname"];
-$myfname = trim($myfname);
-$myfname = strtolower($myfname);
-$filterfname = filter_var($myfname, FILTER_SANITIZE_STRING);
-$cleanfname = mysqli_real_escape_string($con, $filterfname);
-
-//LASTNAME
-$mylname = $_POST["lastname"];
-$mylname = trim($mylname);
-$mylname = strtolower($mylname);
-$filterlname = filter_var($mylname, FILTER_SANITIZE_STRING);
-$cleanlname = mysqli_real_escape_string($con, $filterlname);
-
-//EMAIL
-$myemail = $_POST["email"];
-$filteremail = filter_var($myemail, FILTER_VALIDATE_EMAIL);
-$cleanemail = mysqli_real_escape_string($con, $filteremail);
-
-//PHONENUMBER
-$myphone = $_POST["phone"];
-$myphone = trim($myphone);
-//do this to teh rest 
-//settype($myphone, "integer");
-$filterphone = filter_var($myphone, FILTER_VALIDATE_INT);
-//$cleanphone = mysqli_real_escape_string($con, $filterphone);
-
-//MOBILENUMBER
-$mymobile = $_POST["mobile"];
-$mymobile = trim($mymobile);
-//settype($mymobile, "integer");
-
-//FAX
-$myfax = $_POST["fax"];
-$myfax = trim($myfax);
-//settype($myfax, "integer");
-
-//LASTCONTACTED
-$mylastcontacted = $_POST["last_contacted"];
-$mylastcontacted = trim($mylastcontacted);
-$cleanlastcontacted = mysqli_real_escape_string($con, $mylastcontacted);
+//COMPANY NAME
+$name = $_POST["name"];
+$name = trim($name);
+$name = strtolower($name);
+$filterName = filter_var($name, FILTER_SANITIZE_STRING);
+$cleanName = mysqli_real_escape_string($con, $filterName);
 
 //address1
 $address1 = $_POST["address1"];
@@ -99,7 +64,21 @@ $country = strtolower($country);
 $filterCountry = filter_var($country, FILTER_SANITIZE_STRING);
 $cleanCountry = mysqli_real_escape_string($con, $filterCountry);
 
-$sql = "UPDATE customer SET first_name= '$cleanfname', last_name= '$cleanlname', phone_num= '$myphone', mobile_phone_num= '$mymobile', email= '$cleanemail', fax= '$myfax', address_line1 = '$cleanAddress1', address_line2 = '$cleanAddress2', address_line3 = '$cleanAddress3', address_line4 = '$cleanAddress4', county = '$cleanCounty', country = '$cleanCountry', last_contacted= '$cleanlastcontacted' WHERE customerid= $cleancustomerid; ";
+//sageid
+$sageid = $_POST["sageid"];
+$sageid = trim($sageid);
+$sageid = strtolower($sageid);
+$filterSageid = filter_var($sageid, FILTER_SANITIZE_STRING);
+$cleanSageid = mysqli_real_escape_string($con, $filterSageid);
+
+//sector
+$sector = $_POST["sector"];
+$sector = trim($sector);
+$sector = strtolower($sector);
+$filterSector = filter_var($sector, FILTER_SANITIZE_STRING);
+$cleanSector = mysqli_real_escape_string($con, $filterSector);
+
+$sql = "UPDATE company SET name= '$cleanName', address_line1 ='$address1', address_line2 = '$address2', address_line3 = '$address3', address_line4 = '$address4', county = '$county', country = '$country', sage_id = '$sageid', sector = '$sector' WHERE companyid= $cleanCompanyid; ";
 //echo $sql;
 $res = mysqli_query($con,$sql);
 

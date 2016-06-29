@@ -28,7 +28,8 @@ while($row = mysqli_fetch_array($res)){
 		'address_line4'=>$row[5],
 		'county'=>$row[6],
 		'country'=>$row[7],
-		'sage_id'=>$row[8]
+		'sage_id'=>$row[8],
+		'sector'=> $row[9]
 	));
 }
  //print_r (array_values($result));
@@ -76,7 +77,7 @@ foreach ($result as $results){
 									 <span class="avatar"></span>
 									 <hgroup>';
 										/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
-											 echo	'<h2>'. ucwords($results['name']).'<br></h2>';
+											 echo	'<h2>'. ucwords($results['name']).'<a id="edit" href="edit_company_details.php?url='.$url.'&companyid='.$companyid.'&name='.$results['name'].'&address_line1='.$results['address_line1'].'&address_line2='.$results['address_line2'].'&address_line3='.$results['address_line3'].'&address_line4='.$results['address_line4'].'&county='.$results['county'].'&country='.$results['country'].'&sage_id='.$results['sage_id'].'&sector='.$results['sector'].'"><i class="fa fa-gear"></i></a><br><br></h2>';
 												$ad1 = ucwords($results['address_line1']);
 												$ad2 = ucwords($results['address_line2']);
 												$ad3 = ucwords($results['address_line3']);
