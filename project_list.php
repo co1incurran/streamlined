@@ -21,10 +21,10 @@ while($row = mysqli_fetch_array($res)){
 		'name'=>$row[1],
 		'planning_number'=>$row[2],
 		'est_start_date'=>$row[3],
-		'address_line1'=>$row[4],
-		'address_line2'=>$row[5],
-		'address_line3'=>$row[6],
-		'address_line4'=>$row[7],
+		'address1'=>$row[4],
+		'address2'=>$row[5],
+		'address3'=>$row[6],
+		'address4'=>$row[7],
 		'county'=>$row[8],
 		'country'=>$row[9],
 		'regarding'=>$row[10],
@@ -52,8 +52,7 @@ while($row = mysqli_fetch_array($res)){
 				<th><strong>Start Date</strong></th>
 				<th><strong>Location</strong></th>
 				<th><strong>Contact</strong></th>
-				<th><strong>Sector </strong></th>
-				<th><strong>Assets </strong></th>			
+				<th><strong>Assigned to</strong></th>
 			</tr>
 		</thead>
 		
@@ -74,7 +73,10 @@ while($row = mysqli_fetch_array($res)){
 			<tr class = "<?php echo $rowClass;?>">	
 				<td><a href = "#" class="name"><?php echo ucwords($results['name']);?></a></td>
 				<td>
-					
+					<?php echo $results['regarding']; ?>
+				</td>
+				<td>
+					<?php echo date("d/m/Y", strtotime($results['est_start_date'])); ?>
 				</td>
 				<?php
 					$ad1 = ucwords($results['address1']);
@@ -83,7 +85,7 @@ while($row = mysqli_fetch_array($res)){
 					$ad4 = ucwords($results['address4']);
 					$county = ucwords($results['county']);
 					$country = ucwords($results['country']);
-					$city=0;
+					$city=0; 
 				?>
 				<td>
 				<?php
@@ -125,54 +127,18 @@ while($row = mysqli_fetch_array($res)){
 							}	
 								
 						}
-				?>
-				</td>
-				<?php
 						if($city === 0){
 							$city = '';
 						}
+						echo ', '.$city;
+						echo ', '.ucwords($results['county']);
+						echo ', '.ucwords($results['country']);
 				?>
-				<td><?php echo $city; ?></td>
-				<td>
-					<?php 
-						if(!empty($county)){ 
-							echo $county;
-							//echo nl2br("\n");
-						}
-					?>
 				</td>
-				<?php
-					//for getting the date of last contacted 
-					$sql3 = "SELECT last_contacted FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
-					$res3 = mysqli_query($con,$sql3);
-					$result3 = array();
-
-					while($row = mysqli_fetch_array($res3)){
-					array_push($result3,
-					array('last_contacted'=>$row[0]
-					));
-					} 
-					//print_r (array_values($result3));
-					$mostRecent =0;
-					foreach ($result3 as $results3){
-						  $curDate= $results3['last_contacted'];
-						  if ($curDate > $mostRecent) {
-							 $mostRecent = $curDate;
-							 //$ok = $mostRecent;
-							 //echo 'in the if';
-						  }
-					}
-					//$mostRecent = $results['last_contacted'];
-					if($mostRecent != 0){
-						$mostRecent = date("d/m/Y", strtotime($mostRecent));
-					}else{
-						$mostRecent = '';
-					}
-				?>
 				
-				<td><?php echo $mostRecent; ?></td>
-				<td><?php echo ucwords($results['sector']); ?></td>
-				<td><?php echo $assetCount ?></td>
+				<td><?php echo 'X'; ?></td>
+				<td><?php echo 'X'; ?></td>
+				
 			</tr>
 	<?php
 			$i++;

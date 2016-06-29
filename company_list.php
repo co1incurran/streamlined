@@ -185,6 +185,7 @@ while($row = mysqli_fetch_array($res)){
 	<?php
 			$i++;
 		}
+		mysqli_close($con);
 	?>
 		</tbody>
 	</table>
