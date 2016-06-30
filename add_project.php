@@ -22,39 +22,74 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="save_job.php" id="form" method="post" name="form">
+				<form action="add_project_contact.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Add Project</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 
 					<label for="name"><small>Project name</small></label>
-					<input id="name" name="name" type="text" required maxlength = "50">
+					<input id="name" name="name" placeholder = "Project name" type="text" required maxlength = "50">
 					
 					<label for="regarding"><small>Regarding </small></label>
 					<textarea maxlength="80" placeholder = "E.g new nursing home"class ="form-textarea" id="regarding" name="regarding" type="text"></textarea>
 					
 					<label for="planningNumber"><small>Planning number</small></label>
-					<input id="planningNumber" name="planningNumber" type="text" required maxlength = "30">
+					<input id="planningNumber" placeholder = "Planning number" name="planningNumber" type="text" required maxlength = "30">
 					
 					<label for="startDate"><small>Estimated start date</small></label>
 					<input id="startDate" name="startDate" type="date">
 					
-					<label for="address"><small>Location of project</small></label>
-					<input id="address" name="address1" placeholder= "Address Line 1" type="text" required maxlength = "45">
+					<label for="location"><small>Location of project</small></label>
+					<input id="location" name="location1" placeholder= "Address Line 1" type="text" required maxlength = "45">
 					
-					<input id="address" name="address2" placeholder= "Address Line 2"  type="text" required maxlength = "35">
+					<input id="location" name="location2" placeholder= "Address Line 2"  type="text" required maxlength = "35">
 					
-					<input id="address" name="address3" placeholder= "Address Line 3 (optional)"  type="text" maxlength = "35">
+					<input id="location" name="location3" placeholder= "Address Line 3 (optional)"  type="text" maxlength = "35">
 					
-					<input id="address" name="address4" placeholder = "Town/City" type="text" required maxlength = "35">
+					<input id="location" name="location4" placeholder = "Town/City" type="text" required maxlength = "35">
 					
-					<input id="address" name="county" placeholder = "County" type="text" required maxlength = "20">
+					<select id="location" class="drop_down"  name = "locationCounty" class="form-control" required>
+						<option value="" disabled selected>Select a county</option>
+						<option value= "antrim">Antrim</option>
+						<option value= "armagh">Armagh</option>
+						<option value= "carlow">Carlow</option>
+						<option value= "cavan">Cavan</option>
+						<option value= "clare">Clare</option>
+						<option value= "cork">Cork</option>
+						<option value= "derry">Derry</option>
+						<option value= "donegal">Donegal</option>
+						<option value= "down">Down</option>
+						<option value= "dublin">Dublin</option>
+						<option value= "fermanagh">Fermanagh</option>
+						<option value= "galway">Galway</option>
+						<option value= "kerry">Kerry</option>
+						<option value= "kildare">Kildare</option>
+						<option value= "kilkenny">Kilkenny</option>
+						<option value= "laois">Laois</option>
+						<option value= "leitrim">Leitrim</option>
+						<option value= "limerick">Limerick</option>
+						<option value= "longford">Longford</option>
+						<option value= "louth">Louth</option>
+						<option value= "mayo">Moyo</option>
+						<option value= "meath">Meath</option>
+						<option value= "monaghan">Monaghan</option>
+						<option value= "offaly">Offaly</option>
+						<option value= "roscommon">Roscommon</option>
+						<option value= "sligo">Sligo</option>
+						<option value= "tipperary">Tipperary</option>
+						<option value= "tyrone">Tyrone</option>
+						<option value= "waterford">Waterford</option>
+						<option value= "westmeath">Westmeath</option>
+						<option value= "wexford">Wexford</option>
+						<option value= "wicklow">Wicklow</option>
+					</select>
 					
-					<input id="address" name="country" placeholder = "Country" value = "Ireland" type="text" required maxlength = "28">
+					<input id="location" name="locationCountry" placeholder = "Country" value = "Ireland" type="text" required maxlength = "28" required>
 					
 					<label for="assign"><small>Assign to</small></label>
-					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
+					<select id="assign" class="drop_down"  name = "assign" class="form-control" required>
+					<option value="" disabled selected>Select a user</option>';
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 
@@ -71,22 +106,9 @@ echo'
 					</select><br>
 					
 					<label for="notes"><small>Project notes</small></label>
-					<textarea maxlength="1000" class ="form-textarea" id="notes" name="notes" type="text"></textarea>
+					<textarea maxlength="1000" placeholder = "1000 character limit"class ="form-textarea" id="notes" name="notes" type="text"></textarea>
 					
-					<label for="job_number"><small>Job number</small></label>
-					<input id="job_number" name="job_number" type="text" maxlength="20">
-					
-					<label for="po_number"><small>PO number</small></label>
-					<input id="po_number" name="po_number" type="text" maxlength="30" >
-					
-					<label for="quote_number"><small>Quote number</small></label>
-					<input id="quote_number" name="quote_number" type="text" maxlength="30" >
-					
-					
-					<label for="sage_reference"><small>Sage reference</small></label>
-					<input id="sage_reference" name="sage_reference" type="text" maxlength="20">
-					
-					<input type="submit" id="submit" value="Save">
+					<input type="submit" id="submit" value="Next">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>
