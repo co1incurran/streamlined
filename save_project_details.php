@@ -77,16 +77,23 @@ $cleanLocationCountry = mysqli_real_escape_string($con, $filterLocationCountry);
 
 //assigned to
 $assignTo = $_POST["assignTo"];
-$assignTo = trim($assignTo);
-$assignTo = strtolower($assignTo);
-$filterAssignTo = filter_var($AssignTo, FILTER_SANITIZE_STRING);
+$filterAssignTo = filter_var($assignTo, FILTER_SANITIZE_STRING);
 $cleanAssignTo = mysqli_real_escape_string($con, $filterAssignTo);
 
 //project notes
+$notes = $_POST["notes"];
+$notes = trim($notes);
+$filterNotes = filter_var($notes, FILTER_SANITIZE_STRING);
+$cleanNotes = mysqli_real_escape_string($con, $filterNotes);
 
 //THE BELOW DATA IS FOR THE COMPANY INVOLVED IN THE PROJECT
 
 //company name
+$companyName = $_POST["companyName"];
+$companyName = trim($companyName);
+$companyName = strtolower($companyName);
+$filterCompanyName = filter_var($companyName, FILTER_SANITIZE_STRING);
+$cleanCompanyName = mysqli_real_escape_string($con, $filterCompanyName);
 
 //Address1
 $address1 = $_POST["address1"];
@@ -185,43 +192,58 @@ $jobTitle = strtolower($jobTitle);
 $filterJobTitle = filter_var($jobTitle, FILTER_SANITIZE_STRING);
 $cleanJobTitle = mysqli_real_escape_string($con, $filterJobTitle);
 
-$sqlChecker = "SELECT * FROM company WHERE name = '$cleanCompanyName' AND address_line1 = '$cleanAddress1' AND address_line2 = '$cleanAddress2' AND address_line3 = '$cleanAddress3' AND address_line4 = '$cleanAddress4' AND county = '$cleanCounty' AND country = '$cleanCountry' AND sage_id = '$cleanSageid' AND sector = '$cleanSector'; ";
+$sqlChecker = "SELECT * FROM projects WHERE name = '$cleanName' AND planning_number = '$cleanPlanningNumber' AND est_start_date = '$cleanStartDate' AND address1 = '$cleanLocation1' AND address2 = '$cleanLocation2' AND address3 = '$cleanLocation3' AND address4 = '$cleanLocation4' AND county = '$cleanCounty' AND country = '$cleanCountry' AND regarding = '$cleanRegarding'; ";
 
 $result = mysqli_query($con,$sqlChecker);
 //echo $sqlChecker.'<br>';
-if($contactType == 'lead'){
-	$lead = 1;
-}else{
-	$lead = 0;
-}
 
 if (mysqli_num_rows($result) == 0){
 
-	$sql = "INSERT INTO company (name, address_line1, address_line2, address_line3, address_line4, county, country, sage_id, sector, lead) VALUES ('$cleanCompanyName', '$cleanAddress1', '$cleanAddress2', '$cleanAddress3', '$cleanAddress4', '$cleanCounty', '$cleanCountry', '$cleanSageid', '$cleanSector', '$lead'); ";
+	$sql = "INSERT INTO projects (name, planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed) VALUES ('$cleanName', '$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanCounty', '$cleanCountry', '$cleanRegarding', '$cleanNotes', '0'); ";
 
-	$res = mysqli_query($con,$sql);
-	//echo $sql.'<br>';
+	//$res = mysqli_query($con,$sql);
+	echo $sql.'<br>';
 
-	$sql2 = "SELECT companyid FROM company ORDER BY companyid DESC LIMIT 1; ";
+	$sql2 = "SELECT projectid FROM projects ORDER BY projectid DESC LIMIT 1; ";
 	$res2 = mysqli_query($con,$sql2);
-	$row = mysqli_fetch_assoc($res2);
-	$companyid = $row["companyid"];
-	//echo $companyid.'<br>';
-
-	$sql3 = "INSERT INTO workers (first_name, last_name, phone_num, mobile_phone_num, email, fax, job_title) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanJobTitle');";
-	$res3 = mysqli_query($con,$sql3);
-	//echo $sql3.'<br>';
-
-	$sql4 = "SELECT workerid FROM workers ORDER BY workerid DESC LIMIT 1; ";
-	$res4 = mysqli_query($con,$sql4);
-	$row = mysqli_fetch_assoc($res4);
-	$workerid = $row["workerid"];
-	//echo $workerid.'<br>';
-
-	$sql5 = "INSERT INTO works_with (workerid, companyid) VALUES ('$workerid', '$companyid'); ";
-	$res5 = mysqli_query($con,$sql5);
-	//echo $sql5;
+	$row2 = mysqli_fetch_assoc($res2);
+	$projectid = $row2["projectid"];
+	echo $projectid.'<br>';
 	
+	//link the project the assigned employee
+	$sql3 = "INSERT INTO managed_by (userid, projectid) VALUES ('$cleanAssignTo', '$projectid');";
+	$res3 = mysqli_query($con,$sql3);
+
+	//put the contact for the company into the workers table
+	$sql4 = "INSERT INTO workers (first_name, last_name, phone_num, mobile_phone_num, email, fax, job_title) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanJobTitle');";
+	$res4= mysqli_query($con,$sql4);
+	echo $sql4.'<br>';
+
+	//gets the worker ID of the newly added worker
+	$sql5 = "SELECT workerid FROM workers ORDER BY workerid DESC LIMIT 1; ";
+	$res5 = mysqli_query($con,$sql5);
+	$row5 = mysqli_fetch_assoc($res5);
+	$workerid = $row5["workerid"];
+	//echo $workerid.'<br>';
+	
+	//add company to the company table
+	$sql6 = "INSERT INTO company (name, address_line1, address_line2, address_line3, address_line4, county, country, sector, lead) VALUES ('$cleanCompanyName', '$cleanAddress1', '$cleanAddress2', '$cleanAddress3', '$cleanAddress4', '$cleanCounty', '$cleanCountry', '$cleanSector', '1'); ";
+
+	$res6 = mysqli_query($con,$sql6);
+	echo $sql.'<br>';
+
+	//Get the company id
+	$sql7 = "SELECT companyid FROM company ORDER BY companyid DESC LIMIT 1; ";
+	$res7 = mysqli_query($con,$sql7);
+	$row7 = mysqli_fetch_assoc($res7);
+	$companyid = $row7["companyid"];
+	//echo $companyid.'<br>';
+	
+	//link the worker to the company
+	$sql8= "INSERT INTO works_with (workerid, companyid) VALUES ('$workerid', '$companyid'); ";
+	$res8 = mysqli_query($con,$sql8);
+	//echo $sql5;
+	/*
 	echo'
 	<!DOCTYPE html>
 	<html>
@@ -292,7 +314,7 @@ if (mysqli_num_rows($result) == 0){
 		window.onload = div_show();
 		</script>
 	<!-- Body Ends Here -->
-	</html>';
+	</html>';*/
 }
 mysqli_close($con);
 ?>

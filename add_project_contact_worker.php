@@ -56,7 +56,7 @@ echo'
 		<!-- Popup Div Starts Here -->
 			<div id="popupContact">						
 				<form action="save_project_details.php" id="form" method="post" name="form">
-					<h2>Worker details</h2>
+					<h2>'.ucwords($sector).' Contact</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="name" id="name" value="'.$name.'">

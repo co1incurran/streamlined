@@ -105,10 +105,10 @@ echo'
 					
 					<select id="sector" class="drop_down"  name = "sector" class="form-control" required>
 						<option value="" disabled selected>Select a sector</option>
-						<option value= "hse">HSE</option>
+						<option value= "HSE">HSE</option>
 						<option value= "construction">Construction</option>
 						<option value= "nursing home">Nursing home</option>
-						<option value= "architecture">Architecture</option>
+						<option value= "architect">Architect</option>
 						<option value= "school">School</option>
 						<option value= "charity">Charity</option>
 						<option value= "building services">Building services</option>
