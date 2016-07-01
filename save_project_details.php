@@ -201,14 +201,12 @@ if (mysqli_num_rows($result) == 0){
 
 	$sql = "INSERT INTO projects (name, planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed) VALUES ('$cleanName', '$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanCounty', '$cleanCountry', '$cleanRegarding', '$cleanNotes', '0'); ";
 
-	//$res = mysqli_query($con,$sql);
-	echo $sql.'<br>';
+	$res = mysqli_query($con,$sql);
 
 	$sql2 = "SELECT projectid FROM projects ORDER BY projectid DESC LIMIT 1; ";
 	$res2 = mysqli_query($con,$sql2);
 	$row2 = mysqli_fetch_assoc($res2);
 	$projectid = $row2["projectid"];
-	echo $projectid.'<br>';
 	
 	//link the project the assigned employee
 	$sql3 = "INSERT INTO managed_by (userid, projectid) VALUES ('$cleanAssignTo', '$projectid');";
@@ -217,38 +215,38 @@ if (mysqli_num_rows($result) == 0){
 	//put the contact for the company into the workers table
 	$sql4 = "INSERT INTO workers (first_name, last_name, phone_num, mobile_phone_num, email, fax, job_title) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanJobTitle');";
 	$res4= mysqli_query($con,$sql4);
-	echo $sql4.'<br>';
 
 	//gets the worker ID of the newly added worker
 	$sql5 = "SELECT workerid FROM workers ORDER BY workerid DESC LIMIT 1; ";
 	$res5 = mysqli_query($con,$sql5);
 	$row5 = mysqli_fetch_assoc($res5);
 	$workerid = $row5["workerid"];
-	//echo $workerid.'<br>';
 	
 	//add company to the company table
 	$sql6 = "INSERT INTO company (name, address_line1, address_line2, address_line3, address_line4, county, country, sector, lead) VALUES ('$cleanCompanyName', '$cleanAddress1', '$cleanAddress2', '$cleanAddress3', '$cleanAddress4', '$cleanCounty', '$cleanCountry', '$cleanSector', '1'); ";
 
 	$res6 = mysqli_query($con,$sql6);
-	echo $sql.'<br>';
 
 	//Get the company id
 	$sql7 = "SELECT companyid FROM company ORDER BY companyid DESC LIMIT 1; ";
 	$res7 = mysqli_query($con,$sql7);
 	$row7 = mysqli_fetch_assoc($res7);
 	$companyid = $row7["companyid"];
-	//echo $companyid.'<br>';
 	
 	//link the worker to the company
 	$sql8= "INSERT INTO works_with (workerid, companyid) VALUES ('$workerid', '$companyid'); ";
 	$res8 = mysqli_query($con,$sql8);
-	//echo $sql5;
-	/*
+	
+	//link to project to the company
+	$sql9 = "INSERT INTO company_to_project (companyid, projectid) VALUES ('$companyid', '$projectid');";
+	$res9 = mysqli_query($con,$sql9);
+	
+}
 	echo'
 	<!DOCTYPE html>
 	<html>
 		<head>
-		<title>Contact Created</title>
+		<title>Project Created</title>
 		<link href="css/elements.css" rel="stylesheet">
 		<script src="js/popup.js"></script>
 		</head>
@@ -261,7 +259,7 @@ if (mysqli_num_rows($result) == 0){
 				<!-- Contact Us Form -->
 					<form action="" id="form" method="post" name="form">
 						<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-						<h2>Contact Created</h2>
+						<h2>Project Created</h2>
 						<hr>
 						<a href="'.$url.'" id="submit">OK</a>
 					</form>
@@ -279,42 +277,5 @@ if (mysqli_num_rows($result) == 0){
 		</script>
 	<!-- Body Ends Here -->
 	</html>';
-}else{
-	echo'
-	<!DOCTYPE html>
-	<html>
-		<head>
-		<title>Contact Created</title>
-		<link href="css/elements.css" rel="stylesheet">
-		<script src="js/popup.js"></script>
-		</head>
-	<!-- Body Starts Here -->
-		<body>
-		<div id="body" style="overflow:hidden;">
-			<div id="abc">
-				<!-- Popup Div Starts Here -->
-				<div id="popupContact">
-				<!-- Contact Us Form -->
-					<form action="" id="form" method="post" name="form">
-						<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-						<h2>Contact already exists</h2>
-						<hr>
-						<a href="'.$url.'" id="submit">OK</a>
-					</form>
-				</div>
-			<!-- Popup Div Ends Here -->
-			</div>
-		</div>
-		</body>
-		
-		<script type="text/javascript">
-		function goBack() {
-			window.history.go(-2);
-		}
-		window.onload = div_show();
-		</script>
-	<!-- Body Ends Here -->
-	</html>';*/
-}
 mysqli_close($con);
 ?>
