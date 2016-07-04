@@ -68,10 +68,57 @@ while($row = mysqli_fetch_array($res)){
 			}else{
 				$rowClass = 'whittttte-row';
 			}
+			 
+			//this makes the contact a link to the contacts profile
+			$sql2 = "SELECT companyid, name FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid');" ;
+			$res2 = mysqli_query($con,$sql2);
+			$row = mysqli_fetch_assoc($res2);
+			
+			
+			$sql3 = "SELECT userid, first_name, last_name FROM users WHERE userid IN (SELECT userid FROM managed_by WHERE projectid = '$projectid');" ;
+			$res3 = mysqli_query($con,$sql3);
+			$row3 = mysqli_fetch_assoc($res3);
+			$userName = $row3['userid'];
 		
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
-				<td><a href = "#" class="name"><?php echo ucwords($results['name']);?></a></td>
+				<td>
+				<?php
+					$planningNumber = $results['planning_number'];
+					$startDate = $results['est_start_date'];
+					$address1 = $results['address1'];
+					$address2 = $results['address2'];
+					$address3 = $results['address3'];
+					$address4 = $results['address4'];
+					$county = $results['county'];
+					$country = $results['country'];
+					$regarding = $results['regarding'];
+					$notes = $results['notes'];
+					echo'
+					<form action="project_details.php" id="job-lis" method="post" name="job-lis">
+						<input type="hidden" name="url" id="url" value="projects.php">
+						<input type="hidden" name="userName" id="userName" value="'.$userName.'">
+						<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
+						
+						<input type="hidden" name="planningNumber" id="planningNumber" value="'.$planningNumber.'">
+						<input type="hidden" name="startDate" id="startDate" value="'.$startDate.'">
+						
+						<input type="hidden" name="address1" id="address1" value="'.$address1.'">
+						
+						<input type="hidden" name="address2" id="address2" value="'.$address2.'">
+						<input type="hidden" name="address3" id="address3" value="'.$address3.'">
+						
+						<input type="hidden" name="address4" id="address4" value="'.$address4.'">
+						<input type="hidden" name="county" id="county" value="'.$county.'">
+						
+						<input type="hidden" name="country" id="country" value="'.$country.'">
+						<input type="hidden" name="regarding" id="regarding" value="'.$regarding.'">
+						<input type="hidden" name="notes" id="notes" value="'.$notes.'">
+						<input type="submit" id="job-type" value="'.ucwords($results['name']).'">
+					</form>';
+				?>
+				<!--<a href = "#" class="name"><?php //echo ucwords($results['name']);?></a>-->
+				</td>
 				<td>
 					<?php echo $results['regarding']; ?>
 				</td>
@@ -135,9 +182,21 @@ while($row = mysqli_fetch_array($res)){
 						echo ', '.ucwords($results['country']);
 				?>
 				</td>
+				<?php 
+					//this makes the contact a link to the contacts profile
+					$sql2 = "SELECT companyid, name FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid');" ;
+					$res2 = mysqli_query($con,$sql2);
+					$row = mysqli_fetch_assoc($res2);
+					echo '<td><a href = "profile.php?companyid='.$row['companyid'].'" class="name">';
+					echo $row['name'];
+					echo '</a></td>';
+					
+					$sql3 = "SELECT first_name, last_name FROM users WHERE userid IN (SELECT userid FROM managed_by WHERE projectid = '$projectid');" ;
+					$res3 = mysqli_query($con,$sql3);
+					$row3 = mysqli_fetch_assoc($res3);
+				?>
 				
-				<td><?php echo 'X'; ?></td>
-				<td><?php echo 'X'; ?></td>
+				<td><?php echo ucwords($row3['first_name']).' '. ucwords($row3['last_name']); ?></td>
 				
 			</tr>
 	<?php
