@@ -99,11 +99,11 @@ echo'
 					</select>
 					
 					
-					<input id="location" name="location4" placeholder = "Country" value ="Ireland" type="text" maxlength = "28" required>
+					<input id="location" name="country" placeholder = "Country" value ="Ireland" type="text" maxlength = "28" required>
 					
 					
 					<label for="assign"><small>Assign to</small></label>
-					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
+					<select id="userName"class="drop_down"  name = "userName" class="form-control">';
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 

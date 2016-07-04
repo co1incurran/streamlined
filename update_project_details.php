@@ -12,7 +12,7 @@ $projectid = $_POST['projectid'];
 //user name
 $userName = $_POST["userName"];
 $userName = trim($userName);
-$userName = filter_var($userName, FILTER_SANITIZE_STRING);
+$filterUserName = filter_var($userName, FILTER_SANITIZE_STRING);
 $cleanUserName = mysqli_real_escape_string($con, $filterUserName);
 
 //project number
@@ -80,9 +80,13 @@ $filterNotes = filter_var($notes, FILTER_SANITIZE_STRING);
 $cleanNotes = mysqli_real_escape_string($con, $filterNotes);
 
 
-$sql = "UPDATE project SET name= '$cleanName', address_line1 ='$address1', address_line2 = '$address2', address_line3 = '$address3', address_line4 = '$address4', county = '$county', country = '$country', sage_id = '$sageid', sector = '$sector' WHERE companyid= $cleanCompanyid; ";
+$sql = "UPDATE projects SET planning_number= '$cleanPlanningNumber', est_start_date ='$cleanStartDate', address1 = '$cleanAddress1', address2 = '$cleanAddress2', address3 = '$cleanAddress3', address4 = '$cleanAddress4', county = '$county', country = '$country', regarding = '$cleanRegarding', notes = '$cleanNotes' WHERE projectid = $projectid; ";
 //echo $sql;
 $res = mysqli_query($con,$sql);
+
+$sql2 = "UPDATE managed_by SET userid = '$userName' WHERE projectid = '$projectid';";
+echo $sql2;
+//$res2 = mysqli_query($con,$sql2);
 
 mysqli_close($con);
 echo'
@@ -90,7 +94,7 @@ echo'
 <html>
 	<head>
 	<title>Update Successful</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
