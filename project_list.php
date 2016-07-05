@@ -7,7 +7,7 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT * FROM projects ORDER BY name; ";
+$sql = "SELECT * FROM projects; ";
  
 $res = mysqli_query($con,$sql);
 
@@ -18,18 +18,17 @@ $result = array();
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
 		array('projectid'=>$row[0],
-		'name'=>$row[1],
-		'planning_number'=>$row[2],
-		'est_start_date'=>$row[3],
-		'address1'=>$row[4],
-		'address2'=>$row[5],
-		'address3'=>$row[6],
-		'address4'=>$row[7],
-		'county'=>$row[8],
-		'country'=>$row[9],
-		'regarding'=>$row[10],
-		'notes'=>$row[11],
-		'closed'=>$row[12]
+		'planning_number'=>$row[1],
+		'est_start_date'=>$row[2],
+		'address1'=>$row[3],
+		'address2'=>$row[4],
+		'address3'=>$row[5],
+		'address4'=>$row[6],
+		'county'=>$row[7],
+		'country'=>$row[8],
+		'regarding'=>$row[9],
+		'notes'=>$row[10],
+		'closed'=>$row[11]
 	));
 }
 //print_r (array_values($result));
@@ -47,8 +46,9 @@ while($row = mysqli_fetch_array($res)){
 		<thead>
 			<tr class = "blue-row">				
 				<!--<th class = "asset-list"></th>-->
-				<th id = "first-table-column" class = "asset-list"><strong>Name</strong></th>
+				<th id = "first-table-column" class = "asset-list"><strong>Planning Number</strong></th>
 				<th><strong>Details</strong></th>
+				<th><strong>Stage<strong></th>
 				<th><strong>Start Date</strong></th>
 				<th><strong>Location</strong></th>
 				<th><strong>Contact</strong></th>
@@ -114,13 +114,27 @@ while($row = mysqli_fetch_array($res)){
 						<input type="hidden" name="country" id="country" value="'.$country.'">
 						<input type="hidden" name="regarding" id="regarding" value="'.$regarding.'">
 						<input type="hidden" name="notes" id="notes" value="'.$notes.'">
-						<input type="submit" id="job-type" value="'.ucwords($results['name']).'">
+						<input type="submit" id="job-type" value="'.ucwords($results['planning_number']).'">
 					</form>';
 				?>
 				<!--<a href = "#" class="name"><?php //echo ucwords($results['name']);?></a>-->
 				</td>
 				<td>
 					<?php echo $results['regarding']; ?>
+				</td>
+				<!-- put the project stage here -->
+				<td>
+					<?php
+						$typeQuery = "SELECT type FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') ORDER BY activityid DESC LIMIT 1; ";
+						$resQuery = mysqli_query($con,$typeQuery);
+						if (mysqli_num_rows($resQuery) > 0) {
+							$rowType = mysqli_fetch_assoc($resQuery);
+							$type = $rowType["type"];
+							echo ucwords($type);
+						}else{
+							echo 'Not Started';
+						}
+					?>
 				</td>
 				<td>
 					<?php echo date("d/m/Y", strtotime($results['est_start_date'])); ?>

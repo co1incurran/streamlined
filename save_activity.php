@@ -9,16 +9,28 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $url= $_POST["url"];
 
 //COMPANYID
-$companyid = $_POST["companyid"];
-$companyid = trim($companyid);
-$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
-$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
+if(isset($_POST['companyid'])){
+	$companyid = $_POST["companyid"];
+	$companyid = trim($companyid);
+	$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
+	$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
+}
 
 //CUSTOMERID
-$customerid = $_POST["customerid"];
-$customerid = trim($customerid);
-$filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
-$cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
+if(isset($_POST['customerid'])){
+	$customerid = $_POST["customerid"];
+	$customerid = trim($customerid);
+	$filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
+	$cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
+}
+
+//projectid
+if(isset($_POST['projectid'])){
+	$projectid = $_POST["projectid"];
+	$projectid = trim($projectid);
+	$filterprojectid = filter_var($projectid, FILTER_SANITIZE_STRING);
+	$cleanprojectid= mysqli_real_escape_string($con, $filterprojectid);
+}
 
 //activity type
 $activitytype = $_POST["activitytype"];
@@ -58,7 +70,7 @@ $sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date)
 $res1 = mysqli_query($con,$sql1);
 //echo $sql1;
 
-//get the activityid of the asset
+//get the activityid of the activity
 	$sql2 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
 	$res2 = mysqli_query($con,$sql2);
 	$row = mysqli_fetch_assoc($res2);
@@ -70,12 +82,17 @@ $res1 = mysqli_query($con,$sql1);
 	$res3 = mysqli_query($con,$sql3);
 	//echo $sql3;
 	
-	if($companyid !=0){
-		$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-		//echo $sql4;
-	}else{
-		$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-		//echo $sql4;
+	if(isset($_POST['companyid'])){
+		if($companyid !=0){
+			$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
+			//echo $sql4;
+		}else{
+			$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
+			//echo $sql4;
+		}
+	}elseif(isset($_POST['projectid'])){
+		$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
+			//echo $sql4;
 	}
 	$res4 = mysqli_query($con,$sql4);
 mysqli_close($con);

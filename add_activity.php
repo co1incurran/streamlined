@@ -6,9 +6,6 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$url= $_GET['url'];
-$customerid= $_GET['customerid'];
-$companyid= $_GET['companyid'];
 
 echo'
 <!DOCTYPE html>
@@ -28,11 +25,28 @@ echo'
 				<form action="save_activity.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Add task</h2>
-					<hr>
-					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
-					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
+					<hr>';
+					if(isset($_GET['url'])){
+						$url= $_GET['url'];
+						echo '<input type="hidden" name="url" id="url" value="'.$url.'">';
+					}
 					
+					if(isset($_GET['companyid'])){
+						$companyid= $_GET['companyid'];
+						echo '<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
+					}
+					
+					if(isset($_GET['customerid'])){
+						$customerid= $_GET['customerid'];
+						echo '<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">';
+					}
+					
+					if(isset($_GET['projectid'])){
+						$projectid= $_GET['projectid'];
+						echo '<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">';
+					}
+					
+					echo'
 					<label for="activitytype"><small>Activity type</small></label>
 					<select id="activitytype"class="drop_down"  name = "activitytype" class="form-control">
 						<option value= "prospecting">Prospecting</option>
@@ -47,18 +61,19 @@ echo'
 					<label for="activity_description"><small>Activity description</small></label>
 					<textarea maxlength="80" class ="form-textarea" id="activity_description" name="activity_description" type="text"></textarea>';
 					
-						$sql = "SELECT userid FROM users;";
-						$res = mysqli_query($con,$sql);
+						
 					echo'
 					<label for="assign"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 
-						if (mysqli_num_rows($res) > 0) {
+					if (mysqli_num_rows($res) > 0) {
 						while($row = mysqli_fetch_assoc($res)) {
-							if(!empty($row["userid"])){
-							echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							if($row["userid"] == $userName){
+								echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							}else{
+								echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
 							}
 						}
 					}else{

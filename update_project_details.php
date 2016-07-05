@@ -85,8 +85,8 @@ $sql = "UPDATE projects SET planning_number= '$cleanPlanningNumber', est_start_d
 $res = mysqli_query($con,$sql);
 
 $sql2 = "UPDATE managed_by SET userid = '$userName' WHERE projectid = '$projectid';";
-echo $sql2;
-//$res2 = mysqli_query($con,$sql2);
+//echo $sql2;
+$res2 = mysqli_query($con,$sql2);
 
 mysqli_close($con);
 echo'
@@ -94,7 +94,7 @@ echo'
 <html>
 	<head>
 	<title>Update Successful</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

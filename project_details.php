@@ -27,6 +27,11 @@ echo'
 	<title>Project details</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
+	<style>
+		#add_task {
+			float: right;
+		}
+	</style>
 	</head>
 <!-- Body Starts Here -->
 	<body>
@@ -39,12 +44,13 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Project details</h2>
 					<small><a href = "delete_project.php?url='.$url.'&projectid='.$projectid.'">Delete project</a></small>
+					<small><a id = "add_task" href = "add_activity.php?url=projects.php&projectid='.$projectid.'&userName='.$userName.'">Add task</a></small>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
 					
 					<label for="planningNumber"><small>Planning Number</small></label>
-					<input id="planningNumber" name="planningNumber" placeholder = "Planning Number" value ="'.$planningNumber.'" type="text" maxlength = "30" required>
+					<input id="planningNumber" name="planningNumber" placeholder = "Planning Number" value ="'.$planningNumber.'" type="text" maxlength = "10" required>
 					
 					<label for="startDate"><small>Project Start Date</small></label>
 					<input id="startDate" name="startDate" value ="'.$startDate.'" type="date" >
