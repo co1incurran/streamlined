@@ -130,7 +130,21 @@ while($row = mysqli_fetch_array($res)){
 						if (mysqli_num_rows($resQuery) > 0) {
 							$rowType = mysqli_fetch_assoc($resQuery);
 							$type = $rowType["type"];
-							echo ucwords($type);
+							
+							echo'
+							<form action="tasks.php?status=project" id="job-list" method="post" name="job-list">
+								<input type="hidden" name="userName" id="userName" value="'.$userName.'">
+								<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
+								<input type="hidden" name="address1" id="address1" value="'.$address1.'">
+								<input type="hidden" name="address2" id="address2" value="'.$address2.'">
+								<input type="hidden" name="address3" id="address3" value="'.$address3.'">
+								<input type="hidden" name="address4" id="address4" value="'.$address4.'">
+								<input type="hidden" name="county" id="county" value="'.$county.'">
+								<input type="hidden" name="country" id="country" value="'.$country.'">
+								<input type="hidden" name="type" id="type" value="'.$type.'">
+								<input type="submit" id="job-type" value="'.ucwords($type).'">
+							</form>';
+							
 						}else{
 							echo 'Not Started';
 						}

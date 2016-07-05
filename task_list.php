@@ -29,6 +29,44 @@ $startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
 $endMonth = date('Y-m-t', strtotime($currentDate)).'<br>';
 $heading = 'Time';
 $status = '';
+
+//getting the data from the project
+if(isset($_POST['userName'])){
+	$userName = $_POST['userName'];
+}
+
+if(isset($_POST['projectid'])){
+	$projectid = $_POST['projectid'];
+}
+
+if(isset($_POST['address1'])){
+	$address1 = $_POST['address1'];
+}
+
+if(isset($_POST['address2'])){
+	$address2 = $_POST['address2'];
+}
+
+if(isset($_POST['address3'])){
+	$address3 = $_POST['address3'];
+}
+
+if(isset($_POST['address4'])){
+	$address4 = $_POST['address4'];
+}
+
+if(isset($_POST[''])){
+	$userName = $_POST['userName'];
+}
+
+if(isset($_POST[''])){
+	$userName = $_POST['userName'];
+}
+
+if(isset($_POST[''])){
+	$userName = $_POST['userName'];
+}
+
 if(isset($_GET['status'])){
 	$status = $_GET['status'];
 	//echo $status;
@@ -48,6 +86,8 @@ if(isset($_GET['status'])){
 	}elseif($status == 'completed'){
 		$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY due_date DESC; ";
 		$heading = 'Result';
+	}elseif($status == 'project'){
+		$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') ORDER BY activityid DESC LIMIT 1;"
 	}else{
 		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 	}

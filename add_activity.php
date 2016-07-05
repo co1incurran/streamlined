@@ -70,10 +70,15 @@ echo'
 
 					if (mysqli_num_rows($res) > 0) {
 						while($row = mysqli_fetch_assoc($res)) {
-							if($row["userid"] == $userName){
-								echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							if(isset($_GET['userName'])){
+								$userName = $_GET['userName'];
+								if($row["userid"] == $userName){
+									echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
+								}else{
+									echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+								}
 							}else{
-								echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+									echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
 							}
 						}
 					}else{

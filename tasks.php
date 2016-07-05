@@ -48,7 +48,8 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
                             <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
+                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    
+								<form class="form-horizontal">
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 First Name<br />
@@ -74,7 +75,8 @@
 '><i class="fa fa-plus-circle"></i> New Contact</button>
                             </li>
                             <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
+                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    
+								<form class="form-horizontal">
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <input class="form-control" type="text" />
