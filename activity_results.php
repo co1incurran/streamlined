@@ -64,7 +64,7 @@ echo'
 					<label for="nextactivity_description"><small>Further details</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="nextactivity_description" name="nextactivity_description" type="text"></textarea>
 					
-					<label for="date"><small>Due date</small></label>
+					<label for="date"><small>Due date of next action</small></label>
 					<input id="date" name="date" type="date">
 					
 					<label for="time"><small>Time</small></label>

@@ -59,7 +59,7 @@ echo'
 					</select><br>
 					
 					<label for="activity_description"><small>Activity description</small></label>
-					<textarea maxlength="80" class ="form-textarea" id="activity_description" name="activity_description" type="text"></textarea>';
+					<textarea maxlength="80" placeholder = "Max 80 characters" class ="form-textarea" id="activity_description" name="activity_description" type="text"></textarea>';
 					
 						
 					echo'

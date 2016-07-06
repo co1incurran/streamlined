@@ -29,6 +29,7 @@ $startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
 $endMonth = date('Y-m-t', strtotime($currentDate)).'<br>';
 $heading = 'Time';
 $status = '';
+$columnName = 'Contact';
 
 //getting the data from the project
 if(isset($_POST['userName'])){
@@ -37,6 +38,7 @@ if(isset($_POST['userName'])){
 
 if(isset($_POST['projectid'])){
 	$projectid = $_POST['projectid'];
+	$columnName = 'Planning Number';
 }
 
 if(isset($_POST['address1'])){
@@ -55,16 +57,16 @@ if(isset($_POST['address4'])){
 	$address4 = $_POST['address4'];
 }
 
-if(isset($_POST[''])){
-	$userName = $_POST['userName'];
+if(isset($_POST['county'])){
+	$county = $_POST['county'];
 }
 
-if(isset($_POST[''])){
-	$userName = $_POST['userName'];
+if(isset($_POST['country'])){
+	$country = $_POST['country'];
 }
 
-if(isset($_POST[''])){
-	$userName = $_POST['userName'];
+if(isset($_POST['type'])){
+	$type = $_POST['type'];
 }
 
 if(isset($_GET['status'])){
@@ -87,7 +89,7 @@ if(isset($_GET['status'])){
 		$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY due_date DESC; ";
 		$heading = 'Result';
 	}elseif($status == 'project'){
-		$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') ORDER BY activityid DESC LIMIT 1;"
+		$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') ORDER BY activityid DESC LIMIT 1;";
 	}else{
 		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 	}
@@ -132,12 +134,15 @@ while($row = mysqli_fetch_array($res)){
 			<th class = "asset-list"><strong>Description</strong></th>
 			<th class = "asset-list"><strong>Date</strong></th>
 			<th class = "asset-list"><strong><?php echo $heading; ?></strong></th>
-
-			<th class = "asset-list"><strong>Customer</strong></th>
+<?php 
+	if(!isset($_POST['projectid'])){
+		echo'
+			<th class = "asset-list"><strong>'.$columnName.'</strong></th>
 			
 			<th class = "asset-list"><strong>County</strong></th>
-			<th class = "asset-list"><strong>Employee</strong></th>
-			
+			<th class = "asset-list"><strong>Employee</strong></th>';
+	}
+?>	
 		</tr>
 	</thead>
 <tbody>
@@ -165,8 +170,15 @@ while($row = mysqli_fetch_array($res)){
 			if(mysqli_num_rows($res2) < 1){
 				$sql3 = "SELECT customerid, first_name, last_name, county FROM customer WHERE customerid IN (SELECT customerid FROM customer_activity WHERE activityid = '$activityid'); ";
 				$res3 = mysqli_query($con,$sql3);
-				$row = mysqli_fetch_assoc($res3);
-				$customerid = $row["customerid"];
+				if(mysqli_num_rows($res3) < 1 && isset($_POST['projectid'])){
+					$sql4 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid'); ";
+					$res4 = mysqli_query($con,$sql4);
+					$row = mysqli_fetch_assoc($res4);
+					$companyid = $row["companyid"];
+				}else{
+					$row = mysqli_fetch_assoc($res3);
+					$customerid = $row["customerid"];
+				}
 			}else{
 				$row = mysqli_fetch_assoc($res2);
 				$companyid = $row["companyid"];
@@ -267,17 +279,27 @@ while($row = mysqli_fetch_array($res)){
 						}
 					?>
 				</td>
-				<td><a href = "profile.php?customerid=<?php echo $customerid.'&companyid='.$companyid?>" class="name">
+				
 				<?php
-					if($customerid >= 1){
-						echo ucwords($row['first_name']).' '.ucwords($row['last_name']);
-					}else{
-						echo ucwords($row['name']);
+				
+					
+					//put in the link to the project details here
+					if(!isset ($_POST['projectid'])){
+						echo'<td>';
+						echo '<a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'" class="name">';
+						
+							if($customerid >= 1){
+								echo ucwords($row['first_name']).' '.ucwords($row['last_name']);
+							}else{
+								echo ucwords($row['name']);
+							}
+					
+						echo'
+						</a></td>
+						<td>'.ucwords($row['county']).'</td>
+						<td>'.ucwords($employee).'</td>';
 					}
 				?>
-				</a></td>
-				<td><?php echo ucwords($row['county']); ?></td>
-				<td><?php echo ucwords($employee); ?></td>
 			</tr>
 	<?php
 		}

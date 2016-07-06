@@ -174,7 +174,7 @@
 											if(isset($_GET['status'])){
 												$status = $_GET['status'];
 												if($status == 'all'){
-													$setter = 'All Tasks';
+													$setter = 'Tasks';
 												}elseif($status == 'today'){
 													$setter = "Today's Tasks";
 												}elseif($status == 'tomorrow'){
@@ -196,7 +196,7 @@
 											?>
                                                 <h2><?php echo $setter; ?> <a href="#">&darr;</a></h2>
                                                 <ul>
-                                                    <li><a href="tasks.php?status=all">All tasks</a></li>
+                                                    <li><a href="tasks.php?status=all">Tasks</a></li>
                                                     <li><a href="tasks.php?status=today">Today</a></li>
                                                     <li><a href="tasks.php?status=tomorrow">Tomorrow</a></li>
                                                     <li><a href="tasks.php?status=week">This week</a></li>

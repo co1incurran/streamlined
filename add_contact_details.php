@@ -60,7 +60,7 @@ echo'
 						<input id="country" name="country" type="text" value="Ireland" maxlength = "28">
 						
 						<label for="sageid"><small>Sage ID</small></label>
-						<input id="sageid" name="sageid" type="text" required maxlength = "20">
+						<input id="sageid" name="sageid" type="text" maxlength = "20">
 						
 						<input type="submit" id="submit" value="Next">
 						<a onclick="goBack()" id="submit">Cancel</a>
@@ -89,7 +89,7 @@ echo'
 							<input id="sector" name="sector" type="text" required maxlength = "30">
 							
 							<label for="sageid"><small>Sage ID</small></label>
-							<input id="sageid" name="sageid" type="text" required maxlength = "20">
+							<input id="sageid" name="sageid" type="text" maxlength = "20">
 							
 							<input type="submit" id="submit" value="Next">
 							<a onclick="goBack()" id="submit">Cancel</a>
