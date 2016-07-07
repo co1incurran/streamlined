@@ -133,10 +133,10 @@
     
                         <nav class="global">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
+                                <!--<li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
+                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>-->
                                 <li><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li class="active"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks </a></li>
+                                <li class="active"><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             </ul>
@@ -224,39 +224,7 @@
 												require_once 'task_list.php';
 											}
 										?>
-                                            <!--<ul class="listing list-view">
-                                                <li class="tick">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">Dec 28, 2010</span>
-                                                    <a href="#">Today</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                                <li class="calendar">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">Dec 29, 2010</span>
-                                                    <a href="#">Tomorrow</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                                <li class="calendar">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">January 6, 2010</span>
-                                                    <a href="#">Next Week</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                                <li class="calendar">
-                                                    <a class="more" href="taskdetails.html">&raquo;</a>
-                                                    <span class="timestamp">January 28, 2010</span>
-                                                    <a href="#">Next Month</a>
-                                                    <p>Sample text</p>
-                                                </li>
-                                            </ul>
-                                            <ul class="pagination">
-                                                <li><a href="#">&laquo;</a></li>
-                                                <li class="active"><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">&raquo;</a></li>
-                                            </ul>-->
+                                            
                                         </section>
                                     </div>
                                 </div>

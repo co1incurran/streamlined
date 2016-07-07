@@ -124,8 +124,8 @@
     
                         <nav class="global">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
+                              <!--  <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
+                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>-->
                                 <li><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li ><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li class="active"><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>

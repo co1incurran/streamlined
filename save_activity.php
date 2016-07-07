@@ -77,6 +77,7 @@ $res1 = mysqli_query($con,$sql1);
     $activityid = $row["activityid"];
 	//echo '<br>' .$activityid;
 	
+	
 //add the activity to the assigned activity table
 	$sql3 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$cleanassign', '$activityid');";
 	$res3 = mysqli_query($con,$sql3);

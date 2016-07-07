@@ -182,36 +182,14 @@ $('#jobType').on('change',function(){
     
                         <nav class="global">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview </a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity </a></li>
+                               <!-- <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview </a></li>
+                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity </a></li>-->
                                 <li class="active"><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             </ul>
                         </nav>
-    
-                       <!-- <nav class="subnav recent">
-                            <h4>Recent Contacts</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li class="active">
-                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
-                                        </span>
-                                        <p>John Doe<br>
-                                        <small class="text-muted">Some Company LTD</small></p>
-                                        <address>123 Some Street, LA</address>
-'><h5>John Doe</h5><h6>Some Company LTD</h6></a>
-                                </li>
-                                <li>
-                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
-                                        </span>
-                                        <p>Jane Roe<br>
-                                        <small class="text-muted">Some Company LTD</small></p>
-                                        <address>123 Some Street, LA</address>
-'><h5>Jane Roe</h5><h6>Other Company Inc.</h6></a>
-                                </li>
-                            </ul>
-                        </nav>-->
     
                         <nav class="subnav">
                             <h4>Activities</h4>
