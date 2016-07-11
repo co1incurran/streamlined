@@ -1,8 +1,9 @@
 <?php
-session_start();
-if(isset ($_SESSION['username'])){
-header("location:index.html");
-}
+//this is the session to ensure a user is logged in
+	session_start();
+	if(!isset ($_SESSION['username'])){
+		header("location:index.html");
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,13 +37,13 @@ header("location:index.html");
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="dashboard.html">Enable Supplies</a>
+                      <a class="navbar-brand" href="welcome.php">Enable Supplies</a>
                     </div>
     
                   
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-                            <li class="action">
+                            <!--<li class="action">
                                 <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
                                         <div class="form-group">
                                             <div class="col-sm-12">
@@ -95,14 +96,14 @@ header("location:index.html");
                             </li>
                             <li class="active"><a href="dashboard.html">Dashboard</a></li>
                             <li><a href="profile.html">Profile</a></li>
-                            <li><a href="calendar.html">Calendar</a></li>
+                            <li><a href="calendar.html">Calendar</a></li>-->
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrator <span class="caret"></span></a>
+                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>
                                     <li><a href="#">Groups</a></li>
-                                    <li><a href="#">Sign out</a></li>
+                                    <li><a href="logout.php">Log out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -128,7 +129,7 @@ header("location:index.html");
                               <ul class="nav nav-pills nav-stacked">
                                <!-- <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
                                 <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>-->
-                                <li><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
+                                <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
@@ -156,10 +157,10 @@ header("location:index.html");
 
                             <div class="main-content panel panel-default">
                                 <header class="panel-heading clearfix">
-                                    <a data-target="documentation/index.html" href="#" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>
+                                   <!-- <a data-target="documentation/index.html" href="#" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>
                                     <h2 class="panel-title">
                                         Welcome to Enable Supplies
-                                    </h2>
+                                    </h2>-->
                                 </header>
                                 <section class="panel-body container-fluid">
                                     <div class="row">

@@ -6,6 +6,7 @@ $password=""; // Mysql password
 $db_name="test"; // Database name 
 $tbl_name="members"; // Table name
 */
+session_start();
 
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
@@ -20,17 +21,17 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //mysql_select_db("$db_name")or die("cannot select DB");
 
 // username and password sent from form 
-$myusername = $_POST['username']; 
-$mypassword = $_POST['password']; 
+$username = $_POST['username']; 
+$password = $_POST['password']; 
 
 // To protect MySQL injection (more detail about MySQL injection)
-$myusername = stripslashes($myusername);
-$mypassword = stripslashes($mypassword);
+$username = stripslashes($username);
+$password = stripslashes($password);
 
-$myusername = mysqli_real_escape_string($con, $myusername);
-$mypassword = mysqli_real_escape_string($con, $mypassword);
+$username = mysqli_real_escape_string($con, $username);
+$password = mysqli_real_escape_string($con, $password);
 
-$sql="SELECT * FROM users WHERE userid='$myusername' AND password='$mypassword'";
+$sql="SELECT * FROM users WHERE userid='$username' AND password='$password'";
 $res = mysqli_query($con,$sql);
 
 // Mysql_num_row is counting table row
@@ -40,11 +41,15 @@ $count = mysqli_num_rows($res);
 if($count==1){
 
 	// Register $myusername, $mypassword and redirect to file "welcome.php"
-	$_SESSION['username'] = "$myusername";
-	$_SESSION['mypassword'] = "$mypassword";
+	$_SESSION['username'] = "$username";
+	$_SESSION['password'] = "$password";
+	//$_SESSION['mypassword'] = "$mypassword";
+	
 	header("location:welcome.php");
+	//echo ("{$_SESSION['username']}");
 }
 else {
-	echo "Wrong Username or Password";
+	echo "Wrong Username or Password".'<br>';
+	
 }
 ?>

@@ -91,7 +91,7 @@ while($row = mysqli_fetch_array($res)){
 <table id="jobList" class="tablesorter" align="center">
 	<thead>
 		<tr class = "blue-row">
-			<th id = "td-header" class = "asset-list"><i class="fa fa-check"></i></th>
+			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 			<th class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Status</strong></th>
 			<th class = "asset-list"><strong>Date</strong></th>

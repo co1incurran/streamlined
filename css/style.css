@@ -151,6 +151,9 @@ a {
     outline: none;
     text-decoration: none;
 }
+#logout{
+	float: right;
+}
 td, th {
     outline: none;
     text-decoration: none;
