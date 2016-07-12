@@ -100,6 +100,10 @@
 							<li class="active"><a href="dashboard.html">Dashboard</a></li>
                             <li><a href="profile.html">Profile</a></li>
                             <li><a href="calendar.html">Calendar</a></li>-->
+							<li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
+							<li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
+							<li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
+							<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
                                 <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -124,14 +128,14 @@
             <div class="container">
                 <div class="row">
 
-                    <!-- Sidebar -->
+                    <!-- Sidebar 
     
                     <aside class="col-md-3 no-padding">
     
                         <nav class="global">
                             <ul class="nav nav-pills nav-stacked">
-                               <!-- <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>-->
+                               <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
+                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
                                 <li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
@@ -150,7 +154,7 @@
                         </nav>
                     </aside>
 
-                    <!-- Sidebar End -->
+                    Sidebar End -->
                     
     
                     <!-- Main Section -->

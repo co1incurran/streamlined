@@ -907,6 +907,12 @@ ul.action-buttons li a i.fa {
     padding-left: 25px;
 }
 
+/*project notes*/
+#project-notes{
+	width: 95%;
+	margin: auto;
+}
+
 /**
  * Action Button stuff
  */

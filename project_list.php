@@ -46,6 +46,7 @@ while($row = mysqli_fetch_array($res)){
 		<thead>
 			<tr class = "blue-row">				
 				<!--<th class = "asset-list"></th>-->
+				<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 				<th id = "first-table-column" class = "asset-list"><strong>Planning Number</strong></th>
 				<th><strong>Details</strong></th>
 				<th><strong>Stage<strong></th>
@@ -79,11 +80,26 @@ while($row = mysqli_fetch_array($res)){
 			$res3 = mysqli_query($con,$sql3);
 			$row3 = mysqli_fetch_assoc($res3);
 			$userName = $row3['userid'];
-		
+			
+			//this is the variable to store the value which indicates whether a project is closed or not
+			$closed = $results['closed'];
+			
+			
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
-				<td>
+				
 				<?php
+					//this is where i will put the check box to mark the project done
+					if($closed == 0){
+							echo'<td id= "complete-button"><i class="fa fa-square-o"></i></a></td>';
+					}else{
+						echo'<td id= "complete-button"><i class="fa fa-check-square-o"></i></a></td>';
+					}
+				?>
+				
+			
+				<td>
+				<?php			
 					$planningNumber = $results['planning_number'];
 					$startDate = $results['est_start_date'];
 					$address1 = $results['address1'];
@@ -95,7 +111,7 @@ while($row = mysqli_fetch_array($res)){
 					$regarding = $results['regarding'];
 					$notes = $results['notes'];
 					echo'
-					<form action="project_details.php" id="job-lis" method="post" name="job-lis">
+					<form action="project_profile.php" id="job-lis" method="post" name="job-lis">
 						<input type="hidden" name="url" id="url" value="projects.php">
 						<input type="hidden" name="userName" id="userName" value="'.$userName.'">
 						<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
@@ -216,7 +232,7 @@ while($row = mysqli_fetch_array($res)){
 					$res2 = mysqli_query($con,$sql2);
 					$row = mysqli_fetch_assoc($res2);
 					echo '<td><a href = "profile.php?companyid='.$row['companyid'].'" class="name">';
-					echo $row['name'];
+					echo ucwords($row['name']);
 					echo '</a></td>';
 					
 					$sql3 = "SELECT first_name, last_name FROM users WHERE userid IN (SELECT userid FROM managed_by WHERE projectid = '$projectid');" ;

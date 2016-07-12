@@ -27,18 +27,15 @@ echo'
 					<h2>Add Project</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
-
-					<label for="name"><small>Project name</small></label>
-					<input id="name" name="name" placeholder = "Project name" type="text" required maxlength = "50">
+					
+					<label for="planningNumber"><small>Planning number</small></label>
+					<input id="planningNumber" placeholder = "Planning number" name="planningNumber" type="text" required maxlength = "10">
 					
 					<label for="regarding"><small>Regarding </small></label>
 					<textarea maxlength="80" placeholder = "E.g new nursing home"class ="form-textarea" id="regarding" name="regarding" type="text"></textarea>
 					
-					<label for="planningNumber"><small>Planning number</small></label>
-					<input id="planningNumber" placeholder = "Planning number" name="planningNumber" type="text" required maxlength = "30">
-					
 					<label for="startDate"><small>Estimated start date</small></label>
-					<input id="startDate" name="startDate" type="date">
+					<input id="startDate" name="startDate" type="date" required>
 					
 					<label for="location"><small>Location of project</small></label>
 					<input id="location" name="location1" placeholder= "Address Line 1" type="text" required maxlength = "45">

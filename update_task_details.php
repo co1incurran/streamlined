@@ -11,6 +11,7 @@ $url= $_POST["url"];
 //the id of the task to be updated
 $activityid = $_POST["activityid"];
 
+
 //prospectign type
 if(isset($_POST['prospectingType'])){
 	$prospectingType = $_POST["prospectingType"];
@@ -95,12 +96,19 @@ $row2 = mysqli_fetch_assoc($res2);
 $currentUserid = $row2["userid"];
 
 
-if($cleanProspectingType != $currentProspectingType || $cleanResult != $currentResult || $cleanResultDescription != $currentResultDescription || $cleanactivitytype != $currentActivityType || $cleanactivitydescription != $currentActivityDescription || $cleandate != $currentDueDate || $cleantime != $currentTime){
+if($cleanProspectingType != $currentProspectingType || $cleanResult != $currentResult || $cleanResultDescription != $currentResultDescription || $cleanactivitytype != $currentActivityType || $cleanactivitydescription != $currentActivityDescription || $cleandate != $currentDueDate || $cleantime != $currentTime || $assign != $currentUserid ){
 
 $sql3 = "UPDATE activity SET type = '$cleanactivitytype', prospecting_type = '$cleanProspectingType', description = '$cleanactivitydescription', due_date = '$cleandate', time = '$cleantime', result = '$cleanResult', result_description = '$cleanResultDescription' WHERE activityid = $activityid;";
 
 $res3 = mysqli_query($con,$sql3);
 //echo $sql3;
+
+
+$sql4 = "UPDATE assigned_activity SET userid = '$assign' WHERE activityid = $activityid;";
+
+$res4 = mysqli_query($con,$sql4);
+//echo $sql4;
+
 $text = 'Task updated';
 }else{
 	$text = 'No changes were made';

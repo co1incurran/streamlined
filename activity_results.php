@@ -37,7 +37,7 @@ echo'
 					<label for="result"><small>Result</small></label><br>
 					<select id="result" class="drop_down"  name = "result" class="form-control">
 						<option value= "no interest">No interest</option>
-						<option value= "on going">On going</option>
+						<option value= "continuation">Continuation</option>
 						<option value= "wants more info">Wants more info</option>
 						<option value= "wants a quote">Wants a quote</option>
 						<option value= "wants another visit">Wants another visit</option>

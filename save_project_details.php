@@ -192,15 +192,15 @@ $jobTitle = strtolower($jobTitle);
 $filterJobTitle = filter_var($jobTitle, FILTER_SANITIZE_STRING);
 $cleanJobTitle = mysqli_real_escape_string($con, $filterJobTitle);
 
-$sqlChecker = "SELECT * FROM projects WHERE name = '$cleanName' AND planning_number = '$cleanPlanningNumber' AND est_start_date = '$cleanStartDate' AND address1 = '$cleanLocation1' AND address2 = '$cleanLocation2' AND address3 = '$cleanLocation3' AND address4 = '$cleanLocation4' AND county = '$cleanCounty' AND country = '$cleanCountry' AND regarding = '$cleanRegarding'; ";
+$sqlChecker = "SELECT * FROM projects WHERE planning_number = '$cleanPlanningNumber' AND est_start_date = '$cleanStartDate' AND address1 = '$cleanLocation1' AND address2 = '$cleanLocation2' AND address3 = '$cleanLocation3' AND address4 = '$cleanLocation4' AND county = '$cleanCounty' AND country = '$cleanCountry' AND regarding = '$cleanRegarding'; ";
 
 $result = mysqli_query($con,$sqlChecker);
 //echo $sqlChecker.'<br>';
 
 if (mysqli_num_rows($result) == 0){
 
-	$sql = "INSERT INTO projects (name, planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed) VALUES ('$cleanName', '$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanCounty', '$cleanCountry', '$cleanRegarding', '$cleanNotes', '0'); ";
-
+	$sql = "INSERT INTO projects (planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed) VALUES ('$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanCounty', '$cleanCountry', '$cleanRegarding', '$cleanNotes', '0'); ";
+//echo $sql;
 	$res = mysqli_query($con,$sql);
 
 	$sql2 = "SELECT projectid FROM projects ORDER BY projectid DESC LIMIT 1; ";

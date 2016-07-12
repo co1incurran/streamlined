@@ -57,6 +57,7 @@ echo'
 						<option value= "no interest">No interest</option>
 						<option value= "not available">Not available to talk</option>
 						<option value= "awaiting feedback">Awaiting feedback</option>
+						<option value= "continuation">Continuation</option>
 						<option value= "advance">Advance</option>
 						<option value= "sold">Sold</option>
 						<option value= "other">Other</option>
