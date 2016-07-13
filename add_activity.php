@@ -64,11 +64,12 @@ echo'
 						
 					echo'
 					<label for="assign"><small>Assign to</small></label>
-					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
+					<select id="assign"class="drop_down"  name = "assign" class="form-control" required>';
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 
 					if (mysqli_num_rows($res) > 0) {
+						echo'<option value="" disabled="disabled" selected="selected">Please select</option>';
 						while($row = mysqli_fetch_assoc($res)) {
 							if(isset($_GET['userName'])){
 								$userName = $_GET['userName'];

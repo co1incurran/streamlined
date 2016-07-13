@@ -105,13 +105,13 @@ $('#jobType').on('change',function(){
 							<ul id = "icons">
 								<li><a class = "icons" href ="project_profile.php?projectid='.$projectid.'"><i class="fa fa-eye"></i> Overview </a></li>
 								<li><a class = "icons" href ="project_profile.php?projectid='.$projectid.'&page=contacts"><i class="fa fa-book"></i> Contacts </a></li>
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-area-chart"></i> Task History </a></li>';
+								<li><a class = "icons" href = "project_profile.php?projectid='.$projectid.'&page=taskhistory"><i class="fa fa-area-chart"></i> Task History </a></li>';
 								if($companyid != 0){
 											echo '<li><a id="add_contact" class = "icons" href="add_contact.php?url='.$url.'&customerid='.$customerid.'&companyid='
 											.$companyid.'"><i class="fa fa-users"></i> Add Contact </a></li>';
 								}
 								echo'
-								<li><a class = "icons" href = "add_activity.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-gears"></i> Add Task </a></li>
+								<li><a class = "icons" href = "add_activity.php?url='.$url.'&projectid='.$projectid.'"><i class="fa fa-gears"></i> Add Task </a></li>
 							</ul>';
 					?>
 					
@@ -167,13 +167,14 @@ $('#jobType').on('change',function(){
 																		 <span class="avatar"></span>
 																		 <hgroup>';
 																			/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
-																				 echo	'<h2>'. ucwords($results['planning_number']).'</h2>';//.'<a id="edit" href="edit_company_details.php?url='.$url.'&companyid='.$companyid.'&name='.$results['name'].'&address_line1='.$results['address_line1'].'&address_line2='.$results['address_line2'].'&address_line3='.$results['address_line3'].'&address_line4='.$results['address_line4'].'&county='.$results['county'].'&country='.$results['country'].'&sage_id='.$results['sage_id'].'&sector='.$results['sector'].'"><i class="fa fa-gear"></i></a><br><br></h2>';
+																				 echo	'<h4><strong>Ref: </strong>'. ucwords($results['planning_number']).'</h4>';//.'<a id="edit" href="edit_company_details.php?url='.$url.'&companyid='.$companyid.'&name='.$results['name'].'&address_line1='.$results['address_line1'].'&address_line2='.$results['address_line2'].'&address_line3='.$results['address_line3'].'&address_line4='.$results['address_line4'].'&county='.$results['county'].'&country='.$results['country'].'&sage_id='.$results['sage_id'].'&sector='.$results['sector'].'"><i class="fa fa-gear"></i></a><br><br></h2>';
 																					$ad1 = ucwords($results['address_line1']);
 																					$ad2 = ucwords($results['address_line2']);
 																					$ad3 = ucwords($results['address_line3']);
 																					$ad4 = ucwords($results['address_line4']);
 																					$county = ucwords($results['county']);
 																					$country = ucwords($results['country']);
+																					echo'<h4><strong>Location: </strong>';
 																					if(!empty($ad1)){ 
 																						echo $ad1.', ';
 																						//echo nl2br("\n");
@@ -198,13 +199,42 @@ $('#jobType').on('change',function(){
 																						echo $country;
 																					}
 																				 
-																				 echo '</h3>
+																				 echo '</h4>';
+																				 $sqlName = "SELECT name FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid');" ;
+																				//echo $sql;
+																				$res = mysqli_query($con,$sqlName);
+																				//$row = mysqli_fetch_assoc($res);
+																				$resultName = array();
+
+																				while($row = mysqli_fetch_array($res)){
+																					array_push($resultName,
+																						array('name'=>$row[0]
+																					));
+																				}
+																				
+																				echo '<h4><strong>Contractor: </strong>';
+																				//this ensures a comma is printe between contractors if there more than 1
+																				$q=1;
+																				foreach ($resultName as $resName){
+																					$company = ucwords($resName['name']);
+																					if ($q > 1){
+																						echo ', ';
+																					}
+																					echo $company;
+																					
+																				}
+																				echo '</h4>
 																	</hgroup>
 																	</header>
 																	<section class="panel-body" style = "width:100%">';
 																		if(isset ($_GET['page'])){
-																			if($_GET['page'] == 'contacts'){
+																			$page = $_GET['page'];
+																			if($page == 'contacts'){
 																				require_once 'php/project_contacts.php';
+																				//echo 'contacts';
+																			}elseif($page == 'taskhistory'){
+																				//echo'task history <br>';
+																				require_once 'php/project_task_history.php';
 																			}
 																		}else{
 																			require_once 'php/project_overview.php';

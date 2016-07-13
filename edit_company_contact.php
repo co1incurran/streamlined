@@ -76,23 +76,25 @@ echo'
 				<form action="update_company_contact.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
-					<hr>
+					<hr>';
+					//echo $url;
+					echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="workerid" id="workerid" value="'.$workerid.'">
 					<label for="firstname"><small>First Name</small></label>
-					<input id="firstname" name="firstname"' .$line1. 'type="text">
+					<input id="firstname" name="firstname"' .$line1. 'type="text" maxlength = "20" >
 					<label for="lastname"><small>Last Name</small></label>
-					<input id="lastname" name="lastname"' .$line2. 'type="text">
+					<input id="lastname" name="lastname"' .$line2. 'type="text" maxlength = "30">
 					<label for="email"><small>Email</small></label>
-					<input id="email" name="email"' .$line3. 'type="text">
+					<input id="email" name="email"' .$line3. 'type="text" maxlength = "50">
 					<label for="phone"><small>Phone Number</small></label>
-					<input id="phone" name="phone"' .$line4. 'type="number">
+					<input id="phone" name="phone"' .$line4. 'type="number" maxlength = "15" >
 					<label for="mobile"><small>Mobile Number</small></label>
-					<input id="mobile" name="mobile"' .$line5. 'type="number">
+					<input id="mobile" name="mobile"' .$line5. 'type="number" maxlength = "15">
 					<label for="fax"><small>Fax</small></label>
-					<input id="fax" name="fax"' .$line6. 'type="number">
+					<input id="fax" name="fax"' .$line6. 'type="number" maxlength = "15">
 					<label for="job_title"><small>Job Title</small></label>
-					<input id="job_title" name="job_title"' .$line7. 'type="text">
+					<input id="job_title" name="job_title"' .$line7. 'type="text" maxlength = "35">
 					<label for="last_contacted"><small>Last Contacted</small></label>
 					<input id="last_contacted" name="last_contacted"' .$line8. 'type="date">
 					<input type="submit" id="submit" value="Save">

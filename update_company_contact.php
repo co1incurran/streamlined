@@ -62,9 +62,12 @@ $cleanjobtitle = mysqli_real_escape_string($con, $filterjobtitle);
 $mylastcontacted = $_POST["last_contacted"];
 $mylastcontacted = trim($mylastcontacted);
 $cleanlastcontacted = mysqli_real_escape_string($con, $mylastcontacted);
+if($cleanlastcontacted == ''){
+	$cleanlastcontacted = '2000-01-01';
+}
 
 $sql = "UPDATE workers SET first_name= '$cleanfname', last_name= '$cleanlname', phone_num= '$myphone', mobile_phone_num= '$mymobile', email= '$cleanemail', fax= '$myfax', job_title= '$cleanjobtitle', last_contacted= '$cleanlastcontacted' WHERE workerid= $cleanworkerid; ";
-
+//echo $sql;
 $res = mysqli_query($con,$sql);
 
 mysqli_close($con);
