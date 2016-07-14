@@ -224,6 +224,7 @@ $('#jobType').on('change',function(){
 																					
 																				}
 																				echo '</h4>
+																				<h4><strong>Regarding: </strong>'.$results['regarding'].'</h4>
 																	</hgroup>
 																	</header>
 																	<section class="panel-body" style = "width:100%">';

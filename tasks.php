@@ -4,6 +4,7 @@
 	if(!isset ($_SESSION['username'])){
 		header("location:index.html");
 	}
+	$userLoggedOn = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -232,6 +233,7 @@
 												require_once 'task_list.php';
 												}
 											}else{
+												//echo $userLoggedOn;
 												require_once 'task_list.php';
 											}
 										?>

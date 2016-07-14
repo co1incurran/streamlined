@@ -74,33 +74,32 @@ if(isset($_GET['status'])){
 	//echo $status;
 	
 	if($status == 'all'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 	}elseif($status == 'today'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$currentDate'; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn'); ";
 	}elseif($status == 'tomorrow'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$tomorrow'; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$tomorrow' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY due_date DESC; ";
+		$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date DESC; ";
 		$heading = 'Result';
 	}elseif($status == 'project'){
-		$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') ORDER BY activityid DESC LIMIT 1;";
+		$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC LIMIT 1;";
 	}else{
-		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 	}
 }else{
-		$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 }
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 
- 
 $res = mysqli_query($con,$sql);
 
 $result = array();
@@ -266,7 +265,7 @@ while($row = mysqli_fetch_array($res)){
 				</td>
 				<td>
 					<?php $originalDate = $results['due_date'];
-						$newDate = date("d.m.Y", strtotime($originalDate));
+						$newDate = date("d/m/Y", strtotime($originalDate));
 						echo $newDate;
 					?>
 				</td>
