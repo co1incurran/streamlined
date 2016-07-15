@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+	if(!isset ($_SESSION['username'])){
+		header("location:index.html");
+	}
+	$userLoggedOn = $_SESSION['username'];
+
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
@@ -14,7 +21,7 @@ echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Result</title>
+	<title>Task Result</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -33,6 +40,7 @@ echo'
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
+					<input type="hidden" name="userLoggedOn" id="userLoggedOn" value="'.$userLoggedOn.'">
 															
 					<label for="result"><small>Result</small></label><br>
 					<select id="result" class="drop_down"  name = "result" class="form-control">
@@ -61,8 +69,32 @@ echo'
 						<option value= "create job number">Create job number</option>
 					</select><br>
 					
-					<label for="nextactivity_description"><small>Further details</small></label>
+					<label for="nextactivity_description"><small>Next action description</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="nextactivity_description" name="nextactivity_description" type="text"></textarea>
+					
+					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
+						$sql = "SELECT userid FROM users;";
+						$res = mysqli_query($con,$sql);
+
+					if (mysqli_num_rows($res) > 0) {
+						
+						while($row = mysqli_fetch_assoc($res)) {
+							if(isset($_GET['userName'])){
+								$userName = $_GET['userName'];
+								if($row["userid"] == $userName){
+									echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
+								}else{
+									echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+								}
+							}else{
+									echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							}
+						}
+					}else{
+						echo '<option value= "not available">Not available</option>';
+					}
+					echo'
+					</select><br>
 					
 					<label for="date"><small>Due date of next action</small></label>
 					<input id="date" name="date" type="date">

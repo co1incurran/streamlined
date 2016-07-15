@@ -4,6 +4,7 @@
 	if(!isset ($_SESSION['username'])){
 		header("location:index.html");
 	}
+	$userLoggedOn = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,66 +44,14 @@
                   
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-                            <!--<li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                First Name<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Last Name<br />
-                                                <input class="form-control" type="text" /><br />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Company<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add contact</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Contact</button>
-                            </li>
-                            <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                When it&#39;s due?<br />
-                                                <input class="form-control" type="date" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                What category?<br/>
-                                                <select class="form-control"><option>None</option></select>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add task</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Task</button>
-                            </li>
-                            <li class="active"><a href="dashboard.html">Dashboard</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="calendar.html">Calendar</a></li>-->
+                            
 							<li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-							<li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
+							<li><a href="tasks.php"><i class="fa fa-inbox"></i> Tasks Inbox </a></li>
+								<li><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
 							<li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 							<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
-                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <span class="caret"></span></a>
+                               <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>

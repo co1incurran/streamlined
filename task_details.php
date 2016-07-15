@@ -85,10 +85,10 @@ echo'
 						echo'<option value= "presentation">Presentation</option>';
 					}
 					
-					if($type === 'quotation'){
-						echo'<option selected = "selected" value= "quotation">Quotation</option>';
+					if($type === 'deliver quote'){
+						echo'<option selected = "selected" value= "quotation">Deliver quote</option>';
 					}else{
-						echo'<option value= "quotation">Quotation</option>';
+						echo'<option value= "quotation">Deliver quote</option>';
 					}
 					
 					if($type === 'closing meeting'){

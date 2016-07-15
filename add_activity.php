@@ -54,12 +54,13 @@ echo'
 					}
 					
 					echo'
+					<input type="hidden" name="userLoggedOn" id="userLoggedOn" value="'.$userLoggedOn.'">
 					<label for="activitytype"><small>Activity type</small></label>
 					<select id="activitytype"class="drop_down"  name = "activitytype" class="form-control">
 						<option value= "prospecting">Prospecting</option>
 						<option value= "qualifying">Qualifying</option>
 						<option value= "presentation">Presentation</option>
-						<option value= "quotation">Quotation</option>
+						<option value= "deliver quote">Deliver quote</option>
 						<option value= "closing meeting">Closing meeting</option>
 						<option value= "followup meeting">Followup meeting</option>
 						<option value= "other">Other</option>

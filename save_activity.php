@@ -8,6 +8,9 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //Back URL
 $url= $_POST["url"];
 
+//the user that created the task
+$userLoggedOn = $_POST['userLoggedOn'];
+
 //COMPANYID
 if(isset($_POST['companyid'])){
 	$companyid = $_POST["companyid"];
@@ -66,7 +69,7 @@ $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
 //put the activity into the activty table
-$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate');";
+$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
 $res1 = mysqli_query($con,$sql1);
 //echo $sql1;
 

@@ -69,33 +69,38 @@ if(isset($_POST['type'])){
 	$type = $_POST['type'];
 }
 
-if(isset($_GET['status'])){
-	$status = $_GET['status'];
-	//echo $status;
-	
-	if($status == 'all'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
-	}elseif($status == 'today'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn'); ";
-	}elseif($status == 'tomorrow'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$tomorrow' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ; ";
-	}elseif($status == 'week'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
-	}elseif($status == 'month'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
-	}elseif($status == 'overdue'){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
-	}elseif($status == 'completed'){
-		$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date DESC; ";
-		$heading = 'Result';
-	}elseif($status == 'project'){
-		$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC LIMIT 1;";
+if($outbox == true){
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY creation_date; ";
 	}else{
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+
+			if(isset($_GET['status'])){
+				$status = $_GET['status'];
+				//echo $status;
+				
+				if($status == 'all'){
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+				}elseif($status == 'today'){
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn'); ";
+				}elseif($status == 'tomorrow'){
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$tomorrow' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ; ";
+				}elseif($status == 'week'){
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+				}elseif($status == 'month'){
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+				}elseif($status == 'overdue'){
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+				}elseif($status == 'completed'){
+					$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date DESC; ";
+					$heading = 'Result';
+				}elseif($status == 'project'){
+					$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC LIMIT 1;";
+				}else{
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+				}
+			}else{
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+			}
 	}
-}else{
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
-}
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
@@ -128,18 +133,26 @@ while($row = mysqli_fetch_array($res)){
 <table id="activityList" class="tablesorter" align="center">
 	<thead>
 		<tr class = "blue-row">
-			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
+		<?php 
+			if($outbox == false){
+				echo'<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>';
+			} 
+		?>
 			<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Description</strong></th>
-			<th class = "asset-list"><strong>Date</strong></th>
+			<th class = "asset-list"><strong>Due Date</strong></th>
 			<th class = "asset-list"><strong><?php echo $heading; ?></strong></th>
 <?php 
 	if(!isset($_POST['projectid'])){
 		echo'
 			<th class = "asset-list"><strong>'.$columnName.'</strong></th>
 			
-			<th class = "asset-list"><strong>County</strong></th>
-			<th class = "asset-list"><strong>Employee</strong></th>';
+			<th class = "asset-list"><strong>County</strong></th>';
+			if($outbox == true){
+			echo '<th class = "asset-list"><strong>Assigned to</strong></th>';
+			}
+			echo'
+			<th class = "asset-list"><strong>Creation date</strong></th>';
 	}
 ?>	
 		</tr>
@@ -183,57 +196,67 @@ while($row = mysqli_fetch_array($res)){
 				$companyid = $row["companyid"];
 			}
 			
-			//to get the employee the task is assigned to
-			$sql4 = "SELECT userid, first_name, last_name FROM users WHERE userid IN(SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
-			$res4 = mysqli_query($con,$sql4);
-			$user = mysqli_fetch_assoc($res4);
-			$userName = $user['userid'];
-			$employee = $user["first_name"].' '.$user["last_name"];
+				//to get the employee the task is assigned to
+				$sql4 = "SELECT userid, first_name, last_name FROM users WHERE userid IN(SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
+				$res4 = mysqli_query($con,$sql4);
+				$user = mysqli_fetch_assoc($res4);
+				$userName = $user['userid'];
+				$employee = $user["first_name"].' '.$user["last_name"];
+			
 	?>
 			<tr>
 				<?php
-					if($status != 'completed'){
-						if($results['type'] == 'prospecting'){
-							echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
-						}elseif ($type == 'create job number'){
-							echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+					if($outbox == false){
+						if($status != 'completed'){
+							if($results['type'] == 'prospecting'){
+								echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+							}elseif ($type == 'create job number'){
+								echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+							}else{
+								echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'" ><i class="fa fa-square-o"></i></a></td>';
+							}
 						}else{
-							echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'" ><i class="fa fa-square-o"></i></a></td>';
+							echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
 						}
-					}else{
-						echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
 					}
-				
 				?>
 				<td>
 				<?php 
+				//this picks which icon to put next to the task type
 					if ($results['type'] == 'prospecting'){
 						$icon = '<i class="fa fa-binoculars"> </i>';
 					}
-					if ($results['type'] == 'qualifying'){
+					elseif ($results['type'] == 'qualifying'){
 						$icon = '<i class="fa fa-spinner"></i>';
 					}
-					if ($results['type'] == 'presentation'){
+					elseif ($results['type'] == 'presentation'){
 						$icon = '<i class="fa fa-bar-chart"></i>';
 					}
-					if ($results['type'] == 'quotation'){
+					elseif ($results['type'] == 'deliver quote'){
 						$icon = '<i class="fa fa-tag"></i>';
 					}
-					if ($results['type'] == 'closing meeting'){
+					elseif ($results['type'] == 'closing meeting'){
 						$icon = '<i class="fa fa-lock"></i>';
 						echo ' ';
 					}
-					if ($results['type'] == 'followup meeting'){
+					elseif ($results['type'] == 'generate quote'){
+						$icon = '<i class="fa fa-print"></i>';
+						echo ' ';
+					}
+					elseif ($results['type'] == 'followup meeting'){
 						$icon = '<i class="fa fa-coffee"></i>';
 					}
-					if ($results['type'] == 'other'){
+					elseif ($results['type'] == 'other'){
 						$icon = '<i class="fa fa-question"></i>';
 					}
-					if ($results['type'] == 'create job number'){
+					elseif ($results['type'] == 'create job number'){
 						$icon = '<i class="fa fa-file-text"></i>';
+					}else {
+						$icon = '<i class="fa fa-question"></i>';
 					}
 				?>
-				<?php 					
+				<?php
+								
 					echo'
 					<form action="task_details.php" id="job-list" method="post" name="job-list">
 						<input type="hidden" name="url" id="url" value="'.$url.'">
@@ -267,6 +290,8 @@ while($row = mysqli_fetch_array($res)){
 					<?php $originalDate = $results['due_date'];
 						$newDate = date("d/m/Y", strtotime($originalDate));
 						echo $newDate;
+						$creationDate = $results['creation_date'];
+						$creationDate = date("d/m/Y", strtotime($creationDate));
 					?>
 				</td>
 				<td>
@@ -295,8 +320,11 @@ while($row = mysqli_fetch_array($res)){
 					
 						echo'
 						</a></td>
-						<td>'.ucwords($row['county']).'</td>
-						<td>'.ucwords($employee).'</td>';
+						<td>'.ucwords($row['county']).'</td>';
+						if($outbox == true){
+							echo'<td>'.ucwords($employee).'</td>';
+						}
+						echo '<td>'.$creationDate.'</td>';
 					}
 				?>
 			</tr>

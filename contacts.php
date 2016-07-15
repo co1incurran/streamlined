@@ -4,6 +4,7 @@
 	if(!isset ($_SESSION['username'])){
 		header("location:index.html");
 	}
+	$userLoggedOn = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,11 +102,12 @@
                             <li><a href="profile.html">Profile</a></li>
                             <li><a href="calendar.html">Calendar</a></li>-->
 							<li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-							<li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
+							<li><a href="tasks.php"><i class="fa fa-inbox"></i> Tasks Inbox </a></li>
+							<li><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
 							<li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 							<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
-                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <span class="caret"></span></a>
+                               <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>
@@ -200,8 +202,9 @@
 											?>
                                                 <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>
                                                 <ul>
-                                                    <li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
+                                                    
                                                     <li><a href="contacts.php?contact=companies">Companies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+													<li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
 													<li><a href="contacts.php?contact=lead">Leads </a></li>
                                                     
                                                 </ul>

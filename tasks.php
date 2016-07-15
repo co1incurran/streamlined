@@ -55,68 +55,13 @@
                   
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-                           <!-- <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    
-								<form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                First Name<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Last Name<br />
-                                                <input class="form-control" type="text" /><br />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Company<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add contact</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Contact</button>
-                            </li>
-                            <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    
-								<form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                When it&#39;s due?<br />
-                                                <input class="form-control" type="date" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                What category?<br/>
-                                                <select class="form-control"><option>None</option></select>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add task</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Task</button>
-                            </li>
-                            <li class="active"><a href="dashboard.html">Dashboard</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="calendar.html">Calendar</a></li>-->
 							<li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li class="active"><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
+                                <li class="active"><a href="tasks.php"><i class="fa fa-inbox"></i> Tasks Inbox </a></li>
+								<li><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
-                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <span class="caret"></span></a>
+                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>
@@ -124,50 +69,17 @@
                                     <li><a href="logout.php">Log out</a></li>
                                 </ul>
                             </li>
+							<li><a></a></li>
                         </ul>
-                        <!--<form class="navbar-form navbar-right">
-                            <div class="form-group">
-                                <input type="text" class="form-control search" placeholder="Search">
-                            </div>
-                        </form>-->
                     </div>
                 </div>
             </nav>
         </header>
-        
         <section>
             <div class="container">
                 <div class="row">
 
-                    <!-- Sidebar
-    
-                    <aside class="col-md-3 no-padding">
-    
-                        <nav class="global">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
-                                <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li class="active"><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
-                            </ul>
-                        </nav>
-    
-                        <nav class="subnav">
-                            <h4>Activities</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
-                                <li><a href="empty">Sales</a></li>
-                                <li><a href="empty">Jobs</a></li>
-                                
-                            </ul>
-                        </nav>
-                    </aside>
-
-                    Sidebar End -->
-                    
-    
+                  
                     <!-- Main Section -->
     
                     <section class="col-md-9 no-padding">
@@ -206,7 +118,7 @@
 													$setter = 'All Tasks';
 												}
 											?>
-                                                <h2><?php echo $setter; ?> <a href="#">&darr;</a></h2>
+                                                <h2><?php echo $setter; ?> <a href="#"> &darr; </a></h2>
                                                 <ul>
                                                     <li><a href="tasks.php?status=all">Tasks</a></li>
                                                     <li><a href="tasks.php?status=today">Today</a></li>
@@ -222,6 +134,7 @@
                                         <section class="panel-body">
 										
 										<?php
+										$outbox = false;
 										$url = $_SERVER['REQUEST_URI'];
 										$url = str_replace('&', '%26', $url);
 											if(isset($_GET['details'])) {

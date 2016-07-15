@@ -1,3 +1,11 @@
+<?php
+//this is the session to ensure a user is logged in
+	session_start();
+	if(!isset ($_SESSION['username'])){
+		header("location:index.html");
+	}
+	$userLoggedOn = $_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,113 +59,14 @@ $('#jobType').on('change',function(){
                   
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-                            <!--<li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                First Name<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Last Name<br />
-                                                <input class="form-control" type="text" /><br />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Company<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add contact</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-user"></i> Add Customer</button>
-                            </li>
-                            <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new job" data-placement="bottom" data-content='<form class="form-horizontal" action = "add_job.php" method = "post">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-											Customer type:<br>
-                                                <input type="radio" name="customerType" value="private resedent" checked> Private resedent<br>
-												<input type="radio" name="customerType" value="company"> Company
-                                            </div>
-                                        </div>
-										<div class="form-group">
-                                            <div class="col-sm-12">
-											Customer:
-                                                <select  class="form-control">
-												<option></option>
-												</select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Due date:<br />
-                                                <input class="form-control" type="date" />
-                                            </div>
-                                        </div>
-										<div class="form-group">
-                                            <div class="col-sm-12">
-                                                Time:<br />
-                                                <input class="form-control" type="time" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Job type:<br/>
-                                                <select id="jobType" class="form-control">
-													<option value= "2">Installation</option>
-													<option value= "3">Inspection</option>
-													<option value= "4">Service</option>
-													<option value= "5">Repair</option>
-													<option value= "6">Delivery</option>
-													<option value= "7">Collection</option>
-													<option value= "8">Training</option>
-													<option value= "9">Meeting</option>
-													<option value= "10">Phone call</option>
-													<option value= "11">Presentation</option>
-												</select>
-                                            </div>
-                                        </div>
-										<div class="form-group">
-                                            <div class="col-sm-12">
-                                                Job description:<br />
-                                                <textarea maxlength="300" class ="form-control" id="jobdescription" name="jobdescription" type="text"></textarea>
-                                            </div>
-                                        </div>
-										<div id = "properJob">
-											<div class="form-group">
-												<div class="col-sm-12">
-												Job number:
-													<input class="form-control" type="text" />
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="col-sm-12">
-												PO number:
-													<input class="form-control" type="text" />
-												</div>
-											</div>
-										</div>
-                                        <hr />
-										<input class="btn btn-primary" type="submit" id="submit" value="Add job">
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-wrench"></i> Add Job</button>
-                            </li>
-                            <li><a href="dashboard.html">Dashboard</a></li>
-                            <li class="active"><a href="profile.html">Profile</a></li>
-                            <li><a href="calendar.html">Calendar</a></li>-->
+                           
 							 <li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
+                                <li><a href="tasks.php"><i class="fa fa-inbox"></i> Tasks Inbox </a></li>
+								<li><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <span class="caret"></span></a>
+                                 <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>
@@ -179,34 +88,6 @@ $('#jobType').on('change',function(){
         <section>
             <div class="container">
                 <div class="row">
-
-                    <!-- Sidebar
-    
-                    <aside class="col-md-3 no-padding">
-    
-                        <nav class="global">
-                            <ul class="nav nav-pills nav-stacked">
-                               <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview </a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity </a></li>
-                                <li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
-                            </ul>
-                        </nav>
-    
-                        <nav class="subnav">
-                            <h4>Activities</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
-                                <li><a href="empty">Sales</a></li>
-                                <li><a href="empty">Jobs</a></li>
-                                
-                            </ul>
-                        </nav>
-                    </aside>
-
-                    Sidebar End -->
                     
     
                     <!-- Main Section -->

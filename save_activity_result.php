@@ -8,6 +8,10 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //Back URL
 $url= $_POST["url"];
 $activityid= $_POST["activityid"];
+$assign = $_POST['assign'];
+
+//the user that created the task
+$userLoggedOn = $_POST['userLoggedOn'];
 
 //COMPANYID
 $companyid = $_POST["companyid"];
@@ -100,7 +104,7 @@ if($cleannextaction != 'no further action'){
 		$cleannextaction = 'create job number';
 	}
 	//put the activity into the activty table
-	$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate');";
+	$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
 	$res2 = mysqli_query($con,$sql2);
 	//echo $sql2.'<br>';
 
@@ -112,7 +116,9 @@ if($cleannextaction != 'no further action'){
 		//echo $activityid.'<br>';
 		
 	//add the activity to the assigned activity table
-		$sql4 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('Colin', '$activityid');";
+	
+	//NEED TO CHANGE THIS
+		$sql4 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$assign', '$activityid');";
 		$res4 = mysqli_query($con,$sql4);
 		//echo $sql4;
 		
@@ -132,7 +138,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Activity added</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -144,7 +150,7 @@ echo'<!DOCTYPE html>
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Activity added</h2>
+					<h2>Task added</h2>
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
 				</form>

@@ -12,24 +12,31 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
 <script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
 <!--<script type="text/javascript" src="table_filter/ddtf.js"></script>-->
+<script type="text/javascript" language="javascript" src="TableFilter/tablefilter.js"></script>
+
+<script>$('#activityList').ddTableFilter();</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Enable Supplies - CRM System</title>
 
-<!-- Compiled and minified Bootstrap CSS  i dont know what to do for this stupid filter thing.... its really annoyin-->
+<!-- Compiled and minified Bootstrap CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-<!-- Compiled and minified FontAwesome CSS --> 
+<!-- Compiled and minified FontAwesome CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" media="screen" href="css/style.css" />
 
 </head>
+
+<script language="javascript" type="text/javascript">            
+    var tf = setFilterGrid("#activityList");
+</script> 
 <body>
     <div id="wrapper">
         <header>
@@ -48,10 +55,10 @@
                   
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-							 <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
+							<li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
                                 <li><a href="tasks.php"><i class="fa fa-inbox"></i> Tasks Inbox </a></li>
-								<li><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
-                                <li class="active"><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
+								<li class="active"><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
+                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
@@ -72,34 +79,6 @@
             <div class="container">
                 <div class="row">
 
-                    <!-- Sidebar 
-    
-                    <aside class="col-md-3 no-padding">
-    
-                        <nav class="global">
-                            <ul class="nav nav-pills nav-stacked">
-                              <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
-                                <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li ><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li class="active"><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
-                            </ul>
-                        </nav>
-    
-                        <nav class="subnav">
-                            <h4>Activities</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
-                                <li><a href="empty">Sales</a></li>
-                                <li><a href="empty">Jobs</a></li>
-                                
-                            </ul>
-                        </nav>
-                    </aside>
-
-                    Sidebar End -->
-                    
     
                     <!-- Main Section -->
     
@@ -115,70 +94,38 @@
                                                 <a href="calendar.html" class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar"><i class="fa fa-calendar"></i></a></li>
                                             </div>
                                             <div class="view-switcher">
-											<?php
-											if(isset($_GET['status'])){
-												$status = $_GET['status'];
-												if($status == 'all'){
-													$setter = 'All Jobs ';
-												}elseif($status == 'today'){
-													$setter = "Today's Jobs ";
-												}elseif($status == 'tomorrow'){
-													$setter = "Tomorrow's Jobs ";
-												}elseif($status == 'week'){
-													$setter = "This Week's Jobs ";
-												}elseif($status == 'month'){
-													$setter = "This Month's Jobs ";
-												}elseif($status == 'overdue'){
-													$setter = 'Over Due Jobs ';
-												}elseif($status == 'completed'){
-													$setter = 'Completed Jobs ';
-												}else{
-													$setter = 'All Jobs ';
-												}
-											}else{
-													$setter = 'All Jobs ';
-												}
-												if (!isset ($_GET['history'])){
-													echo'
-													<h2>' .$setter. '<a href="#"> &darr;</a></h2>
-													<ul>
-														<li><a href="jobs.php?status=all">All jobs</a></li>
-														<li><a href="jobs.php?status=today">Today</a></li>
-														<li><a href="jobs.php?status=tomorrow">Tomorrow</a></li>
-														<li><a href="jobs.php?status=week">This week</a></li>
-														<li><a href="jobs.php?status=month">This month</a></li>
-														<li><a href="jobs.php?status=overdue">Over due</a></li>
-														<li><a href="jobs.php?status=completed">Completed</a></li>
-													</ul>';
-												}else{
-													echo'
-													<h2>Job History</h2>';
-												}
-											?>
+									
+                                                <h2>Task Outbox</h2>
+                                                <ul>
+                                                    <li><a href="tasks.php?status=all">Tasks</a></li>
+                                                    <li><a href="tasks.php?status=today">Today</a></li>
+                                                    <li><a href="tasks.php?status=tomorrow">Tomorrow</a></li>
+                                                    <li><a href="tasks.php?status=week">This week</a></li>
+                                                    <li><a href="tasks.php?status=month">This month</a></li>
+													<li><a href="tasks.php?status=overdue">Over due</a></li>
+													<li><a href="tasks.php?status=completed">Completed</a></li>
+                                                </ul>
                                             </div>
                                         </header>
 
                                         <section class="panel-body">
 										
 										<?php
+										$outbox = true;
 										$url = $_SERVER['REQUEST_URI'];
 										$url = str_replace('&', '%26', $url);
-										if(isset ($_GET['history'])){
-											$jobid = $_GET['jobid'];
-											require_once 'job_history.php';
-										}else{
-												if(isset($_GET['details'])) {
-													$details = $_GET['details'];
-													if($details === 'true'){
-														$jobid = $_GET['jobid'];
-														require_once 'job_details.php';
-													}else{
-													require_once 'job_list.php';
-													}
+											if(isset($_GET['details'])) {
+												$details = $_GET['details'];
+												if($details === 'true'){
+													$activityid = $_GET['activityid'];
+													require_once 'task_details.php';
 												}else{
-													require_once 'job_list.php';
+												require_once 'task_list.php';
 												}
-										}
+											}else{
+												//echo $userLoggedOn;
+												require_once 'task_list.php';
+											}
 										?>
                                             
                                         </section>
@@ -219,10 +166,10 @@
 	<script>
     $(document).ready(function() 
         { 
-            $("#jobList").tablesorter(); 
+            $("#activityList").tablesorter(); 
         } 
     );
     </script>
-	<script>$('#jobList').ddTableFilter();</script>
+	<script>$('#activityList').ddTableFilter();</script>
 </body>
 </html>
