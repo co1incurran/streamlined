@@ -1,9 +1,6 @@
 <link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
 <?php
-define("DB_HOST", "127.0.0.1");
-define("DB_USER", "user");
-define("DB_PASSWORD", "1234");
-define("DB_DATABASE", "database");
+
 
 $url = $_SERVER['REQUEST_URI'];
 $url = str_replace('&', '%26', $url);
@@ -98,7 +95,7 @@ if($outbox == true){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 				}
 			}else{
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY new DESC; ";//ORDER BY due_date
 			}
 	}
 
@@ -122,7 +119,9 @@ while($row = mysqli_fetch_array($res)){
 		'result_description'=>$row[8],
 		'next_action'=>$row[9],
 		'next_action_description'=>$row[10],
-		'creation_date'=>$row[11]
+		'creation_date'=>$row[11],
+		'created_by'=>$row[12],
+		'new'=>$row[13]
 	));
 }
 //print_r (array_values($result));
@@ -174,6 +173,8 @@ while($row = mysqli_fetch_array($res)){
 			$nextAction = $results['next_action'];
 			$nextActionDescription = $results['next_action_description'];
 			$creationDate = $results['creation_date'];
+			$createdBy = $results['created_by'];
+			$new = $results['new'];
 			
 			
 			//To get the company or customer the activity is for
@@ -202,133 +203,156 @@ while($row = mysqli_fetch_array($res)){
 				$user = mysqli_fetch_assoc($res4);
 				$userName = $user['userid'];
 				$employee = $user["first_name"].' '.$user["last_name"];
+				
+				//this put a view button for the tasks not yet viewed
+			if($new == '1' && $createdBy != $userLoggedOn){
+				echo'
+				<tr class = "blue-row">
+				<td></td>
+				<td>
+					<div id="view_task" class="btn-group">
+						<form action="view_task.php" id="job-list" method="post" name="job-list">
+								<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
+								<input id = view_task class="btn btn-default" data-toggle="tooltip" title="View as a List" type="submit" value=" View ">
+						</form>
+						
+					<!--<a "href="add_contact.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong> View </strong></a>-->
+					</div>
+				</td>
+				<td>'.$description.'</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>';
+			}else{
+				
 			
-	?>
-			<tr>
-				<?php
-					if($outbox == false){
-						if($status != 'completed'){
-							if($results['type'] == 'prospecting'){
-								echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
-							}elseif ($type == 'create job number'){
-								echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
-							}else{
-								echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'" ><i class="fa fa-square-o"></i></a></td>';
-							}
-						}else{
-							echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
-						}
-					}
-				?>
-				<td>
-				<?php 
-				//this picks which icon to put next to the task type
-					if ($results['type'] == 'prospecting'){
-						$icon = '<i class="fa fa-binoculars"> </i>';
-					}
-					elseif ($results['type'] == 'qualifying'){
-						$icon = '<i class="fa fa-spinner"></i>';
-					}
-					elseif ($results['type'] == 'presentation'){
-						$icon = '<i class="fa fa-bar-chart"></i>';
-					}
-					elseif ($results['type'] == 'deliver quote'){
-						$icon = '<i class="fa fa-tag"></i>';
-					}
-					elseif ($results['type'] == 'closing meeting'){
-						$icon = '<i class="fa fa-lock"></i>';
-						echo ' ';
-					}
-					elseif ($results['type'] == 'generate quote'){
-						$icon = '<i class="fa fa-print"></i>';
-						echo ' ';
-					}
-					elseif ($results['type'] == 'followup meeting'){
-						$icon = '<i class="fa fa-coffee"></i>';
-					}
-					elseif ($results['type'] == 'other'){
-						$icon = '<i class="fa fa-question"></i>';
-					}
-					elseif ($results['type'] == 'create job number'){
-						$icon = '<i class="fa fa-file-text"></i>';
-					}else {
-						$icon = '<i class="fa fa-question"></i>';
-					}
-				?>
-				<?php
-								
+					
 					echo'
-					<form action="task_details.php" id="job-list" method="post" name="job-list">
-						<input type="hidden" name="url" id="url" value="'.$url.'">
-						<input type="hidden" name="userName" id="userName" value="'.$userName.'">
-						<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
+					<tr>';
 						
-						<input type="hidden" name="complete" id="complete" value="'.$complete.'">
-						<input type="hidden" name="type" id="type" value="'.$type.'">
-						
-						<input type="hidden" name="prospectingType" id="prospectingType" value="'.$prospectingType.'">
-						<input type="hidden" name="description" id="description" value="'.$description.'">
-						
-						<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
-						<input type="hidden" name="time" id="time" value="'.$time.'">
-						
-						<input type="hidden" name="result" id="result" value="'.$result.'">
-						<input type="hidden" name="resultDescription" id="resultDescription" value="'.$resultDescription.'">
-						
-						<input type="hidden" name="nextAction" id="nextAction" value="'.$nextAction.'">
-						<input type="hidden" name="nextActionDescription" id="nextActionDescription" value="'.$nextActionDescription.'">
-						'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['type']).'">
-					</form>';
-				?>
-				</td>
-				<td>
-					<?php 
-						echo $results['description'];
-					?>
-				</td>
-				<td>
-					<?php $originalDate = $results['due_date'];
-						$newDate = date("d/m/Y", strtotime($originalDate));
-						echo $newDate;
-						$creationDate = $results['creation_date'];
-						$creationDate = date("d/m/Y", strtotime($creationDate));
-					?>
-				</td>
-				<td>
-					<?php 
-						if($heading == 'Result'){
-							echo ucwords($result);
-						}else{
-							echo date('h:ia', strtotime($results['time']));
-						}
-					?>
-				</td>
-				
-				<?php
-				
-					
-					//put in the link to the project details here
-					if(!isset ($_POST['projectid'])){
-						echo'<td>';
-						echo '<a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'" class="name">';
-						
-							if($customerid >= 1){
-								echo ucwords($row['first_name']).' '.ucwords($row['last_name']);
-							}else{
-								echo ucwords($row['name']);
+							if($outbox == false){
+								if($status != 'completed'){
+									if($results['type'] == 'prospecting'){
+										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+									}elseif ($type == 'create job number'){
+										echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+									}else{
+										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'" ><i class="fa fa-square-o"></i></a></td>';
+									}
+								}else{
+									echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
+								}
 							}
-					
+					echo'
+						<td>';
+						
+						//this picks which icon to put next to the task type
+							if ($results['type'] == 'prospecting'){
+								$icon = '<i class="fa fa-binoculars"> </i>';
+							}
+							elseif ($results['type'] == 'qualifying'){
+								$icon = '<i class="fa fa-spinner"></i>';
+							}
+							elseif ($results['type'] == 'presentation'){
+								$icon = '<i class="fa fa-bar-chart"></i>';
+							}
+							elseif ($results['type'] == 'deliver quote'){
+								$icon = '<i class="fa fa-tag"></i>';
+							}
+							elseif ($results['type'] == 'closing meeting'){
+								$icon = '<i class="fa fa-lock"></i>';
+								echo ' ';
+							}
+							elseif ($results['type'] == 'generate quote'){
+								$icon = '<i class="fa fa-print"></i>';
+								echo ' ';
+							}
+							elseif ($results['type'] == 'followup meeting'){
+								$icon = '<i class="fa fa-coffee"></i>';
+							}
+							elseif ($results['type'] == 'other'){
+								$icon = '<i class="fa fa-question"></i>';
+							}
+							elseif ($results['type'] == 'create job number'){
+								$icon = '<i class="fa fa-file-text"></i>';
+							}else {
+								$icon = '<i class="fa fa-question"></i>';
+							}
+						
+
+										
+							echo'
+							<form action="task_details.php" id="job-list" method="post" name="job-list">
+								<input type="hidden" name="url" id="url" value="'.$url.'">
+								<input type="hidden" name="userName" id="userName" value="'.$userName.'">
+								<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
+								
+								<input type="hidden" name="complete" id="complete" value="'.$complete.'">
+								<input type="hidden" name="type" id="type" value="'.$type.'">
+								
+								<input type="hidden" name="prospectingType" id="prospectingType" value="'.$prospectingType.'">
+								<input type="hidden" name="description" id="description" value="'.$description.'">
+								
+								<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
+								<input type="hidden" name="time" id="time" value="'.$time.'">
+								
+								<input type="hidden" name="result" id="result" value="'.$result.'">
+								<input type="hidden" name="resultDescription" id="resultDescription" value="'.$resultDescription.'">
+								
+								<input type="hidden" name="nextAction" id="nextAction" value="'.$nextAction.'">
+								<input type="hidden" name="nextActionDescription" id="nextActionDescription" value="'.$nextActionDescription.'">
+								'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['type']).'">
+							</form>';
 						echo'
-						</a></td>
-						<td>'.ucwords($row['county']).'</td>';
-						if($outbox == true){
-							echo'<td>'.ucwords($employee).'</td>';
-						}
-						echo '<td>'.$creationDate.'</td>';
-					}
-				?>
-			</tr>
-	<?php
+						</td>
+						<td>
+						
+								'.$results['description'].'
+							
+						</td>
+						<td>';
+								$originalDate = $results['due_date'];
+								$newDate = date("d/m/Y", strtotime($originalDate));
+								echo $newDate;
+								$creationDate = $results['creation_date'];
+								$creationDate = date("d/m/Y", strtotime($creationDate));
+						echo'
+						</td>
+						<td>';
+								if($heading == 'Result'){
+									echo ucwords($result);
+								}else{
+									echo date('h:ia', strtotime($results['time']));
+								}
+						echo'
+						</td>';
+							
+							
+							//put in the link to the project details here
+							if(!isset ($_POST['projectid'])){
+								echo'<td>';
+								echo '<a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'" class="name">';
+								
+									if($customerid >= 1){
+										echo ucwords($row['first_name']).' '.ucwords($row['last_name']);
+									}else{
+										echo ucwords($row['name']);
+									}
+							
+								echo'
+								</a></td>
+								<td>'.ucwords($row['county']).'</td>';
+								if($outbox == true){
+									echo'<td>'.ucwords($employee).'</td>';
+								}
+								echo '<td>'.$creationDate.'</td>';
+							}
+					echo'
+					</tr>';
+			}
 		}
 		mysqli_close($con);
 	?>

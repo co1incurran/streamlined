@@ -142,6 +142,16 @@ nav > ul {
     padding: 0;
 }
 
+#view_task{
+	margin: auto;
+	font-weight: bold;
+}
+
+/* used to set the notification for the task inbox */
+#task_notification_red{
+	color: #ff3300;
+	font-style: normal;
+}
 /**
  * Text Styles
  */

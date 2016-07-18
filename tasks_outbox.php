@@ -53,10 +53,38 @@
                     </div>
     
                   
+                    <?php
+						define("DB_HOST", "127.0.0.1");
+						define("DB_USER", "user");
+						define("DB_PASSWORD", "1234");
+						define("DB_DATABASE", "database");
+						
+						//this is used to check if there is new tasks assigned to the user 
+						$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn' AND created_by != '$userLoggedOn') ORDER BY creation_date; ";
+						//echo $sql;
+						$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+						$res = mysqli_query($con,$sql);
+						$rowCount = mysqli_num_rows($res);
+						if ($rowCount > 0){
+							$amount = $rowCount;
+							$iId = "task_notification_red";
+						}else{
+							$amount = '';
+							$iId = '';
+						}
+						mysqli_close($con);
+						//echo $rowCount;
+					?>
+					
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
 							<li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li><a href="tasks.php"><i class="fa fa-inbox"></i> Tasks Inbox </a></li>
+							
+                               <?php
+								// this is used to make a notification icon in the tasks tab when a user gets new tasks
+									echo '<li><a href="tasks.php"><i id = "'.$iId.'">'.$amount.' '.'</i><i id = "'.$iId.'" class="fa fa-inbox"></i> Tasks Inbox </a></li>'; 
+								?>
 								<li class="active"><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>

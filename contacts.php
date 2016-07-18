@@ -45,64 +45,38 @@
                     </div>
     
                   
+                    <?php
+						define("DB_HOST", "127.0.0.1");
+						define("DB_USER", "user");
+						define("DB_PASSWORD", "1234");
+						define("DB_DATABASE", "database");
+						
+						//this is used to check if there is new tasks assigned to the user 
+						$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn' AND created_by != '$userLoggedOn') ORDER BY creation_date; ";
+						//echo $sql;
+						$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+						$res = mysqli_query($con,$sql);
+						$rowCount = mysqli_num_rows($res);
+						if ($rowCount > 0){
+							$amount = $rowCount;
+							$iId = "task_notification_red";
+						}else{
+							$amount = '';
+							$iId = '';
+						}
+						mysqli_close($con);
+						//echo $rowCount;
+					?>
+					
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-                            <!-- <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                First Name<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Last Name<br />
-                                                <input class="form-control" type="text" /><br />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Company<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add contact</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Contact</button>
-                            </li>
-                            <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                When it&#39;s due?<br />
-                                                <input class="form-control" type="date" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                What category?<br/>
-                                                <select class="form-control"><option>None</option></select>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add task</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Task</button>
-                            </li>
-							<li class="active"><a href="dashboard.html">Dashboard</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="calendar.html">Calendar</a></li>-->
 							<li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-							<li><a href="tasks.php"><i class="fa fa-inbox"></i> Tasks Inbox </a></li>
+							
+                               <?php
+								// this is used to make a notification icon in the tasks tab when a user gets new tasks
+									echo '<li><a href="tasks.php"><i id = "'.$iId.'">'.$amount.' '.'</i><i id = "'.$iId.'" class="fa fa-inbox"></i> Tasks Inbox </a></li>'; 
+								?>
 							<li><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
 							<li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 							<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
@@ -116,11 +90,7 @@
                                 </ul>
                             </li>
                         </ul>
-                       <!-- <form class="navbar-form navbar-right">
-                            <div class="form-group">
-                                <input type="text" class="form-control search" placeholder="Search">
-                            </div>
-                        </form>-->
+                       
                     </div>
                 </div>
             </nav>
@@ -129,36 +99,6 @@
         <section>
             <div class="container">
                 <div class="row">
-
-                    <!-- Sidebar 
-    
-                    <aside class="col-md-3 no-padding">
-    
-                        <nav class="global">
-                            <ul class="nav nav-pills nav-stacked">
-                               <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
-                                <li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
-                            </ul>
-                        </nav>
-    
-                        <nav class="subnav">
-                            <h4>Activities</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
-                                <li><a href="empty">Sales</a></li>
-                                <li><a href="empty">Jobs</a></li>
-                                
-                            </ul>
-                        </nav>
-                    </aside>
-
-                    Sidebar End -->
-                    
-    
                     <!-- Main Section -->
     
                     <section class="col-md-9 no-padding">
