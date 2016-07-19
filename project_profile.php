@@ -142,7 +142,8 @@ $('#jobType').on('change',function(){
 							<ul id = "icons">
 								<li><a class = "icons" href ="project_profile.php?projectid='.$projectid.'"><i class="fa fa-eye"></i> Overview </a></li>
 								<li><a class = "icons" href ="project_profile.php?projectid='.$projectid.'&page=contacts"><i class="fa fa-book"></i> Contacts </a></li>
-								<li><a class = "icons" href = "project_profile.php?projectid='.$projectid.'&page=taskhistory"><i class="fa fa-area-chart"></i> Task History </a></li>';
+								<li><a class = "icons" href = "project_profile.php?projectid='.$projectid.'&page=taskhistory"><i class="fa fa-area-chart"></i> Task History </a></li>
+								<li><a class = "icons" href = "project_profile.php?projectid='.$projectid.'&page=todo"><i class="fa fa-list-alt" aria-hidden="true"></i> To do </a></li>';
 								if($companyid != 0){
 											echo '<li><a id="add_contact" class = "icons" href="add_contact.php?url='.$url.'&customerid='.$customerid.'&companyid='
 											.$companyid.'"><i class="fa fa-users"></i> Add Contact </a></li>';
@@ -269,6 +270,9 @@ $('#jobType').on('change',function(){
 																			}elseif($page == 'taskhistory'){
 																				//echo'task history <br>';
 																				require_once 'php/project_task_history.php';
+																			}elseif($page == 'todo'){
+																				//echo'task history <br>';
+																				require_once 'php/project_todo.php';
 																			}
 																		}else{
 																			require_once 'php/project_overview.php';
@@ -282,42 +286,6 @@ $('#jobType').on('change',function(){
 									}
 									mysqli_close($con);
 							?>
-									<!--if(isset ($_GET['page'])){
-										
-									}else{										
-										require_once 'php/project_overview.php';
-									}
-										//check which page to load
-									/*if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes'){
-										require_once 'php/project_overview.php';
-									}else{
-										if($page === 'assets'){
-											require_once 'php/company_assets.php';
-										}elseif($page === 'contacts'){
-											require_once 'php/company_contacts.php';
-										}elseif($page = 'history'){
-											require_once 'php/history.php';
-										}
-									}	
-									//if you are looking at private customers
-									else{
-											if(isset($_GET['page'])) {
-												$page = $_GET['page'];
-											}else{
-												$page = 'assets';
-											}
-										if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes'){
-											require_once 'php/company_assets.php';
-										}else{
-											//check which page to load
-											if($page === 'assets'){
-												require_once 'php/customer_assets.php';
-											}elseif($page = 'history'){
-												require_once 'php/history.php';
-											}elseif($page = 'notes'){
-												require_once 'php/customer_notes.php';
-											}
-										}*/-->
 
                     </section>
 

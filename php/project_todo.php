@@ -1,12 +1,11 @@
-<?php		
-		//BELOW THIS IS FOR ACTIVITIES THAT HAVE BEEN COMPLETED
-$sql2 = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY creation_date DESC;" ;
+<?php
+$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY creation_date DESC;" ;
 //echo $sql;
-$res9 = mysqli_query($con,$sql2);
+$res8 = mysqli_query($con,$sql);
 //$row = mysqli_fetch_assoc($res);
 $result = array();
 
-while($row2 = mysqli_fetch_array($res9)){
+while($row2 = mysqli_fetch_array($res8)){
 	array_push($result,
 		array('activityid'=>$row2[0],
 		'complete'=>$row2[1],
@@ -23,8 +22,29 @@ while($row2 = mysqli_fetch_array($res9)){
 	));
 }
 //print_r (array_values($result));
+
+	$url = $_SERVER['REQUEST_URI'];
+	//$url = str_replace('&', '%26', $url);
+	//echo $url;
+
+$heading = 'Time';
+
+$incompleteCounter  = 0;
+$completeCounter = 0;
+$y = 0;
+	foreach ($result as $r){
+		$complete = $r['complete'];
+		if($complete == 0){
+			$incompleteCounter ++;
+		}elseif($complete == 1){
+			$completeCounter ++;
+		}
+	}
 	
-	//making the table header for the completed tasks
+	//making the header for the incomplete tasks
+	while ($y < 1){
+		//echo $y;
+			if($incompleteCounter > 0){
 				echo'
 				</hgroup>
 				</header>
@@ -36,13 +56,17 @@ while($row2 = mysqli_fetch_array($res9)){
 								<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 								<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
 								<th class = "asset-list"><strong>Description</strong></th>
-								<th class = "asset-list"><strong>Due Date</strong></th>
-								<th class = "asset-list"><strong>Result</strong></th>
+								<th class = "asset-list"><strong>Date</strong></th>
+								<th class = "asset-list"><strong>Time</strong></th>
 								<th class = "asset-list"><strong>Assigned to</strong></th>
 							</tr>
 						</thead>';
-							
+			
+				
+			}
 
+		$y ++;
+	}
 	//$i = 1;	
 foreach ($result as $results){
 	
@@ -88,30 +112,30 @@ foreach ($result as $results){
 			
 			//choosing the icon for the tasks
 			if ($results['type'] == 'prospecting'){
-				$icon = '<i class="fa fa-binoculars"> </i>';
-			}
-			if ($results['type'] == 'qualifying'){
-				$icon = '<i class="fa fa-spinner"></i>';
-			}
-			if ($results['type'] == 'presentation'){
-				$icon = '<i class="fa fa-bar-chart"></i>';
-			}
-			if ($results['type'] == 'quotation'){
-				$icon = '<i class="fa fa-tag"></i>';
-			}
-			if ($results['type'] == 'closing meeting'){
-				$icon = '<i class="fa fa-lock"></i>';
-				echo ' ';
-			}
-			if ($results['type'] == 'followup meeting'){
-				$icon = '<i class="fa fa-coffee"></i>';
-			}
-			if ($results['type'] == 'other'){
-				$icon = '<i class="fa fa-question"></i>';
-			}
-			if ($results['type'] == 'create job number'){
-				$icon = '<i class="fa fa-file-text"></i>';
-			}
+						$icon = '<i class="fa fa-binoculars"> </i>';
+					}
+					if ($results['type'] == 'qualifying'){
+						$icon = '<i class="fa fa-spinner"></i>';
+					}
+					if ($results['type'] == 'presentation'){
+						$icon = '<i class="fa fa-bar-chart"></i>';
+					}
+					if ($results['type'] == 'quotation'){
+						$icon = '<i class="fa fa-tag"></i>';
+					}
+					if ($results['type'] == 'closing meeting'){
+						$icon = '<i class="fa fa-lock"></i>';
+						echo ' ';
+					}
+					if ($results['type'] == 'followup meeting'){
+						$icon = '<i class="fa fa-coffee"></i>';
+					}
+					if ($results['type'] == 'other'){
+						$icon = '<i class="fa fa-question"></i>';
+					}
+					if ($results['type'] == 'create job number'){
+						$icon = '<i class="fa fa-file-text"></i>';
+					}
 
 			echo '<tr class = "' .$rowClass. '">
 						<td class = "asset-list"></td>
@@ -149,10 +173,12 @@ foreach ($result as $results){
 						</form></td>
 						<td class = "asset-list">'.$results['description'].'</td>
 						<td class = "asset-list">'.$newDate.'</td>
-						<td class = "asset-list">'.ucwords($result).'</td>
+						<td class = "asset-list">'.date('h:ia', strtotime($results['time'])).'</td>
 						<td class = "asset-list">'.$employee.'</td>
 				</tr>';
 				//$i++;
+
 		}
+
 		echo '</table>';
 ?>
