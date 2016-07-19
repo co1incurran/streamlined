@@ -1,3 +1,11 @@
+<?php
+//this is the session to ensure a user is logged in
+	session_start();
+	if(!isset ($_SESSION['username'])){
+		header("location:index.html");
+	}
+	$userLoggedOn = $_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +93,7 @@ $('#jobType').on('change',function(){
                                 <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li class="active"><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> <span class="caret"></span></a>
+                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>
@@ -147,11 +155,7 @@ $('#jobType').on('change',function(){
 							
 							<?php
 								//this is experimental
-									define("DB_HOST", "127.0.0.1");
-									define("DB_USER", "user");
-									define("DB_PASSWORD", "1234");
-									define("DB_DATABASE", "database");
-									 
+									
 									$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 									$projectid = mysqli_real_escape_string($con ,$projectid);

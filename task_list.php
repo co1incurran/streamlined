@@ -67,7 +67,7 @@ if(isset($_POST['type'])){
 }
 
 if($outbox == true){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY creation_date; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY creation_date DESC; ";
 	}else{
 
 			if(isset($_GET['status'])){
@@ -75,7 +75,7 @@ if($outbox == true){
 				//echo $status;
 				
 				if($status == 'all'){
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";
 				}elseif($status == 'today'){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn'); ";
 				}elseif($status == 'tomorrow'){
@@ -92,10 +92,10 @@ if($outbox == true){
 				}elseif($status == 'project'){
 					$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC LIMIT 1;";
 				}else{
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";
 				}
 			}else{
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY new DESC; ";//ORDER BY due_date
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";//ORDER BY due_date
 			}
 	}
 
@@ -140,6 +140,7 @@ while($row = mysqli_fetch_array($res)){
 			<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Description</strong></th>
 			<th class = "asset-list"><strong>Due Date</strong></th>
+			<th class = "asset-list"><strong>Days Open</strong></th>
 			<th class = "asset-list"><strong><?php echo $heading; ?></strong></th>
 <?php 
 	if(!isset($_POST['projectid'])){
@@ -321,6 +322,31 @@ while($row = mysqli_fetch_array($res)){
 								$creationDate = date("d/m/Y", strtotime($creationDate));
 						echo'
 						</td>
+				
+						<td>';
+								if($results['complete'] == 0){
+								//works out days open 
+								
+									//get the current date 
+									$dt = new DateTime();
+									$installdate = $dt->format('Y-m-d');
+									$openDate = $results['creation_date'];
+									
+									//convert it to a timestamp
+									$openDate = strtotime($openDate);
+									//Get the current timestamp.
+									$now = time();
+									
+									//Calculate the difference.
+									$difference = $now - $openDate;
+									
+									$days = floor($difference / (60*60*24) );
+									echo $days;
+								}else{
+									echo 'Closed';
+								}
+						echo'
+						</td>
 						<td>';
 								if($heading == 'Result'){
 									echo ucwords($result);
@@ -329,7 +355,7 @@ while($row = mysqli_fetch_array($res)){
 								}
 						echo'
 						</td>';
-							
+
 							
 							//put in the link to the project details here
 							if(!isset ($_POST['projectid'])){
