@@ -14,9 +14,17 @@ define("DB_DATABASE", "database");
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 $url= $_GET['url'];
-$customerid= $_GET['customerid'];
-$companyid= $_GET['companyid'];
+if(isset ($_GET ['customerid'])){
+	$customerid= $_GET['customerid'];
+}
+
+if(isset ($_GET ['companyid'])){
+	$companyid= $_GET['companyid'];
+}
+
 $activityid = $_GET['activityid'];
+
+
 
 if(isset($_GET['userName'])){
 	$userName = $_GET['userName'];
@@ -41,9 +49,16 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Prospecting Result</h2>
 					<hr>
-					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
-					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
+					<input type="hidden" name="url" id="url" value="'.$url.'">';
+					if(isset ($_GET['projectid'])){
+						$projectid = $_GET['projectid'];
+						echo '<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">';
+					}else{
+						echo'
+						<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
+						<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
+					}
+					echo'
 					<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
 					<input type="hidden" name="userLoggedOn" id="userLoggedOn" value="'.$userLoggedOn.'">
 					

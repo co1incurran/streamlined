@@ -164,6 +164,9 @@ a {
 #logout{
 	float: right;
 }
+table.tablesorter tbody td.red{
+	color: red;
+}
 td, th {
     outline: none;
     text-decoration: none;

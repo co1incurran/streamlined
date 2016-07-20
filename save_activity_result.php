@@ -13,17 +13,26 @@ $assign = $_POST['assign'];
 //the user that created the task
 $userLoggedOn = $_POST['userLoggedOn'];
 
-//COMPANYID
-$companyid = $_POST["companyid"];
-$companyid = trim($companyid);
-$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
-$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
+//check if it is a task for a project or a customer
+if(isset ($_POST['projectid'])){
+	//clean the project id
+	$projectid = $_POST["projectid"];
+	$projectid = trim($projectid);
+	$filterprojectid = filter_var($projectid, FILTER_VALIDATE_INT);
+	$cleanprojectid = mysqli_real_escape_string($con, $filterprojectid);
+}else{
+	//COMPANYID
+	$companyid = $_POST["companyid"];
+	$companyid = trim($companyid);
+	$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
+	$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
 
-//CUSTOMERID
-$customerid = $_POST["customerid"];
-$customerid = trim($customerid);
-$filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
-$cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
+	//CUSTOMERID
+	$customerid = $_POST["customerid"];
+	$customerid = trim($customerid);
+	$filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
+	$cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
+}
 
 //prospecting type
 if (isset ($_POST["type"])){
@@ -74,9 +83,10 @@ $cleantime = mysqli_real_escape_string($con, $time);
 //get the current date 
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
+$currentDate = $creationdate;
 
 //put the data into the completed activity row in the activty table
-$sql1 = "UPDATE activity SET complete = 1, prospecting_type = '$cleantype', result = '$cleanresult', result_description= '$cleandescription', next_action = '$cleannextaction' WHERE activityid = $activityid;";
+$sql1 = "UPDATE activity SET complete = 1, prospecting_type = '$cleantype', result = '$cleanresult', result_description= '$cleandescription', next_action = '$cleannextaction', complete_date = '$currentDate' WHERE activityid = $activityid;";
 $res1 = mysqli_query($con,$sql1);
 //echo $sql1.'<br>';
 //make a new activity for the next action data
@@ -122,14 +132,19 @@ if($cleannextaction != 'no further action'){
 		$res4 = mysqli_query($con,$sql4);
 		//echo $sql4;
 		
-		if($companyid !=0){
-			$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-			//echo $sql4;
+		if(isset ($_POST['projectid'])){
+			$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
+			echo $sql4;
 		}else{
-			$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-			//echo $sql4;
-			//echo $customerid;
-			//echo $companyid;
+			if($companyid !=0){
+				$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
+				//echo $sql4;
+			}else{
+				$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
+				//echo $sql4;
+				//echo $customerid;
+				//echo $companyid;
+			}
 		}
 		$res4 = mysqli_query($con,$sql4);
 }

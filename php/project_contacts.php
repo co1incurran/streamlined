@@ -13,6 +13,24 @@ while($row = mysqli_fetch_array($res)){
 	));
 }
 //print_r (array_values($result));
+
+ echo'
+			</hgroup>
+			</header>
+			<section class="panel-body" style = "width:100%">
+				<table align="center">
+					<thead><tr class = "blue-row">
+					<td class = "asset-list"></td>
+					<td class = "asset-list"><strong>Name</strong></td>
+					<td class = "asset-list"><strong>Job Title</strong></td>
+					<td class = "asset-list"><strong>Phone</strong></td>
+					<td class = "asset-list"><strong>Mobile</strong></td>
+					<td class = "asset-list"><strong>Email</strong></td>
+					<td class = "asset-list"><strong>Fax</strong></td>
+					<td class = "asset-list"><strong>Employer</strong></td>
+					</thead>
+					<tbody>';
+					
 foreach ($result as $results){
 	$companyid = $results['companyid'];
 	$company = ucwords($results['name']);
@@ -42,25 +60,13 @@ foreach ($result as $results){
 	//used to ensure a proper page reload if details are updated
 	$url = $_SERVER['REQUEST_URI'];
 	$url = str_replace('&', '%26', $url);
+	
+	
 
 	foreach ($result2 as $results2){
 						 //menu for the business card
 						 
-						 echo'
-			</hgroup>
-			</header>
-			<section class="panel-body" style = "width:100%">
-				<table align="center">
-					<thead><tr class = "blue-row">
-					<td class = "asset-list"></td>
-					<td class = "asset-list"><strong>Name</strong></td>
-					<td class = "asset-list"><strong>Job Title</strong></td>
-					<td class = "asset-list"><strong>Phone</strong></td>
-					<td class = "asset-list"><strong>Mobile</strong></td>
-					<td class = "asset-list"><strong>Email</strong></td>
-					<td class = "asset-list"><strong>Fax</strong></td>
-					<td class = "asset-list"><strong>Employer</strong></td>
-					</thead>';
+						
 					$i = 1;
 		if (1 != $i % 2){
 			$rowClass = 'blue-row';
@@ -84,7 +90,9 @@ foreach ($result as $results){
 			
 			$i++;
 
-		echo '</table>';
+		
 		}
 	}
+	echo '</tbody>
+		</table>';
 ?>

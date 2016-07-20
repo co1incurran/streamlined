@@ -1,7 +1,7 @@
 <?php
 $url= $_POST['url'];
 
-$name = $_POST['name'];
+//$name = $_POST['name'];
 
 $regarding = $_POST['regarding'];
 
@@ -44,7 +44,6 @@ echo'
 					<h2>Company contact details</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="name" id="name" value="'.$name.'">
 					<input type="hidden" name="regarding" id="regarding" value="'.$regarding.'">
 					<input type="hidden" name="planningNumber" id="planningNumber" value="'.$planningNumber.'">
 					<input type="hidden" name="startDate" id="startDate" value="'.$startDate.'">

@@ -110,36 +110,52 @@ foreach ($result as $results){
 			$originalDate = $results['due_date'];
 			$newDate = date("d/m/Y", strtotime($originalDate));
 			
-			//choosing the icon for the tasks
-			if ($results['type'] == 'prospecting'){
-						$icon = '<i class="fa fa-binoculars"> </i>';
-					}
-					if ($results['type'] == 'qualifying'){
-						$icon = '<i class="fa fa-spinner"></i>';
-					}
-					if ($results['type'] == 'presentation'){
-						$icon = '<i class="fa fa-bar-chart"></i>';
-					}
-					if ($results['type'] == 'quotation'){
-						$icon = '<i class="fa fa-tag"></i>';
-					}
-					if ($results['type'] == 'closing meeting'){
-						$icon = '<i class="fa fa-lock"></i>';
-						echo ' ';
-					}
-					if ($results['type'] == 'followup meeting'){
-						$icon = '<i class="fa fa-coffee"></i>';
-					}
-					if ($results['type'] == 'other'){
-						$icon = '<i class="fa fa-question"></i>';
-					}
-					if ($results['type'] == 'create job number'){
-						$icon = '<i class="fa fa-file-text"></i>';
-					}
+			//this picks which icon to put next to the task type
+							if ($results['type'] == 'prospecting'){
+								$icon = '<i class="fa fa-binoculars"> </i>';
+							}
+							elseif ($results['type'] == 'qualifying'){
+								$icon = '<i class="fa fa-spinner"></i>';
+							}
+							elseif ($results['type'] == 'presentation'){
+								$icon = '<i class="fa fa-bar-chart"></i>';
+							}
+							elseif ($results['type'] == 'deliver quote'){
+								$icon = '<i class="fa fa-tag"></i>';
+							}
+							elseif ($results['type'] == 'closing meeting'){
+								$icon = '<i class="fa fa-lock"></i>';
+								echo ' ';
+							}
+							elseif ($results['type'] == 'generate quote'){
+								$icon = '<i class="fa fa-print"></i>';
+								echo ' ';
+							}
+							elseif ($results['type'] == 'followup meeting'){
+								$icon = '<i class="fa fa-coffee"></i>';
+							}
+							elseif ($results['type'] == 'other'){
+								$icon = '<i class="fa fa-question"></i>';
+							}
+							elseif ($results['type'] == 'create job number'){
+								$icon = '<i class="fa fa-file-text"></i>';
+							}else {
+								$icon = '<i class="fa fa-question"></i>';
+							}
+							
 
 			echo '<tr class = "' .$rowClass. '">
-						<td class = "asset-list"></td>
-						<td class = "asset-list">'.$completed.'</td>
+						
+						<td class = "asset-list">';
+									if($results['type'] == 'prospecting'){
+										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+									}elseif ($type == 'create job number'){
+										echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+									}else{
+										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+									}
+						echo			
+						'</td>
 						<td class = "asset-list">
 						<form action="task_details.php" id="job-list" method="post" name="job-list">
 							<input type="hidden" name="url" id="url" value="'.$url.'">
