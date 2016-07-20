@@ -25,6 +25,8 @@ $startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
 // Last day of the month.
 $endMonth = date('Y-m-t', strtotime($currentDate)).'<br>';
 $heading = 'Time';
+$heading2 = 'Due Date';
+$heading3 = 'Due Date';
 $status = '';
 $columnName = 'Contact';
 
@@ -89,6 +91,8 @@ if($outbox == true){
 				}elseif($status == 'completed'){
 					$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date DESC; ";
 					$heading = 'Result';
+					$heading2 = 'Completion Date';
+					$heading3 = 'Punctuality';
 				}elseif($status == 'project'){
 					$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC LIMIT 1;";
 				}else{
@@ -121,7 +125,8 @@ while($row = mysqli_fetch_array($res)){
 		'next_action_description'=>$row[10],
 		'creation_date'=>$row[11],
 		'created_by'=>$row[12],
-		'new'=>$row[13]
+		'new'=>$row[13],
+		'complete_date'=>$row[14]
 	));
 }
 //print_r (array_values($result));
@@ -139,14 +144,14 @@ while($row = mysqli_fetch_array($res)){
 		?>
 			<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Description</strong></th>
-			<th class = "asset-list"><strong>Due Date</strong></th>
-			<th class = "asset-list"><strong>Days Open</strong></th>
+			<th class = "asset-list"><strong><?php echo $heading2; ?></strong></th>
+			<th class = "asset-list"><strong><?php echo $heading3; ?></strong></th>
 			<th class = "asset-list"><strong><?php echo $heading; ?></strong></th>
 <?php 
 	if(!isset($_POST['projectid'])){
 		echo'
 			<th class = "asset-list"><strong>'.$columnName.'</strong></th>
-			
+			<th class = "asset-list"><strong>City</strong></th>
 			<th class = "asset-list"><strong>County</strong></th>';
 			if($outbox == true){
 			echo '<th class = "asset-list"><strong>Assigned to</strong></th>';
@@ -176,19 +181,42 @@ while($row = mysqli_fetch_array($res)){
 			$creationDate = $results['creation_date'];
 			$createdBy = $results['created_by'];
 			$new = $results['new'];
+			$completeDate = $results['complete_date'];
 			
+			//picking the date to show
+			if($status == 'completed'){
+				$date = $completeDate;
+			}else{
+				$date = $dueDate;
+			}
+			
+			
+			//this is the setter for projects or not a project
+			$project = false;
 			
 			//To get the company or customer the activity is for
-			$sql2 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_activity WHERE activityid = '$activityid'); ";
+			$sql2 = "SELECT companyid, name, address_line4, address_line3, address_line2, county FROM company WHERE companyid IN (SELECT companyid FROM company_activity WHERE activityid = '$activityid'); ";
 			$res2 = mysqli_query($con,$sql2);
 			if(mysqli_num_rows($res2) < 1){
-				$sql3 = "SELECT customerid, first_name, last_name, county FROM customer WHERE customerid IN (SELECT customerid FROM customer_activity WHERE activityid = '$activityid'); ";
+				$sql3 = "SELECT customerid, first_name, last_name, address_line4, address_line3, address_line2, county FROM customer WHERE customerid IN (SELECT customerid FROM customer_activity WHERE activityid = '$activityid'); ";
 				$res3 = mysqli_query($con,$sql3);
 				if(mysqli_num_rows($res3) < 1 && isset($_POST['projectid'])){
 					$sql4 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid'); ";
 					$res4 = mysqli_query($con,$sql4);
 					$row = mysqli_fetch_assoc($res4);
 					$companyid = $row["companyid"];
+					$address_line4 = $row["address_line4"];
+					$address_line3 = $row["address_line3"];
+					$address_line2 = $row["address_line2"];
+				}elseif(mysqli_num_rows($res3) < 1 && !isset($_POST['projectid'])){
+					$project = true;
+					$sql4 = "SELECT projectid, planning_number, address4, county FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = '$activityid');";
+					$res4 = mysqli_query($con,$sql4);
+					$row = mysqli_fetch_assoc($res4);
+					$city = ucwords($row['address4']);
+					$county = ucwords($row['county']);
+					$projectid = $row['projectid'];
+					$planningNumber = $row["planning_number"];
 				}else{
 					$row = mysqli_fetch_assoc($res3);
 					$customerid = $row["customerid"];
@@ -196,6 +224,9 @@ while($row = mysqli_fetch_array($res)){
 			}else{
 				$row = mysqli_fetch_assoc($res2);
 				$companyid = $row["companyid"];
+				$address_line4 = $row["address_line4"];
+				$address_line3 = $row["address_line3"];
+				$address_line2 = $row["address_line2"];
 			}
 			
 				//to get the employee the task is assigned to
@@ -316,35 +347,80 @@ while($row = mysqli_fetch_array($res)){
 						</td>
 						<td>';
 								$originalDate = $results['due_date'];
-								$newDate = date("d/m/Y", strtotime($originalDate));
-								echo $newDate;
+								$originalDate = date("d/m/Y", strtotime($originalDate));
+								
+								$completeDate = date("d/m/Y", strtotime($completeDate));
+								if($status == 'completed'){
+									echo $completeDate;
+								}else{
+									echo $originalDate;
+								}
 								$creationDate = $results['creation_date'];
 								$creationDate = date("d/m/Y", strtotime($creationDate));
 						echo'
-						</td>
-				
-						<td>';
-								if($results['complete'] == 0){
-								//works out days open 
-								
-									//get the current date 
-									$dt = new DateTime();
-									$installdate = $dt->format('Y-m-d');
-									$openDate = $results['creation_date'];
+						</td>';
+							// this may change to make last days show in red
+							$class = '';
+							$message ='';
+							if($status == 'completed'){
+							//THIS IS WHERE I IMPLEMENT THE Punctuality FEATURE
+								$doneDate = strtotime($results['complete_date']);
+								$dueDate = strtotime($results['due_date']);
+								$difference = $doneDate - $dueDate;
+								$days = floor($difference / (60*60*24) );
+								if($days < 0){
+									$days = $days * -1;
+									$word = 'day';
+									//to be grammatically correct
+									if($days > 1){
+										$word = 'days';
+									}
+									$message = $days.' '.$word.' early';
 									
-									//convert it to a timestamp
-									$openDate = strtotime($openDate);
-									//Get the current timestamp.
-									$now = time();
-									
-									//Calculate the difference.
-									$difference = $now - $openDate;
-									
-									$days = floor($difference / (60*60*24) );
-									echo $days;
+								}elseif($days == 0){
+									$message = 'On time';
 								}else{
-									echo 'Closed';
+									$word = 'day';
+									//to be grammatically correct
+									if($days > 1){
+										$word = 'days';
+									}
+									$message = $days.' '.$word.' late';
+									$class = 'red';
 								}
+						echo'
+						<td class = '.$class.'>';
+						echo $message;
+							}else{
+									$openDate = $results['creation_date'];
+									$openDate = strtotime($openDate);
+									
+									$closeDate = strtotime($results['complete_date']);
+										if($results['complete'] == 0){
+										//works out days open 
+										
+											//get the current date 
+											$dt = new DateTime();
+											$installdate = $dt->format('Y-m-d');
+											
+											
+											//convert it to a timestamp
+											
+											//Get the current timestamp.
+											$now = time();
+											
+											//Calculate the difference.
+											$difference = $now - $openDate;
+											
+											
+											
+										}else{
+											
+											$difference = $closeDate - $openDate;
+										}
+										$days = floor($difference / (60*60*24) );
+										echo $days;
+							}
 						echo'
 						</td>
 						<td>';
@@ -358,7 +434,7 @@ while($row = mysqli_fetch_array($res)){
 
 							
 							//put in the link to the project details here
-							if(!isset ($_POST['projectid'])){
+							if($project == false){
 								echo'<td>';
 								echo '<a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'" class="name">';
 								
@@ -370,12 +446,24 @@ while($row = mysqli_fetch_array($res)){
 							
 								echo'
 								</a></td>
+								<td>'.$city.
+								'</td>
 								<td>'.ucwords($row['county']).'</td>';
 								if($outbox == true){
 									echo'<td>'.ucwords($employee).'</td>';
 								}
-								echo '<td>'.$creationDate.'</td>';
+								
+								
+							}elseif($project == true){
+								echo'<td>';
+								echo '<a href = "project_profile.php?projectid='.$projectid.'" class="name">
+								Project: '.$planningNumber.'
+								</a></td>
+								<td>'.$city.
+								'</td>
+								<td>'.$county.'</td>';
 							}
+							echo '<td>'.$creationDate.'</td>';
 					echo'
 					</tr>';
 			}
