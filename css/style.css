@@ -167,6 +167,9 @@ a {
 table.tablesorter tbody td.red{
 	color: red;
 }
+table tbody td.red{
+	color: red;
+}
 td, th {
     outline: none;
     text-decoration: none;

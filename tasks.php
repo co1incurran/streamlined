@@ -125,8 +125,11 @@
 											if(isset($_GET['status'])){
 												$status = $_GET['status'];
 												if($status == 'all'){
-													$setter = 'Tasks';
-												}elseif($status == 'today'){
+													$setter = 'All My Tasks';
+												}elseif($status == 'global'){
+													$setter = 'Global';
+												}
+												elseif($status == 'today'){
 													$setter = "Today's Tasks";
 												}elseif($status == 'tomorrow'){
 													$setter = "Tomorrow's Tasks";
@@ -139,15 +142,16 @@
 												}elseif($status == 'completed'){
 													$setter = 'Completed Tasks';
 												}else{
-													$setter = 'All Tasks';
+													$setter = 'All My Tasks';
 												}
 											}else{
-													$setter = 'All Tasks';
+													$setter = 'All My Tasks';
 												}
 											?>
                                                 <h2><?php echo $setter; ?> <a href="#"> &darr; </a></h2>
                                                 <ul>
-                                                    <li><a href="tasks.php?status=all">Tasks</a></li>
+													<li><a href="tasks.php?status=global">Global</a></li>
+                                                    <li><a href="tasks.php?status=all">My tasks</a></li>
                                                     <li><a href="tasks.php?status=today">Today</a></li>
                                                     <li><a href="tasks.php?status=tomorrow">Tomorrow</a></li>
                                                     <li><a href="tasks.php?status=week">This week</a></li>
