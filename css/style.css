@@ -21,7 +21,9 @@ html, body {
 footer, #push {
     height: 50px; /* #push must be the same height as footer */
 }
-
+tr.red-row td{
+	background-color: #FF9999;
+}
 /*.subnav{
 	font-weight: bold;
 }*/
@@ -149,15 +151,28 @@ nav > ul {
 
 /* used to set the notification for the task inbox */
 #task_notification_red{
-	color: #ff3300;
+	color: #7CFC00;
 	font-style: normal;
+	animation-duration: 400ms;
+	animation-name: blink;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.125;
+  }
 }
 /**
  * Text Styles
  */
 
 a {
-    color: #0066ff;
+    color: black;
     outline: none;
     text-decoration: none;
 }

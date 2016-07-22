@@ -122,12 +122,30 @@
                                             </div>
                                             <div class="view-switcher">
 											<?php
+											
+											//check that the user is admin so that they can use the global view of the tasks
+												$sqlAdmin = "SELECT department FROM users WHERE userid = '$userLoggedOn';";
+												//echo $sqlAdmin;
+												$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+												$res2 = mysqli_query($con,$sqlAdmin);
+												$row = mysqli_fetch_assoc($res2);
+												$type = $row['department'];
+												if($type == 'admin'){
+													$admin =true;
+												}else{
+													$admin =false;
+												}
+											
+											
+											
 											if(isset($_GET['status'])){
 												$status = $_GET['status'];
 												if($status == 'all'){
 													$setter = 'All My Tasks';
-												}elseif($status == 'global'){
-													$setter = 'Global';
+												}elseif($status == 'global' && $admin ==true ){
+													$setter = 'Global - To do';
+												}elseif($status == 'globalcomplete' && $admin ==true ){
+													$setter = 'Global - Done';
 												}
 												elseif($status == 'today'){
 													$setter = "Today's Tasks";
@@ -147,10 +165,18 @@
 											}else{
 													$setter = 'All My Tasks';
 												}
+												
+												
 											?>
                                                 <h2><?php echo $setter; ?> <a href="#"> &darr; </a></h2>
                                                 <ul>
-													<li><a href="tasks.php?status=global">Global</a></li>
+												<?php
+													if($admin == true){
+														echo '<li><a href="tasks.php?status=global">Global to do</a></li>
+															<li><a href="tasks.php?status=globalcomplete">Global done</a></li>';
+													}
+													
+												?>
                                                     <li><a href="tasks.php?status=all">My tasks</a></li>
                                                     <li><a href="tasks.php?status=today">Today</a></li>
                                                     <li><a href="tasks.php?status=tomorrow">Tomorrow</a></li>
