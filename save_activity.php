@@ -68,37 +68,69 @@ $cleantime = mysqli_real_escape_string($con, $time);
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
-//put the activity into the activty table
-$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
-$res1 = mysqli_query($con,$sql1);
-//echo $sql1;
-
-//get the activityid of the activity
-	$sql2 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
-	$res2 = mysqli_query($con,$sql2);
-	$row = mysqli_fetch_assoc($res2);
-    $activityid = $row["activityid"];
-	//echo '<br>' .$activityid;
-	
-	
-//add the activity to the assigned activity table
-	$sql3 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$cleanassign', '$activityid');";
-	$res3 = mysqli_query($con,$sql3);
-	//echo $sql3;
-	
-	if(isset($_POST['companyid'])){
-		if($companyid !=0){
-			$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-			//echo $sql4;
+$alreadyExists = false;
+	//THIS IS WHERE I NEED TO CHECK THAT THE ACTIVITY DOES NOT ALREADY EXIST
+	$sqlChecker = "SELECT * FROM assigned_activity WHERE userid = '$cleanassign' AND activityid IN (SELECT activityid FROM activity WHERE type = '$cleanactivitytype' AND description = '$cleanactivitydescription' AND due_date = '$cleandate' AND time  = '$cleantime' ) ;";
+	//echo $sqlChecker;
+	$resChecker = mysqli_query($con,$sqlChecker);
+	if(mysqli_num_rows($resChecker) > 0){
+		//this checks that there is no activity already assigned to this project tht has the exact same details
+		if(isset($_POST['projectid'])){
+			$sqlChecker2 = "SELECT * FROM project_activity WHERE projectid ='$projectid' AND activityid IN (SELECT activityid FROM activity WHERE type = '$cleanactivitytype' AND description = '$cleanactivitydescription' AND due_date = '$cleandate' AND time  = '$cleantime' ) ;";
+			$resChecker2 = mysqli_query($con,$sqlChecker2);
+			if(mysqli_num_rows($resChecker2) > 0){
+				$alreadyExists = true;
+			}
+			//this checks that there is no activity already assigned to this company tht has the exact same details
+		}elseif(isset($_POST['companyid'])){
+			$sqlChecker3 = "SELECT * FROM company_activity WHERE companyid ='$companyid' AND activityid IN (SELECT activityid FROM activity WHERE type = '$cleanactivitytype' AND description = '$cleanactivitydescription' AND due_date = '$cleandate' AND time  = '$cleantime' ) ;";
+			$resChecker3 = mysqli_query($con,$sqlChecker3);
+			if(mysqli_num_rows($resChecker3) > 0){
+				$alreadyExists = true;
+			}
+			//this checks that there is no activity already assigned to this private customer tht has the exact same details
 		}else{
-			$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-			//echo $sql4;
+			$sqlChecker4 = "SELECT * FROM customer_activity WHERE customerid ='$customerid' AND activityid IN (SELECT activityid FROM activity WHERE type = '$cleanactivitytype' AND description = '$cleanactivitydescription' AND due_date = '$cleandate' AND time  = '$cleantime' ) ;";
+			$resChecker4 = mysqli_query($con,$sqlChecker4);
+			if(mysqli_num_rows($resChecker4) > 0){
+				$alreadyExists = true;
+			}
 		}
-	}elseif(isset($_POST['projectid'])){
-		$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
-			//echo $sql4;
 	}
-	$res4 = mysqli_query($con,$sql4);
+
+if($alreadyExists == false){
+		//put the activity into the activty table
+		$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
+		$res1 = mysqli_query($con,$sql1);
+		//echo $sql1;
+
+		//get the activityid of the activity
+			$sql2 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
+			$res2 = mysqli_query($con,$sql2);
+			$row = mysqli_fetch_assoc($res2);
+			$activityid = $row["activityid"];
+			//echo '<br>' .$activityid;
+			
+			
+		//add the activity to the assigned activity table
+			$sql3 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$cleanassign', '$activityid');";
+			$res3 = mysqli_query($con,$sql3);
+			//echo $sql3;
+			
+			if(isset($_POST['companyid'])){
+				if($companyid !=0){
+					$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
+					//echo $sql4;
+				}else{
+					$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
+					//echo $sql4;
+				}
+			}elseif(isset($_POST['projectid'])){
+				$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
+					//echo $sql4;
+			}
+			$res4 = mysqli_query($con,$sql4);
+}
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>

@@ -75,7 +75,8 @@ echo'
 						<option value= "contact again">Contact again</option>
 						<option value= "qualifying">Schedule qualify meeting</option>
 						<option value= "presentation">Schedule presentation meeting</option>
-						<option value= "quotation">Schedule quote meeting</option>
+						<option value= "generate quote">Generate quote</option>
+						<option value= "deliver quote">Deliver quote</option>
 						<option value= "close meeting">Schedule close meeting</option>
 						<option value= "followup meeting">Followup meeting</option>
 						<option value= "create job number">Create job number</option>

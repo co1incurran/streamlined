@@ -101,8 +101,11 @@ if($cleannextaction != 'no further action'){
 	if($cleannextaction == 'schedule presentation meeting'){
 		$cleannextaction = 'presentation';
 	}
-	if($cleannextaction == 'schedule quote meeting'){
-		$cleannextaction = 'quotaion';
+	if($cleannextaction == 'generate quote'){
+		$cleannextaction = 'generate quote';
+	}
+	if($cleannextaction == 'deliver quote'){
+		$cleannextaction = 'deliver quote';
 	}
 	if($cleannextaction == 'schedule close meeting'){
 		$cleannextaction = 'closing meeting';
@@ -153,7 +156,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Activity added</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

@@ -99,7 +99,9 @@ ul#icons li{
     background-color: rgb(142,194,218);
 	
 }
-
+i#outbox-counter{
+	font-style: normal;
+}
 #edit{
 	float:right;
 	color:black;
@@ -376,7 +378,7 @@ body.login {
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
     border-radius: 5px;
-    margin-right: 18px;
+   
 }
 
 .main-section .content {

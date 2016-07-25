@@ -66,6 +66,12 @@
 							$amount = '';
 							$iId = '';
 						}
+						//this counts how many outbox tasks you have
+						$sql2 = "SELECT COUNT(*) FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn');";
+						//echo $sql2;
+						$res2 = mysqli_query($con,$sql2);
+						$row = mysqli_fetch_row($res2);
+						$count = $row['0'];
 						mysqli_close($con);
 						//echo $rowCount;
 					?>
@@ -78,7 +84,7 @@
 								// this is used to make a notification icon in the tasks tab when a user gets new tasks
 									echo '<li><a href="tasks.php"><i id = "'.$iId.'">'.$amount.' '.'</i><i id = "'.$iId.'" class="fa fa-inbox"></i> Tasks Inbox </a></li>'; 
 								?>
-								<li><a href="tasks_outbox.php"><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
+								<li><a href="tasks_outbox.php"><i id = "outbox-counter"><?php echo $count.' '; ?></i><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
                                 <li class="active"><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
                             <li class="dropdown">
