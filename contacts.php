@@ -116,16 +116,12 @@
                                         <header class="panel-heading clearfix">
 
                                             <div class="btn-group pull-right">
-											<?php
-												$url = $_SERVER['REQUEST_URI'];
-												$url = str_replace('&', '%26', $url);
-												echo'
-												<a href="add_contact.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>';
-											?>
-                                                
-												
-                                                <!--<a href="#" class="btn btn-default" data-toggle="tooltip" title="View as a Grid" onclick="$(this).addClass('current').parent().siblings().find('a').removeClass('current');$('#contacts').removeClass('list-view').addClass('grid-view');return false;"><i class="fa fa-th-large"></i></a>
-                                                <a href="documentation/index.html" class="btn btn-default" rel="#overlay"><i class="fa fa-question-circle"></i></a>-->
+												<?php
+													$url = $_SERVER['REQUEST_URI'];
+													$url = str_replace('&', '%26', $url);
+													echo'
+													<a href="add_contact.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>';
+												?>
                                             </div>
 
                                             <div class="view-switcher">

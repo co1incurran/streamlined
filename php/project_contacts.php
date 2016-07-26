@@ -12,6 +12,7 @@ while($row = mysqli_fetch_array($res)){
 		'name'=>$row[1]
 	));
 }
+
 //print_r (array_values($result));
 
  echo'
