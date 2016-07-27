@@ -74,7 +74,7 @@ echo'
 					}
 					
 					if($type === 'qualifying'){
-						echo'<option selected = "selected "value= "qualifying">Order Qualifying</option>';
+						echo'<option selected = "selected "value= "qualifying">Qualifying</option>';
 					}else{
 						echo'<option value= "qualifying">Qualifying</option>';
 					}

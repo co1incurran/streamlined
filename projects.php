@@ -98,11 +98,6 @@
                                 </ul>
                             </li>
                         </ul>
-                        <!--<form class="navbar-form navbar-right">
-                            <div class="form-group">
-                                <input type="text" class="form-control search" placeholder="Search">
-                            </div>
-                        </form>-->
                     </div>
                 </div>
             </nav>
@@ -111,33 +106,6 @@
         <section>
             <div class="container">
                 <div class="row">
-
-                    <!-- Sidebar
-    
-                    <aside class="col-md-3 no-padding">
-    
-                        <nav class="global">
-                            <ul class="nav nav-pills nav-stacked">
-                               <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
-                                <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li class="active" ><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
-                            </ul>
-                        </nav>
-    
-                        <nav class="subnav">
-                            <h4>Activities</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
-                                <li><a href="empty">Sales</a></li>
-                                <li><a href="empty">Jobs</a></li>
-                            </ul>
-                        </nav>
-                    </aside>
-
-                    Sidebar End -->
                     
     
                     <!-- Main Section -->
@@ -174,7 +142,7 @@
 													$setter= 'On going';
 												}
 											?>
-                                                <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>
+                                                <h2 class="panel-title"><?php echo $setter; ?> <a href="projects.php?type=<?php echo $type; ?>">&darr;</a></h2>
                                                 <ul>
                                                     <li><a href="projects.php?type=ongoing">On going </a></li>
                                                     <li><a href="projects.php?type=closed">Closed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>

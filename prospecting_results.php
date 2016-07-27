@@ -70,6 +70,7 @@ echo'
 						<option value= "left brochure">Left brochure</option>
 						<option value= "left business card">Left business card</option>
 						<option value= "courtesy call">Courtesy call</option>
+						<option value= "sales meeting">Sales Meeting</option>
 						<option value= "demo">Demo</option>
 						<option value= "c.p.d">C.P.D</option>
 						<option value= "followup meeting">Followup meeting</option>
@@ -116,15 +117,10 @@ echo'
 					if (mysqli_num_rows($res) > 0) {
 						
 						while($row = mysqli_fetch_assoc($res)) {
-							if(isset($_GET['userName'])){
-								$userName = $_GET['userName'];
-								if($row["userid"] == $userName){
-									echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
-								}else{
-									echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
-								}
+							if($row["userid"] == $userLoggedOn){
+								echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
 							}else{
-									echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+								echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
 							}
 						}
 					}else{

@@ -56,8 +56,63 @@ while($row3 = mysqli_fetch_array($res3)){
 		'last_name'=>$row3[2]
 	));
 }
-print_r (array_values($result3));
+//print_r (array_values($result3));
 
+
+
+//this is where i put all the contents of the 3 above arrays into one large array
+$bigArray = array();
+//putting in the companies
+foreach ($result as $r1){
+	$type = 'company';
+	$id = $r1['companyid'];
+	$name = $r1['name'];
+	array_push($bigArray,
+		array('type' => $type,
+		'id' => $id,
+		'name' => $name
+	));
+}
+//putting in the private customers
+foreach($result2 as $r2){
+	$type = 'privatecustomer';
+	$id = $r2['customerid'];
+	$name = $r2['first_name'].' '.$r2['last_name'];
+	array_push($bigArray,
+		array('type' => $type,
+		'id' => $id,
+		'name' => $name
+	));
+}
+//putting in the workers
+foreach($result3 as $r3){
+	$workerid = $r3['workerid'];
+	$sql4 ="SELECT name FROM company WHERE companyid IN(SELECT companyid FROM works_with WHERE workerid = '$workerid');";
+	$res4 = mysqli_query($con,$sql4);
+	$row = mysqli_fetch_assoc($res4);
+	$companyName = $row['name'];
+	//echo $companyName;
+	$type = 'worker';
+	$id = $r3['workerid'];
+	$name = $r3['first_name'].' '.$r3['last_name'].' - '.ucwords($companyName);
+	//$name = preg_replace_callback('/O\'[a-z]', 'strtoupper("$0")', $name);
+	array_push($bigArray,
+		array('type' => $type,
+		'id' => $id,
+		'name' => $name
+	));
+}
+
+function compareByName($a, $b) {
+  return strcmp($a["name"], $b["name"]);
+}
+usort($bigArray, 'compareByName');
+/* The next line is used for debugging, comment or delete it after testing */
+//print_r($bigArray);
+
+
+//asort($bigArray);
+//print_r (array_values($bigArray));
 echo'
 <!DOCTYPE html>
 <html>
@@ -70,7 +125,15 @@ echo'
 			Sort by name
 		  </button>
 
-		  <ul class="list">
+		  <ul id="search-list" class="list">';
+		  foreach($bigArray as $bigA){
+			echo'
+			<li>
+				<p id="'.$bigA['id'].'" class="name '.$bigA['type'].'">'.ucwords($bigA['name']).'</p>
+			</li>';
+		  }
+		  echo'
+		  <!--
 			<li>
 			  <h3 class="name">Jonny Stromberg</h3>
 			  <p class="born">1986</p>
@@ -86,7 +149,8 @@ echo'
 			<li>
 			  <h3 class="name">Gustaf Lindqvist</h3>
 			  <p class="born">1983</p>
-			</li>
+			</li>-->
+			
 		  </ul>
 
 		</div>
