@@ -40,7 +40,7 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Add job</h2>
 					<hr>';
-					echo $activityid;
+					//echo $activityid;
 					if($activityid != false){
 						echo'<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">';
 					}

@@ -1,6 +1,6 @@
 <?php		
 		//BELOW THIS IS FOR ACTIVITIES THAT HAVE BEEN COMPLETED
-$sql2 = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY creation_date DESC;" ;
+$sql2 = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY complete_date DESC;" ;
 //echo $sql;
 $res9 = mysqli_query($con,$sql2);
 //$row = mysqli_fetch_assoc($res);
@@ -19,7 +19,10 @@ while($row2 = mysqli_fetch_array($res9)){
 		'result_description'=>$row2[8],
 		'next_action'=>$row2[9],
 		'next_action_description'=>$row2[10],
-		'creation_date'=>$row2[11]
+		'creation_date'=>$row2[11],
+		'created_by' =>$row2[12],
+		'new' =>$row2[13],
+		'complete_date' =>$row2[14]
 	));
 }
 //print_r (array_values($result));
@@ -37,7 +40,10 @@ while($row2 = mysqli_fetch_array($res9)){
 								<th id = "first-table-column" class = "asset-list"><strong>Type</strong></th>
 								<th class = "asset-list"><strong>Description</strong></th>
 								<th class = "asset-list"><strong>Due Date</strong></th>
+								<th class = "asset-list"><strong>Complete Date</strong></th>
+								<th class = "asset-list"><strong>Punctuality</strong></th>
 								<th class = "asset-list"><strong>Result</strong></th>
+								<th class = "asset-list"><strong>Next Action</strong></th>
 								<th class = "asset-list"><strong>Assigned to</strong></th>
 							</tr>
 						</thead>';
@@ -59,6 +65,9 @@ foreach ($result as $results){
 			$nextAction = $results['next_action'];
 			$nextActionDescription = $results['next_action_description'];
 			$creationDate = $results['creation_date'];
+			
+			$completeDate = $results['complete_date'];
+			$completeDate = date("d/m/Y", strtotime($completeDate));
 	
 
 		$sql2 = "SELECT userid, first_name, last_name FROM users WHERE userid IN (SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
@@ -96,8 +105,12 @@ foreach ($result as $results){
 			if ($results['type'] == 'presentation'){
 				$icon = '<i class="fa fa-bar-chart"></i>';
 			}
-			if ($results['type'] == 'quotation'){
+			if ($results['type'] == 'deliver quote'){
 				$icon = '<i class="fa fa-tag"></i>';
+			}
+			if ($results['type'] == 'generate quote'){
+				$icon = '<i class="fa fa-print"></i>';
+				echo ' ';
 			}
 			if ($results['type'] == 'closing meeting'){
 				$icon = '<i class="fa fa-lock"></i>';
@@ -149,7 +162,37 @@ foreach ($result as $results){
 						</form></td>
 						<td class = "asset-list">'.$results['description'].'</td>
 						<td class = "asset-list">'.$newDate.'</td>
+						<td class = "asset-list">'.$completeDate.'</td>';
+						//THIS IS WHERE I IMPLEMENT THE Punctuality FEATURE
+								$doneDate = strtotime($results['complete_date']);
+								$dueDate = strtotime($results['due_date']);
+								$difference = $doneDate - $dueDate;
+								$days = floor($difference / (60*60*24) );
+								$class = '';
+								if($days < 0){
+									$days = $days * -1;
+									$word = 'day';
+									//to be grammatically correct
+									if($days > 1){
+										$word = 'days';
+									}
+									$message = $days.' '.$word.' early';
+									
+								}elseif($days == 0){
+									$message = 'On time';
+								}else{
+									$word = 'day';
+									//to be grammatically correct
+									if($days > 1){
+										$word = 'days';
+									}
+									$message = $days.' '.$word.' late';
+									$class = 'red';
+								}
+						
+						echo'<td class = "'.$class.'">'.$message.'</td>
 						<td class = "asset-list">'.ucwords($result).'</td>
+						<td class = "asset-list">'.ucwords($nextAction).'</td>
 						<td class = "asset-list">'.$employee.'</td>
 				</tr>';
 				//$i++;

@@ -33,6 +33,8 @@ if(isset($_POST['projectid'])){
 	$projectid = trim($projectid);
 	$filterprojectid = filter_var($projectid, FILTER_SANITIZE_STRING);
 	$cleanprojectid= mysqli_real_escape_string($con, $filterprojectid);
+	
+	$url = $url.'?projectid='.$projectid;
 }
 
 //activity type

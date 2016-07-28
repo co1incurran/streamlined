@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
 <?php
-
+//set global variable to false
+$global = false;
 
 $url = $_SERVER['REQUEST_URI'];
 $url = str_replace('&', '%26', $url);
@@ -26,7 +27,7 @@ $startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
 $endMonth = date('Y-m-t', strtotime($currentDate)).'<br>';
 $heading = 'Time';
 $heading2 = 'Due Date';
-$heading3 = 'Due Date';
+$heading3 = 'Days Open';
 $status = '';
 $columnName = 'Contact';
 
@@ -78,6 +79,16 @@ if($outbox == true){
 				
 				if($status == 'all'){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";
+				}elseif($status == 'global' && $admin == true){
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '0' ORDER BY creation_date DESC; ";
+					$global = true;
+				}elseif($status == 'globalcomplete' && $admin == true){
+					$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+					$global = true;
+					$heading = 'Result';
+					$heading2 = 'Completion Date';
+					$heading3 = 'Punctuality';
+					
 				}elseif($status == 'today'){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date = '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn'); ";
 				}elseif($status == 'tomorrow'){
@@ -89,7 +100,7 @@ if($outbox == true){
 				}elseif($status == 'overdue'){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 				}elseif($status == 'completed'){
-					$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date DESC; ";
+					$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY complete_date DESC; ";
 					$heading = 'Result';
 					$heading2 = 'Completion Date';
 					$heading3 = 'Punctuality';
@@ -150,14 +161,21 @@ while($row = mysqli_fetch_array($res)){
 <?php 
 	if(!isset($_POST['projectid'])){
 		echo'
-			<th class = "asset-list"><strong>'.$columnName.'</strong></th>
-			<th class = "asset-list"><strong>City</strong></th>
-			<th class = "asset-list"><strong>County</strong></th>';
-			if($outbox == true){
+			<th class = "asset-list"><strong>'.$columnName.'</strong></th>';
+			if($status != 'global' && $status != 'globalcomplete' ){
+				echo'
+				<th class = "asset-list"><strong>City/Town</strong></th>';
+			}
+				
+			
+			echo'
+			<th class = "asset-list"><strong>County</strong></th>
+			<th class = "asset-list"><strong>Creation date</strong></th>';
+			if($outbox == true || $global == true){
 			echo '<th class = "asset-list"><strong>Assigned to</strong></th>';
 			}
 			echo'
-			<th class = "asset-list"><strong>Creation date</strong></th>';
+			<th class = "asset-list"><strong>Created by</strong></th>';
 	}
 ?>	
 		</tr>
@@ -182,6 +200,16 @@ while($row = mysqli_fetch_array($res)){
 			$createdBy = $results['created_by'];
 			$new = $results['new'];
 			$completeDate = $results['complete_date'];
+			
+			$highlight = '';
+			$projectid = '';
+			//current date
+				$todayDate = new DateTime();
+				$todayDate = $todayDate->format('Y-m-d');
+			//to check what tasks are overdue and then highlight them in red by setting a class attribute on the row in the table
+			if(($todayDate > $dueDate) && $complete == '0'){
+				$highlight = 'red-row';
+			}
 			
 			//picking the date to show
 			if($status == 'completed'){
@@ -208,6 +236,7 @@ while($row = mysqli_fetch_array($res)){
 					$address_line4 = $row["address_line4"];
 					$address_line3 = $row["address_line3"];
 					$address_line2 = $row["address_line2"];
+					$county = ucwords($row['county']);
 				}elseif(mysqli_num_rows($res3) < 1 && !isset($_POST['projectid'])){
 					$project = true;
 					$sql4 = "SELECT projectid, planning_number, address4, county FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = '$activityid');";
@@ -220,6 +249,10 @@ while($row = mysqli_fetch_array($res)){
 				}else{
 					$row = mysqli_fetch_assoc($res3);
 					$customerid = $row["customerid"];
+					$address_line4 = $row["address_line4"];
+					$address_line3 = $row["address_line3"];
+					$address_line2 = $row["address_line2"];
+					$county = ucwords($row['county']);
 				}
 			}else{
 				$row = mysqli_fetch_assoc($res2);
@@ -227,6 +260,7 @@ while($row = mysqli_fetch_array($res)){
 				$address_line4 = $row["address_line4"];
 				$address_line3 = $row["address_line3"];
 				$address_line2 = $row["address_line2"];
+				$county = ucwords($row['county']);
 			}
 			
 				//to get the employee the task is assigned to
@@ -257,22 +291,24 @@ while($row = mysqli_fetch_array($res)){
 				<td></td>
 				<td></td>
 				<td></td>
+				<td></td>
+				<td></td>
 				</tr>';
 			}else{
 				
 			
 					
 					echo'
-					<tr>';
+					<tr class = '.$highlight.'>';
 						
 							if($outbox == false){
-								if($status != 'completed'){
+								if($status != 'completed' && $status != 'globalcomplete'){
 									if($results['type'] == 'prospecting'){
-										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
 									}elseif ($type == 'create job number'){
 										echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
 									}else{
-										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'" ><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'" ><i class="fa fa-square-o"></i></a></td>';
 									}
 								}else{
 									echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
@@ -362,7 +398,7 @@ while($row = mysqli_fetch_array($res)){
 							// this may change to make last days show in red
 							$class = '';
 							$message ='';
-							if($status == 'completed'){
+							if($status == 'completed' || ($status == 'globalcomplete' && $admin ==true)){
 							//THIS IS WHERE I IMPLEMENT THE Punctuality FEATURE
 								$doneDate = strtotime($results['complete_date']);
 								$dueDate = strtotime($results['due_date']);
@@ -392,6 +428,7 @@ while($row = mysqli_fetch_array($res)){
 						<td class = '.$class.'>';
 						echo $message;
 							}else{
+								echo '<td>';
 									$openDate = $results['creation_date'];
 									$openDate = strtotime($openDate);
 									
@@ -445,26 +482,55 @@ while($row = mysqli_fetch_array($res)){
 									}
 							
 								echo'
-								</a></td>
-								<td>'.$city.
-								'</td>
-								<td>'.ucwords($row['county']).'</td>';
-								if($outbox == true){
-									echo'<td>'.ucwords($employee).'</td>';
+								</a></td>';
+								if($status != 'global' && $status != 'globalcomplete' ){
+									echo'<td>';
+									//checks if it is for a company or private customer
+									if(isset ($address_line4)){
+										if($address_line4 != ''){
+											echo ucwords($address_line4);
+										}elseif ($address_line3 != ''){
+											echo ucwords($address_line3);
+										}else{
+											echo ucwords($address_line2);
+										}
+										echo '</td>
+										<td>'.ucwords($row['county']).'</td>';
+										
+										//if it is for a project
+									}else{
+										echo $city;
+									}
 								}
-								
 								
 							}elseif($project == true){
 								echo'<td>';
 								echo '<a href = "project_profile.php?projectid='.$projectid.'" class="name">
 								Project: '.$planningNumber.'
-								</a></td>
-								<td>'.$city.
-								'</td>
-								<td>'.$county.'</td>';
+								</a></td>';
+								if($status != 'global' && $status != 'globalcomplete' ){
+									echo'
+									<td>'.$city.
+									'</td>';
+									
+								}
 							}
+							if($project == true){
+								echo '<td>'.$county.'</td>';
+							}
+						
 							echo '<td>'.$creationDate.'</td>';
+							if($outbox == false &&($global ==true)&& ($project == false)){
+								echo '<td>'.$county.'</td>';
+							}
+							
+							//the employee it is assigned to
+							if($outbox == true || $global == true){
+									echo'<td>'.ucwords($employee).'</td>';
+									
+							}
 					echo'
+					<td>'.ucwords($results['created_by']).'</td>
 					</tr>';
 			}
 		}

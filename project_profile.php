@@ -145,12 +145,23 @@ $('#jobType').on('change',function(){
 							}else{
 								$projectid = $_GET['projectid'];
 							}
+							
+							
+							//this is for counting the number of todo tasks in the project
+							$sqlTodoCounter = "SELECT COUNT(*) FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid');";
+							$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+							$res5 = mysqli_query($con,$sqlTodoCounter);
+							$row = mysqli_fetch_row($res5);
+							$todoCounter = $row['0'];
+							if($todoCounter == 0){
+								$todoCounter = '';
+							}
 							echo'
 							<ul id = "icons">
 								<li><a class = "icons" href ="project_profile.php?projectid='.$projectid.'"><i class="fa fa-eye"></i> Overview </a></li>
 								<li><a class = "icons" href ="project_profile.php?projectid='.$projectid.'&page=contacts"><i class="fa fa-book"></i> Contacts </a></li>
 								<li><a class = "icons" href = "project_profile.php?projectid='.$projectid.'&page=taskhistory"><i class="fa fa-area-chart"></i> Task History </a></li>
-								<li><a class = "icons" href = "project_profile.php?projectid='.$projectid.'&page=todo"><i class="fa fa-list-alt" aria-hidden="true"></i> To do </a></li>';
+								<li><a class = "icons" href = "project_profile.php?projectid='.$projectid.'&page=todo"><i id="outbox-counter">'.$todoCounter.' '.'</i><i class="fa fa-list-alt" aria-hidden="true"></i> To do </a></li>';
 								if($companyid != 0){
 											echo '<li><a id="add_contact" class = "icons" href="add_contact.php?url='.$url.'&customerid='.$customerid.'&companyid='
 											.$companyid.'"><i class="fa fa-users"></i> Add Contact </a></li>';
@@ -203,8 +214,24 @@ $('#jobType').on('change',function(){
 														<div class="container-fluid no-padding">
 															<div class="col-md-7 no-padding">
 																<div class="main-content panel panel-default no-margin">
-																	<header class="panel-heading clearfix">
+																	<header class="panel-heading clearfix">';
+																	
+																	if(isset ($_GET['page'])){
+																		$page = $_GET['page'];
+																		if($page == 'contacts'){
+																			echo'
+																			<div class="btn-group pull-right">';
+																			
+																				$url = $_SERVER['REQUEST_URI'];
+																				$url = str_replace('&', '%26', $url);
+																				echo'
+																				<a href="add_a_contact_to_project.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>
+																			
 
+																			</div>';
+																		}
+																	}
+																		echo'
 																		 <span class="avatar"></span>
 																		 <hgroup>';
 																			/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
