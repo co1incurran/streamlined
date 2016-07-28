@@ -5,10 +5,14 @@
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 //this is for deciding to show ongoing or closed projects
-if($type == 'ongoing'){
-	$sql = "SELECT * FROM projects WHERE closed = '0'; ";
+if(isset($_GET['type'])){
+	if($type == 'ongoing'){
+		$sql = "SELECT * FROM projects WHERE closed = '0'; ";
+	}else{
+		$sql = "SELECT * FROM projects WHERE closed = '1'; ";
+	}
 }else{
-	$sql = "SELECT * FROM projects WHERE closed = '1'; ";
+		$sql = "SELECT * FROM projects WHERE closed = '0'; ";
 }
 
 $res = mysqli_query($con,$sql);
@@ -16,7 +20,6 @@ $res = mysqli_query($con,$sql);
 $result = array();
 
 
- 
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
 		array('projectid'=>$row[0],

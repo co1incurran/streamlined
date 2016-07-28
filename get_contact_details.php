@@ -133,7 +133,7 @@ echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Contact details</title>
+	<title>Choose contact</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -144,57 +144,42 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="save_new_private_customer.php" id="form" method="post" name="form">
+				<form action="add_contact_to_project.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Contact details</h2>
+					<h2>Choose contact</h2>
 					<hr>
 						<input type="hidden" name="url" id="url" value="'.$url.'">
 					
-				<div id="users">
-		  <input class="search" placeholder="Search" />
-		<!--<button class="sort" data-sort="name">
-			Sort by name
-		  </button>-->
+						<div id="users">
+						  <input id = "searchbox" class="search" placeholder="Search" />
+							<!--<button class="sort" data-sort="name">
+							Sort by name
+						  </button>-->
 
-		  <ul id="search-list" class="list">';
-		  foreach($bigArray as $bigA){
-			echo'
-			<li>
-				<p id="'.$bigA['id'].'" class="name '.$bigA['type'].'">'.ucwords($bigA['name']).'</p>
-			</li>';
-		  }
-		  echo'
-		  <!--
-			<li>
-			  <h3 class="name">Jonny Stromberg</h3>
-			  <p class="born">1986</p>
-			</li>
-			<li>
-			  <h3 class="name">Jonas Arnklint</h3>
-			  <p class="born">1985</p>
-			</li>
-			<li>
-			  <h3 class="name">Martina Elm</h3>
-			  <p class="born">1986</p>
-			</li>
-			<li>
-			  <h3 class="name">Gustaf Lindqvist</h3>
-			  <p class="born">1983</p>
-			</li>-->
-			
-		  </ul>
+						  <ul id="search-list" class="list">';
+						  foreach($bigArray as $bigA){
+							$type = $bigArray['type'];
+							$id = $bigArray['id'];
+							echo'
+							<li>
+								<label><input type = "radio" id="radio-button" name = "choose-contact" value="'.$type.'_'.$id.'"><p class = "name">'.ucwords($bigA['name']).'</p><hr></label>
+							</li>';
+						  }
+						  echo'
+						  
+						  </ul>
 
-		</div>
+						</div>
 						
-						<input type="submit" id="submit" value="Next">
-						<a onclick="goBack()" id="submit">Cancel</a>
+						<input type="submit" id="submit" value="Add Contact">
+						<a onclick="goBack()" id="submit">Back</a>
 				</form>						
 						
 			</div>
 		<!-- Popup Div Ends Here -->
 		</div>
 	</div>
-	<script src="http://listjs.com/no-cdn/list.js"></script>
+	<script src="js/list.js"></script>
 	</body>
 	<script type="text/javascript">
 	window.onload = div_show();
@@ -210,4 +195,5 @@ var userList = new List("users", options);
 </script>';
 	
 }
+mysqli_close($con);
 ?>
