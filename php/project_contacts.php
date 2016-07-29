@@ -1,17 +1,6 @@
 <?php
 
-$sql = "SELECT companyid, name FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid');" ;
-//echo $sql;
-$res = mysqli_query($con,$sql);
-//$row = mysqli_fetch_assoc($res);
-$result = array();
 
-while($row = mysqli_fetch_array($res)){
-	array_push($result,
-		array('companyid'=>$row[0],
-		'name'=>$row[1]
-	));
-}
 
 //print_r (array_values($result));
 
@@ -31,12 +20,8 @@ while($row = mysqli_fetch_array($res)){
 					<td class = "asset-list"><strong>Employer</strong></td>
 					</thead>
 					<tbody>';
-					
-foreach ($result as $results){
-	$companyid = $results['companyid'];
-	$company = ucwords($results['name']);
 
-	$sql2 = "SELECT * FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
+	$sql2 = "SELECT * FROM `workers` WHERE workerid IN (SELECT workerid FROM worker_to_project WHERE projectid = '$projectid'); ";
 //echo $sql2;
 	$res2 = mysqli_query($con,$sql2);
 	$result2 = array();
@@ -63,19 +48,24 @@ foreach ($result as $results){
 	$url = str_replace('&', '%26', $url);
 	
 	
-
+	$i = 1;
 	foreach ($result2 as $results2){
-						 //menu for the business card
-						 
-						
-					$i = 1;
+		$workerid = $results2['workerid'];
+		$sql3 = "SELECT companyid, name FROM company WHERE companyid IN (SELECT companyid FROM works_with WHERE workerid = '$workerid'); ";
+
+		$res3 = mysqli_query($con,$sql3);
+		$row = mysqli_fetch_assoc($res3);
+		
+		$cid = $row['companyid'];
+		$cname = $row['name'];
+
+		
 		if (1 != $i % 2){
 			$rowClass = 'blue-row';
 		}else{
 			$rowClass = 'white-row';
 		} 
-		/*<!--<td class = "asset-list"><a id="edit" href="edit_company_contact.php?url='.$url.'&worker_number='.$results3['workerid'].'&firstname='
-.$results3['first_name'].'&lastname='.$results3['last_name'].'&email='.$results3['email'].'&phonenumber='.$results3['phone_num'].'&mobilenumber='.$results3['mobile_phone_num'].'&fax='.$results3['fax'].'&jobtitle='.$results3['job_title'].'&lastcontacted='.$results3['last_contacted'].'"><i class="fa fa-gear"></i></a></td>-->*/
+
 
 		echo '<tr class = "' .$rowClass. '">
 					<td class = "asset-list"><a id="edit" href="edit_company_contact.php?url='.$url.'&worker_number='.$results2['workerid'].'&firstname='
@@ -86,14 +76,51 @@ foreach ($result as $results){
 					<td class = "asset-list">'.$results2['mobile_phone_num'].'</td>
 					<td class = "asset-list">'.$results2['email'].'</td>
 					<td class = "asset-list">'.$results2['fax'].'</td>
-					<td class = "asset-list"><a href="profile.php?customerid=0&companyid='.$companyid.'" class = "name">'.$company.'</a></td>
+					<td class = "asset-list"><a href="profile.php?customerid=0&companyid='.$cid.'" class = "name">'.ucwords($cname).'</a></td>
 			</tr>';
 			
 			$i++;
 
 		
-		}
 	}
+	$sql = "SELECT companyid, name FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid') AND companyid NOT IN (SELECT companyid FROM works_with WHERE workerid IN (SELECT workerid FROM worker_to_project WHERE projectid = '$projectid') );";
+	
+	//echo $sql;
+	$res = mysqli_query($con,$sql);
+	//$row = mysqli_fetch_assoc($res);
+	$result = array();
+
+	while($row = mysqli_fetch_array($res)){
+		array_push($result,
+			array('companyid'=>$row[0],
+			'name'=>$row[1]
+		));
+	}
+	foreach($result as $r){
+		$companyid = $r['companyid'];
+		$company = ucwords($r['name']);
+		
+		if (1 != $i % 2){
+			$rowClass = 'blue-row';
+		}else{
+			$rowClass = 'white-row';
+		} 
+		
+		echo '<tr class = "' .$rowClass. '">
+					<td class = "asset-list"></td>
+					<td class = "asset-list">No Personal Details</td>
+					<td class = "asset-list"></td>
+					<td class = "asset-list"></td>
+					<td class = "asset-list"></td>
+					<td class = "asset-list"></td>
+					<td class = "asset-list"></td>
+					<td class = "asset-list"><a href="profile.php?customerid=0&companyid='.$companyid.'" class = "name">'.$company.'</a></td>
+			</tr>';
+			
+			$i++;
+	}
+	
+
 	echo '</tbody>
 		</table>';
 ?>

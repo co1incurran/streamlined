@@ -7,6 +7,7 @@ define("DB_DATABASE", "database");
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 $url = $_POST['url'];
+$projectid = $_POST['projectid'];
 
 if ($_POST['action'] == 'New Contact') {
     //ask them to fill out the details here
@@ -144,11 +145,12 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="add_contact_to_project.php" id="form" method="post" name="form">
+				<form action="save_contact_to_project.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Choose contact</h2>
 					<hr>
 						<input type="hidden" name="url" id="url" value="'.$url.'">
+						<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
 					
 						<div id="users">
 						  <input id = "searchbox" class="search" placeholder="Search" />
@@ -158,8 +160,8 @@ echo'
 
 						  <ul id="search-list" class="list">';
 						  foreach($bigArray as $bigA){
-							$type = $bigArray['type'];
-							$id = $bigArray['id'];
+							$type = $bigA['type'];
+							$id = $bigA['id'];
 							echo'
 							<li>
 								<label><input type = "radio" id="radio-button" name = "choose-contact" value="'.$type.'_'.$id.'"><p class = "name">'.ucwords($bigA['name']).'</p><hr></label>

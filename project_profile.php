@@ -225,7 +225,7 @@ $('#jobType').on('change',function(){
 																				$url = $_SERVER['REQUEST_URI'];
 																				$url = str_replace('&', '%26', $url);
 																				echo'
-																				<a href="add_a_contact_to_project.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>
+																				<a href="add_a_contact_to_project.php?url='.$url.'&projectid='.$projectid.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>
 																			
 
 																			</div>';
@@ -280,7 +280,7 @@ $('#jobType').on('change',function(){
 																					));
 																				}
 																				
-																				echo '<h4><strong>Contractor: </strong>';
+																				/*echo '<h4><strong>Contractor: </strong>';
 																				//this ensures a comma is printe between contractors if there more than 1
 																				$q=1;
 																				foreach ($resultName as $resName){
@@ -290,7 +290,7 @@ $('#jobType').on('change',function(){
 																					}
 																					echo $company;
 																					
-																				}
+																				}*/
 																				echo '</h4>
 																				<h4><strong>Regarding: </strong>'.$results['regarding'].'</h4>
 																	</hgroup>

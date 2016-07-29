@@ -1,5 +1,7 @@
 <?php
 $url= $_GET['url'];
+$projectid = $_GET['projectid'];
+
 echo'
 <!DOCTYPE html>
 <html>
@@ -20,6 +22,7 @@ echo'
 					<h2>Add a contact</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
+					<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
 					
 					<input type="submit" name="action" id="submit" value="New Contact">
 					<input type="submit" name="action" id="submit" value="Choose Existing">
