@@ -10,17 +10,60 @@ $url = $_POST['url'];
 $projectid = $_POST['projectid'];
 
 if ($_POST['action'] == 'New Contact') {
-    //ask them to fill out the details here
-	//what is if is a new contact and the company they work for already exists?
-	//should ask them if it is a new compnay or contact
-	//get the company info first then the individual info
-	//look
-	
-	
-	
-	
-	
-	
+	echo'
+	<!DOCTYPE html>
+	<html>
+		<head>
+		<title>Contact details</title>
+		<link href="css/elements.css" rel="stylesheet">
+		<script src="js/popup.js"></script>
+		</head>
+	<!-- Body Starts Here -->
+		<body>
+		<div id="body" style="overflow:hidden;">
+			<div id="abc">
+			<!-- Popup Div Starts Here -->
+				<div id="popupContact">						
+					<form action="is_company_in_database.php" id="form" method="post" name="form">
+						<h2>Contact Details</h2>
+						<hr>
+						<input type="hidden" name="url" id="url" value="'.$url.'">
+						<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
+
+						<label for="firstname"><small>First Name</small></label>
+						<input id="firstname" name="firstname" placeholder = "First Name" type="text" required maxlength = "20">
+						
+						<label for="lastname"><small>Last Name</small></label>
+						<input id="lastname" name="lastname" placeholder = "Last Name" type="text" required maxlength = "30">
+						
+						<label for="email"><small>Email</small></label>
+						<input id="email" name="email" placeholder = "Email" type="email" maxlenght = "50">
+						
+						<label for="phone"><small>Phone Number</small></label>
+						<input id="phone" name="phone" placeholder = "Phone Number" type="number" maxlength = "15">
+						
+						<label for="mobile"><small>Mobile Number</small></label>
+						<input id="mobile" name="mobile" placeholder = "Mobile Number" type="number" maxlength = "15">
+						
+						<label for="fax"><small>Fax</small></label>
+						<input id="fax" name="fax" placeholder = "Fax" type="number" maxlength = "15">
+						
+						<label for="jobtitle"><small>Job title</small></label>
+						<input id="jobtitle" name="jobtitle" placeholder = "Job Title" type="text" required maxlength = "20">
+						
+						<input type="submit" id="submit" value="Next">
+						<a onclick="goBack()" id="submit">Back</a>
+					</form>
+				</div>
+			<!-- Popup Div Ends Here -->
+			</div>
+		</div>
+		</body>
+		<script type="text/javascript">
+		window.onload = div_show();
+		</script>
+	<!-- Body Ends Here -->
+	</html>';
 	
 } else if ($_POST['action'] == 'Choose Existing') {
 //get all the company names
@@ -164,7 +207,7 @@ echo'
 							$id = $bigA['id'];
 							echo'
 							<li>
-								<label><input type = "radio" id="radio-button" name = "choose-contact" value="'.$type.'_'.$id.'"><p class = "name">'.ucwords($bigA['name']).'</p><hr></label>
+								<label><input type = "radio" id="radio-button" name = "choose-contact" value="'.$type.'_'.$id.'" required><p class = "name">'.ucwords($bigA['name']).'</p><hr></label>
 							</li>';
 						  }
 						  echo'

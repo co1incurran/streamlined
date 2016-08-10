@@ -118,7 +118,7 @@ $('#jobType').on('change',function(){
             <div class="container">
                 <div class="row">
                     
-    
+   
                     <!-- Main Section -->
 					<?php
 							if(isset($_GET['customerid'])) {
