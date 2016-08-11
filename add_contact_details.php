@@ -75,7 +75,7 @@ echo'
 							<input type="hidden" name="contactType" id="contactType" value="'.$contactType.'">
 						
 							<label for="companyname"><small>Company Name</small></label>
-							<input id="companyname" name="companyname" type="text" required maxlength = "70">
+							<input id="companyname" name="companyname" type="text" placeholder = "Company Name" required maxlength = "70">
 							
 							<label for="address1"><small>Address</small></label>
 							<input id="address1" name="address1" type="text" placeholder="Address line 1" required maxlenght = "45">

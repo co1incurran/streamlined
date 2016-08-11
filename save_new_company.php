@@ -156,6 +156,11 @@ if (mysqli_num_rows($result) == 0){
 	$res5 = mysqli_query($con,$sql5);
 	//echo $sql5;
 	
+	if(isset($_POST['projectid'])){
+		$projectid = $_POST['projectid'];
+		$sql6 = "INSERT INTO worker_to_project (workerid, projectid) VALUES ('$workerid', '$projectid'); ";
+		$res6 = mysqli_query($con,$sql6);
+	}
 	echo'
 	<!DOCTYPE html>
 	<html>
