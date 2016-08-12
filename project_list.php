@@ -39,7 +39,7 @@ while($row = mysqli_fetch_array($res)){
 //print_r (array_values($result));
 
 //Puts all the customer names in a table
-//echo '<section class="panel-body">';
+//echo '<section class="panel-body">'; this is where i type 
 ?>	 
 
 	

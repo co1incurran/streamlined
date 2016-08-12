@@ -38,7 +38,7 @@ while($row = mysqli_fetch_array($res)){
 </tbody> 
     </table> 
 	
-	<table id="companyNames" class="tablesorter">
+	<table id="companyNames" class="tablesorter filterable">
 		<thead>
 			<tr class = "blue-row">				
 				<!--<th class = "asset-list"></th>-->
