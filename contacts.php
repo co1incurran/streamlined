@@ -138,28 +138,32 @@ if(isset($_GET['filter'])){
 												if(isset($_GET['filter'])){
 													if(isset($_GET['contact'])){
 														$link = substr($url, 0, strrpos($url, "&filter"));
-														echo $link.'1';
+														//echo $link.'1';
 													}else{
 														$link = substr($url, 0, strrpos($url, "?filter"));
-														echo $link.'2';
+														//echo $link.'2';
 													}
 													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 												}else{
 													if(isset($_GET['contact'])){
 														if(isset ($_GET['filter'])){
 															$link = substr($url, 0, strrpos($url, "&filter"));
+														
+															//echo $link.'3'.$url;
+															echo'
+															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														}else{
+															echo'
+															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 														}
-														echo $link.'3'.$url;
-														echo'
-														<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 													}else{
 														$link = substr($url, 0, strrpos($url, "?filter"));
-														echo $link.'4';
+														//echo $link.'4';
 														echo'
 														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 													}
 												}
-												echo $url;
+												//echo $url;
 												?>
                                             </div>
 											

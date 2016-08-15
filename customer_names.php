@@ -35,7 +35,7 @@ while($row = mysqli_fetch_array($res)){
 
 	
 <!-- ... -->
-<table id="privateCustomers" class="tablesorter" align="center">
+<table id="privateCustomers" class="tablesorter filterable" align="center">
 	<thead>
 		<tr class = "blue-row">
 

@@ -85,7 +85,7 @@ while($row = mysqli_fetch_array($res)){
 
 	
 <!-- ... -->
-<table id="jobList" class="tablesorter" align="center">
+<table id="jobList" class="tablesorter filterable" align="center">
 	<thead>
 		<tr class = "blue-row">
 			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>

@@ -145,7 +145,7 @@ while($row = mysqli_fetch_array($res)){
 
 	
 <!-- ... -->
-<table id="activityList" class="tablesorter" align="center">
+<table id="activityList" class="tablesorter filterable" align="center">
 	<thead>
 		<tr class = "blue-row">
 		<?php 
@@ -286,6 +286,7 @@ while($row = mysqli_fetch_array($res)){
 					</div>
 				</td>
 				<td>'.$description.'</td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>

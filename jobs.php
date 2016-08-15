@@ -10,8 +10,17 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
-<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
+<!--<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>-->
 <!--<script type="text/javascript" src="table_filter/ddtf.js"></script>-->
+<?php
+if(isset($_GET['filter'])){
+	echo'
+	<script type="text/javascript" language="javascript" src="TableFilter/tablefilter.js"></script>';
+}else{
+	echo'
+	<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>';
+}
+?>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -106,35 +115,6 @@
             <div class="container">
                 <div class="row">
 
-                    <!-- Sidebar 
-    
-                    <aside class="col-md-3 no-padding">
-    
-                        <nav class="global">
-                            <ul class="nav nav-pills nav-stacked">
-                              <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
-                                <li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li ><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li class="active"><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
-                            </ul>
-                        </nav>
-    
-                        <nav class="subnav">
-                            <h4>Activities</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
-                                <li><a href="empty">Sales</a></li>
-                                <li><a href="empty">Jobs</a></li>
-                                
-                            </ul>
-                        </nav>
-                    </aside>
-
-                    Sidebar End -->
-                    
-    
                     <!-- Main Section -->
     
                     <section class="col-md-9 no-padding">
@@ -147,6 +127,41 @@
 
                                             <div class="btn-group pull-right">
                                                 <a href="calendar.html" class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar"><i class="fa fa-calendar"></i></a></li>
+                                            </div>
+											<div class="btn-group pull-right" id="filter-button">
+												<?php
+												$url = $_SERVER['REQUEST_URI'];
+												//$url = str_replace('&', '%26', $url);
+												if(isset($_GET['filter'])){
+													if(isset($_GET['status'])){
+														$link = substr($url, 0, strrpos($url, "&filter"));
+														//echo $link.'1';
+													}else{
+														$link = substr($url, 0, strrpos($url, "?filter"));
+														//echo $link.'2';
+													}
+													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+												}else{
+													if(isset($_GET['status'])){
+														if(isset ($_GET['filter'])){
+															$link = substr($url, 0, strrpos($url, "&filter"));
+														
+															//echo $link.'3'.$url;
+															echo'
+															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														}else{
+															echo'
+															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														}
+													}else{
+														$link = substr($url, 0, strrpos($url, "?filter"));
+														//echo $link.'4';
+														echo'
+														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+													}
+												}
+												//echo $url;
+												?>
                                             </div>
                                             <div class="view-switcher">
 											<?php

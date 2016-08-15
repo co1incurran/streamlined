@@ -47,7 +47,7 @@ while($row = mysqli_fetch_array($res)){
 </tbody> 
     </table> 
 	
-	<table id="table1" cellspacing="0" class="mytable filterable">
+	<table id="table1" cellspacing="0" class="tablesorter mytable filterable">
 		<thead>
 			<tr class = "blue-row">				
 				<!--<th class = "asset-list"></th>-->

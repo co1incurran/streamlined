@@ -10,9 +10,17 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
-<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
+<!--<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>-->
 <!--<script type="text/javascript" src="table_filter/ddtf.js"></script>-->
-<script type="text/javascript" language="javascript" src="TableFilter/tablefilter.js"></script>
+<?php
+if(isset($_GET['filter'])){
+	echo'
+	<script type="text/javascript" language="javascript" src="TableFilter/tablefilter.js"></script>';
+}else{
+	echo'
+	<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>';
+}
+?>
 
 <script>$('#activityList').ddTableFilter();</script>
 
@@ -125,6 +133,41 @@
 
                                             <div class="btn-group pull-right">
                                                 <a href="calendar.html" class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar"><i class="fa fa-calendar"></i></a></li>
+                                            </div>
+											<div class="btn-group pull-right" id="filter-button">
+												<?php
+												$url = $_SERVER['REQUEST_URI'];
+												//$url = str_replace('&', '%26', $url);
+												if(isset($_GET['filter'])){
+													if(isset($_GET['status'])){
+														$link = substr($url, 0, strrpos($url, "&filter"));
+														//echo $link.'1';
+													}else{
+														$link = substr($url, 0, strrpos($url, "?filter"));
+														//echo $link.'2';
+													}
+													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+												}else{
+													if(isset($_GET['status'])){
+														if(isset ($_GET['filter'])){
+															$link = substr($url, 0, strrpos($url, "&filter"));
+														
+															//echo $link.'3'.$url;
+															echo'
+															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														}else{
+															echo'
+															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														}
+													}else{
+														$link = substr($url, 0, strrpos($url, "?filter"));
+														//echo $link.'4';
+														echo'
+														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+													}
+												}
+												//echo $url;
+												?>
                                             </div>
                                             <div class="view-switcher">
 											<?php
