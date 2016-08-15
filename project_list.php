@@ -67,6 +67,7 @@ while($row = mysqli_fetch_array($res)){
 	$i=1;
 		foreach ($result as $results){
 			$projectid = $results['projectid'];
+			$closed = $results['closed'];
 			
 			
 			if (1 != $i % 2){
@@ -92,14 +93,21 @@ while($row = mysqli_fetch_array($res)){
 			
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
+			<?php
+					if($closed != '1'){
+							echo'<td id= "complete-button"><a href="close_project.php?url='.$url.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
+					}else{
+						echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&projectid='.$projectid.'"><i class="fa fa-check-square-o"></i></a></td>';
+					}
+					?>
 				
 				<?php
 					//this is where i will put the check box to mark the project done
-					if($closed == 0){
+					/*if($closed == 0){
 							echo'<td id= "complete-button"><i class="fa fa-square-o"></i></a></td>';
 					}else{
 						echo'<td id= "complete-button"><i class="fa fa-check-square-o"></i></a></td>';
-					}
+					}*/
 				?>
 				
 			

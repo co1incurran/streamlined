@@ -117,7 +117,7 @@ if ($_POST['action'] == 'Choose Existing') {
 					<div id="abc">
 					<!-- Popup Div Starts Here -->
 						<div id="popupContact">						
-							<form action="" id="form" method="post" name="form">
+							<form action="add_worker_tocompanyandproject.php" id="form" method="post" name="form">
 								<h2>What company does this contact work for?</h2>
 								<hr>
 								<input type="hidden" name="url" id="url" value="'.$url.'">
