@@ -8,18 +8,55 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //Back URL
 $url= $_POST["url"];
 
+//this is for making the project into a customer
+if(isset($_POST['projectid'])){
+	//PROJECTID
+	$projectid = $_POST["projectid"];
+	$projectid = trim($projectid);
+	$filterprojectid = filter_var($projectid, FILTER_VALIDATE_INT);
+	$cleanprojectid = mysqli_real_escape_string($con, $filterprojectid);
+	//echo $cleanprojectid.'<br>';
+	
+	$sql10 = "SELECT * FROM projects WHERE projectid = '$cleanprojectid';";
+	$res10 = mysqli_query($con,$sql10);
+	$row10  = mysqli_fetch_assoc($res10);
+	$planningNumber = $row10['planning_number'];
+	$address1 = $row10['address1'];
+	$address2 = $row10['address2'];
+	$address3 = $row10['address3'];
+	$address4 = $row10['address4'];
+	$county = $row10['county'];
+	$country = $row10['country'];
+
+	
+	$sql11 = "INSERT INTO company (name, address_line1, address_line2, address_line3, address_line4, county, country, project, projectid) VALUES ('$planningNumber', '$address1', '$address2', '$address3', '$address4', '$county', '$country', '1', '$cleanprojectid')";
+	echo $sql11;
+	$res11 = mysqli_query($con,$sql11);
+	
+	$sql12 = "SELECT companyid FROM company ORDER BY companyid DESC LIMIT 1; ";
+	//echo $sql12;
+	$res12 = mysqli_query($con,$sql12);
+	$row12= mysqli_fetch_assoc($res12);
+	$cleancompanyid = $row12["customerid"];
+}
+
 //COMPANYID
-$companyid = $_POST["companyid"];
-$companyid = trim($companyid);
-$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
-$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
-//echo $cleancompanyid.'<br>';
+if(isset($_POST['companyid'])){
+	$companyid = $_POST["companyid"];
+	$companyid = trim($companyid);
+	$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
+	$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
+	//echo $cleancompanyid.'<br>';
+}
+
 //CUSTOMERID
-$customerid = $_POST["customerid"];
-$customerid = trim($customerid);
-$filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
-$cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
-//echo $cleancustomerid.'<br>';
+if(isset($_POST['customerid'])){
+	$customerid = $_POST["customerid"];
+	$customerid = trim($customerid);
+	$filtercustomerid = filter_var($customerid, FILTER_SANITIZE_STRING);
+	$cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
+	//echo $cleancustomerid.'<br>';
+}
 
 //DUE DATE
 $date = $_POST["date"];
@@ -106,11 +143,11 @@ if (mysqli_num_rows($result) > 0) {
         $jobid = $row["jobid"];
     }
 } 
-if($customerid != 0){
+if(isset($_POST['customerid']) && $customerid != 0){
 	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$customerid'); ";
 	//echo $customerid;
 	//echo '<br>'. $jobid;
-}else{
+}elseif(isset($_POST['companyid']) && $companyid != 0){
 	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$companyid', '$jobid'); ";
 	//echo $companyid;
 	//echo '<br>'. $jobid;

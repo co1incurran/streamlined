@@ -7,8 +7,12 @@ define("DB_DATABASE", "database");
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 $url= $_GET['url'];
-$customerid= $_GET['customerid'];
-$companyid= $_GET['companyid'];
+if(isset($_GET['customerid'])){
+	$customerid= $_GET['customerid'];
+}
+if(isset($_GET['customerid'])){
+	$companyid= $_GET['companyid'];
+}
 if (isset($_GET['task'])){
 	$task = true;
 	$activityid = $_GET['activityid'];
@@ -26,7 +30,7 @@ echo'
 <html>
 	<head>
 	<title>Add job</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -45,9 +49,18 @@ echo'
 						echo'<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">';
 					}
 					echo'
-					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
-					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
+					<input type="hidden" name="url" id="url" value="'.$url.'">';
+					if(isset($_GET['customerid'])){
+						echo'<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">';
+					}
+					
+					if(isset($_GET['companyid'])){
+						echo'<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
+					}
+					if(isset($_GET['projectid'])){
+						echo'<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">';
+					}
+					echo'
 					<label for="date"><small>Due date</small></label>
 					<input id="date" name="date" type="date" required>
 					
