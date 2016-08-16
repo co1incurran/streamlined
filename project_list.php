@@ -97,7 +97,7 @@ while($row = mysqli_fetch_array($res)){
 					if($closed != '1'){
 							echo'<td id= "complete-button"><a href="close_project.php?url='.$url.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
 					}else{
-						echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&projectid='.$projectid.'"><i class="fa fa-check-square-o"></i></a></td>';
+						echo'<td id= "complete-button"><a href="reopen_project.php?url='.$url.'&projectid='.$projectid.'"><i class="fa fa-check-square-o"></i></a></td>';
 					}
 					?>
 				

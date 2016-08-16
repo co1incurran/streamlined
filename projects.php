@@ -130,7 +130,7 @@ if(isset($_GET['filter'])){
                                             <div class="btn-group pull-right">
 											<?php
 												$url = $_SERVER['REQUEST_URI'];
-												$url = str_replace('&', '%26', $url);
+
 												echo'
 												<a href="add_project.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Project</strong></a>';
 											?>
@@ -139,7 +139,7 @@ if(isset($_GET['filter'])){
 												<?php
 												
 												if(isset($_GET['filter'])){
-													if(isset($_GET['contact'])){
+													if(isset($_GET['type'])){
 														$link = substr($url, 0, strrpos($url, "&filter"));
 														//echo $link.'1';
 													}else{
@@ -148,13 +148,13 @@ if(isset($_GET['filter'])){
 													}
 													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 												}else{
-													if(isset($_GET['contact'])){
+													if(isset($_GET['type'])){
 														if(isset ($_GET['filter'])){
 															$link = substr($url, 0, strrpos($url, "&filter"));
 														
 															//echo $link.'3'.$url;
 															echo'
-															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+															<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 														}else{
 															echo'
 															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';

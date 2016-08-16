@@ -77,31 +77,31 @@ if (mysqli_num_rows($result) == 0){
 
 	$sql = "INSERT INTO workers (first_name, last_name, phone_num, mobile_phone_num, email, fax, job_title) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanJobTitle'); ";
 
-	//$res = mysqli_query($con,$sql);
-	//echo $sql.'<br>';
+	$res = mysqli_query($con,$sql);
+	echo $sql.'<br>';
 	
 	$sql4 = "SELECT workerid FROM workers ORDER BY workerid DESC LIMIT 1; ";
 	$res4 = mysqli_query($con,$sql4);
 	$row = mysqli_fetch_assoc($res4);
 	$workerid = $row["workerid"];
-	echo $workerid.'<br>';
+	//echo $workerid.'<br>';
 
 	$sql2 = "INSERT INTO works_with (workerid, companyid) VALUES ('$workerid','$cleancompanyid'); ";
-	//$res2 = mysqli_query($con,$sql2);
-	$row = mysqli_fetch_assoc($res2);
-	$companyid = $row["companyid"];
-	echo $companyid.'<br>';
+	$res2 = mysqli_query($con,$sql2);
+	//$row = mysqli_fetch_assoc($res2);
+	//$companyid = $row["companyid"];
+	echo $sql2.'<br>';
 
 	$sql3 = "INSERT INTO worker_to_project (workerid, projectid) VALUES ('$workerid', '$cleanprojectid');";
 	$res3 = mysqli_query($con,$sql3);
-	//echo $sql3.'<br>';
+	echo $sql3.'<br>';
 
 	echo'
 	<!DOCTYPE html>
 	<html>
 		<head>
 		<title>Contact Created</title>
-		<link href=".css/elements.css" rel="stylesheet">
+		<link href="css/elements.css" rel="stylesheet">
 		<script src="js/popup.js"></script>
 		</head>
 	<!-- Body Starts Here -->

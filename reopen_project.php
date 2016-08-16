@@ -19,16 +19,13 @@ echo'
 			<!-- Contact Us Form -->
 				<form action="process_closed_projects.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Close Project</h2>
+					<h2>Are you sure you want to reopen this project?</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">
-															
-					<label for="numberOfAssets">Did we win the project?</label><br>
-					
-					<input type="submit" id="submit" name="action" value="Yes">
-					<input type="submit" id="submit" name="action" value="No">
-					<a onclick="goBack()" id="submit">Cancel</a>
+				
+					<input type="submit" id="submit" name="reopen" value="Yes">
+					<a onclick="goBack()" id="submit">No</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->
