@@ -178,6 +178,8 @@ if(isset($_GET['filter'])){
 														$setter = 'Leads';
 													}elseif($contact == 'privatecustomer'){
 														$setter = 'Private Customers';
+													}elseif($contact == 'projects'){
+														$setter = 'Projects';
 													}
 													else{
 														$setter= 'Companies';
@@ -192,6 +194,7 @@ if(isset($_GET['filter'])){
                                                     <li><a href="contacts.php?contact=companies">Companies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 													<li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
 													<li><a href="contacts.php?contact=lead">Leads </a></li>
+													<li><a href="contacts.php?contact=projects">Projects </a></li>
                                                     
                                                 </ul>
                                             </div>
@@ -213,7 +216,11 @@ if(isset($_GET['filter'])){
 													}elseif ($contact == 'companies'){
 														//echo 'company names';
 														require_once 'company_list.php';
-													}else{
+													}elseif ($contact == 'projects'){
+														//echo 'company names';
+														require_once 'project_customers.php';
+													}
+													else{
 														require_once 'company_list.php';
 													}
 												}else{

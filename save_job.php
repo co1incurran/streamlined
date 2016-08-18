@@ -37,7 +37,7 @@ if(isset($_POST['projectid'])){
 	//echo $sql12;
 	$res12 = mysqli_query($con,$sql12);
 	$row12= mysqli_fetch_assoc($res12);
-	$cleancompanyid = $row12["customerid"];
+	$cleancompanyid = $row12["companyid"];
 }
 
 //COMPANYID
@@ -144,14 +144,17 @@ if (mysqli_num_rows($result) > 0) {
     }
 } 
 if(isset($_POST['customerid']) && $customerid != 0){
-	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$customerid'); ";
+	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$cleancustomerid'); ";
 	//echo $customerid;
 	//echo '<br>'. $jobid;
-}elseif(isset($_POST['companyid']) && $companyid != 0){
-	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$companyid', '$jobid'); ";
+}elseif((isset($_POST['companyid']) && $companyid != 0) || isset($_POST['projectid'])){
+	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$cleancompanyid', '$jobid'); ";
 	//echo $companyid;
 	//echo '<br>'. $jobid;
 }
+echo $companyid;
+echo $customerid;
+//echo $projectid;
 $result2 = mysqli_query($con,$sql3);
 
 $sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
@@ -186,13 +189,14 @@ if(isset($_POST['activityid'])){
 	//echo $sql8;
 }
 //this ensures that all leads are converted to customers
-if($customerid > 0){
+if(isset ($_POST['customerid']) && $cleancustomerid > 0){
 	$sql9 = "UPDATE customer SET lead  = '0' WHERE customerid = '$cleancustomerid' ;";
-	
-}else{
+	$res9 = mysqli_query($con,$sql9);
+}elseif(isset ($_POST['companyid']) && $cleancompanyid > 0){
 	$sql9 = "UPDATE company SET lead  = '0' WHERE companyid = '$cleancompanyid' ;";
+	$res9 = mysqli_query($con,$sql9);
 }
-$res9 = mysqli_query($con,$sql9);
+
 
 mysqli_close($con);
 echo'
@@ -200,7 +204,7 @@ echo'
 <html>
 	<head>
 	<title>Job Created</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

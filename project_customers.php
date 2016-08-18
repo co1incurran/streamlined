@@ -4,7 +4,7 @@
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT * FROM company WHERE lead != 1 AND project != 1 ORDER BY name; ";
+$sql = "SELECT * FROM company WHERE project = 1 ORDER BY name; ";
  
 $res = mysqli_query($con,$sql);
 
@@ -42,7 +42,7 @@ while($row = mysqli_fetch_array($res)){
 		<thead>
 			<tr class = "blue-row">				
 				<!--<th class = "asset-list"></th>-->
-				<th id = "first-table-column" class = "asset-list"><strong>Company</strong></th>
+				<th id = "first-table-column" class = "asset-list"><strong>Project</strong></th>
 				<th><strong>Address</strong></th>
 				<th><strong>City</strong></th>
 				<th><strong>County</strong></th>
@@ -79,7 +79,7 @@ while($row = mysqli_fetch_array($res)){
 		
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
-				<td><a href = "profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo ucwords($results['name']);?></a></td>
+				<td><a href = "profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo 'Project:'. ucwords($results['name']);?></a></td>
 				<?php
 					$ad1 = ucwords($results['address_line1']);
 					$ad2 = ucwords($results['address_line2']);

@@ -151,7 +151,7 @@ $('#jobType').on('change',function(){
 							}
 							echo'
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> Job History </a></li>
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-area-chart"></i> Task History </a></li>
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-area-chart"></i> Task History </a></li>
 								<li><a id="add_asset" class = "icons" href="add_asset.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-gift"></i> Add Asset </a></li>';
 								if($companyid != 0){
 											echo '<li><a id="add_contact" class = "icons" href="add_contact.php?url='.$url.'&customerid='.$customerid.'&companyid='
@@ -161,28 +161,6 @@ $('#jobType').on('change',function(){
 								<li><a id="add_job" class = "icons" href="add_job.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class ="fa fa-wrench"></i> Add Job </a></li>
 								<li><a class = "icons" href = "add_activity.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-gears"></i> Add Task </a></li>
 							</ul>';
-							
-							/*<div data-role="main" class="ui-content">
-								<a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all ui-icon-check ui-btn-icon-left">Show Popup Form</a>
-							//fin
-								<div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px;">
-								  <form method="post" action="demoform.asp">
-									<div>
-									  <h3>Login information</h3>
-									  <label for="usrnm" class="ui-hidden-accessible">Username:</label>
-									  <input type="text" name="user" id="usrnm" placeholder="Username">
-									  <label for="pswd" class="ui-hidden-accessible">Password:</label>
-									  <input type="password" name="passw" id="pswd" placeholder="Password">
-									  <label for="log">Keep me logged in</label>
-									  <input type="checkbox" name="login" id="log" value="1" data-mini="true">
-									  <input type="submit" data-inline="true" value="Log in">
-									</div>
-								  </form>
-								</div>
-							  </div>
-							  </html>
-							  <a>scr = href.276/*/
-							//put a forloop here to iterate through the entire dataset and then
 								
 									//if you are looking at companies
 									if ($companyid != 0){
@@ -193,19 +171,21 @@ $('#jobType').on('change',function(){
 										}
 
 										//check which page to load
-									if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes'){
+									/*if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes' && $page != 'task' ){
 										require_once 'php/company_assets.php';
-									}else{
-										if($page === 'assets'){
+									}else{*/
+										if($page == 'assets'){
 											require_once 'php/company_assets.php';
-										}elseif($page === 'contacts'){
+										}elseif($page == 'contacts'){
 											require_once 'php/company_contacts.php';
-										}elseif($page = 'history'){
+										}elseif($page == 'history'){
 											require_once 'php/history.php';
-										}/*elseif($page = 'notes'){
-											require_once 'php/company_notes.php';
-										}*/
-									}	
+											//echo 'history';
+										}elseif($page == 'task'){
+											require_once 'php/profile_task_history.php';
+											//echo 'tasks';
+										}
+									//}	
 									//if you are looking at private customers
 									}else{
 											if(isset($_GET['page'])) {
@@ -213,18 +193,22 @@ $('#jobType').on('change',function(){
 											}else{
 												$page = 'assets';
 											}
-										if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes'){
+										/*if($page != 'assets'&& $page != 'contacts'&& $page != 'history'  && $page != 'notes' && $page != 'task'){
 											require_once 'php/company_assets.php';
-										}else{
+										}else{*/
 											//check which page to load
-											if($page === 'assets'){
+											if($page == 'assets'){
 												require_once 'php/customer_assets.php';
-											}elseif($page = 'history'){
+											}elseif($page == 'history'){
 												require_once 'php/history.php';
-											}elseif($page = 'notes'){
+												//echo 'history';
+											}elseif($page == 'notes'){
 												require_once 'php/customer_notes.php';
+											}elseif($page == 'task'){
+												require_once 'php/profile_task_history.php';
+												//echo 'tasks';
 											}
-										}
+										//}
 									}				
 					?>
 

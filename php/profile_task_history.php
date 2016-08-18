@@ -13,7 +13,7 @@ if(isset($_GET['customerid'])){
 	$customerid = mysqli_real_escape_string($con ,$customerid);
 }
 if((isset($_GET['companyid'])) && $companyid != 0){
-	$sql = "SELECT * FROM jobs WHERE  job_number !='' AND jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid'); ";
+	$sql = "SELECT * FROM activity WHERE complete ='1' AND activityid IN (SELECT activityid FROM company_activity WHERE companyid = '$companyid'); ";
 	
 	$sql2 = "SELECT * FROM company WHERE companyid ='$companyid' ; ";
 	$res2 = mysqli_query($con,$sql2);
@@ -35,7 +35,7 @@ if((isset($_GET['companyid'])) && $companyid != 0){
 	$set = false;
 	//print_r (array_values($result2));
 }else{
-	$sql = "SELECT * FROM jobs WHERE job_number !='' AND jobid IN (SELECT jobid FROM customer_requires WHERE customerid = '$customerid'); ";
+	$sql = "SELECT * FROM activity WHERE complete ='1' AND activityid IN (SELECT activityid FROM customer_activity WHERE customerid = '$customerid'); ";
 	
 	$sql2 = "SELECT * FROM customer WHERE customerid ='$customerid' ; ";
 	$res2 = mysqli_query($con,$sql2);
@@ -68,19 +68,21 @@ $result = array();
  
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
-		array('jobid'=>$row[0],
+		array('activityid'=>$row[0],
 		'complete'=>$row[1],
-		'job_type'=>$row[2],
-		'job_description'=>$row[3],
-		'job_status'=>$row[4],
+		'type'=>$row[2],
+		'prospecting_type'=>$row[3],
+		'description'=>$row[4],
 		'due_date'=>$row[5],
-		'creation_date'=>$row[6],
-		'sage_reference'=>$row[7],
-		'po_number'=>$row[8],
-		'job_number'=>$row[9],
-		'number_of_assets'=>$row[10],
-		'notes'=>$row[11],
-		'quote_number'=>$row[12]
+		'time'=>$row[6],
+		'result'=>$row[7],
+		'result_description'=>$row[8],
+		'next_action'=>$row[9],
+		'next_action_description'=>$row[10],
+		'creation_date'=>$row[11],
+		'created_by'=>$row[12],
+		'new'=>$row[13],
+		'complete_date'=>$row[14]
 	));
 }
 // print_r (array_values($result));
@@ -144,12 +146,12 @@ foreach($result2 as $results2){
 									<table align="center">
 										<thead class = "blue-row">
 										<th class = "asset-list"></th>
-										<th class = "asset-list"><strong>Job Number</strong></th>
-										<th class = "asset-list"><strong>Job Type</strong></th>
-										<th class = "asset-list"><strong>Status</strong></th>
-										<th class = "asset-list"><strong>Due Date</strong></th>
-										<th class = "asset-list"><strong>Job Sheet Reference</strong></th>
-										<th class = "asset-list"><strong>PO Number</strong></th>
+										<th class = "asset-list"><strong>Type</strong></th>
+										<th class = "asset-list"><strong>Description</strong></th>
+										<th class = "asset-list"><strong>Completion Date</strong></th>
+										<th class = "asset-list"><strong>Punctuality</strong></th>
+										<th class = "asset-list"><strong>Result</strong></th>
+										<th class = "asset-list"><strong>Created by</strong></th>
 										</thead>';
 										$i = 1;
 						foreach ($result as $results){
@@ -162,19 +164,45 @@ foreach($result2 as $results2){
 							
 							echo '<tr class = "' .$rowClass. '">
 										<td class = "asset-list"></td>
-										<td class = "asset-list">'. ($results['job_number']) . '</td>
-										<td class = "asset-list">'. ucwords($results['job_type']) . '</td>';
-										if($complete == 1){
-											echo '<td class = "asset-list">Complete</td>';
-										}else{
-											echo '<td class = "asset-list">'. ucwords($results['job_status']) . '</td>';
-										}
-										
-										$date1 = $results['due_date'];
-										$properDate1 = date("d/m/Y", strtotime($date1));
-										echo '<td class = "asset-list">'. ($properDate1) . '</td>
-										<td class = "asset-list">'. ($results['job_number']) . '</td>
-										<td class = "asset-list">'. ($results['po_number']) . '</td>
+										<td class = "asset-list">'. ucwords($results['type']) . '</td>
+										<td class = "asset-list">'. ucwords($results['description']) . '</td>';
+										$date1 = $results['complete_date'];
+										$completeDate = date("d/m/Y", strtotime($date1));
+										echo '<td class = "asset-list">'. ($completeDate) . '</td>';
+										//<td class = "asset-list">'; 
+										$class = '';
+										$message ='';
+											//THIS IS WHERE I IMPLEMENT THE Punctuality FEATURE
+											$doneDate = strtotime($results['complete_date']);
+											$dueDate = strtotime($results['due_date']);
+											$difference = $doneDate - $dueDate;
+											$days = floor($difference / (60*60*24) );
+											if($days < 0){
+												$days = $days * -1;
+												$word = 'day';
+												//to be grammatically correct
+												if($days > 1){
+													$word = 'days';
+												}
+												$message = $days.' '.$word.' early';
+												
+											}elseif($days == 0){
+												$message = 'On time';
+											}else{
+												$word = 'day';
+												//to be grammatically correct
+												if($days > 1){
+													$word = 'days';
+												}
+												$message = $days.' '.$word.' late';
+												$class = 'red';
+											}
+											echo'
+										<td class = '.$class.'>';
+										echo $message;
+										 echo'</td>
+										<td class = "asset-list">'. ucwords($results['result']) . '</td>
+										<td class = "asset-list">'. ucwords($results['created_by']) . '</td>
 								</tr>';
 								$i++;
 						}

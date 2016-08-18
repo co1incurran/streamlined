@@ -30,7 +30,7 @@ echo'
 <html>
 	<head>
 	<title>Add job</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -58,6 +58,7 @@ echo'
 						echo'<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
 					}
 					if(isset($_GET['projectid'])){
+						$projectid = $_GET['projectid'];
 						echo'<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">';
 					}
 					echo'

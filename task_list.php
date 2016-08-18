@@ -35,12 +35,12 @@ $columnName = 'Contact';
 if(isset($_POST['userName'])){
 	$userName = $_POST['userName'];
 }
-
+$projectInfo = '';
 if(isset($_POST['projectid'])){
 	$projectid = $_POST['projectid'];
 	$columnName = 'Planning Number';
+	$projectInfo = "&projectid='.$projectid.'";
 }
-
 if(isset($_POST['address1'])){
 	$address1 = $_POST['address1'];
 }
@@ -305,11 +305,11 @@ while($row = mysqli_fetch_array($res)){
 							if($outbox == false){
 								if($status != 'completed' && $status != 'globalcomplete'){
 									if($results['type'] == 'prospecting'){
-										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'';echo $projectInfo.'"><i class="fa fa-square-o"></i></a></td>';
 									}elseif ($type == 'create job number'){
 										echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
 									}else{
-										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'" ><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'';echo $projectInfo.'" ><i class="fa fa-square-o"></i></a></td>';
 									}
 								}else{
 									echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
