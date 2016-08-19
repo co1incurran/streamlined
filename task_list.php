@@ -36,10 +36,11 @@ if(isset($_POST['userName'])){
 	$userName = $_POST['userName'];
 }
 $projectInfo = '';
-if(isset($_POST['projectid'])){
+//$projectInfo = "&projectid='.$projectid.'";
+if(isset($_POST['projectid']) && $_POST['projectid'] != '' ){
 	$projectid = $_POST['projectid'];
 	$columnName = 'Planning Number';
-	$projectInfo = "&projectid='.$projectid.'";
+
 }
 if(isset($_POST['address1'])){
 	$address1 = $_POST['address1'];
@@ -240,6 +241,7 @@ while($row = mysqli_fetch_array($res)){
 				}elseif(mysqli_num_rows($res3) < 1 && !isset($_POST['projectid'])){
 					$project = true;
 					$sql4 = "SELECT projectid, planning_number, address4, county FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = '$activityid');";
+					echo $sql4.'<br>';
 					$res4 = mysqli_query($con,$sql4);
 					$row = mysqli_fetch_assoc($res4);
 					$city = ucwords($row['address4']);
@@ -305,11 +307,11 @@ while($row = mysqli_fetch_array($res)){
 							if($outbox == false){
 								if($status != 'completed' && $status != 'globalcomplete'){
 									if($results['type'] == 'prospecting'){
-										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'';echo $projectInfo.'"><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
 									}elseif ($type == 'create job number'){
-										echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
 									}else{
-										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'';echo $projectInfo.'" ><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'" ><i class="fa fa-square-o"></i></a></td>';
 									}
 								}else{
 									echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';

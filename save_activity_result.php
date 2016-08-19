@@ -16,17 +16,21 @@ $userLoggedOn = $_POST['userLoggedOn'];
 //check if it is a task for a project or a customer
 if(isset ($_POST['projectid'])){
 	//clean the project id
+	
 	$projectid = $_POST["projectid"];
+	echo $projectid;
 	$projectid = trim($projectid);
 	$filterprojectid = filter_var($projectid, FILTER_VALIDATE_INT);
 	$cleanprojectid = mysqli_real_escape_string($con, $filterprojectid);
-}else{
+}
+if(isset ($_POST['companyid'])){
 	//COMPANYID
 	$companyid = $_POST["companyid"];
 	$companyid = trim($companyid);
 	$filtercompanyid = filter_var($companyid, FILTER_VALIDATE_INT);
 	$cleancompanyid = mysqli_real_escape_string($con, $filtercompanyid);
-
+}
+if(isset ($_POST['customerid'])){
 	//CUSTOMERID
 	$customerid = $_POST["customerid"];
 	$customerid = trim($customerid);
@@ -135,7 +139,7 @@ if($cleannextaction != 'no further action'){
 		$res4 = mysqli_query($con,$sql4);
 		//echo $sql4;
 		
-		if(isset ($_POST['projectid'])){
+		if(isset ($_POST['projectid']) && $_POST['projectid'] != '' ){
 			$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
 			echo $sql4;
 		}else{
@@ -156,7 +160,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Activity added</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

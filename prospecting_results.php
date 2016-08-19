@@ -16,10 +16,12 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 $url= $_GET['url'];
 if(isset ($_GET ['customerid'])){
 	$customerid= $_GET['customerid'];
+//	echo $customerid;
 }
 
 if(isset ($_GET ['companyid'])){
 	$companyid= $_GET['companyid'];
+	//echo $companyid;
 }
 
 $activityid = $_GET['activityid'];
@@ -50,7 +52,7 @@ echo'
 					<h2>Prospecting Result</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">';
-					if(isset ($_GET['projectid'])){
+					if(isset ($_GET['projectid']) && $_GET['projectid'] != '' ){
 						$projectid = $_GET['projectid'];
 						echo '<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">';
 					}else{
@@ -78,7 +80,7 @@ echo'
 					</select><br>
 										
 					<label for="result"><small>Result</small></label><br>
-					<select id="result" class="drop_down"  name = "result" class="form-control">
+					<select id="result" class="drop_down"  name = "result" class="form-control" required>
 						<option value="" disabled="disabled" selected="selected">Please select</option>
 						<option value= "no interest">No interest</option>
 						<option value= "not available">Not available to talk</option>

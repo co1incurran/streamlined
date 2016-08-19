@@ -42,10 +42,12 @@ echo'
 					<h2>Result</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">';
-					if(isset ($_GET['projectid'])){
+					if(isset ($_GET['projectid'])&& $_GET['projectid'] != ''){
+						//echo 'hello';
 						$projectid = $_GET['projectid'];
 						echo '<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">';
 					}else{
+						//echo 'no';
 						echo'
 						<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 						<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';

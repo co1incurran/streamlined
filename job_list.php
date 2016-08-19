@@ -121,6 +121,7 @@ while($row = mysqli_fetch_array($res)){
 			
 			//To get the company or customer the activity is for
 			$sql2 = "SELECT companyid, name, county, lead FROM company WHERE companyid IN (SELECT companyid FROM company_requires WHERE jobid = '$jobid'); ";
+			//echo $sql2.'<br>';
 			$res2 = mysqli_query($con,$sql2);
 			if(mysqli_num_rows($res2) < 1){
 				$sql3 = "SELECT customerid, first_name, last_name, county, lead FROM customer WHERE customerid IN (SELECT customerid FROM customer_requires WHERE jobid = '$jobid'); ";
