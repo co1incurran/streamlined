@@ -5,7 +5,7 @@ define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
+$userName = $_POST['username'];
 $url= $_POST['url'];
 $jobid= $_POST['jobid'];
 $complete= $_POST['complete'];
@@ -150,8 +150,10 @@ echo'
 
 						if (mysqli_num_rows($res) > 0) {
 						while($row = mysqli_fetch_assoc($res)) {
-							if(!empty($row["userid"])){
-							echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							if($row["userid"] == $userName){
+								echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
+							}else{
+								echo'<option value="'.$row["userid"].'">'.$row["userid"].'</option>';
 							}
 						}
 					}else{

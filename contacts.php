@@ -167,6 +167,19 @@ if(isset($_GET['filter'])){
 												?>
                                             </div>
 											
+											<div class="btn-group pull-right">
+												<?php
+													$url = $_SERVER['REQUEST_URI'];
+													//$url = str_replace('&', '%26', $url);
+													if(isset ($_GET['contact'])){
+														if($_GET['contact'] == 'projects'){
+															echo'													
+															<a href="#?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Convert to Customer</strong></a>';
+														}
+													}
+												?>
+                                            </div>
+											
 
                                             <div class="view-switcher">
 											<?php

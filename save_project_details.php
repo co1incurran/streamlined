@@ -10,11 +10,11 @@ $url= $_POST["url"];
 
 //THE BELOW DATA IS THE PROJECT DATA
 //project name
-$name = $_POST["name"];
+/*$name = $_POST["name"];
 $name = trim($name);
 $name = strtolower($name);
 $filterName = filter_var($name, FILTER_SANITIZE_STRING);
-$cleanName = mysqli_real_escape_string($con, $filterName);
+$cleanName = mysqli_real_escape_string($con, $filterName);*/
 
 //regarding
 $regarding = $_POST["regarding"];
@@ -89,7 +89,7 @@ $cleanNotes = mysqli_real_escape_string($con, $filterNotes);
 //THE BELOW DATA IS FOR THE COMPANY INVOLVED IN THE PROJECT
 
 //company name
-$companyName = $_POST["companyName"];
+$companyName = $_POST["companyname"];
 $companyName = trim($companyName);
 $companyName = strtolower($companyName);
 $filterCompanyName = filter_var($companyName, FILTER_SANITIZE_STRING);
@@ -192,6 +192,10 @@ $jobTitle = strtolower($jobTitle);
 $filterJobTitle = filter_var($jobTitle, FILTER_SANITIZE_STRING);
 $cleanJobTitle = mysqli_real_escape_string($con, $filterJobTitle);
 
+//get the current date 
+$dt = new DateTime();
+$creationdate = $dt->format('Y-m-d');
+
 $sqlChecker = "SELECT * FROM projects WHERE planning_number = '$cleanPlanningNumber' AND est_start_date = '$cleanStartDate' AND address1 = '$cleanLocation1' AND address2 = '$cleanLocation2' AND address3 = '$cleanLocation3' AND address4 = '$cleanLocation4' AND county = '$cleanCounty' AND country = '$cleanCountry' AND regarding = '$cleanRegarding'; ";
 
 $result = mysqli_query($con,$sqlChecker);
@@ -199,7 +203,8 @@ $result = mysqli_query($con,$sqlChecker);
 
 if (mysqli_num_rows($result) == 0){
 
-	$sql = "INSERT INTO projects (planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed) VALUES ('$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanCounty', '$cleanCountry', '$cleanRegarding', '$cleanNotes', '0'); ";
+	$sql = "INSERT INTO projects (planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed, creation_date) VALUES ('$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanCounty', '$cleanCountry', '$cleanRegarding', '$cleanNotes', '0', '$creationdate'); ";
+	//echo $sql;
 //echo $sql;
 	$res = mysqli_query($con,$sql);
 

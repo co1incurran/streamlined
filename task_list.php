@@ -241,7 +241,7 @@ while($row = mysqli_fetch_array($res)){
 				}elseif(mysqli_num_rows($res3) < 1 && !isset($_POST['projectid'])){
 					$project = true;
 					$sql4 = "SELECT projectid, planning_number, address4, county FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = '$activityid');";
-					echo $sql4.'<br>';
+					//echo $sql4.'<br>';
 					$res4 = mysqli_query($con,$sql4);
 					$row = mysqli_fetch_assoc($res4);
 					$city = ucwords($row['address4']);

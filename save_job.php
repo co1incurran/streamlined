@@ -36,7 +36,7 @@ if(isset($_POST['projectid']) &&$_POST['projectid'] != '' ){
 	$cleanprojectid = mysqli_real_escape_string($con, $filterprojectid);
 	//echo $cleanprojectid.'<br>';
 	$sql13 = "SELECT companyid FROM company WHERE projectid = '$cleanprojectid';";
-	echo $sql13;
+	//echo $sql13;
 	$res13 = mysqli_query($con,$sql13);
 	
 	if(mysqli_num_rows($res13) < 1){
@@ -54,7 +54,7 @@ if(isset($_POST['projectid']) &&$_POST['projectid'] != '' ){
 
 			
 			$sql11 = "INSERT INTO company (name, address_line1, address_line2, address_line3, address_line4, county, country, project, projectid) VALUES ('$planningNumber', '$address1', '$address2', '$address3', '$address4', '$county', '$country', '1', '$cleanprojectid')";
-			echo $sql11;
+			//echo $sql11;
 			$res11 = mysqli_query($con,$sql11);
 			
 			$sql12 = "SELECT companyid FROM company ORDER BY companyid DESC LIMIT 1; ";
@@ -162,12 +162,11 @@ if(isset($_POST['customerid']) && $customerid != 0){
 }elseif((isset($_POST['companyid']) && $companyid != 0) || (isset($_POST['projectid'])&& $_POST['projectid'] != '')){
 	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$cleancompanyid', '$jobid'); ";
 	//echo $companyid;
-	//echo '<br>'. $jobid;
+	//echo '<br>'. $jobid;	//echo $companyid;
+	//echo $customerid;
+	//echo $projectid;
+	$result2 = mysqli_query($con,$sql3);
 }
-echo $companyid;
-echo $customerid;
-//echo $projectid;
-$result2 = mysqli_query($con,$sql3);
 
 $sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
 $result4 = mysqli_query($con,$sql4);
@@ -216,7 +215,7 @@ echo'
 <html>
 	<head>
 	<title>Job Created</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

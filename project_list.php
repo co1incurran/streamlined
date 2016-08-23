@@ -33,13 +33,17 @@ while($row = mysqli_fetch_array($res)){
 		'country'=>$row[8],
 		'regarding'=>$row[9],
 		'notes'=>$row[10],
-		'closed'=>$row[11]
+		'closed'=>$row[11],
+		'removed'=>$row[12],
+		'won'=>$row[13],
+		'creation_date'=>$row[14]
 	));
 }
 //print_r (array_values($result));
 
 //Puts all the customer names in a table
 //echo '<section class="panel-body">'; this is where i type 
+
 ?>	 
 
 	
@@ -56,6 +60,7 @@ while($row = mysqli_fetch_array($res)){
 				<th><strong>Details</strong></th>
 				<th><strong>Stage<strong></th>
 				<th><strong>Start Date</strong></th>
+				<th><strong>Days Open</strong></th>
 				<th><strong>Location</strong></th>
 				<th><strong>Contact</strong></th>
 				<th><strong>Assigned to</strong></th>
@@ -180,6 +185,27 @@ while($row = mysqli_fetch_array($res)){
 					$country = ucwords($results['country']);
 					$city=0; 
 				?>
+				<td>
+				<?php
+					//works out days open 
+					
+						//get the current date 
+						$dt = new DateTime();
+						$installdate = $dt->format('Y-m-d');
+						$openDate = $results['creation_date'];
+						
+						//convert it to a timestamp
+						$openDate = strtotime($openDate);
+						//Get the current timestamp.
+						$now = time();
+						
+						//Calculate the difference.
+						$difference = $now - $openDate;
+						
+						$days = floor($difference / (60*60*24) );
+						echo $days;
+				?>
+				</td>
 				<td>
 				<?php
 						if(!empty($ad1)){ 

@@ -25,6 +25,8 @@ $assignTo = $_POST['assign'];
 
 $notes = $_POST['notes'];
 
+
+
 echo'
 <!DOCTYPE html>
 <html>
@@ -55,6 +57,7 @@ echo'
 					<input type="hidden" name="locationCountry" id="locationCountry" value="'.$locationCountry.'">
 					<input type="hidden" name="assignTo" id="assignTo" value="'.$assignTo.'">
 					<input type="hidden" name="notes" id="notes" value="'.$notes.'">
+		
 					
 					<label for="companyname"><small>Company Name</small></label>
 					<input id="companyname" name="companyname" type="text" required maxlength = "70">

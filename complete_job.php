@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 	if(!isset ($_SESSION['username'])){
 		header("location:index.html");
@@ -21,12 +20,12 @@ if(isset ($_GET ['customerid'])){
 if(isset ($_GET ['companyid'])){
 	$companyid= $_GET['companyid'];
 }
-$activityid = $_GET['activityid'];
+$jobid = $_GET['jobid'];
 echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Task Result</title>
+	<title>Job Result</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
@@ -37,9 +36,9 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="save_activity_result.php" id="form" method="post" name="form">
+				<form action="save_job_result.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Result</h2>
+					<h2>Job Result</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">';
 					if(isset ($_GET['projectid'])&& $_GET['projectid'] != ''){
@@ -53,47 +52,45 @@ echo'
 						<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
 					}
 					echo'
-					<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
+					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
 					<input type="hidden" name="userLoggedOn" id="userLoggedOn" value="'.$userLoggedOn.'">
 															
 					<label for="result"><small>Result</small></label><br>
 					<select id="result" class="drop_down"  name = "result" class="form-control" required>
-						<option value= "no interest">No interest</option>
-						<option value= "continuation">Continuation</option>
-						<option value= "advance">Advance</option>
-						<option value= "wants more info">Wants more info</option>
-						<option value= "wants a quote">Wants a quote</option>
-						<option value= "wants another visit">Wants another visit</option>
-						<option value= "no sale">No sale</option>
-						<option value= "sold">Sold</option>
-						<option value= "other">Other</option>
+						<option value="" disabled selected>Please select</option>
+						<option value= "no interest">Done</option>
+						<option value= "continuation">In Progress</option>
+						<option value= "">Unable to complete</option>
 					</select>
 					
 					<label for="description"><small>Description</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="description" name="description" type="text"></textarea>
 					
 					<label for="next_action"><small>Next action</small></label>
-					<select id="next_action" class="drop_down"  name = "next_action" class="form-control">
+					<select id="next_action" class="drop_down"  name = "next_action" class="form-control" required>
+						<option value="" disabled selected>Please select</option>
 						<option value= "no further action">No further action</option>
-						<option value= "contact again">Contact again</option>
-						<option value= "qualifying">Schedule qualify meeting</option>
-						<option value= "presentation">Schedule presentation meeting</option>
+						<option value= "order parts">Order parts</option>
+						<option value= "complete on next service">Complete on next service</option>
+						<option value= "take out of service">Take out of service</option>
+						<option value= "arrange return date">Arrange return date</option>
+						<option value= "training">Training</option>
 						<option value= "generate quote">Generate quote</option>
-						<option value= "deliver quote">Deliver quote</option>
-						<option value= "close meeting">Schedule close meeting</option>
-						<option value= "followup meeting">Followup meeting</option>
-						<option value= "create job number">Create job number</option>
+						<option value= "get purchase order number">Get purchase order number</option>
+						<option value= "delivery">Delivery</option>
+						<option value= "collection">Collection</option>
 					</select><br>
 					
 					<label for="nextactivity_description"><small>Next action description</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="nextactivity_description" name="nextactivity_description" type="text"></textarea>
 					
+					<label for="nextactivity_description"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 
 					if (mysqli_num_rows($res) > 0) {
-						
+		
 						while($row = mysqli_fetch_assoc($res)) {
 							if($row["userid"] == $userLoggedOn){
 								echo'<option selected = "selected" value="'.$row["userid"].'">'.$row["userid"].'</option>';
@@ -108,7 +105,7 @@ echo'
 					</select><br>
 					
 					<label for="date"><small>Due date of next action</small></label>
-					<input id="date" name="date" type="date">
+					<input id="date" name="date" type="date" required>
 					
 					<label for="time"><small>Time</small></label>
 					<input id="time" name="time" type="time">

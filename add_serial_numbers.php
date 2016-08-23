@@ -101,7 +101,7 @@ echo'
 					<input id="worksheetnumber'.$i.'" name="worksheetnumber'.$i.'" type="text" maxlength="65" required>
 					
 					<label for="location'.$i.'"><small>Location <small>eg Room 12</small></small></label><br>
-					<input id="location'.$i.'" name="location'.$i.'" type="text" maxlength="65" required>';
+					<input id="location'.$i.'" name="location'.$i.'" type="text" maxlength="65">';
 					
 					$i++;
 				}

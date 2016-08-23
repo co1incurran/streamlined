@@ -133,6 +133,14 @@ while($row = mysqli_fetch_array($res)){
 				$companyid = $row["companyid"];
 			}
 			
+			//this gets the user who is assigned the job
+			$sql3 = "SELECT userid FROM assigned WHERE jobid = '$jobid'; ";
+			//echo $sql3;
+			//echo $sql2.'<br>';
+			$res3 = mysqli_query($con,$sql3);
+			$row3 = mysqli_fetch_assoc($res3);
+			$userName = $row3["userid"];
+			
 			if ($results['job_type'] == 'installation'){
 						$icon = '<i class="fa fa-sign-in"> </i>';
 			}elseif ($results['job_type'] == 'inspection'){
@@ -159,7 +167,7 @@ while($row = mysqli_fetch_array($res)){
 						if($results['job_type'] == 'installation'){
 							echo'<td id= "complete-button"><a href="installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'&numberOfAssets='.$numberOfAssets.'"><i class="fa fa-square-o"></i></a></td>';
 						}else{
-							echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+							echo'<td id= "complete-button"><a href="complete_job.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
 						}
 					}else{
 						echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'"><i class="fa fa-check-square-o"></i></a></td>';
@@ -172,7 +180,7 @@ while($row = mysqli_fetch_array($res)){
 					<form action="job_details.php" id="job-list" method="post" name="job-list">
 						<input type="hidden" name="url" id="url" value="'.$url.'">
 						<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
-						
+						<input type="hidden" name="username" id="username" value="'.$userName.'">
 						<input type="hidden" name="complete" id="complete" value="'.$complete.'">
 						<input type="hidden" name="jobType" id="jobType" value="'.$jobType.'">
 						
