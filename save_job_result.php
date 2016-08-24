@@ -123,7 +123,7 @@ if($cleannextaction != 'no further action'){
 		$cleannextaction = 'arrange return date';
 	}*/
 	elseif($cleannextaction == 'get purchase order number'){
-		$cleannextaction = 'get purchase order number';
+		$cleannextaction = 'get PO number';
 	}
 	elseif($cleannextaction == 'training'){
 		$cleannextaction = 'training';
@@ -134,7 +134,7 @@ if($cleannextaction != 'no further action'){
 
 	
 	//if the next action is a task rather than a job
-	if ($cleannextaction == 'order parts' || $cleannextaction == 'generate quote' || $cleannextaction == 'get purchase order number'){
+	if ($cleannextaction == 'order parts' || $cleannextaction == 'generate quote' || $cleannextaction == 'get PO number'){
 		
 			//put the activity into the activty table
 			$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
@@ -146,7 +146,7 @@ if($cleannextaction != 'no further action'){
 				$res3 = mysqli_query($con,$sql3);
 				$row = mysqli_fetch_assoc($res3);
 				$activityid = $row["activityid"];
-				//echo $activityid.'<br>';
+				//echo $activityid.'<br>'; 
 				
 			//add the activity to the assigned activity table
 				$sql4 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$assign', '$activityid');";
@@ -154,9 +154,9 @@ if($cleannextaction != 'no further action'){
 				//echo $sql4;
 				
 				if($cleancompanyid != 0){
-					$sql5 = "INSERT INTO"
+					$sql5 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid','$activityid');";
 				}elseif($cleancustomerid != 0){
-					
+					$sql5 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid','$activityid');";
 				}
 				
 				/*if(isset ($_POST['projectid']) && $_POST['projectid'] != '' ){
@@ -175,23 +175,31 @@ if($cleannextaction != 'no further action'){
 				}
 				$res4 = mysqli_query($con,$sql4);*/
 	}else{
-			//put the activity into the activty table
-			$sql2 = "INSERT INTO jobs (job_type, job_description, due_date, creation_date) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$creationdate');";
+		echo 'job';
+			//put the job into the jobs table
+			$sql2 = "INSERT INTO jobs (job_type, job_description, job_status, due_date, creation_date) VALUES ('$cleannextaction', '$cleannextActivityDescription', 'ready to start', '$cleandate', '$creationdate');";
 			$res2 = mysqli_query($con,$sql2);
 			//echo $sql2.'<br>';
 
-			//get the activityid of the asset
+			//get the jobid of the asset
 				$sql3 = "SELECT jobid FROM jobs ORDER BY jobid DESC LIMIT 1; ";
 				$res3 = mysqli_query($con,$sql3);
 				$row = mysqli_fetch_assoc($res3);
 				$jobid = $row["jobid"];
-				echo $jobid.'<br>';
+				//echo $jobid.'<br>';
 				
-			//add the job to the assigned activity table
+			//add the job to the assigned table
 				$sql4 = "INSERT INTO assigned (userid, activityid) VALUES ('$assign', '$jobid');";
 				$res4 = mysqli_query($con,$sql4);
 				//echo $sql4;
+				
+				if($cleancompanyid != 0){
+					$sql5 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$cleancompanyid','$jobid');";
+				}elseif($cleancustomerid != 0){
+					$sql5 = "INSERT INTO customer_requires (customerid, jobid) VALUES ('$cleancustomerid','$jobid');";
+				}
 	}
+	$res5 = mysqli_query($con,$sql5);
 }
 mysqli_close($con);
 echo'<!DOCTYPE html>

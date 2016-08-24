@@ -157,7 +157,10 @@ while($row = mysqli_fetch_array($res)){
 				$icon = '<i class="fa fa-male"></i>';
 			}elseif ($results['job_type'] == 'other'){
 				$icon = '<i class="fa fa-question"></i>';
-			}else{
+			}elseif ($results['job_type'] == 'take out of service'){
+				$icon = '<i class="fa fa-reply"></i>';
+			}
+			else{
 				$icon =  '<i class="fa fa-question"></i>';
 			}
 	?>

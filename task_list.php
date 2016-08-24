@@ -347,9 +347,16 @@ while($row = mysqli_fetch_array($res)){
 							elseif ($results['type'] == 'other'){
 								$icon = '<i class="fa fa-question"></i>';
 							}
+							elseif ($results['type'] == 'order parts'){
+								$icon = '<i class="fa fa-file-powerpoint-o"></i>';
+							}
+							elseif ($results['type'] == 'get PO number'){
+								$icon = '<i class="fa fa-file-o"></i>';
+							}
 							elseif ($results['type'] == 'create job number'){
 								$icon = '<i class="fa fa-file-text"></i>';
-							}else {
+							}
+							else {
 								$icon = '<i class="fa fa-question"></i>';
 							}
 						

@@ -84,7 +84,16 @@ echo'
 					}else{
 						echo'<option value= "presentation">Presentation</option>';
 					}
-					
+					if($type === 'get PO number'){
+						echo'<option selected = "selected" value= "get PO number">Get PO number</option>';
+					}else{
+						echo'<option value= "get PO number">Get PO number</option>';
+					}
+					if($type === 'order parts'){
+						echo'<option selected = "selected" value= "order parts">Order parts</option>';
+					}else{
+						echo'<option value= "order parts">Order parts</option>';
+					}
 					if($type === 'generate quote'){
 						echo'<option selected = "selected" value= "generate quote">Generate quote</option>';
 					}else{

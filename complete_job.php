@@ -60,6 +60,7 @@ echo'
 						<option value="" disabled selected>Please select</option>
 						<option value= "no interest">Done</option>
 						<option value= "continuation">In Progress</option>
+						<option value= "complete on next service">Complete on next service</option>
 						<option value= "">Unable to complete</option>
 					</select>
 					
@@ -71,9 +72,7 @@ echo'
 						<option value="" disabled selected>Please select</option>
 						<option value= "no further action">No further action</option>
 						<option value= "order parts">Order parts</option>
-						<option value= "complete on next service">Complete on next service</option>
 						<option value= "take out of service">Take out of service</option>
-						<option value= "arrange return date">Arrange return date</option>
 						<option value= "training">Training</option>
 						<option value= "generate quote">Generate quote</option>
 						<option value= "get purchase order number">Get purchase order number</option>

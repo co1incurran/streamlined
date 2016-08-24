@@ -131,6 +131,12 @@ echo'
 						echo'<option value= "training">Training</option>';
 					}
 					
+					if($jobType === 'take out of service'){
+						echo'<option selected = "selected" value= "take out of service">Take out of service</option>';
+					}else{
+						echo'<option value= "take out of service">Take out of service</option>';
+					}
+					
 					if($jobType === 'other'){
 						echo'<option selected = "selected" value= "other">Other</option>';
 					}else{
