@@ -76,7 +76,7 @@ $filterLocationCountry = filter_var($locationCountry, FILTER_SANITIZE_STRING);
 $cleanLocationCountry = mysqli_real_escape_string($con, $filterLocationCountry);
 
 //assigned to
-$assignTo = $_POST["assignTo"];
+$assignTo = $_POST["assign"];
 $filterAssignTo = filter_var($assignTo, FILTER_SANITIZE_STRING);
 $cleanAssignTo = mysqli_real_escape_string($con, $filterAssignTo);
 
@@ -87,7 +87,7 @@ $filterNotes = filter_var($notes, FILTER_SANITIZE_STRING);
 $cleanNotes = mysqli_real_escape_string($con, $filterNotes);
 
 //THE BELOW DATA IS FOR THE COMPANY INVOLVED IN THE PROJECT
-
+/*
 //company name
 $companyName = $_POST["companyname"];
 $companyName = trim($companyName);
@@ -191,19 +191,19 @@ $jobTitle = trim($jobTitle);
 $jobTitle = strtolower($jobTitle);
 $filterJobTitle = filter_var($jobTitle, FILTER_SANITIZE_STRING);
 $cleanJobTitle = mysqli_real_escape_string($con, $filterJobTitle);
-
+*/
 //get the current date 
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
-$sqlChecker = "SELECT * FROM projects WHERE planning_number = '$cleanPlanningNumber' AND est_start_date = '$cleanStartDate' AND address1 = '$cleanLocation1' AND address2 = '$cleanLocation2' AND address3 = '$cleanLocation3' AND address4 = '$cleanLocation4' AND county = '$cleanCounty' AND country = '$cleanCountry' AND regarding = '$cleanRegarding'; ";
+$sqlChecker = "SELECT * FROM projects WHERE planning_number = '$cleanPlanningNumber' AND est_start_date = '$cleanStartDate' AND address1 = '$cleanLocation1' AND address2 = '$cleanLocation2' AND address3 = '$cleanLocation3' AND address4 = '$cleanLocation4' AND county = '$cleanLocationCounty' AND country = '$cleanLocationCountry' AND regarding = '$cleanRegarding'; ";
 
 $result = mysqli_query($con,$sqlChecker);
 //echo $sqlChecker.'<br>';
 
 if (mysqli_num_rows($result) == 0){
 
-	$sql = "INSERT INTO projects (planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed, creation_date) VALUES ('$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanCounty', '$cleanCountry', '$cleanRegarding', '$cleanNotes', '0', '$creationdate'); ";
+	$sql = "INSERT INTO projects (planning_number, est_start_date, address1, address2, address3, address4, county, country, regarding, notes, closed, creation_date) VALUES ('$cleanPlanningNumber', '$cleanStartDate', '$cleanLocation1', '$cleanLocation2', '$cleanLocation3', '$cleanLocation4', '$cleanLocationCounty', '$cleanLocationCountry', '$cleanRegarding', '$cleanNotes', '0', '$creationdate'); ";
 	//echo $sql;
 //echo $sql;
 	$res = mysqli_query($con,$sql);
@@ -217,6 +217,7 @@ if (mysqli_num_rows($result) == 0){
 	$sql3 = "INSERT INTO managed_by (userid, projectid) VALUES ('$cleanAssignTo', '$projectid');";
 	$res3 = mysqli_query($con,$sql3);
 
+	/*
 	//put the contact for the company into the workers table
 	$sql4 = "INSERT INTO workers (first_name, last_name, phone_num, mobile_phone_num, email, fax, job_title) VALUES ('$cleanfirstname', '$cleanlastname', '$cleanphone', '$cleanmobile', '$cleanemail', '$cleanfax', '$cleanJobTitle');";
 	$res4= mysqli_query($con,$sql4);
@@ -245,14 +246,14 @@ if (mysqli_num_rows($result) == 0){
 	//link to project to the company
 	$sql9 = "INSERT INTO company_to_project (companyid, projectid) VALUES ('$companyid', '$projectid');";
 	$res9 = mysqli_query($con,$sql9);
-	
+	*/
 }
 	echo'
 	<!DOCTYPE html>
 	<html>
 		<head>
 		<title>Project Created</title>
-		<link href="css/elements.css" rel="stylesheet">
+		<link href=".css/elements.css" rel="stylesheet">
 		<script src="js/popup.js"></script>
 		</head>
 	<!-- Body Starts Here -->

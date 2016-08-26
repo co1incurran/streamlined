@@ -25,8 +25,6 @@ $assignTo = $_POST['assign'];
 
 $notes = $_POST['notes'];
 
-
-
 echo'
 <!DOCTYPE html>
 <html>

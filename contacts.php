@@ -94,6 +94,7 @@ if(isset($_GET['filter'])){
 							<li><a href="tasks_outbox.php"><i id = "outbox-counter"><?php echo $count.' '; ?></i><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
 							<li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
 							<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
+							<li><a href="sms.php"><i class="fa fa-comment"></i> SMS</a></li>
                             <li class="dropdown">
                                <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">

@@ -106,7 +106,9 @@ echo'
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
 					<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
 					<input type="hidden" name="totalNumberOfAssets" id="totalNumberOfAssets" value="'.$totalNumberOfAssets.'">	
-					<label for="assettype"><small>Asset type</small></label><br>
+					
+					
+					<label for="assettype"><small>Asset type</small><small class="edit-button"><a href = "edit_asset_list.php">Options</a></small></label><br>
 					<select id="assettype"class="drop_down"  name = "assettype" class="form-control" required>
 					<option value="" disabled selected>Please Choose</option>
 					<option value= "hoist">Hoist</option>';
@@ -117,7 +119,7 @@ echo'
 					echo'
 					</select><br>
 					
-					<label for="manufacturer"><small>Manufacturer</small></label><br>
+					<label for="manufacturer"><small>Manufacturer</small><small class="edit-button"><a href = "edit_manufacturer_list.php">Options</a></small></label><br>
 					<select id="manufacturer"class="drop_down"  name = "manufacturer" class="form-control" required>
 					<option value="" disabled selected>Please Choose</option>
 					<option value= "guldmann">Guldmann</option>';
@@ -142,7 +144,7 @@ echo'
 					<!--<label for="inspectiondate"><small>Inspection date</small></label><br>
 					<input id="inspectiondate" name="inspectiondate" type="date" required>-->
 					
-					<input type="checkbox" name="inspection" value="inspection"> Inspection required<br>
+					<label><input type="checkbox" name="inspection" value="inspection"> Inspection required<br></label>
 					
 					<!--echo date("F, 1 Y", strtotime("-6 months", strtotime("Feb 2, 2010")));-->
 					

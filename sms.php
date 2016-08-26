@@ -1,8 +1,24 @@
+<?php
+//this is the session to ensure a user is logged in
+	session_start();
+	if(!isset ($_SESSION['username'])){
+		header("location:index.html");
+	}
+	$userLoggedOn = $_SESSION['username'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script> 
-<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script>
+<?php
+if(isset($_GET['filter'])){
+	echo'
+	<script type="text/javascript" language="javascript" src="TableFilter/tablefilter.js"></script>';
+}else{
+	echo'
+	<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>';
+}
+?>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,81 +49,63 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="dashboard.html">Enable Supplies</a>
+                      <a class="navbar-brand" href="welcome.php">Enable Supplies</a>
                     </div>
     
                   
+                    <?php
+						define("DB_HOST", "127.0.0.1");
+						define("DB_USER", "user");
+						define("DB_PASSWORD", "1234");
+						define("DB_DATABASE", "database");
+						
+						//this is used to check if there is new tasks assigned to the user 
+						$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn' AND created_by != '$userLoggedOn') ORDER BY creation_date; ";
+						//echo $sql;
+						$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+						$res = mysqli_query($con,$sql);
+						$rowCount = mysqli_num_rows($res);
+						if ($rowCount > 0){
+							$amount = $rowCount;
+							$iId = "task_notification_red";
+						}else{
+							$amount = '';
+							$iId = '';
+						}
+						//this counts how many outbox tasks you have
+						$sql2 = "SELECT COUNT(*) FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn');";
+						//echo $sql2;
+						$res2 = mysqli_query($con,$sql2);
+						$row = mysqli_fetch_row($res2);
+						$count = $row['0'];
+						mysqli_close($con);
+						//echo $rowCount;
+					?>
+					
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-                            <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                First Name<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Last Name<br />
-                                                <input class="form-control" type="text" /><br />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                Company<br />
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add contact</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Contact</button>
-                            </li>
-                            <li class="action">
-                                <button class="btn btn-primary navbar-btn" data-toggle="popover" data-title="Add new contact" data-placement="bottom" data-content='                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                When it&#39;s due?<br />
-                                                <input class="form-control" type="date" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                What category?<br/>
-                                                <select class="form-control"><option>None</option></select>
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <button class="btn btn-primary" type="button">Add task</button>
-                                        <button class="btn btn-default popover-close" type="button">Cancel</button>
-                                    </form>
-'><i class="fa fa-plus-circle"></i> New Task</button>
-                            </li>
-                            <li class="active"><a href="dashboard.html">Dashboard</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="calendar.html">Calendar</a></li>
+							<li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
+							
+                               <?php
+								// this is used to make a notification icon in the tasks tab when a user gets new tasks
+									echo '<li><a href="tasks.php"><i id = "'.$iId.'">'.$amount.' '.'</i><i id = "'.$iId.'" class="fa fa-inbox"></i> Tasks Inbox </a></li>'; 
+								?>
+							<li><a href="tasks_outbox.php"><i id = "outbox-counter"><?php echo $count.' '; ?></i><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
+							<li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
+							<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
+							<li class="active"><a href="sms.php"><i class="fa fa-comment"></i> SMS</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administrator <span class="caret"></span></a>
+                               <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>
                                     <li><a href="#">Groups</a></li>
-                                    <li><a href="#">Sign out</a></li>
+                                    <li><a href="logout.php">Log out</a></li>
                                 </ul>
                             </li>
                         </ul>
-                        <form class="navbar-form navbar-right">
-                            <div class="form-group">
-                                <input type="text" class="form-control search" placeholder="Search">
-                            </div>
-                        </form>
+                       
                     </div>
                 </div>
             </nav>
@@ -116,57 +114,6 @@
         <section>
             <div class="container">
                 <div class="row">
-
-                    <!-- Sidebar -->
-    
-                    <aside class="col-md-3 no-padding">
-    
-                        <nav class="global">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="dashboard.html"><i class="fa fa-home"></i> Overview</a></li>
-                                <li><a href="activity.html"><i class="fa fa-heartbeat"></i> Latest Activity</a></li>
-                                <li class="active"><a href="contacts.php?contact=contact"><i class="fa fa-book"></i>  Contacts </a></li>
-                                <li><a href="tasks.php"><i class="fa fa-tasks"></i> Tasks </a></li>
-                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-                            </ul>
-                        </nav>
-    
-                      <!--  <nav class="subnav recent">
-                            <h4>Recent Contacts</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li>
-                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
-                                        </span>
-                                        <p>John Doe<br>
-                                        <small class="text-muted">Some Company LTD</small></p>
-                                        <address>123 Some Street, LA</address>
-'><h5>John Doe</h5><h6>Some Company LTD</h6></a>
-                                </li>
-                                <li>
-                                    <a class="contact" href="profile.html" data-toggle="popover" data-trigger="hover" title="Profile Summary" data-content='<span class="avatar">
-                                        </span>
-                                        <p>Jane Roe<br>
-                                        <small class="text-muted">Some Company LTD</small></p>
-                                        <address>123 Some Street, LA</address>
-'><h5>Jane Roe</h5><h6>Other Company Inc.</h6></a>
-                                </li>
-                            </ul>
-                        </nav> -->
-    
-                        <nav class="subnav">
-                            <h4>Activities</h4>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="sms.php"><i class="fa fa-comment"></i> Sms</a></li>
-                                <li><a href="empty">Sales</a></li>
-                                <li><a href="empty">Jobs</a></li>
-                                
-                            </ul>
-                        </nav>
-                    </aside>
-
-                    <!-- Sidebar End -->
-                    
-    
                     <!-- Main Section -->
     
                     <section class="col-md-9 no-padding">
@@ -176,49 +123,74 @@
                                 <div class="col-md-7 no-padding">
                                     <div class="main-content panel panel-default no-margin">
                                         <header class="panel-heading clearfix">
-
+										
                                             <div class="btn-group pull-right">
+												<?php
+													$url = $_SERVER['REQUEST_URI'];
+													//$url = str_replace('&', '%26', $url);
+													echo'													
+													<a href="add_contact.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>';
+												?>
+                                            </div>
 											
-                                                <a href="#" class="btn btn-default" data-toggle="tooltip" title="View as a List" onclick="$(this).addClass('current').parent().siblings().find('a').removeClass('current');$('#contacts').removeClass('grid-view').addClass('list-view');return false;"><i class="fa fa-th-list"></i></a>
+											<div class="btn-group pull-right" id="filter-button">
+												<?php
 												
-                                                <a href="#" class="btn btn-default" data-toggle="tooltip" title="View as a Grid" onclick="$(this).addClass('current').parent().siblings().find('a').removeClass('current');$('#contacts').removeClass('list-view').addClass('grid-view');return false;"><i class="fa fa-th-large"></i></a>
-                                                <a href="documentation/index.html" class="btn btn-default" rel="#overlay"><i class="fa fa-question-circle"></i></a>
-                                            </div>
-
-                                            <div class="view-switcher">
-											<?php
-												if(isset ($_GET['contact'])){
-													$contact = $_GET['contact'];
-													if($contact == 'companies'){
-														$setter = 'Companies';
+												if(isset($_GET['filter'])){
+													if(isset($_GET['contact'])){
+														$link = substr($url, 0, strrpos($url, "&filter"));
+														//echo $link.'1';
 													}else{
-														$setter= 'Private Customers';
+														$link = substr($url, 0, strrpos($url, "?filter"));
+														//echo $link.'2';
 													}
+													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 												}else{
-													$setter= 'Private Customers';
+													if(isset($_GET['contact'])){
+														if(isset ($_GET['filter'])){
+															$link = substr($url, 0, strrpos($url, "&filter"));
+														
+															//echo $link.'3'.$url;
+															echo'
+															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														}else{
+															echo'
+															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														}
+													}else{
+														$link = substr($url, 0, strrpos($url, "?filter"));
+														//echo $link.'4';
+														echo'
+														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+													}
 												}
-											?>
-                                                <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>
-                                                <ul>
-                                                    <li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
-                                                    <li><a href="contacts.php?contact=companies">Companies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-                                                    
-                                                </ul>
+												//echo $url;
+												?>
                                             </div>
+											
+											<div class="btn-group pull-right">
+												<?php
+													$url = $_SERVER['REQUEST_URI'];
+													//$url = str_replace('&', '%26', $url);
+													if(isset ($_GET['contact'])){
+														if($_GET['contact'] == 'projects'){
+															echo'													
+															<a href="#?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Convert to Customer</strong></a>';
+														}
+													}
+												?>
+                                            </div>
+											
+
+                                          
                                         </header>
 										
                                         <section class="panel-body">
 										
 											<?php
-												//check which php file to load
-												$contact = $_GET['contact'];
-												if($contact != 'companies'){
-													//echo 'customer names';
-													require_once 'table_test2.php';
-												}else{
-													//echo 'company names';
-													require_once 'table_test.php';
-												}	
+												//loads the file to display the table view
+												require_once 'sms_contact_list.php';
+												
 											?>
 											
                                         </section>

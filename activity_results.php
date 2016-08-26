@@ -80,7 +80,7 @@ echo'
 						<option value= "presentation">Schedule presentation meeting</option>
 						<option value= "generate quote">Generate quote</option>
 						<option value= "deliver quote">Deliver quote</option>
-						<option value= "close meeting">Schedule close meeting</option>
+						<option value= "closing meeting">Schedule close meeting</option>
 						<option value= "followup meeting">Followup meeting</option>
 						<option value= "create job number">Create job number</option>
 					</select><br>

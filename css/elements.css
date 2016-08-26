@@ -11,7 +11,10 @@ ul#search-list{
 	border:3px solid rgb(176,212,229);
 	border-radius: 5px;
 }
-
+small.edit-button{
+	float:right;
+	padding-right: 18%;
+}
 ul#search-list input#radio-button{
 	width:5%;
 	float: left;
