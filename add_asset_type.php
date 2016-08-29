@@ -22,8 +22,7 @@ while($row = mysqli_fetch_array($res2)){
 			'asset_type'=>$row[1]
 	));
 }
-//print_r (array_values($assetType));					<!--<input type="hidden" name="url" id="url" value="'.$url.'">-->';
-
+//print_r (array_values($assetType));
 echo'
 <!DOCTYPE html>
 <html>
@@ -39,23 +38,16 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="update_asset_list.php" id="form" method="post" name="form">
+				<form action="add_to_asset_list.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Asset List</h2>
+					<h2>Add Asset</h2>
 					<hr>
-					<a href = "add_asset_type.php">Add Asset</a><br><br>';
-
-				
-					foreach ($assetType as $at){
-						$type = $at['asset_type'];
-						$id = $at['assetid'];
-						echo'<label><input type="checkbox" name="assetType[]" value="'.$id.'">'.ucwords($type).'<br></label>';
-					}
+					<label for="asset"><small>Asset:</small></label>
+					<input id="asset" name="asset" type="text" placeholder = "Asset Name" maxlength = "70">
 					
-					echo'
-					<input type="submit" id="submit" value="Remove">
+					<input type="submit" id="submit" value="Add">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
-					<a onclick="goBack()" id="submit">Done</a>
+					<a onclick="goBack()" id="submit">Back</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->

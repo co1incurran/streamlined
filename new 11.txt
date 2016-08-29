@@ -1,0 +1,88 @@
+<?php
+define("DB_HOST", "127.0.0.1");
+define("DB_USER", "user");
+define("DB_PASSWORD", "1234");
+define("DB_DATABASE", "database");
+
+$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+//$url = $_GET['url'];
+
+$sql = "SELECT name FROM manufacturers ORDER BY name; ";
+$res = mysqli_query($con,$sql);
+$manufacturers = array();
+
+while($row = mysqli_fetch_array($res)){
+	array_push($manufacturers,
+		array('name'=>$row[0]
+	));
+}
+//print_r (array_values($manufacturers));
+
+$sql2 = "SELECT * FROM asset_type ORDER BY asset_type; ";
+$res2 = mysqli_query($con,$sql2);
+$assetType = array();
+
+while($row = mysqli_fetch_array($res2)){
+	array_push($assetType,
+		array('assetid'=>$row[0],
+			'asset_type'=>$row[1]
+	));
+}
+//print_r (array_values($assetType));
+//<input type="hidden" name="url" id="url" value="'.$url.'">';
+
+
+echo'
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Asset List</title>
+	<link href="css/elements.css" rel="stylesheet">
+	<script src="js/popup.js"></script>
+	</head>
+<!-- Body Starts Here -->
+	<body>
+	<div id="body" style="overflow:hidden;">
+		<div id="abc">
+			<!-- Popup Div Starts Here -->
+			<div id="popupContact">
+			<!-- Contact Us Form -->
+				<form action="" id="form" method="post" name="form">
+					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
+					<h2>Asset details</h2>
+					<hr>';
+					
+					foreach ($assetType as $at){
+						$type = $at['asset_type'];
+						echo'<label><input type="checkbox" name="assetType" value="'.$type.'">'.ucwords($type).'<br></label>';
+					}
+					echo'
+					</select><br>
+					
+					<label for="manufacturer"><small>Manufacturer</small><small class="edit-button"><a href = "edit_manufacturer_list.php">Options</a></small></label><br>
+					<select id="manufacturer"class="drop_down"  name = "manufacturer" class="form-control" required>
+					<option value="" disabled selected>Please Choose</option>
+					<option value= "guldmann">Guldmann</option>';
+					foreach ($manufacturers as $m){
+						$man = $m['name'];
+						echo'<option value= "'.$man.'">'.ucwords($man).'</option>';
+					}
+					
+					'<label><input type="checkbox" name="inspection" value="inspection"> Inspection required<br></label>
+					<input type="submit" id="submit" value="Next">
+					<a href = "'.$url.'" id="submit">Cancel</a>
+				</form>
+			</div>
+		<!-- Popup Div Ends Here -->
+		</div>
+	</div>
+	</body>
+	<script type="text/javascript">
+	window.onload = div_show();
+	</script>
+<!-- Body Ends Here -->
+</html>';
+mysqli_close($con);
+?>
