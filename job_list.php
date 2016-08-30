@@ -34,24 +34,24 @@ if(isset($_GET['status'])){
 	//echo $status;
 	
 	if($status == 'all'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY due_date; ";
 	}elseif($status == 'today'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date = '$currentDate'; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$currentDate'; ";
 	}elseif($status == 'tomorrow'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date = '$tomorrow'; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$tomorrow'; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND due_date < '$currentDate' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date < '$currentDate' ORDER BY due_date; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT * FROM jobs WHERE complete = '1' ORDER BY due_date DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '1' AND add_asset != '1' ORDER BY due_date DESC; ";
 	}else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY due_date; ";
 	}
 }else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY due_date; ";
 }
 
 

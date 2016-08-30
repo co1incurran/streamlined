@@ -201,6 +201,15 @@ if($cleannextaction != 'no further action'){
 	}
 	$res5 = mysqli_query($con,$sql5);
 }
+$today = date("Y/m/d");
+if($companyid !=0){
+	$sql6 = "UPDATE company SET last_contacted = '$today' WHERE companyid = '$cleancompanyid';";
+
+}elseif($customerid !=0){
+	$sql6 = "UPDATE customer SET last_contacted = '$today' WHERE customerid = '$cleancustomerid';";
+}
+$res6 = mysqli_query($con,$sql6);
+//echo $sql6;
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>

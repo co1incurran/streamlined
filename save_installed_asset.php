@@ -196,6 +196,17 @@ $historyid = $row6["historyid"];
 
 $sql7 = "INSERT INTO jobs_to_history (jobid, historyid) VALUES ($jobid, $historyid);";
 $res7 = mysqli_query($con,$sql7);
+
+$today = date("Y/m/d");
+if($companyid !=0){
+	$sql8 = "UPDATE company SET last_contacted = '$today' WHERE companyid = '$cleancompanyid';";
+
+}elseif($customerid !=0){
+
+	$sql8 = "UPDATE customer SET last_contacted = '$today' WHERE customerid = '$cleancustomerid';";
+}
+$res8 = mysqli_query($con,$sql8);
+//echo $sql8;
 	
 	echo'
 	<!DOCTYPE html>

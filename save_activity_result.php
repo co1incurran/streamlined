@@ -139,22 +139,31 @@ if($cleannextaction != 'no further action'){
 		$res4 = mysqli_query($con,$sql4);
 		//echo $sql4;
 		
+		
 		if(isset ($_POST['projectid']) && $_POST['projectid'] != '' ){
 			$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
-			//echo $sql4;
+			echo $sql4;
 		}else{
 			if($companyid !=0){
 				$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-				//echo $sql4;
+			
 			}else{
-				$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-				//echo $sql4;
-				//echo $customerid;
-				//echo $companyid;
+				$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";	
 			}
+			
 		}
 		$res4 = mysqli_query($con,$sql4);
 }
+$today = date("Y/m/d");
+if($companyid !=0){
+	$sql5 = "UPDATE company SET last_contacted = '$today' WHERE companyid = '$cleancompanyid';";
+
+}elseif($customerid !=0){
+	$sql5 = "UPDATE customer SET last_contacted = '$today' WHERE customerid = '$cleancustomerid';";
+}
+$res5 = mysqli_query($con,$sql5);
+//echo $sql5;
+
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>

@@ -13,7 +13,7 @@ $selected = false;
 		foreach($_POST['assetType'] as $assetid) {
 				
 				$sql = "DELETE FROM asset_type WHERE assetid = '$assetid';";
-				//$res = mysqli_query($con,$sql);
+				$res = mysqli_query($con,$sql);
 				
 		}
 	}
@@ -51,7 +51,9 @@ $selected = false;
 		</div>
 	</div>
 	</body>
+	
 	<script type="text/javascript">
+	
 	window.onload = div_show();
 	</script>
 <!-- Body Ends Here -->

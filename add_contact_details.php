@@ -53,7 +53,7 @@ echo'
 						
 						<label for="address1"><small>Address</small></label>
 						<input id="address1" name="address1" type="text" placeholder="Address line 1" required maxlenght = "45">
-						<input id="address2" name="address2" type="text" placeholder="Address line 2" required maxlength = "35">
+						<input id="address2" name="address2" type="text" placeholder="Address line 2 (Optional)" maxlength = "35">
 						<input id="address3" name="address3" type="text" placeholder="Address line 3 (Optional)" maxlength = "35">
 						<input id="address4" name="address4" type="text" placeholder="Town/City" required maxlength = "35">
 						<input id="county" name="county" type="text" placeholder= "County" maxlength = "20">
@@ -79,7 +79,7 @@ echo'
 							
 							<label for="address1"><small>Address</small></label>
 							<input id="address1" name="address1" type="text" placeholder="Address line 1" required maxlenght = "45">
-							<input id="address2" name="address2" type="text" placeholder="Address line 2" required maxlength = "35">
+							<input id="address2" name="address2" type="text" placeholder="Address line 2 (Optional)" maxlength = "35">
 							<input id="address3" name="address3" type="text" placeholder="Address line 3 (Optional)" maxlength = "35">
 							<input id="address4" name="address4" type="text" placeholder="Town/City" required maxlength = "35">
 							<input id="county" name="county" type="text" placeholder= "County" maxlength = "20">

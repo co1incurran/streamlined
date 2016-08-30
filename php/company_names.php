@@ -34,7 +34,12 @@ while($row = mysqli_fetch_array($res)){
 		'county'=>$row[6],
 		'country'=>$row[7],
 		'sage_id'=>$row[8],
-		'sector'=>$row[9]
+		'sector'=>$row[9],
+		'lead'=>$row[10],
+		'hide'=>$row[11],
+		'project'=>$row[12],
+		'projectid'=>$row[13],
+		'last_contacted'=>$row[14]
 	));
 }
 //print_r (array_values($result));listing list-view clearfix
@@ -167,7 +172,7 @@ while($row = mysqli_fetch_array($res)){
 
 			
 			<?php
-			//for getting the date of last contacted 
+			/*//for getting the date of last contacted 
 			$sql3 = "SELECT last_contacted FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
 			$res3 = mysqli_query($con,$sql3);
 			$result3 = array();
@@ -192,10 +197,12 @@ while($row = mysqli_fetch_array($res)){
 				$mostRecent = date("d/m/Y", strtotime($mostRecent));
 			}else{
 				$mostRecent = '';
-			}
+			}*/
+			$lastContacted = $results['last_contacted'];
+			$lastContacted = date("d-m-Y", strtotime($lastContacted));
 			?>
 
-				<td><?php echo $mostRecent; ?></td>
+				<td><?php echo $lastContacted; ?></td>
 				<td><?php echo ucwords($results['sector']); ?></td>
 				<td><?php echo $assetCount; ?></td>
 				</tr>

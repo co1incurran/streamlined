@@ -43,7 +43,7 @@ echo'
 					<h2>Add Asset</h2>
 					<hr>
 					<label for="asset"><small>Asset:</small></label>
-					<input id="asset" name="asset" type="text" placeholder = "Asset Name" maxlength = "70">
+					<input id="asset" name="asset" type="text" placeholder = "Asset Name" maxlength = "70" required>
 					
 					<input type="submit" id="submit" value="Add">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->

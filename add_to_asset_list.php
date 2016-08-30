@@ -5,10 +5,22 @@ define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-//$url = $_POST['url'];<input type="hidden" name="url" id="url" value="'.$url.'">
 
 $asset = $_POST['asset'];
+$asset = trim($asset);
+$asset = strtolower($asset);
+$filterasset = filter_var($asset, FILTER_SANITIZE_STRING);
+$cleanasset = mysqli_real_escape_string($con, $filterasset);
 
+$sql = "SELECT * FROM asset_type WHERE asset_type = '$asset';";
+$res = mysqli_query($con,$sql);
+if(mysqli_num_rows($res) == 0){
+	$sql2 = "INSERT INTO asset_type (asset_type) VALUES ('$asset');";
+	$res2 = mysqli_query($con,$sql2);
+	$title = "Assets Added";
+}else{
+	$title = "Asset Already Exists";
+}
 	echo'
 	<!DOCTYPE html>
 <html>
@@ -26,7 +38,7 @@ $asset = $_POST['asset'];
 			<!-- Contact Us Form -->
 				<form action="edit_asset_list.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Assets Removed</h2>
+					<h2>'.$title.'</h2>
 					<hr>
 					
 					<a onclick="goBack()" id="submit">OK</a>
@@ -36,6 +48,13 @@ $asset = $_POST['asset'];
 		</div>
 	</div>
 	</body>
+
+	<script>
+	function goBack() {
+		window.history.go(-2);
+	}
+	</script>
+	
 	<script type="text/javascript">
 	window.onload = div_show();
 	</script>

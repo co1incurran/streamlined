@@ -23,11 +23,13 @@ $cleancustomerid= mysqli_real_escape_string($con, $filtercustomerid);
 //echo $cleancustomerid.'<br>';
 
 //job number
+/*
 $jobnumber = $_POST["jobnumber"];
 $jobnumber = trim($jobnumber);
 $jobnumber = strtolower($jobnumber);
 $filterjobnumber = filter_var($jobnumber, FILTER_SANITIZE_STRING);
 $cleanjobnumber = mysqli_real_escape_string($con, $filterjobnumber);
+*/
 
 //serial number
 $serialnumber = $_POST["serialnumber"];
@@ -67,10 +69,11 @@ $installdate = trim($installdate);
 $cleaninstalldate= mysqli_real_escape_string($con, $installdate);
 
 //inspection due 
-$inspectiondue = $_POST["inspectiondue"];
-$inspectiondue = trim($inspectiondue);
-$cleaninspectiondue= mysqli_real_escape_string($con, $inspectiondue);
-
+if(isset($_POST['inspectiondue'])){
+	$inspectiondue = $_POST["inspectiondue"];
+	$inspectiondue = trim($inspectiondue);
+	$cleaninspectiondue= mysqli_real_escape_string($con, $inspectiondue);
+}
 //service due
 $servicedue = $_POST["servicedue"];
 $servicedue = trim($servicedue);
@@ -84,16 +87,16 @@ $filterlocation = filter_var($location, FILTER_SANITIZE_STRING);
 $cleanlocation = mysqli_real_escape_string($con, $filterlocation);
 
 //contract type
-$contracttype = $_POST["contracttype"];
+/*$contracttype = $_POST["contracttype"];
 $contracttype = trim($contracttype);
 $contracttype = strtolower($contracttype);
 $filtercontracttype = filter_var($contracttype, FILTER_SANITIZE_STRING);
-$cleancontracttype = mysqli_real_escape_string($con, $filtercontracttype);
+$cleancontracttype = mysqli_real_escape_string($con, $filtercontracttype);*/
 
 //contract renewal date
-$renewaldate = $_POST["renewaldate"];
+/*$renewaldate = $_POST["renewaldate"];
 $renewaldate = trim($renewaldate);
-$cleanrenewaldate= mysqli_real_escape_string($con, $renewaldate);
+$cleanrenewaldate= mysqli_real_escape_string($con, $renewaldate);*/
 
 //maintenance funded by
 $fundedby = $_POST["fundedby"];
@@ -102,23 +105,13 @@ $fundedby = strtolower($fundedby);
 $filterfundedby = filter_var($fundedby, FILTER_SANITIZE_STRING);
 $cleanfundedby = mysqli_real_escape_string($con, $filterfundedby);
 
-
-/*
-echo $cleanserialnumber .'<br>';
-echo $cleantype .'<br>';
-echo $cleanmodel .'<br>';
-echo $cleanmanufacturer .'<br>';
-echo $cleanproductdescription .'<br>';
-echo $cleaninstalldate .'<br>';
-echo $cleaninspectiondue .'<br>';
-echo $cleanservicedue .'<br>';
-echo $cleanlocation .'<br>';
-echo $cleanrenewaldate .'<br>';
-echo $cleancontracttype .'<br>';
-echo $cleanfundedby .'<br>';
-*/
 //put the asset info into the stock table
-$sql1 = "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, inspection_date, service_date, location, contract_renewal_date, contract_type, funded_by) VALUES ('$cleanserialnumber', '$cleantype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$cleaninstalldate', '$cleaninspectiondue', '$cleanservicedue', '$cleanlocation', '$cleanrenewaldate', '$cleancontracttype', '$cleanfundedby');";
+if(isset($_POST['inspectiondue']) && $_POST['inspectiondue'] != ''){
+	$sql1 = "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, inspection_date, service_date, location, funded_by) VALUES ('$cleanserialnumber', '$cleantype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$cleaninstalldate', '$cleaninspectiondue', '$cleanservicedue', '$cleanlocation','$cleanfundedby');";
+	//echo 'hello'; 
+}else{
+	$sql1 = "INSERT INTO stock (serialid, name, model, manufacturer, product_description, installation_date, service_date, location, funded_by) VALUES ('$cleanserialnumber', '$cleantype', '$cleanmodel', '$cleanmanufacturer', '$cleanproductdescription', '$cleaninstalldate', '$cleanservicedue', '$cleanlocation','$cleanfundedby');";
+}
 $res1 = mysqli_query($con,$sql1);
 //echo $sql1;
 
@@ -129,8 +122,8 @@ $res1 = mysqli_query($con,$sql1);
     $stockid = $row["stockid"];
 	//echo $stockid.'<br>';
 
-//if an existing job numbre has been choosen
-if($jobnumber != "not available"){
+//if an existing job number has been choosen
+/*if($jobnumber != "not available"){
 	//get the jobid that corresponds to that job number
 	$sql2 = "SELECT jobid FROM jobs WHERE job_number = '$jobnumber';";
 	$res2 = mysqli_query($con,$sql2);
@@ -139,9 +132,9 @@ if($jobnumber != "not available"){
 	//echo $jobnumber.'<br>';
 	//echo $jobid.'<br>';
 	
-}else{
+}else{*/
 	//this creates a row in the job table for the asset
-	$sql5 = "INSERT INTO jobs (job_number) VALUES ('$jobnumber');";
+	$sql5 = "INSERT INTO jobs (add_asset) VALUES ('1');";
 	$res5 = mysqli_query($con,$sql5);
 	
 	//get the jobid of the newly created job
@@ -160,7 +153,7 @@ if($jobnumber != "not available"){
 	}
 	$res7 = mysqli_query($con,$sql7);
 	
-}
+//}
 
 //assign the asset to a job by putting stockid and jobid into the 'uses' table
 	$sql4 = "INSERT INTO uses (stockid, jobid) VALUES ('$stockid', '$jobid');";

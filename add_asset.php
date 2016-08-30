@@ -17,6 +17,19 @@ if($companyid != 0){
 }
 $result = mysqli_query($con,$sql);
 mysqli_close($con);
+/*<label for="jobnumber"><small>Job number</small></label>
+<select id="jobnumber" class="drop_down" name = "jobnumber" class="form-control" required>';
+if (mysqli_num_rows($result) > 0) {
+	while($row = mysqli_fetch_assoc($result)) {
+		if(!empty($row["job_number"])){
+		echo'<option value="'.$row["job_number"].'">'.$row["job_number"].'</option>';
+		}
+	}
+	echo '<option value= "not available">Not available</option>';
+}else{
+	echo '<option value= "not available">Not available</option>';
+}
+echo'*/
 echo'
 <!DOCTYPE html>
 <html>
@@ -40,19 +53,7 @@ echo'
 					<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">
 					
-					<label for="jobnumber"><small>Job number</small></label>
-					<select id="jobnumber" class="drop_down" name = "jobnumber" class="form-control" required>';
-					if (mysqli_num_rows($result) > 0) {
-						while($row = mysqli_fetch_assoc($result)) {
-							if(!empty($row["job_number"])){
-							echo'<option value="'.$row["job_number"].'">'.$row["job_number"].'</option>';
-							}
-						}
-						echo '<option value= "not available">Not available</option>';
-					}else{
-						echo '<option value= "not available">Not available</option>';
-					}
-					echo'
+					
 					</select><br>
 					
 					<label for="serialnumber"><small>Serial number</small></label>
@@ -65,7 +66,7 @@ echo'
 					<input id="model" name="model" type="text" maxlength = "50"  required>
 					
 					<label for="manufacturer"><small>Manufacturer</small></label>
-					<input id="manudacturer" name="manufacturer" type="text" maxlenght = "50">
+					<input id="manufacturer" name="manufacturer" type="text" maxlenght = "50" required>
 					
 					<label for="productdescription"><small>Product description</small></label>
 					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription" type="text"></textarea>
@@ -81,21 +82,6 @@ echo'
 					
 					<label for="location"><small>Location <small> eg Room 20</small></small></label>
 					<input id="location" name="location" type="text" maxlength = "65" required>
-					
-					<label for="contracttype"><small>Service contract type</small></label>
-					<select id="contracttype" class="drop_down" name = "contracttype" class="form-control">
-						<option value= "not specified">Not specified</option>
-						<option value= "a">A</option>
-						<option value= "b">B</option>
-						<option value= "c">C</option>
-						<option value= "d">D</option>
-						<option value= "pay as you go">Pay as you go</option>
-						<option value= "not with us">Not with us</option>
-						<option value= "off contract">Off contract</option>
-					</select><br>
-					
-					<label for="renewaldate"><small>Contract renewal date</small></label>
-					<input id="renewaldate" name="renewaldate" type="date">
 					
 					<label for="fundedby"><small>Maintenance funded by</small></label>
 					<input id="fundedby" name="fundedby" type="text" maxlength = "50" required>

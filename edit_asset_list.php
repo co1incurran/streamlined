@@ -6,12 +6,6 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-/*if(isset($_GET['url'])){
-	$url = $_GET['url'];
-}else{
-	$url = $_POST['url'];
-}*/
-
 $sql2 = "SELECT * FROM asset_type ORDER BY asset_type; ";
 $res2 = mysqli_query($con,$sql2);
 $assetType = array();
@@ -22,7 +16,7 @@ while($row = mysqli_fetch_array($res2)){
 			'asset_type'=>$row[1]
 	));
 }
-//print_r (array_values($assetType));					<!--<input type="hidden" name="url" id="url" value="'.$url.'">-->';
+//print_r (array_values($assetType));
 
 echo'
 <!DOCTYPE html>
@@ -62,9 +56,11 @@ echo'
 		</div>
 	</div>
 	</body>
+	
 	<script type="text/javascript">
 	window.onload = div_show();
 	</script>
+	
 <!-- Body Ends Here -->
 </html>';
 mysqli_close($con);
