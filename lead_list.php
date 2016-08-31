@@ -28,7 +28,8 @@ while($row = mysqli_fetch_array($res)){
 		'hide'=>$row[11],
 		'project'=>$row[12],
 		'projectid'=>$row[13],
-		'last_contacted'=>$row[14]
+		'last_contacted'=>$row[14],
+		'creation_date'=>$row[15]
 	));
 }
 //print_r (array_values($result));listing list-view clearfix
@@ -50,6 +51,7 @@ while($row = mysqli_fetch_array($res)){
 				<th><strong>Address</strong></th>
 				<th><strong>City</strong></th>
 				<th><strong>County</strong></th>
+				<th><strong>Days Open</strong></th>
 				<th><strong>Sector</strong></th>
 				<th><strong>Last Contacted</strong></th>
 			</tr>
@@ -163,6 +165,19 @@ while($row = mysqli_fetch_array($res)){
 					}else{
 						$mostRecent = '';
 					}*/
+					
+					$creationDate = $results['creation_date'];
+					//convert it to a timestamp
+					$creationDate = strtotime($creationDate);
+					//get the current timestamp
+					$now = time();
+					//Calculate the difference.
+					$difference = $now - $creationDate;
+					
+					$days = floor($difference / (60*60*24) );
+					
+					
+					//this calculates the last contacted date
 					$lastContacted = $results['last_contacted'];
 					if($lastContacted == NULL){
 						$lastContacted = '2000-01-01';
@@ -170,7 +185,7 @@ while($row = mysqli_fetch_array($res)){
 					$lastContacted = date("d/m/Y", strtotime($lastContacted));
 				?>
 				
-				
+				<td><?php echo $days; ?></td>
 				<td><?php echo ucwords($results['sector']); ?></td>
 				<td><?php echo $lastContacted; ?></td>
 			</tr>

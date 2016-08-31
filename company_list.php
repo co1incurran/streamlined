@@ -150,32 +150,26 @@ while($row = mysqli_fetch_array($res)){
 					?>
 				</td>
 				<?php
-					/*//for getting the date of last contacted 
-					$sql3 = "SELECT last_contacted FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
+					//for getting the mobile number of a contact in the company
+					/*$sql3 = "SELECT phone_num, mobile_phone_num FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid') ORDER BY workerid DESC; ";
 					$res3 = mysqli_query($con,$sql3);
-					$result3 = array();
+					//echo $sql3.'<br>';
+					
+					$numbers = array();
 
-					while($row = mysqli_fetch_array($res3)){
-					array_push($result3,
-					array('last_contacted'=>$row[0]
-					));
+					while($row = mysqli_fetch_array($res)){
+						array_push($numbers,
+							array('phone_num'=>$row[0],
+							'mobile_phone_num'=>$row[1]
+						));
 					} 
-					//print_r (array_values($result3));
-					$mostRecent =0;
-					foreach ($result3 as $results3){
-						  $curDate= $results3['last_contacted'];
-						  if ($curDate > $mostRecent) {
-							 $mostRecent = $curDate;
-							 //$ok = $mostRecent;
-							 //echo 'in the if';
-						  }
-					}
-					//$mostRecent = $results['last_contacted'];
-					if($mostRecent != 0){
-						$mostRecent = date("d/m/Y", strtotime($mostRecent));
-					}else{
-						$mostRecent = '';
+					$mobile = '';
+					$landline = '';
+					//while($mobile == '' && $landline == ''){
+						
 					}*/
+					
+					
 					$lastContacted = $results['last_contacted'];
 					if($lastContacted == NULL){
 						$lastContacted = '2000-01-01';

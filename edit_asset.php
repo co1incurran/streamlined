@@ -73,12 +73,15 @@ if (!empty ($fundby)){
 }
 
 $productdescription = $_GET['productdescription'];
+//echo $productdescription.'<br>';
 if (!empty ($productdescription)){
 	$line11 = 'placeholder="Product Description" value="'.$productdescription.'"';
 }else{
 	$line11 = 'placeholder="Product Description"';
 }
-
+//echo $line11.'<br>';
+//echo $line1.'<br>';
+//echo $line9;
 $serialid = $_GET['serialid'];
 if (!empty ($serialid)){
 	$line12 = 'placeholder="Serial Number" value="'.$serialid.'"';
@@ -141,7 +144,7 @@ echo'
 					<input id="fundedby" name="fundedby"' .$line10. 'type="text">
 					
 					<label for="productdescription"><small>Product Description</small></label>
-					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription"' .$line11. 'type="text"></textarea>
+					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription" placeholder = "Product Description" type="text">'.$productdescription.'</textarea>
 					
 					<input type="submit" id="submit" value="Save">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->

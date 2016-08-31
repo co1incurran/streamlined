@@ -13,7 +13,7 @@ if(isset($_GET['customerid'])){
 	$customerid = mysqli_real_escape_string($con ,$customerid);
 }
 if((isset($_GET['companyid'])) && $companyid != 0){
-	$sql = "SELECT * FROM activity WHERE complete ='1' AND activityid IN (SELECT activityid FROM company_activity WHERE companyid = '$companyid'); ";
+	$sql = "SELECT * FROM activity WHERE complete ='1' AND activityid IN (SELECT activityid FROM company_activity WHERE companyid = '$companyid') ORDER BY activityid DESC; ";
 	
 	$sql2 = "SELECT * FROM company WHERE companyid ='$companyid' ; ";
 	$res2 = mysqli_query($con,$sql2);
@@ -35,7 +35,7 @@ if((isset($_GET['companyid'])) && $companyid != 0){
 	$set = false;
 	//print_r (array_values($result2));
 }else{
-	$sql = "SELECT * FROM activity WHERE complete ='1' AND activityid IN (SELECT activityid FROM customer_activity WHERE customerid = '$customerid'); ";
+	$sql = "SELECT * FROM activity WHERE complete ='1' AND activityid IN (SELECT activityid FROM customer_activity WHERE customerid = '$customerid') ORDER BY activityid DESC; ";
 	
 	$sql2 = "SELECT * FROM customer WHERE customerid ='$customerid' ; ";
 	$res2 = mysqli_query($con,$sql2);
@@ -146,11 +146,12 @@ foreach($result2 as $results2){
 									<table align="center">
 										<thead class = "blue-row">
 										<th class = "asset-list"></th>
-										<th class = "asset-list"><strong>Type</strong></th>
+										<th class = "asset-list"><strong>Stage</strong></th>
 										<th class = "asset-list"><strong>Description</strong></th>
 										<th class = "asset-list"><strong>Completion Date</strong></th>
 										<th class = "asset-list"><strong>Punctuality</strong></th>
 										<th class = "asset-list"><strong>Result</strong></th>
+										<th class = "asset-list"><strong>Next Action</strong></th>
 										<th class = "asset-list"><strong>Created by</strong></th>
 										</thead>';
 										$i = 1;
@@ -202,6 +203,7 @@ foreach($result2 as $results2){
 										echo $message;
 										 echo'</td>
 										<td class = "asset-list">'. ucwords($results['result']) . '</td>
+										<td class = "asset-list">'. ucwords($results['next_action']) . '</td>
 										<td class = "asset-list">'. ucwords($results['created_by']) . '</td>
 								</tr>';
 								$i++;

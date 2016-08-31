@@ -27,6 +27,10 @@ $startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
 
 // Last day of the month.
 $endMonth = date('Y-m-t', strtotime($currentDate)).'<br>';
+//this is for setting the header of the date column, it changes id you are looking a the completed jobs
+$dateType = 'Date';
+//this is for choosing to show the due date or the completed date, it changes to the completed date if you are looking at the completed tasks 
+$datePicker = 'due_date';
 
 $status = '';
 if(isset($_GET['status'])){
@@ -34,24 +38,28 @@ if(isset($_GET['status'])){
 	//echo $status;
 	
 	if($status == 'all'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
 	}elseif($status == 'today'){
 		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$currentDate'; ";
 	}elseif($status == 'tomorrow'){
 		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$tomorrow'; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY jobid DESC; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY jobid DESC; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date < '$currentDate' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date < '$currentDate' ORDER BY jobid DESC; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT * FROM jobs WHERE complete = '1' AND add_asset != '1' ORDER BY due_date DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '1' AND add_asset != '1' ORDER BY complete_date DESC; ";
+		//this changes the variable which is previously set about 20 lines above
+		$dateType = 'Complete Date';
+		//this is used to set the dagte to the complete date
+		$datePicker = 'complete_date';
 	}else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
 	}
 }else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY due_date; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
 }
 
 
@@ -76,7 +84,13 @@ while($row = mysqli_fetch_array($res)){
 		'job_number'=>$row[9],
 		'number_of_assets'=>$row[10],
 		'notes'=>$row[11],
-		'quote_number'=>$row[12]
+		'quote_number'=>$row[12],
+		'result'=>$row[13],
+		'result_description'=>$row[14],
+		'next_action'=>$row[15],
+		'next_action_description'=>$row[16],
+		'complete_date'=>$row[17],
+		'add_asset'=>$row[18]
 	));
 }
 //print_r (array_values($result));
@@ -91,7 +105,7 @@ while($row = mysqli_fetch_array($res)){
 			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 			<th class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Status</strong></th>
-			<th class = "asset-list"><strong>Date</strong></th>
+			<th class = "asset-list"><strong><?php echo $dateType; ?></strong></th>
 			<th class = "asset-list"><strong>Days Open</strong></th>
 			<th class = "asset-list"><strong>Assets</strong></th>
 			<th class = "asset-list"><strong>Job Number</strong></th>
@@ -214,7 +228,9 @@ while($row = mysqli_fetch_array($res)){
 					?>
 				</td>
 				<td>
-					<?php $originalDate = $results['due_date'];
+					<?php 
+					//this shows either the due date or the completed date 
+					$originalDate = $results[$datePicker];
 						$newDate = date("d/m/Y", strtotime($originalDate));
 						echo $newDate;
 					?>
