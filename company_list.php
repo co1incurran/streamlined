@@ -150,24 +150,26 @@ while($row = mysqli_fetch_array($res)){
 					?>
 				</td>
 				<?php
-					//for getting the mobile number of a contact in the company
-					/*$sql3 = "SELECT phone_num, mobile_phone_num FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid') ORDER BY workerid DESC; ";
+					//for getting the number of a contact in the company (preferably a mobile number pf the most recently added worker)
+					$sql3 = "SELECT mobile_phone_num FROM `workers` WHERE mobile_phone_num != '' AND workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid') ORDER BY workerid DESC LIMIT 1; ";
 					$res3 = mysqli_query($con,$sql3);
+					if (mysqli_num_rows($res3) != 0) {
+						$row3 = mysqli_fetch_assoc($res3);
+						$number = $row3["mobile_phone_num"];
+					}else{
+						$sql4 = "SELECT phone_num FROM `workers` WHERE phone_num != '' AND workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid') ORDER BY workerid DESC LIMIT 1; ";
+						$res4 = mysqli_query($con,$sql4);
+						if (mysqli_num_rows($res4) != 0) {
+							$row3 = mysqli_fetch_assoc($res4);
+							$number = $row3["phone_num"];
+						}else{
+							$number = '';
+						}
+					}
+					
 					//echo $sql3.'<br>';
 					
-					$numbers = array();
-
-					while($row = mysqli_fetch_array($res)){
-						array_push($numbers,
-							array('phone_num'=>$row[0],
-							'mobile_phone_num'=>$row[1]
-						));
-					} 
-					$mobile = '';
-					$landline = '';
-					//while($mobile == '' && $landline == ''){
-						
-					}*/
+					
 					
 					
 					$lastContacted = $results['last_contacted'];
@@ -177,6 +179,7 @@ while($row = mysqli_fetch_array($res)){
 					$lastContacted = date("d/m/Y", strtotime($lastContacted));
 				?>
 				
+				<td><?php echo $number; ?></td>
 				<td><?php echo $lastContacted; ?></td>
 				<td><?php echo ucwords($results['sector']); ?></td>
 				<td><?php echo $assetCount ?></td>

@@ -66,6 +66,7 @@ if (!empty ($lastresults)){
 }
 
 $fundedby = $_GET['fundedby'];
+//echo $fundedby;
 if (!empty ($fundby)){
 	$line10 = 'placeholder="Funded By" value="'.$fundedby.'"';
 }else{
@@ -132,16 +133,16 @@ echo'
 					<input id="servicedate" name="servicedate"' .$line6. 'type="date">
 					
 					<label for="location"><small>Location<small> (eg room 1 - first floor)</small></small></label>
-					<input id="location" name="location"' .$line7. 'type="text">
+					<input id="location" name="location"' .$line7.' type="text">
 					
 					<label for="contractrenewaldate"><small>Service Contract Renewal Date</small></label>
 					<input id="contractrenewaldate" name="contractrenewaldate"' .$line8. 'type="date">
 					
 					<label for="lastresults"><small>Last Results</small></label>
-					<textarea maxlength="300" class ="form-textarea" id="lastresults" name="lastresults"' .$line9. 'type="text"></textarea>
+					<textarea maxlength="300" class ="form-textarea" id="lastresults" name="lastresults" placeholder = "Last Results" type="text">'.$lastresults.'</textarea>
 					
 					<label for="fundedby"><small>Maintenance Funded By<small> (eg owner or HSE etc)</small></small></label>
-					<input id="fundedby" name="fundedby"' .$line10. 'type="text">
+					<input id="fundedby" name="fundedby" placeholder = "Funded By" value ="'.$fundedby.'" type="text">
 					
 					<label for="productdescription"><small>Product Description</small></label>
 					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription" placeholder = "Product Description" type="text">'.$productdescription.'</textarea>

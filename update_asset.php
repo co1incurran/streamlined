@@ -91,7 +91,7 @@ $serialid = trim($serialid);
 $filterserialid = filter_var($serialid, FILTER_SANITIZE_STRING);
 $cleanserialid = mysqli_real_escape_string($con, $filterserialid);
 
-$sql = "UPDATE stock SET serialid= '$cleanserialid', name= '$cleanproduct', model= '$cleanmodel', manufacturer= '$cleanmanufacturer', product_description= '$cleanproductdescription', installation_date= '$cleaninstallationdate', inspection_date= '$cleaninspectiondate', service_date= '$cleanservicedate', location = '$cleanlocation' WHERE stockid= $cleanstockid; ";
+$sql = "UPDATE stock SET serialid= '$cleanserialid', name= '$cleanproduct', model= '$cleanmodel', manufacturer= '$cleanmanufacturer', product_description= '$cleanproductdescription', installation_date= '$cleaninstallationdate', inspection_date= '$cleaninspectiondate', service_date= '$cleanservicedate', location = '$cleanlocation', funded_by = '$cleanfundedby', last_results = '$cleanlastresults' WHERE stockid= $cleanstockid; ";
 //echo $cleanphone;
 //echo $sql;
 $res = mysqli_query($con,$sql);
