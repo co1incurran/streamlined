@@ -161,8 +161,9 @@ echo'
 		</div>
 	</div>
 	</body>
+	
 	<script type="text/javascript">
-	window.onload = div_show();
+		window.onload = div_show();
 	</script>
 
 <!-- Body Ends Here -->

@@ -43,8 +43,8 @@ $selected = false;
 					echo'
 					</h2>
 					<hr>
-					
-					<a onclick="goBack()" id="submit">OK</a>
+					<a href = "edit_asset_list.php" id="submit">OK</a>
+					<!--<a onclick="goBack()" id="submit">OK</a>-->
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->

@@ -9,27 +9,29 @@ $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
 
-//to get the job number
-if($companyid != 0){
-	$sql = "SELECT job_number FROM jobs WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = $companyid);";
-}else{
-	$sql = "SELECT job_number FROM jobs WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid = $customerid);";
+//this is for getting the list of manufacturers
+$sql = "SELECT name FROM manufacturers ORDER BY name; ";
+$res = mysqli_query($con,$sql);
+$manufacturers = array();
+//store them in an array
+while($row = mysqli_fetch_array($res)){
+	array_push($manufacturers,
+		array('name'=>$row[0]
+	));
 }
-$result = mysqli_query($con,$sql);
+
+$sql2 = "SELECT asset_type FROM asset_type ORDER BY asset_type; ";
+$res2 = mysqli_query($con,$sql2);
+$assetType = array();
+
+while($row = mysqli_fetch_array($res2)){
+	array_push($assetType,
+		array('asset_type'=>$row[0]
+	));
+}
+
 mysqli_close($con);
-/*<label for="jobnumber"><small>Job number</small></label>
-<select id="jobnumber" class="drop_down" name = "jobnumber" class="form-control" required>';
-if (mysqli_num_rows($result) > 0) {
-	while($row = mysqli_fetch_assoc($result)) {
-		if(!empty($row["job_number"])){
-		echo'<option value="'.$row["job_number"].'">'.$row["job_number"].'</option>';
-		}
-	}
-	echo '<option value= "not available">Not available</option>';
-}else{
-	echo '<option value= "not available">Not available</option>';
-}
-echo'*/
+
 echo'
 <!DOCTYPE html>
 <html>
@@ -56,20 +58,38 @@ echo'
 					
 					</select><br>
 					
-					<label for="serialnumber"><small>Serial number</small></label>
-					<input id="serialnumber" name="serialnumber" type="text" maxlength = "50"  required>
+				
 					
-					<label for="type"><small>Product type</small></label>
-					<input id="type" name="type" type="text" maxlength = "50" required>
+					<label for="assettype"><small>Asset type</small><small class="edit-button"><a href = "edit_asset_list.php">Options</a></small></label><br>
+					<select id="assettype"class="drop_down"  name = "assettype" class="form-control" required>
+					<option value="" disabled selected>Please Choose</option>
+					<option value= "hoist">Hoist</option>';
+					foreach ($assetType as $at){
+						$type = $at['asset_type'];
+						echo'<option value= "'.$type.'">'.ucwords($type).'</option>';
+					}
+					echo'
+					</select><br>
+				
+					<label for="manufacturer"><small>Manufacturer</small><small class="edit-button"><a href = "edit_manufacturer_list.php">Options</a></small></label><br>
+					<select id="manufacturer"class="drop_down"  name = "manufacturer" class="form-control" required>
+					<option value="" disabled selected>Please Choose</option>
+					<option value= "guldmann">Guldmann</option>';
+					foreach ($manufacturers as $m){
+						$man = $m['name'];
+						echo'<option value= "'.$man.'">'.ucwords($man).'</option>';
+					}
+					echo'
+					</select><br>
 					
 					<label for="model"><small>Model</small></label>
-					<input id="model" name="model" type="text" maxlength = "50"  required>
+					<input id="model" name="model" placeholder = "Model" type="text" maxlength = "50"  required>
 					
-					<label for="manufacturer"><small>Manufacturer</small></label>
-					<input id="manufacturer" name="manufacturer" type="text" maxlenght = "50" required>
+					<label for="serialnumber"><small>Serial number</small></label>
+					<input id="serialnumber" name="serialnumber" placeholder = "Serial Number" type="text" maxlength = "50"  required>
 					
 					<label for="productdescription"><small>Product description</small></label>
-					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription" type="text"></textarea>
+					<textarea maxlength="300" class ="form-textarea" id="productdescription" placeholder = "Product Description" name="productdescription" type="text"></textarea>
 					
 					<label for="installdate"><small>Install date</small></label>
 					<input id="installdate" name="installdate" type="date" required>
@@ -81,10 +101,10 @@ echo'
 					<input id="servicedue" name="servicedue" type="date" required>
 					
 					<label for="location"><small>Location <small> eg Room 20</small></small></label>
-					<input id="location" name="location" type="text" maxlength = "65" required>
+					<input id="location" name="location" placeholder = "Location" type="text" maxlength = "65" required>
 					
 					<label for="fundedby"><small>Maintenance funded by</small></label>
-					<input id="fundedby" name="fundedby" type="text" maxlength = "50" required>
+					<input id="fundedby" name="fundedby" placeholder = "Funded By" type="text" maxlength = "50" required>
 					
 					<input type="submit" id="submit" value="Save">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->

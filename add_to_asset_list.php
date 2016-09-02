@@ -40,8 +40,8 @@ if(mysqli_num_rows($res) == 0){
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>'.$title.'</h2>
 					<hr>
-					
-					<a onclick="goBack()" id="submit">OK</a>
+					<a href = "edit_asset_list.php" id="submit">OK</a>
+					<!--<a onclick="goBack()" id="submit">OK</a>-->
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->

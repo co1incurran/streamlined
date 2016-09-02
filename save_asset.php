@@ -39,7 +39,7 @@ $filterserialnumber = filter_var($serialnumber, FILTER_SANITIZE_STRING);
 $cleanserialnumber = mysqli_real_escape_string($con, $filterserialnumber);
 
 //product type
-$type = $_POST["type"];
+$type = $_POST["assettype"];
 $type = trim($type);
 $filtertype = filter_var($type, FILTER_SANITIZE_STRING);
 $cleantype= mysqli_real_escape_string($con, $filtertype);

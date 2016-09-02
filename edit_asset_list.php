@@ -22,6 +22,7 @@ echo'
 <!DOCTYPE html>
 <html>
 	<head>
+	
 	<title>Asset List</title>
 	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
@@ -45,19 +46,24 @@ echo'
 						$id = $at['assetid'];
 						echo'<label><input type="checkbox" name="assetType[]" value="'.$id.'">'.ucwords($type).'<br></label>';
 					}
-					
+		
 					echo'
 					<input type="submit" id="submit" value="Remove">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
-					<a onclick="goBack()" id="submit">Done</a>
+					<a onclick="getPage()" id="submit">Done</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->
 		</div>
 	</div>
 	</body>
-	
+	<script>
+	function getPage() {
+		window.history.go(http://localhost/enablesupplieswebsite/streamlined/add_installed_assets.php");
+	}
+	</script>
 	<script type="text/javascript">
+	 	
 	window.onload = div_show();
 	</script>
 	
