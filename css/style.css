@@ -24,9 +24,10 @@ footer, #push {
 tr.red-row td{
 	background-color: #FF9999;
 }
-/*.subnav{
-	font-weight: bold;
-}*/
+/* this is to style the date picker in the task view*/
+div#date-picker{
+	padding-left: 250px;
+}
 
 
 #filter-button{

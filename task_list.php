@@ -84,7 +84,32 @@ if($outbox == true){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '0' ORDER BY creation_date DESC; ";
 					$global = true;
 				}elseif($status == 'globalcomplete' && $admin == true){
-					$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+					//these 2 ifs are to ensure there is a date entered
+					if(isset($_POST['date1']) || isset($_POST['date1'])){
+						if($_POST['date1'] != '' || $_POST['date2'] != ''){
+							//this checks if the date checker feature is used
+							if(isset($_POST['date1']) && $_POST['date1'] != ''){
+								$date1  = $_POST['date1'];
+								$date2 = date("Y-m-d");
+								if(isset($_POST['date2']) && $_POST['date2'] != ''){
+								$date2  = $_POST['date2'];
+								}
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0' AND complete_date >='$date1' AND complete_date <='$date2'; ";
+								//echo $sql;
+							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
+								$date2  = $_POST['date2'];
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0' AND complete_date <= '$date2'; ";
+								//echo $sql;
+							}else{
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+							}
+						}else{
+							$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+						}
+					}else{
+						$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+					}
+				
 					$global = true;
 					$heading = 'Result';
 					$heading2 = 'Completion Date';
@@ -205,15 +230,15 @@ while($row = mysqli_fetch_array($res)){
 			$highlight = '';
 			$projectid = '';
 			//current date
-				$todayDate = new DateTime();
-				$todayDate = $todayDate->format('Y-m-d');
+				//$todayDate = new DateTime();
+				$todayDate = date('Y-m-d');
 			//to check what tasks are overdue and then highlight them in red by setting a class attribute on the row in the table
 			if(($todayDate > $dueDate) && $complete == '0'){
 				$highlight = 'red-row';
 			}
 			
 			//picking the date to show
-			if($status == 'completed'){
+			if($status == 'completed' || $status == 'globalcomplete'){
 				$date = $completeDate;
 			}else{
 				$date = $dueDate;
@@ -395,7 +420,7 @@ while($row = mysqli_fetch_array($res)){
 								$originalDate = date("d/m/Y", strtotime($originalDate));
 								
 								$completeDate = date("d/m/Y", strtotime($completeDate));
-								if($status == 'completed'){
+								if($status == 'completed' || $status == 'globalcomplete'){
 									echo $completeDate;
 								}else{
 									echo $originalDate;
