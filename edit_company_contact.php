@@ -86,7 +86,7 @@ echo'
 					<label for="lastname"><small>Last Name</small></label>
 					<input id="lastname" name="lastname"' .$line2. 'type="text" maxlength = "30">
 					<label for="email"><small>Email</small></label>
-					<input id="email" name="email"' .$line3. 'type="text" maxlength = "50">
+					<input id="email" name="email"' .$line3. 'type="email" maxlength = "50">
 					<label for="phone"><small>Phone Number</small></label>
 					<input id="phone" name="phone"' .$line4. 'type="number" maxlength = "15" >
 					<label for="mobile"><small>Mobile Number</small></label>

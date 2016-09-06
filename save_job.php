@@ -162,7 +162,8 @@ if(isset($_POST['customerid']) && $customerid != 0){
 }elseif((isset($_POST['companyid']) && $companyid != 0) || (isset($_POST['projectid'])&& $_POST['projectid'] != '')){
 	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$cleancompanyid', '$jobid'); ";
 	//echo $companyid;
-	//echo '<br>'. $jobid;	//echo $companyid;
+	//echo '<br>'. $jobid;
+	//echo $companyid;
 	//echo $customerid;
 	//echo $projectid;
 	$result2 = mysqli_query($con,$sql3);
@@ -193,11 +194,11 @@ $res7 = mysqli_query($con,$sql7);
 
 //The below code if for handling jobs created form the "create job number" task
 if(isset($_POST['activityid'])){
+	$date = date("Y-m-d");
 	$activityid = $_POST['activityid'];
-	
-	$sql8 = "UPDATE activity SET complete  = '1' WHERE activityid = '$activityid' ;";
+	$sql8 = "UPDATE activity SET complete  = '1', result = 'Job Number: $cleanjobnumber', complete_date = '$date' WHERE activityid = '$activityid' ;";
 	$res8 = mysqli_query($con,$sql8);	
-	//echo $sql8;
+	echo $sql8;
 }
 //this ensures that all leads are converted to customers
 if(isset ($_POST['customerid']) && $cleancustomerid > 0){
@@ -215,7 +216,7 @@ echo'
 <html>
 	<head>
 	<title>Job Created</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

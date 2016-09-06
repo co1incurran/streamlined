@@ -166,9 +166,17 @@ if(isset($_GET['filter'])){
 														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 													}
 												}
-												//echo $url;
+												
 												?>
                                             </div>
+											<?php
+											if(isset ($_GET['filter'])){
+													echo'
+													<div class="btn-group pull-right">
+														<a href="#" class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar"><i class="fa fa-question"></i></a></li>
+													</div>';
+												}
+											?>
                                             <div class="view-switcher">
 											<?php
 											

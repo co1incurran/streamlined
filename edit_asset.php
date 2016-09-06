@@ -18,7 +18,7 @@ if (!empty ($model)){
 
 $manufacturer = $_GET['manufacturer'];
 if (!empty ($manufacturer)){
-	$line3 = 'placeholder="Manufacturer" value="'.$manufacturer.'"';
+	$line3 = 'placeholder="Manufacturer" value="'.ucwords($manufacturer).'"';
 }else{
 	$line3 = 'placeholder="Manufacturer"';
 }
@@ -68,7 +68,7 @@ if (!empty ($lastresults)){
 $fundedby = $_GET['fundedby'];
 //echo $fundedby;
 if (!empty ($fundby)){
-	$line10 = 'placeholder="Funded By" value="'.$fundedby.'"';
+	$line10 = 'placeholder="Funded By" value="'.ucwords($fundedby).'"';
 }else{
 	$line10 = 'placeholder="Funded By"';
 }
@@ -142,7 +142,7 @@ echo'
 					<textarea maxlength="300" class ="form-textarea" id="lastresults" name="lastresults" placeholder = "Last Results" type="text">'.$lastresults.'</textarea>
 					
 					<label for="fundedby"><small>Maintenance Funded By<small> (eg owner or HSE etc)</small></small></label>
-					<input id="fundedby" name="fundedby" placeholder = "Funded By" value ="'.$fundedby.'" type="text">
+					<input id="fundedby" name="fundedby" placeholder = "Funded By" value ="'.ucwords($fundedby).'" type="text">
 					
 					<label for="productdescription"><small>Product Description</small></label>
 					<textarea maxlength="300" class ="form-textarea" id="productdescription" name="productdescription" placeholder = "Product Description" type="text">'.$productdescription.'</textarea>

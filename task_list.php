@@ -317,8 +317,7 @@ while($row = mysqli_fetch_array($res)){
 									echo'<td id= "complete-button"><a href="incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a></td>';
 								}
 							}
-					echo'
-						<td>';
+					
 						
 						//this picks which icon to put next to the task type
 							if ($results['type'] == 'prospecting'){
@@ -360,9 +359,10 @@ while($row = mysqli_fetch_array($res)){
 								$icon = '<i class="fa fa-question"></i>';
 							}
 						
-
+						
 										
-							echo'
+						echo'
+						
 							<form action="task_details.php" id="job-list" method="post" name="job-list">
 								<input type="hidden" name="url" id="url" value="'.$url.'">
 								<input type="hidden" name="userName" id="userName" value="'.$userName.'">
@@ -382,14 +382,13 @@ while($row = mysqli_fetch_array($res)){
 								
 								<input type="hidden" name="nextAction" id="nextAction" value="'.$nextAction.'">
 								<input type="hidden" name="nextActionDescription" id="nextActionDescription" value="'.$nextActionDescription.'">
-								'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['type']).'">
+								<!--'.$icon.' '.'-->
+								<td>'.$icon.' <button type="submit" id="job-type" > '.ucwords($results['type']).'</button></td>
 							</form>';
 						echo'
-						</td>
-						<td>
 						
+						<td>
 								'.$results['description'].'
-							
 						</td>
 						<td>';
 								$originalDate = $results['due_date'];
@@ -495,7 +494,7 @@ while($row = mysqli_fetch_array($res)){
 								</a></td>';
 								if($status != 'global' && $status != 'globalcomplete' ){
 									echo'<td>';
-									//checks if it is for a company or private customer
+									
 									if(isset ($address_line4)){
 										if($address_line4 != ''){
 											echo ucwords($address_line4);
@@ -522,22 +521,20 @@ while($row = mysqli_fetch_array($res)){
 									echo'
 									<td>'.$city.
 									'</td>';
-									
 								}
 							}
 							if($project == true){
 								echo '<td>'.$county.'</td>';
 							}
 						
-							echo '<td>'.$creationDate.'</td>';
+							
 							if($outbox == false &&($global ==true)&& ($project == false)){
 								echo '<td>'.$county.'</td>';
 							}
-							
+							echo '<td>'.$creationDate.'</td>';
 							//the employee it is assigned to
 							if($outbox == true || $global == true){
 									echo'<td>'.ucwords($employee).'</td>';
-									
 							}
 					echo'
 					<td>'.ucwords($results['created_by']).'</td>

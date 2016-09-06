@@ -70,7 +70,7 @@ echo'
 					</select>
 					
 					<label for="description"><small>Description</small></label>
-					<textarea maxlength="200" class ="form-textarea" id="description" name="description" type="text"></textarea>
+					<textarea maxlength="200" class ="form-textarea" id="description" placeholder = "Description" name="description" type="text"></textarea>
 					
 					<label for="next_action"><small>Next action</small></label>
 					<select id="next_action" class="drop_down"  name = "next_action" class="form-control">

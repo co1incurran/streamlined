@@ -45,7 +45,7 @@ echo'
 					<h2>Add job</h2>
 					<hr>';
 					//echo $activityid;
-					if($activityid != false){
+					if(isset ($_GET['activityid'])){
 						echo'<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">';
 					}
 					echo'
@@ -90,7 +90,8 @@ echo'
 					<input id="number_of_assets" name="number_of_assets" type="number" max="9999999999" min ="1" required>
 					
 					<label for="assign"><small>Assign to</small></label>
-					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
+					<select id="assign"class="drop_down"  name = "assign" class="form-control" required>
+					<option value= "" disable>Please Choose</option>';
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 
