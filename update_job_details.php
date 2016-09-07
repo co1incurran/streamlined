@@ -133,7 +133,7 @@ echo'
 <html>
 	<head>
 	<title>Job Updated</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -170,7 +170,7 @@ echo'
 <html>
 	<head>
 	<title>Job Updated</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

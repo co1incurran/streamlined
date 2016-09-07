@@ -104,6 +104,7 @@ while($row = mysqli_fetch_array($res)){
 		<tr class = "blue-row">
 			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 			<th class = "asset-list"><strong>Type</strong></th>
+			<th class = "asset-list"><strong>Details</strong></th>
 			<th class = "asset-list"><strong>Status</strong></th>
 			<th class = "asset-list"><strong><?php echo $dateType; ?></strong></th>
 			<th class = "asset-list"><strong>Days Open</strong></th>
@@ -217,7 +218,7 @@ while($row = mysqli_fetch_array($res)){
 					</form>';
 				?>
 				</td>
-				
+				<td><?php echo $jobDescription; ?></td>
 				<td>
 					<?php
 						if($results['complete'] == 0){

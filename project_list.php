@@ -169,7 +169,7 @@ while($row = mysqli_fetch_array($res)){
 							$type;
 							
 						}else{
-							echo 'Not Started';
+							echo '';
 						}
 					?>
 				</td>

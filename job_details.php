@@ -169,7 +169,7 @@ echo'
 					</select><br>
 					
 					<label for="job_description"><small>Job description</small></label>
-					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text">'.$jobDescription.'</textarea>
+					<textarea maxlength="70" class ="form-textarea" id="job_description" name="job_description" type="text">'.$jobDescription.'</textarea>
 					
 					<label for="notes"><small>Notes</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="notes" name="notes" type="text">'.$notes.'</textarea>
