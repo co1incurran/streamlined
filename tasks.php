@@ -245,30 +245,39 @@ if(isset($_GET['filter'])){
                                                 </ul>
                                             </div>
 											
-											<!-- this is the date picker feature-->
-											<div id = "date-picker">
-												<form action="tasks.php?status=globalcomplete" id="form" method="post" name="form">
-												<label for="date1"><small>From</small></label>
-												<?php
-													if(isset($_POST['date1']) && $_POST['date1'] != ''){
-														echo'<input id="date1" name="date1"  value = "'.$_POST['date1'].'" type="date">';
-													}else{
-														echo'<input id="date1" name="date1" type="date">';
-													}
-												?>
-												
-												
-												<label for="date2"><small>To</small></label>
-												<?php
-													if(isset($_POST['date2']) && $_POST['date2'] != ''){
-														echo'<input id="date2" name="date2"  value = "'.$_POST['date2'].'" type="date">';
-													}else{
-														echo'<input id="date2" name="date2" type="date">';
-													}
-												?>
-												<button class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar" type = "submit"><i class="fa fa-share" aria-hidden="true"></i></button>
-												</form>
-											</div>
+											<?php
+												//this is for getting the status to bput in the action part of the form below
+														$value = '';
+														if(isset($_GET['status'])){
+															$value = $_GET['status'];
+														}
+												if ($value != 'today' && $value != 'week' && $value != 'month' && $value != 'tomorrow'){
+													//this is the date picker feature
+													echo'
+													<div id = "date-picker">
+														<form action="tasks.php?status='.$value.'" id="form" method="post" name="form">
+														<label for="date1"><small>From</small></label>';
+														
+															if(isset($_POST['date1']) && $_POST['date1'] != ''){
+																echo'<input id="date1" name="date1"  value = "'.$_POST['date1'].'" type="date">';
+															}else{
+																echo'<input id="date1" name="date1" type="date">';
+															}
+														
+														echo'
+														<label for="date2"><small>To</small></label>';
+														
+															if(isset($_POST['date2']) && $_POST['date2'] != ''){
+																echo'<input id="date2" name="date2"  value = "'.$_POST['date2'].'" type="date">';
+															}else{
+																echo'<input id="date2" name="date2" type="date">';
+															}
+														echo'
+														<button class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar" type = "submit"><i class="fa fa-share" aria-hidden="true"></i></button>
+														</form>
+													</div>';
+												}
+											?>
                                         </header>
 
                                         <section class="panel-body">

@@ -79,10 +79,64 @@ if($outbox == true){
 				//echo $status;
 				
 				if($status == 'all'){
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";
+					//this is how the date picker feature is implemented
+					if(isset($_POST['date1']) || isset($_POST['date1'])){
+						if($_POST['date1'] != '' || $_POST['date2'] != ''){
+							//this checks if the date checker feature is used
+							if(isset($_POST['date1']) && $_POST['date1'] != ''){
+								$date1  = $_POST['date1'];
+								$date2 = date("Y-m-d");
+								if(isset($_POST['date2']) && $_POST['date2'] != ''){
+								$date2  = $_POST['date2'];
+								}
+								$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date >='$date1' AND due_date <='$date2' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+								//echo $sql;
+							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
+								$date2  = $_POST['date2'];
+									$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date <='$date2' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+								//echo $sql;
+							}else{
+								$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
+							}
+						}else{
+							$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
+						}
+					}else{
+						$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
+					}
+					
+					
 				}elseif($status == 'global' && $admin == true){
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '0' ORDER BY creation_date DESC; ";
+					
+					//these 2 ifs are to ensure there is a date entered
+					if(isset($_POST['date1']) || isset($_POST['date1'])){
+						if($_POST['date1'] != '' || $_POST['date2'] != ''){
+							//this checks if the date checker feature is used
+							if(isset($_POST['date1']) && $_POST['date1'] != ''){
+								$date1  = $_POST['date1'];
+								$date2 = date("Y-m-d");
+								if(isset($_POST['date2']) && $_POST['date2'] != ''){
+								$date2  = $_POST['date2'];
+								}
+								$sql = "SELECT * FROM activity WHERE complete = '0' AND new ='0' AND due_date >='$date1' AND due_date <='$date2' ORDER BY due_date ; ";
+								//echo $sql;
+							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
+								$date2  = $_POST['date2'];
+							$sql = "SELECT * FROM activity WHERE complete = '0' AND new ='0' AND due_date <='$date2' ORDER BY due_date ; ";
+								//echo $sql;
+							}else{
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0' ORDER BY activityid DESC; ";
+							}
+						}else{
+							$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '0' ORDER BY activityid DESC; ";
+						}
+					}else{
+						$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '0' ORDER BY activityid DESC; ";
+					}
+					
 					$global = true;
+					
+					
 				}elseif($status == 'globalcomplete' && $admin == true){
 					//these 2 ifs are to ensure there is a date entered
 					if(isset($_POST['date1']) || isset($_POST['date1'])){
@@ -125,8 +179,34 @@ if($outbox == true){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date BETWEEN '$startMonth' AND '$endMonth' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 				}elseif($status == 'overdue'){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date < '$currentDate' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
+				
+				
 				}elseif($status == 'completed'){
-					$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY complete_date DESC; ";
+					if(isset($_POST['date1']) || isset($_POST['date1'])){
+						if($_POST['date1'] != '' || $_POST['date2'] != ''){
+							//this checks if the date checker feature is used
+							if(isset($_POST['date1']) && $_POST['date1'] != ''){
+								$date1  = $_POST['date1'];
+								$date2 = date("Y-m-d");
+								if(isset($_POST['date2']) && $_POST['date2'] != ''){
+								$date2  = $_POST['date2'];
+								}
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND complete_date >='$date1' AND complete_date <='$date2' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY complete_date DESC; ";
+								//echo $sql;
+							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
+								$date2  = $_POST['date2'];
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND complete_date <='$date2' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY complete_date DESC; ";
+								//echo $sql;
+							}else{
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY complete_date DESC; ";
+							}
+						}else{
+							$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY complete_date DESC; ";
+						}
+					}else{
+						$sql = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY complete_date DESC; ";
+						//echo $sql;
+					}
 					$heading = 'Result';
 					$heading2 = 'Completion Date';
 					$heading3 = 'Punctuality';
