@@ -13,7 +13,7 @@ if(isset($_GET['customerid'])){
 	$customerid = mysqli_real_escape_string($con ,$customerid);
 }
 if((isset($_GET['companyid'])) && $companyid != 0){
-	$sql = "SELECT * FROM jobs WHERE  job_number !='' AND jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid'); ";
+	$sql = "SELECT * FROM jobs WHERE  job_number !='' AND jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid') ORDER BY complete; ";
 	
 	$sql2 = "SELECT * FROM company WHERE companyid ='$companyid' ; ";
 	$res2 = mysqli_query($con,$sql2);

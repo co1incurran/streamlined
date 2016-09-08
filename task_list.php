@@ -73,12 +73,11 @@ if(isset($_POST['type'])){
 if($outbox == true){
 		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY creation_date DESC; ";
 	}else{
-
 			if(isset($_GET['status'])){
 				$status = $_GET['status'];
 				//echo $status;
 				
-				if($status == 'all'){
+				if($status == 'all' || $_GET['status'] == ''){
 					//this is how the date picker feature is implemented
 					if(isset($_POST['date1']) || isset($_POST['date1'])){
 						if($_POST['date1'] != '' || $_POST['date2'] != ''){
@@ -94,7 +93,7 @@ if($outbox == true){
 							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
 								$date2  = $_POST['date2'];
 									$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date <='$date2' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
-								//echo $sql;
+								echo $sql;
 							}else{
 								$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
 							}
@@ -576,7 +575,12 @@ while($row = mysqli_fetch_array($res)){
 						</td>
 						<td>';
 								if($heading == 'Result'){
-									echo ucwords($result);
+									//this is where i need to make the result of a create job number a hyerlink
+									if($type == 'create job number'){
+										echo '<a href="profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history" class="name">'.ucwords($result).'</a>';
+									}else{
+										echo ucwords($result);
+									}
 								}else{
 									echo date('h:ia', strtotime($results['time']));
 								}

@@ -24,6 +24,8 @@ $notes= $_POST['notes'];
 
 $quoteNumber = $_POST['quote_number'];
 
+$invoiceNumber = $_POST['invoice_number'];
+
 echo'
 <!DOCTYPE html>
 <html>
@@ -181,8 +183,14 @@ echo'
 					<input id="po_number" name="po_number" value ="'.$poNumber.'" type="text"maxlength="30" >
 					
 					<label for="quote_number"><small>Quote number</small></label>
-					<input id="quote_number" name="quote_number" value ="'.$quoteNumber.'" type="text"maxlength="30" >
+					<input id="quote_number" name="quote_number" value ="'.$quoteNumber.'" type="text"maxlength="30" >';
 					
+					if($complete = '1'){
+						echo'
+						<label for="invoice_number"><small>Invoice number</small></label>
+						<input id="invoice_number" name="invoice_number" value ="'.$invoiceNumber.'" type="text"maxlength="20" >';
+					}
+					'
 					<label for="sage_reference"><small>Sage reference</small></label>
 					<input id="sage_reference" name="sage_reference" value ="'.$sageReference.'" type="text" maxlength="20">
 					

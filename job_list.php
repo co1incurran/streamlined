@@ -90,7 +90,8 @@ while($row = mysqli_fetch_array($res)){
 		'next_action'=>$row[15],
 		'next_action_description'=>$row[16],
 		'complete_date'=>$row[17],
-		'add_asset'=>$row[18]
+		'add_asset'=>$row[18],
+		'invoice_number'=>$row[19]
 	));
 }
 //print_r (array_values($result));
@@ -105,7 +106,14 @@ while($row = mysqli_fetch_array($res)){
 			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
 			<th class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Details</strong></th>
-			<th class = "asset-list"><strong>Status</strong></th>
+			<?php
+				if($status =='completed' ){
+					echo'<th class = "asset-list"><strong>Invoice</strong></th>';
+				}else{
+					echo'<th class = "asset-list"><strong>Status</strong></th>';
+				}
+			?>
+			
 			<th class = "asset-list"><strong><?php echo $dateType; ?></strong></th>
 			<th class = "asset-list"><strong>Days Open</strong></th>
 			<th class = "asset-list"><strong>Assets</strong></th>
@@ -133,6 +141,7 @@ while($row = mysqli_fetch_array($res)){
 			$numberOfAssets = $results['number_of_assets'];
 			$notes = $results['notes'];
 			$quoteNumber = $results['quote_number'];
+			$invoiceNumber = $results['invoice_number'];
 			
 			//To get the company or customer the activity is for
 			$sql2 = "SELECT companyid, name, county, lead FROM company WHERE companyid IN (SELECT companyid FROM company_requires WHERE jobid = '$jobid'); ";
@@ -214,6 +223,7 @@ while($row = mysqli_fetch_array($res)){
 						
 						<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
 						<input type="hidden" name="notes" id="notes" value="'.$notes.'">
+						<input type="hidden" name="invoiceNumber" id="invoiceNumber" value="'.$notes.'">
 						'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['job_type']).'">
 					</form>';
 				?>
@@ -224,7 +234,7 @@ while($row = mysqli_fetch_array($res)){
 						if($results['complete'] == 0){
 							echo ucwords($results['job_status']);
 						}else{
-							echo 'Complete';
+							echo 'line 234';
 						}
 					?>
 				</td>
