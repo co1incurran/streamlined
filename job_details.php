@@ -24,7 +24,8 @@ $notes= $_POST['notes'];
 
 $quoteNumber = $_POST['quote_number'];
 
-$invoiceNumber = $_POST['invoice_number'];
+$invoiceNumber = $_POST['invoiceNumber'];
+
 
 echo'
 <!DOCTYPE html>

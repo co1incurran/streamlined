@@ -2,7 +2,6 @@
 
 <?php
 
-
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 $url = $_SERVER['REQUEST_URI'];
@@ -223,7 +222,7 @@ while($row = mysqli_fetch_array($res)){
 						
 						<input type="hidden" name="numberOfAssets" id="numberOfAssets" value="'.$numberOfAssets.'">
 						<input type="hidden" name="notes" id="notes" value="'.$notes.'">
-						<input type="hidden" name="invoiceNumber" id="invoiceNumber" value="'.$notes.'">
+						<input type="hidden" name="invoiceNumber" id="invoiceNumber" value="'.$invoiceNumber.'">
 						'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['job_type']).'">
 					</form>';
 				?>
@@ -234,7 +233,8 @@ while($row = mysqli_fetch_array($res)){
 						if($results['complete'] == 0){
 							echo ucwords($results['job_status']);
 						}else{
-							echo 'line 234';
+							//this shows the invoice number of completed jobs
+							echo $results['invoice_number'];
 						}
 					?>
 				</td>
