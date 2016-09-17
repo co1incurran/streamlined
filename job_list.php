@@ -267,7 +267,22 @@ while($row = mysqli_fetch_array($res)){
 						$days = floor($difference / (60*60*24) );
 						echo $days;
 					}else{
-						echo 'Closed';
+						$openDate = $results['creation_date'];
+						
+						//convert it to a timestamp
+						$openDate = strtotime($openDate);
+						
+						$closeDate = $results['complete_date'];
+						
+						//convert it to a timestamp
+						$closeDate = strtotime($closeDate);
+						
+						//Calculate the difference.
+						$difference = $closeDate - $openDate;
+						
+						$days = floor($difference / (60*60*24) );
+						echo $days;
+						//echo 'Closed';
 					}
 				?>
 				</td>

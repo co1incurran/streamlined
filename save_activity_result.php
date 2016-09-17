@@ -142,7 +142,7 @@ if($cleannextaction != 'no further action'){
 		
 		if(isset ($_POST['projectid']) && $_POST['projectid'] != '' ){
 			$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
-			echo $sql4;
+			//echo $sql4;
 		}else{
 			if($companyid !=0){
 				$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
@@ -155,21 +155,22 @@ if($cleannextaction != 'no further action'){
 		$res4 = mysqli_query($con,$sql4);
 }
 $today = date("Y/m/d");
-if($companyid !=0){
-	$sql5 = "UPDATE company SET last_contacted = '$today' WHERE companyid = '$cleancompanyid';";
+if(isset ($_POST['customerid']) || isset ($_POST['companyid'])){
+	if($companyid !=0){
+		$sql5 = "UPDATE company SET last_contacted = '$today' WHERE companyid = '$cleancompanyid';";
 
-}elseif($customerid !=0){
-	$sql5 = "UPDATE customer SET last_contacted = '$today' WHERE customerid = '$cleancustomerid';";
+	}elseif($customerid !=0){
+		$sql5 = "UPDATE customer SET last_contacted = '$today' WHERE customerid = '$cleancustomerid';";
+	}
+	$res5 = mysqli_query($con,$sql5);
+	//echo $sql5;
 }
-$res5 = mysqli_query($con,$sql5);
-//echo $sql5;
-
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Activity added</title>
-	<link href="css/elements.css" rel="stylesheet">
+	<link href=".css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

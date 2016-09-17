@@ -98,32 +98,33 @@ foreach ($result as $results){
 			//choosing the icon for the tasks
 			if ($results['type'] == 'prospecting'){
 				$icon = '<i class="fa fa-binoculars"> </i>';
-			}
-			if ($results['type'] == 'qualifying'){
+			}elseif ($results['type'] == 'qualifying'){
 				$icon = '<i class="fa fa-spinner"></i>';
 			}
-			if ($results['type'] == 'presentation'){
+			elseif ($results['type'] == 'presentation'){
 				$icon = '<i class="fa fa-bar-chart"></i>';
 			}
-			if ($results['type'] == 'deliver quote'){
+			elseif ($results['type'] == 'deliver quote'){
 				$icon = '<i class="fa fa-tag"></i>';
 			}
-			if ($results['type'] == 'generate quote'){
+			elseif ($results['type'] == 'generate quote'){
 				$icon = '<i class="fa fa-print"></i>';
 				echo ' ';
 			}
-			if ($results['type'] == 'closing meeting'){
+			elseif ($results['type'] == 'closing meeting'){
 				$icon = '<i class="fa fa-lock"></i>';
 				echo ' ';
 			}
-			if ($results['type'] == 'followup meeting'){
+			elseif ($results['type'] == 'followup meeting'){
 				$icon = '<i class="fa fa-coffee"></i>';
 			}
-			if ($results['type'] == 'other'){
+			elseif ($results['type'] == 'other'){
 				$icon = '<i class="fa fa-question"></i>';
 			}
-			if ($results['type'] == 'create job number'){
+			elseif ($results['type'] == 'create job number'){
 				$icon = '<i class="fa fa-file-text"></i>';
+			}else{
+				$icon = '<i class="fa fa-question"></i>';
 			}
 
 			echo '<tr class = "' .$rowClass. '">

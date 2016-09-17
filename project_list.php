@@ -62,7 +62,7 @@ while($row = mysqli_fetch_array($res)){
 				<th><strong>Start Date</strong></th>
 				<th><strong>Days Open</strong></th>
 				<th><strong>Location</strong></th>
-				<th><strong>Contact</strong></th>
+				<!--<th><strong>Contact</strong></th>-->
 				<th><strong>Assigned to</strong></th>
 			</tr>
 		</thead>
@@ -73,18 +73,56 @@ while($row = mysqli_fetch_array($res)){
 		foreach ($result as $results){
 			$projectid = $results['projectid'];
 			$closed = $results['closed'];
+			$sql2 = "SELECT * FROM activity WHERE activityid IN(SELECT activityid FROM project_activity WHERE projectid = '$projectid');";
+			//echo $sql2;
+			$res2 = mysqli_query($con,$sql2);
+			$activity = array();
+
+
+			while($row = mysqli_fetch_array($res2)){
+				array_push($activity,
+					array('activityid'=>$row[0],
+						'complete'=>$row[1],
+						'type'=>$row[2],
+						'prospecting_type'=>$row[3],
+						'description'=>$row[4],
+						'due_date'=>$row[5],
+						'time'=>$row[6],
+						'result'=>$row[7],
+						'result_description'=>$row[8],
+						'next_action'=>$row[9],
+						'next_action_description'=>$row[10],
+						'creation_date'=>$row[11],
+						'created_by'=>$row[12],
+						'new'=>$row[13],
+						'complete_date'=>$row[14]
+						));
+					}
+					
+					//this is to look for over due tasks in the projects
+					$rowClass = '';
+					foreach($activity as $a){
+						$complete = $a['complete'];
+						$dueDate = $a['due_date'];
+						$currentDate = date("Y-m-d");
+						
+						if($complete == 0 && ($currentDate > $dueDate)){
+							
+							$rowClass = "red-row";
+						}
+					}
 			
 			
-			if (1 != $i % 2){
+			/*if (1 != $i % 2){
 				$rowClass = 'bltttttue-row';
 			}else{
 				$rowClass = 'whittttte-row';
-			}
+			}*/
 			 
-			//this makes the contact a link to the contacts profile
+			/*this makes the contact a link to the contacts profile
 			$sql2 = "SELECT companyid, name FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid');" ;
 			$res2 = mysqli_query($con,$sql2);
-			$row = mysqli_fetch_assoc($res2);
+			$row = mysqli_fetch_assoc($res2);*/
 			
 			
 			$sql3 = "SELECT userid, first_name, last_name FROM users WHERE userid IN (SELECT userid FROM managed_by WHERE projectid = '$projectid');" ;
@@ -255,7 +293,7 @@ while($row = mysqli_fetch_array($res)){
 				?>
 				</td>
 				<?php 
-					//this makes the contact a link to the contacts profile
+					/*/this makes the contact a link to the contacts profile
 					$sql2 = "SELECT companyid, name FROM company WHERE companyid IN (SELECT companyid FROM company_to_project WHERE projectid = '$projectid');" ;
 					$res2 = mysqli_query($con,$sql2);
 					$row = mysqli_fetch_assoc($res2);
@@ -265,7 +303,7 @@ while($row = mysqli_fetch_array($res)){
 					
 					$sql3 = "SELECT first_name, last_name FROM users WHERE userid IN (SELECT userid FROM managed_by WHERE projectid = '$projectid');" ;
 					$res3 = mysqli_query($con,$sql3);
-					$row3 = mysqli_fetch_assoc($res3);
+					$row3 = mysqli_fetch_assoc($res3);*/
 				?>
 				
 				<td><?php echo ucwords($row3['first_name']).' '. ucwords($row3['last_name']); ?></td>

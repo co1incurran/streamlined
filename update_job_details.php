@@ -67,6 +67,12 @@ $po_number = trim($po_number);
 $filterponumber = filter_var($po_number, FILTER_SANITIZE_STRING);
 $cleanponumber= mysqli_real_escape_string($con, $filterponumber);
 
+//INVOICE NUMBER
+$invoiceNumber = $_POST["invoice_number"];
+$invoiceNumber = trim($invoiceNumber);
+$filterinvoiceNumber = filter_var($invoiceNumber, FILTER_SANITIZE_STRING);
+$cleaninvoiceNumber= mysqli_real_escape_string($con, $filterinvoiceNumber);
+
 //SAGE REFERENCE
 $sage_reference = $_POST["sage_reference"];
 $sage_reference = trim($sage_reference);
@@ -99,10 +105,12 @@ $originalJobNumber = $row["job_number"];
 $originalNumberOfAssets = $row["number_of_assets"];
 $originalNotes = $row["notes"];
 $originalQuoteNumber = $row["quote_number"];
+$originalInvoiceNumber = $row["invoice_number"];
+//echo $originalInvoiceNumber.'hello';
 
-if($cleanjobtype != $originalJobType || $cleanjobdescription != $originalJobDescription ||  $cleanstatus != $originalJobStatus || $cleandate != $originalDueDate || $cleansagereference != $originalSageReference || $cleanponumber != $originalPoNumber || $cleanjobnumber != $originalJobNumber || $cleannumberOfAssets != $originalNumberOfAssets || $cleannotes != $originalNotes || $cleanQuoteNumber != $originalQuoteNumber){
+if($cleanjobtype != $originalJobType || $cleanjobdescription != $originalJobDescription ||  $cleanstatus != $originalJobStatus || $cleandate != $originalDueDate || $cleansagereference != $originalSageReference || $cleanponumber != $originalPoNumber || $cleanjobnumber != $originalJobNumber || $cleannumberOfAssets != $originalNumberOfAssets || $cleannotes != $originalNotes || $cleanQuoteNumber != $originalQuoteNumber || $cleaninvoiceNumber != $originalInvoiceNumber){
 
-$sql = "UPDATE jobs SET job_type = '$cleanjobtype', job_description = '$cleanjobdescription', job_status = '$cleanstatus', due_date = '$cleandate', sage_reference = '$cleansagereference', po_number = '$cleanponumber', job_number = '$cleanjobnumber', number_of_assets = '$cleannumberOfAssets', notes = '$cleannotes', quote_number = '$quoteNumber' WHERE jobid = '$jobid'; ";
+$sql = "UPDATE jobs SET job_type = '$cleanjobtype', job_description = '$cleanjobdescription', job_status = '$cleanstatus', due_date = '$cleandate', sage_reference = '$cleansagereference', po_number = '$cleanponumber', job_number = '$cleanjobnumber', number_of_assets = '$cleannumberOfAssets', notes = '$cleannotes', quote_number = '$cleanQuoteNumber', invoice_number = '$cleaninvoiceNumber' WHERE jobid = '$jobid'; ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;

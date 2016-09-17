@@ -150,7 +150,7 @@ echo'
 					</select><br>
 					
 					<label for="number_of_assets"><small>Number of assets involved</small></label>
-					<input id="number_of_assets" name="number_of_assets" value ="'.$numberOfAssets.'" type="number" max="9999999999" min ="1" required>
+					<input id="number_of_assets" placeholder = "Number Of Assets" name="number_of_assets" value ="'.$numberOfAssets.'" type="number" max="9999999999" min ="1" required>
 					
 					<label for="assign"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
@@ -172,28 +172,28 @@ echo'
 					</select><br>
 					
 					<label for="job_description"><small>Job description</small></label>
-					<textarea maxlength="70" class ="form-textarea" id="job_description" name="job_description" type="text">'.$jobDescription.'</textarea>
+					<textarea maxlength="70" class ="form-textarea" id="job_description" placeholder= "Job Description" name="job_description" type="text">'.$jobDescription.'</textarea>
 					
 					<label for="notes"><small>Notes</small></label>
-					<textarea maxlength="200" class ="form-textarea" id="notes" name="notes" type="text">'.$notes.'</textarea>
+					<textarea maxlength="200" placeholder = "Notes" class ="form-textarea" id="notes" name="notes" type="text">'.$notes.'</textarea>
 					
 					<label for="job_number"><small>Job number</small></label>
-					<input id="job_number" name="job_number"value ="'.$jobNumber.'" type="text" maxlength="20">
+					<input id="job_number" placeholder = "Job Number" name="job_number"value ="'.$jobNumber.'" type="text" maxlength="20">
 					
 					<label for="po_number"><small>PO number</small></label>
-					<input id="po_number" name="po_number" value ="'.$poNumber.'" type="text"maxlength="30" >
+					<input id="po_number"  placeholder = "Purchase Order Number" name="po_number" value ="'.$poNumber.'" type="text"maxlength="30" >
 					
 					<label for="quote_number"><small>Quote number</small></label>
-					<input id="quote_number" name="quote_number" value ="'.$quoteNumber.'" type="text"maxlength="30" >';
+					<input id="quote_number"  placeholder = "Quote Number" name="quote_number" value ="'.$quoteNumber.'" type="text"maxlength="30" >';
 					
 					if($complete = '1'){
 						echo'
 						<label for="invoice_number"><small>Invoice number</small></label>
-						<input id="invoice_number" name="invoice_number" value ="'.$invoiceNumber.'" type="text"maxlength="20" >';
+						<input id="invoice_number"  placeholder = "Invoice Number" name="invoice_number" value ="'.$invoiceNumber.'" type="text"maxlength="20" >';
 					}
-					'
+					echo'
 					<label for="sage_reference"><small>Sage reference</small></label>
-					<input id="sage_reference" name="sage_reference" value ="'.$sageReference.'" type="text" maxlength="20">
+					<input id="sage_reference"  placeholder = "Sage Reference" name="sage_reference" value ="'.$sageReference.'" type="text" maxlength="20">
 					
 					<input type="submit" id="submit" value="Update">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
