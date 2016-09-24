@@ -85,7 +85,7 @@ if(isset($_GET['filter'])){
 					
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul id="main-nav" class="nav navbar-nav">
-							<li class="active"><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
+							<li><a href="contacts.php"><i class="fa fa-book"></i>  Contacts </a></li>
 							
                                <?php
 								// this is used to make a notification icon in the tasks tab when a user gets new tasks
@@ -93,7 +93,7 @@ if(isset($_GET['filter'])){
 								?>
 							<li><a href="tasks_outbox.php"><i id = "outbox-counter"><?php echo $count.' '; ?></i><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
 							<li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-							<li><a href="services.php"><i class="fa fa-medkit"></i> Services</a></li>
+							<li class="active"><a href="services.php"><i class="fa fa-medkit"></i> Services</a></li>
 							<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
 							<li><a href="sms.php"><i class="fa fa-comment"></i> SMS</a></li>
                             <li class="dropdown">
@@ -125,20 +125,11 @@ if(isset($_GET['filter'])){
                                     <div class="main-content panel panel-default no-margin">
                                         <header class="panel-heading clearfix">
 										
-                                            <div class="btn-group pull-right">
-												<?php
-													$url = $_SERVER['REQUEST_URI'];
-													//$url = str_replace('&', '%26', $url);
-													echo'													
-													<a href="add_contact.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>';
-												?>
-                                            </div>
-											
 											<div class="btn-group pull-right" id="filter-button">
 												<?php
-												
+												$url = $_SERVER['REQUEST_URI'];
 												if(isset($_GET['filter'])){
-													if(isset($_GET['contact'])){
+													if(isset($_GET['type'])){
 														$link = substr($url, 0, strrpos($url, "&filter"));
 														//echo $link.'1';
 													}else{
@@ -147,7 +138,7 @@ if(isset($_GET['filter'])){
 													}
 													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
 												}else{
-													if(isset($_GET['contact'])){
+													if(isset($_GET['type'])){
 														if(isset ($_GET['filter'])){
 															$link = substr($url, 0, strrpos($url, "&filter"));
 														
@@ -169,47 +160,28 @@ if(isset($_GET['filter'])){
 												?>
                                             </div>
 											
-											<div class="btn-group pull-right">
-												<?php
-													$url = $_SERVER['REQUEST_URI'];
-													//$url = str_replace('&', '%26', $url);
-													if(isset ($_GET['contact'])){
-														if($_GET['contact'] == 'projects'){
-															echo'													
-															<a href="#?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Convert to Customer</strong></a>';
-														}
-													}
-												?>
-                                            </div>
-											
 
                                             <div class="view-switcher">
 											<?php
-												if(isset ($_GET['contact'])){
-													$contact = $_GET['contact'];
-													if($contact == 'companies'){
-														$setter = 'Companies';
-													}elseif($contact == 'lead'){
-														$setter = 'Leads';
-													}elseif($contact == 'privatecustomer'){
-														$setter = 'Private Customers';
-													}elseif($contact == 'projects'){
-														$setter = 'Projects';
+												if(isset ($_GET['type'])){
+													$type = $_GET['type'];
+													if($type == 'service'){
+														$setter = 'Services';
+													}elseif($type == 'inspection'){
+														$setter = 'Inspections';
 													}
 													else{
-														$setter= 'Companies';
+														$setter= 'Services';
 													}
 												}else{
-													$setter= 'Companies';
+													$setter= 'Services';
 												}
 											?>
                                                 <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>
                                                 <ul>
                                                     
-                                                    <li><a href="contacts.php?contact=companies">Companies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-													<li><a href="contacts.php?contact=privatecustomer">Private Customers </a></li>
-													<li><a href="contacts.php?contact=lead">Leads </a></li>
-													<li><a href="contacts.php?contact=projects">Projects </a></li>
+                                                    <li><a href="services.php?type=service">Services&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+													<li><a href="services.php?type=inspection">Inspections </a></li>
                                                     
                                                 </ul>
                                             </div>
@@ -219,27 +191,21 @@ if(isset($_GET['filter'])){
 										
 											<?php
 												//check which php file to load
-												if(isset ($_GET['contact'])){
-													$contact = $_GET['contact'];
+												if(isset ($_GET['type'])){
+													$type = $_GET['type'];
 												
-													if($contact == 'privatecustomer'){
+													if($type == 'service'){
 														//echo 'customer names';
-														require_once 'customer_names.php';
-													}elseif ($contact == 'lead'){
+														require_once 'service_list.php';
+													}elseif ($type == 'inspection'){
 														// get the list of leads
-														require_once 'lead_list.php';
-													}elseif ($contact == 'companies'){
-														//echo 'company names';
-														require_once 'company_list.php';
-													}elseif ($contact == 'projects'){
-														//echo 'company names';
-														require_once 'project_customers.php';
+														require_once 'inspection_list.php';
 													}
 													else{
-														require_once 'company_list.php';
+														require_once 'service_list.php';
 													}
 												}else{
-														require_once 'company_list.php';
+														require_once 'service_list.php';
 												}
 											?>
 											
@@ -301,7 +267,7 @@ if(isset($_GET['filter'])){
 <script>
     $(document).ready(function() 
         { 
-            $("#privateCustomers").tablesorter(); 
+            $("#serviceList").tablesorter(); 
         } 
     );
     </script>

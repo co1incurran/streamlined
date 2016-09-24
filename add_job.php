@@ -108,7 +108,7 @@ echo'
 					</select><br>
 					
 					<label for="job_description"><small>Job description</small></label>
-					<textarea maxlength="200" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
+					<textarea maxlength="200" placeholder = "Job description (please include the value of the quote where possible)" class ="form-textarea" id="job_description" name="job_description" type="text"></textarea>
 					
 					<label for="notes"><small>Notes</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="notes" name="notes" type="text"></textarea>
