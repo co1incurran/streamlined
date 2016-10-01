@@ -185,6 +185,37 @@ if(isset($_GET['filter'])){
                                                     
                                                 </ul>
                                             </div>
+											<?php
+												//this is for getting the status to bput in the action part of the form below
+														$value = '';
+														if(isset($_GET['status'])){
+															$value = $_GET['status'];
+														}
+													echo'
+													<div id = "date-picker">
+														<form action="services.php?status='.$value.'" id="form" method="post" name="form">
+														<label for="date1"><small>From</small></label>';
+														
+															if(isset($_POST['date1']) && $_POST['date1'] != ''){
+																echo'<input id="date1" name="date1"  value = "'.$_POST['date1'].'" type="date">';
+															}else{
+																echo'<input id="date1" name="date1" type="date">';
+															}
+														
+														echo'
+														<label for="date2"><small>To</small></label>';
+														
+															if(isset($_POST['date2']) && $_POST['date2'] != ''){
+																echo'<input id="date2" name="date2"  value = "'.$_POST['date2'].'" type="date">';
+															}else{
+																echo'<input id="date2" name="date2" type="date">';
+															}
+														echo'
+														<button class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar" type = "submit"><i class="fa fa-share" aria-hidden="true"></i></button>
+														</form>
+													</div>';
+												
+											?>
                                         </header>
 										
                                         <section class="panel-body">
@@ -196,16 +227,16 @@ if(isset($_GET['filter'])){
 												
 													if($type == 'service'){
 														//echo 'customer names';
-														require_once 'service_list.php';
+														require_once 'service_location.php';
 													}elseif ($type == 'inspection'){
 														// get the list of leads
 														require_once 'inspection_list.php';
 													}
 													else{
-														require_once 'service_list.php';
+														require_once 'service_location.php';
 													}
 												}else{
-														require_once 'service_list.php';
+														require_once 'service_location.php';
 												}
 											?>
 											
