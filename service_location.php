@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
 <?php
-if(isset($_POST['date1']) || isset($_POST['date2'])){
-						if($_POST['date1'] != '' || $_POST['date2'] != ''){
+/*if(isset($_POST['date1']) || isset($_POST['date2'])){
+						if($_POST['date1'] != '' || $_POST['date2'] != ''){*/
 //array of all the counties
 $counties = array('antrim', 'armagh', 'carlow', 'cavan', 'clare', 'cork', 'derry', 'donegal', 'down', 'dublin', 'fermanagh', 'galway', 'kerry', 'kildare', 'kilkenny', 'laois', 'leitrim', 'limerick', 'longford', 'louth', 'mayo', 'meath', 'monaghan', 'offaly', 'roscommon', 'sligo', 'tipperary', 'tyrone', 'waterford', 'westmeath', 'wexford', 'wicklow');
  
@@ -39,62 +39,88 @@ while($row = mysqli_fetch_array($res)){
 			<th id = "first-table-column" class = "asset-list"><strong>County</strong></th>
 			<th class = "asset-list"><strong>Trade</strong></th>
 			<th class = "asset-list"><strong>Private</strong></th>
-
+			<th class = "asset-list"><strong>Overdue</strong></th>
 		</tr>
 	</thead>
 <tbody>
 	<?php
 		//get the current date
-		$date = date('Y/m/d');
+		$currentDate = date("Y-m-d");
+		//USED TO GET A DATE 1 YEAR AGO FROM TODAY
+		$time = strtotime("-1 year", time());
+		$date = date("Y-m-d", $time);
 		
+		//USED TO GET A DATE 1 YEAR FROM TODAY
+		$time = strtotime("+1 year", time());
+		$futureDate = date("Y-m-d", $time);
 		
 		foreach ($counties as $county){
-			//NEED TO WORK ON THIS PART
-			if(isset($_POST['date1']) || isset($_POST['date2'])){
-				if($_POST['date1'] != '' || $_POST['date2'] != ''){
-					//selects all the stock in each county that is for trade use (owned by a company)
-					$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
+			
+				if(isset($_POST['date1']) && $_POST['date1'] != '' && isset($_POST['date2']) && $_POST['date2'] != ''){
+					$date1 = $_POST['date1'];
+					$date2 = $_POST['date2'];
+					//get a year previous to date 1
+					$time = new DateTime($date1);
+					$oldDate1 = $time->modify('-1 year')->format('Y-m-d');
+					
+					//get a year previous to date 2
+					$time2 = new DateTime($date2);
+					$oldDate2 = $time2->modify('-1 year')->format('Y-m-d');
+					
+					//THIS IS FOR THE TRADE STOCK																																			
+					$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
+					//echo $sql.'</br>';
+					
+					//selects all the stock in each county that is for private use (owned by a private customer)
+					$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))); ";
+					//echo $sql2.'<br>';
+					
+					
+				}else{
+					$date1 = '';
+					$date2 = '';
+					//echo $currentDate;
+					//echo $futureDate;
+					//$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE service_date BETWEEN '$date' AND '$currentDate' OR next_service BETWEEN '$currentDate' AND '$futureDate'  AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
+					//echo $sql;
+					$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))) AND (service_date BETWEEN '$date' AND '$currentDate' OR next_service BETWEEN '$currentDate' AND '$futureDate'); ";
+				//	echo $sql.'<br>';
+					
+					//selects all the stock in each county that is for private use (owned by a private customer)
+					$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))) AND (service_date BETWEEN '$date' AND '$currentDate' OR next_service BETWEEN '$currentDate' AND '$futureDate'); ";
+					//echo $sql2.'<br>';
+
+				}
+				
+					//this gets the overdue sevices of the trade stock
+					$sql3 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$currentDate' AND '$date' OR service_date <= '$date' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
+					//echo $sql3.'<br>';
+				
+				
+					//this gets the overdue sevices of the private stock
+					$sql4 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$currentDate' AND '$date' OR service_date <= '$date' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))); ";
+					//echo $sql4.'<br>';
+				
 					//echo $sql;
 					$res = mysqli_query($con,$sql);
 					$tradeCount=mysqli_num_rows($res);
 					
-					//selects all the stock in each county that is for private use (owned by a private customer)
-					$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))); ";
-					//echo $sql;
 					$res2 = mysqli_query($con,$sql2);
 					$privateCount=mysqli_num_rows($res2);
-				}
-			}
-			
-			/*//To get the number of assets
-			$sql2 = "SELECT companyid, name, county FROM company WHERE companyid IN (SELECT companyid FROM company_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid = '$stockid'));";
-			//echo $sql2;
-			$res2 = mysqli_query($con,$sql2);
-			// Return the number of rows in result set
-			$rowcount=mysqli_num_rows($res2);
-			if($rowcount<1){
-				$sql2 = "SELECT customerid, first_name, last_name, county FROM customer WHERE customerid IN (SELECT customerid FROM customer_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid = '$stockid'));";
-				$res2 = mysqli_query($con,$sql2);
-				while ($row = mysqli_fetch_assoc($res2)) {
-					$customerid =  $row["customerid"];
-					$customerName = $row["first_name"].' '.$row["last_name"];
-					$county =  $row["county"];
-				}
-			}else{
-				while ($row = mysqli_fetch_assoc($res2)) {
-					$companyid =  $row["companyid"];
-					$companyName = $row["name"];
-					$county =  $row["county"];
-				}
-			}*/
+					
+					$res3 = mysqli_query($con,$sql3);
+					$tradeOverdueCount=mysqli_num_rows($res3);
+					
+					$res4 = mysqli_query($con,$sql4);
+					$privateOverdueCount=mysqli_num_rows($res4);
 
 	?>
 			<tr>	
 				<!--<td><a href = "profile.php?customerid=<?php //echo $customerid;?>&companyid=0 " class="name"><?php //echo ucwords($results['first_name']).' '.ucwords($results['last_name']);?></a></td>-->
-				<td><?php echo ucwords($county)?></td>
+				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'">'.ucwords($county).'</a>'?></td>
 				<td><?php echo $tradeCount ?></td>
 				<td><?php echo $privateCount ?></td>
-				
+				<td><?php echo $tradeOverdueCount + $privateOverdueCount ?></td>
 			</tr>
 	<?php
 		}

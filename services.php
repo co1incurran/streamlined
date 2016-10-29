@@ -231,6 +231,8 @@ if(isset($_GET['filter'])){
 													}elseif ($type == 'inspection'){
 														// get the list of leads
 														require_once 'inspection_list.php';
+													}elseif($type == 'all'){
+														require_once 'service_details.php';
 													}
 													else{
 														require_once 'service_location.php';
