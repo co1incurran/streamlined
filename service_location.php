@@ -56,9 +56,15 @@ while($row = mysqli_fetch_array($res)){
 		
 		foreach ($counties as $county){
 			
-				if(isset($_POST['date1']) && $_POST['date1'] != '' && isset($_POST['date2']) && $_POST['date2'] != ''){
-					$date1 = $_POST['date1'];
-					$date2 = $_POST['date2'];
+				if(isset($_GET['date1']) && $_GET['date1'] != ''){
+					$date1 = $_GET['date1'];
+					// if date2 is not set then set it to this automatically
+					$date2 = $currentDate;
+					if(isset($_GET['date2']) && $_GET['date2'] != ''){
+						$date2 = $_GET['date2'];
+					}
+					//echo $date1;
+					//echo $date2;
 					//get a year previous to date 1
 					$time = new DateTime($date1);
 					$oldDate1 = $time->modify('-1 year')->format('Y-m-d');
@@ -117,10 +123,11 @@ while($row = mysqli_fetch_array($res)){
 	?>
 			<tr>	
 				<!--<td><a href = "profile.php?customerid=<?php //echo $customerid;?>&companyid=0 " class="name"><?php //echo ucwords($results['first_name']).' '.ucwords($results['last_name']);?></a></td>-->
-				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'">'.ucwords($county).'</a>'?></td>
+				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'">'.ucwords($county).'</a>'.'<br>';
+				//echo $date1.'hi '.$date2;?></td>
 				<td><?php echo $tradeCount ?></td>
 				<td><?php echo $privateCount ?></td>
-				<td><?php echo $tradeOverdueCount + $privateOverdueCount ?></td>
+				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'&overdue=yes">'.($tradeOverdueCount + $privateOverdueCount).'</a>';?></td>
 			</tr>
 	<?php
 		}

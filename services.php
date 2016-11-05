@@ -193,22 +193,22 @@ if(isset($_GET['filter'])){
 														}
 													echo'
 													<div id = "date-picker">
-														<form action="services.php?status='.$value.'" id="form" method="post" name="form">
+														<form action="services.php?status='.$value.'" id="form" method="get" name="form">
 														<label for="date1"><small>From</small></label>';
 														
-															if(isset($_POST['date1']) && $_POST['date1'] != ''){
-																echo'<input id="date1" name="date1"  value = "'.$_POST['date1'].'" type="date">';
+															if(isset($_GET['date1']) && $_GET['date1'] != ''){
+																echo'<input id="date1" name="date1"  value = "'.$_GET['date1'].'" type="date" required>';
 															}else{
-																echo'<input id="date1" name="date1" type="date">';
+																echo'<input id="date1" name="date1" type="date" required>';
 															}
 														
 														echo'
 														<label for="date2"><small>To</small></label>';
 														
-															if(isset($_POST['date2']) && $_POST['date2'] != ''){
-																echo'<input id="date2" name="date2"  value = "'.$_POST['date2'].'" type="date">';
+															if(isset($_GET['date2']) && $_GET['date2'] != ''){
+																echo'<input id="date2" name="date2"  value = "'.$_GET['date2'].'" type="date" required>';
 															}else{
-																echo'<input id="date2" name="date2" type="date">';
+																echo'<input id="date2" name="date2" type="date" required>';
 															}
 														echo'
 														<button class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar" type = "submit"><i class="fa fa-share" aria-hidden="true"></i></button>
