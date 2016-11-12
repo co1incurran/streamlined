@@ -37,6 +37,7 @@ while($row = mysqli_fetch_array($res)){
 		<tr class = "blue-row">
 
 			<th id = "first-table-column" class = "asset-list"><strong>County</strong></th>
+			<th class = "asset-list"><strong>Total</strong></th>
 			<th class = "asset-list"><strong>Trade</strong></th>
 			<th class = "asset-list"><strong>Private</strong></th>
 			<th class = "asset-list"><strong>Overdue</strong></th>
@@ -136,6 +137,7 @@ while($row = mysqli_fetch_array($res)){
 				<!--<td><a href = "profile.php?customerid=<?php //echo $customerid;?>&companyid=0 " class="name"><?php //echo ucwords($results['first_name']).' '.ucwords($results['last_name']);?></a></td>-->
 				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'">'.ucwords($county).'</a>'.'<br>';
 				//echo $date1.'hi '.$date2;?></td>
+				<td><?php echo $tradeCount+$privateCount ?></td>
 				<td><?php echo $tradeCount ?></td>
 				<td><?php echo $privateCount ?></td>
 				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'&overdue=yes">'.($tradeOverdueCount + $privateOverdueCount).'</a>';?></td>
