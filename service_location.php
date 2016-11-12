@@ -54,15 +54,26 @@ while($row = mysqli_fetch_array($res)){
 		$time = strtotime("+1 year", time());
 		$futureDate = date("Y-m-d", $time);
 		
+		if(isset($_GET['date1']) && $_GET['date1'] != ''){
+			$date1 = $_GET['date1'];
+		}else{
+			$currentDate = date("Y-m-d");
+			$date1 = $currentDate;
+		}
+		
+		if(isset($_GET['date2']) && $_GET['date2'] != ''){
+			$date2 = $_GET['date2'];
+		}else{
+			$time = strtotime("+3 months", time());
+			$later = date("Y-m-d", $time);
+			//echo $oneYearLater;
+			$date2 = $later;
+		}
+		
 		foreach ($counties as $county){
 			
-				if(isset($_GET['date1']) && $_GET['date1'] != ''){
-					$date1 = $_GET['date1'];
-					// if date2 is not set then set it to this automatically
-					$date2 = $currentDate;
-					if(isset($_GET['date2']) && $_GET['date2'] != ''){
-						$date2 = $_GET['date2'];
-					}
+					
+
 					//echo $date1;
 					//echo $date2;
 					//get a year previous to date 1
@@ -82,7 +93,7 @@ while($row = mysqli_fetch_array($res)){
 					//echo $sql2.'<br>';
 					
 					
-				}else{
+				/*}else{
 					$date1 = '';
 					$date2 = '';
 					//echo $currentDate;
@@ -96,7 +107,7 @@ while($row = mysqli_fetch_array($res)){
 					$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))) AND (service_date BETWEEN '$date' AND '$currentDate' OR next_service BETWEEN '$currentDate' AND '$futureDate'); ";
 					//echo $sql2.'<br>';
 
-				}
+				}*/
 				
 					//this gets the overdue sevices of the trade stock
 					$sql3 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$currentDate' AND '$date' OR service_date <= '$date' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";

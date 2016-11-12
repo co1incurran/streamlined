@@ -9,6 +9,17 @@ $type = $_GET['type'];
 //gets the dates
 $date1 = $_GET['date1'];
 $date2 = $_GET['date2'];
+if($date1 == ""){
+	$currentDate = date("Y-m-d");
+	$date1 = $currentDate;
+}
+if($date2 == ""){
+	$time = strtotime("+3 months", time());
+	$oneYearLater = date("Y-m-d", $time);
+	//echo $oneYearLater;
+	$date2 = $oneYearLater;
+}
+
 //gets 1 year previous to the 2 dates above
 $date1Minus1 = strtotime("-1 year", strtotime($date1));
 $date2Minus1 = strtotime("-1 year", strtotime($date2));
@@ -111,12 +122,15 @@ if($type == 'all' || $type == 'privatecustomer'){
 				//	if($_POST['date1'] != '' || $_POST['date2'] != ''){
 						//selects all the stock in each county that is for trade use (owned by a company)
 						if(isset($_GET['overdue']) && $_GET['overdue']=='yes'){
+							echo$_GET['overdue'] ;
 							$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date' AND '$yearOld' OR service_date <= '$yearOld' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid')); ";
 						}else{
+							
 							$sql = "SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' || service_date BETWEEN '$date1Minus1' AND '$date2Minus1' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid')); ";
 						}
 						//echo $sql.'<br>';
 						$res = mysqli_query($con,$sql);
+						//echo $sql.'<br>';
 						$stockCount=mysqli_num_rows($res);
 						
 						//selects all the stock in each county that is for private use (owned by a private customer)

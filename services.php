@@ -186,6 +186,11 @@ if(isset($_GET['filter'])){
                                                 </ul>
                                             </div>
 											<?php
+												//get the current date
+												$currentDate = date("Y-m-d");
+												//USED TO GET A DATE 1 YEAR AGO FROM TODAY
+												$time = strtotime("+3 months", time());
+												$oneYearLater = date("Y-m-d", $time);
 												//this is for getting the status to bput in the action part of the form below
 														$value = '';
 														if(isset($_GET['status'])){
@@ -199,7 +204,7 @@ if(isset($_GET['filter'])){
 															if(isset($_GET['date1']) && $_GET['date1'] != ''){
 																echo'<input id="date1" name="date1"  value = "'.$_GET['date1'].'" type="date" required>';
 															}else{
-																echo'<input id="date1" name="date1" type="date" required>';
+																echo'<input id="date1" name="date1" value  ="'.$currentDate.'" type="date" required>';
 															}
 														
 														echo'
@@ -208,7 +213,7 @@ if(isset($_GET['filter'])){
 															if(isset($_GET['date2']) && $_GET['date2'] != ''){
 																echo'<input id="date2" name="date2"  value = "'.$_GET['date2'].'" type="date" required>';
 															}else{
-																echo'<input id="date2" name="date2" type="date" required>';
+																echo'<input id="date2" name="date2" value ="'.$oneYearLater.'" type="date" required>';
 															}
 														echo'
 														<button class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar" type = "submit"><i class="fa fa-share" aria-hidden="true"></i></button>
