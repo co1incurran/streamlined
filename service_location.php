@@ -111,7 +111,7 @@ while($row = mysqli_fetch_array($res)){
 				}*/
 				
 					//this gets the overdue sevices of the trade stock
-					$sql3 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$currentDate' AND '$date' OR service_date <= '$date' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
+					$sql3 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date' AND '$currentDate' OR service_date <= '$date' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
 					//echo $sql3.'<br>';
 				
 				
@@ -135,12 +135,12 @@ while($row = mysqli_fetch_array($res)){
 	?>
 			<tr>	
 				<!--<td><a href = "profile.php?customerid=<?php //echo $customerid;?>&companyid=0 " class="name"><?php //echo ucwords($results['first_name']).' '.ucwords($results['last_name']);?></a></td>-->
-				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'">'.ucwords($county).'</a>'.'<br>';
+				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'"><u>'.ucwords($county).'</u></a>'.'<br>';
 				//echo $date1.'hi '.$date2;?></td>
 				<td><?php echo $tradeCount+$privateCount ?></td>
 				<td><?php echo $tradeCount ?></td>
 				<td><?php echo $privateCount ?></td>
-				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'&overdue=yes">'.($tradeOverdueCount + $privateOverdueCount).'</a>';?></td>
+				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'&overdue=yes"><u>'.($tradeOverdueCount + $privateOverdueCount).'</u></a>';?></td>
 			</tr>
 	<?php
 		}

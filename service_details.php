@@ -4,6 +4,11 @@
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 //$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
+//get the current date
+$date = date('Y/m/d');
+$time = strtotime("-1 year", time());
+$yearOld = date("Y-m-d", $time);
+
 $county = $_GET['county'];
 $type = $_GET['type'];
 //gets the dates
@@ -30,8 +35,11 @@ if($type == 'all' || $type == 'company'){
 	//echo 'here';
 	//if(isset($_GET['date1']) && isset($_GET['date2']) && $_GET['date2'] != ''){
 		
-		//echo $date1.' '.$date2;
-		$sql = "SELECT companyid, name, address_line1, address_line2, address_line3, address_line4, county FROM company WHERE county = '$county' AND companyid IN(SELECT companyid FROM company_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' || service_date BETWEEN '$date1Minus1' AND '$date2Minus1')))";
+		if(isset($_GET['overdue']) && $_GET['overdue']=='yes'){
+			$sql = "SELECT companyid, name, address_line1, address_line2, address_line3, address_line4, county FROM company WHERE county = '$county' AND companyid IN(SELECT companyid FROM company_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date' AND '$yearOld' OR service_date <= '$yearOld')))";
+		}else{
+			$sql = "SELECT companyid, name, address_line1, address_line2, address_line3, address_line4, county FROM company WHERE county = '$county' AND companyid IN(SELECT companyid FROM company_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' || service_date BETWEEN '$date1Minus1' AND '$date2Minus1')))";
+		}
 		//echo $sql;
 	/*}
 	elseif(isset($_POST['date1']) && $_POST['date1'] != ''){
@@ -64,7 +72,11 @@ if($type == 'all' || $type == 'company'){
 
 if($type == 'all' || $type == 'privatecustomer'){
 	//private customers
-	$sql2 = "SELECT customerid, first_name, last_name, address_line1, address_line2, address_line3, address_line4, county FROM customer WHERE county = '$county' AND customerid IN(SELECT customerid FROM customer_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' || service_date BETWEEN '$date1Minus1' AND '$date2Minus1')));";
+	if(isset($_GET['overdue']) && $_GET['overdue']=='yes'){					
+		$sql2 = "SELECT customerid, first_name, last_name, address_line1, address_line2, address_line3, address_line4, county FROM customer WHERE county = '$county' AND customerid IN(SELECT customerid FROM customer_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date' AND '$yearOld' OR service_date <= '$yearOld')))";
+	}else{
+		$sql2 = "SELECT customerid, first_name, last_name, address_line1, address_line2, address_line3, address_line4, county FROM customer WHERE county = '$county' AND customerid IN(SELECT customerid FROM customer_requires WHERE jobid IN (SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' || service_date BETWEEN '$date1Minus1' AND '$date2Minus1')));";
+	}
 	// echo $sql2;
 	$res2 = mysqli_query($con,$sql2);
 
@@ -109,23 +121,21 @@ if($type == 'all' || $type == 'privatecustomer'){
 	</thead>
 <tbody>
 	<?php
-		//get the current date
-		$date = date('Y/m/d');
+		
 		//USED TO GET A DATE 1 YEAR AGO FROM TODAY
-		$time = strtotime("-1 year", time());
-		$yearOld = date("Y-m-d", $time);
+		
 		if($type == 'all' || $type == 'company'){
 			foreach ($result as $r){
 				$companyid = $r['companyid'];
+				
 				//NEED TO WORK ON THIS PART
 				//if(isset($_POST['date1']) || isset($_POST['date2'])){
 				//	if($_POST['date1'] != '' || $_POST['date2'] != ''){
 						//selects all the stock in each county that is for trade use (owned by a company)
 						if(isset($_GET['overdue']) && $_GET['overdue']=='yes'){
-							echo$_GET['overdue'] ;
+							
 							$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date' AND '$yearOld' OR service_date <= '$yearOld' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid')); ";
 						}else{
-							
 							$sql = "SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' || service_date BETWEEN '$date1Minus1' AND '$date2Minus1' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid = '$companyid')); ";
 						}
 						//echo $sql.'<br>';
@@ -234,7 +244,7 @@ if($type == 'all' || $type == 'privatecustomer'){
 						$stockCount=mysqli_num_rows($res);*/
 						//selects all the stock in each county that is for private use (owned by a private customer)
 						if(isset($_GET['overdue']) && $_GET['overdue']=='yes'){
-							"SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date' AND '$yearOld' OR service_date <= '$yearOld' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid = '$customerid')); ";
+							$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date' AND '$yearOld' OR service_date <= '$yearOld' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid = '$customerid')); ";
 						}else{
 							$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' || service_date BETWEEN '$date1Minus1' AND '$date2Minus1' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid = '$customerid')); ";
 						}
