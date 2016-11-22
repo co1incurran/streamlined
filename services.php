@@ -10,6 +10,16 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script>
+<script type="text/javascript">
+function checkAll(bx) {
+  var cbs = document.getElementsByTagName('input');
+  for(var i=0; i < cbs.length; i++) {
+    if(cbs[i].type == 'checkbox') {
+      cbs[i].checked = bx.checked;
+    }
+  }
+}
+</script>
 <?php
 if(isset($_GET['filter'])){
 	echo'
@@ -136,7 +146,7 @@ if(isset($_GET['filter'])){
 														$link = substr($url, 0, strrpos($url, "?filter"));
 														//echo $link.'2';
 													}
-													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="Filter table" ><i class="fa fa-filter"></i></a>';
 												}else{
 													if(isset($_GET['type'])){
 														if(isset ($_GET['filter'])){
@@ -144,19 +154,19 @@ if(isset($_GET['filter'])){
 														
 															//echo $link.'3'.$url;
 															echo'
-															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter table" ><i class="fa fa-filter"></i></a>';
 														}else{
 															echo'
-															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter table" ><i class="fa fa-filter"></i></a>';
 														}
 													}else{
 														$link = substr($url, 0, strrpos($url, "?filter"));
 														//echo $link.'4';
 														echo'
-														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter table" ><i class="fa fa-filter"></i></a>';
 													}
 												}
-												//echo $url;
+												echo'<a href="services.php?sms=set" class="btn btn-default" data-toggle="tooltip" title="SMS" ><i class="fa fa-envelope"></i></a>';
 												?>
                                             </div>
 											
@@ -216,7 +226,7 @@ if(isset($_GET['filter'])){
 																echo'<input id="date2" name="date2" value ="'.$oneYearLater.'" type="date" required>';
 															}
 														echo'
-														<button class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar" type = "submit"><i class="fa fa-share" aria-hidden="true"></i></button>
+														<button class="btn btn-default" data-toggle="tooltip" title="Go" type = "submit"><i class="fa fa-share" aria-hidden="true"></i></button>
 														</form>
 													</div>';
 												

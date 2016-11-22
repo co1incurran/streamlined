@@ -12,6 +12,12 @@ table.tablesorter {
 tr td{
 	background-color: white;
 }
+td#checkbox_header{
+	background-color: rgb(176,212,229);
+	padding-right: 0em;
+	text-align: center;
+}
+#8dbdd8
 tr td#td-header.asset-list {
 	background-color: rgb(176,212,229);
 	text-align: center;

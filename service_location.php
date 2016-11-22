@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
+
 <?php
 /*if(isset($_POST['date1']) || isset($_POST['date2'])){
 						if($_POST['date1'] != '' || $_POST['date2'] != ''){*/
@@ -35,7 +36,11 @@ while($row = mysqli_fetch_array($res)){
 <table id="serviceList" class="tablesorter filterable" align="center">
 	<thead>
 		<tr class = "blue-row">
-
+			<?php
+				if(isset ($_GET['sms'])){
+					echo'<td id = "checkbox_header"><input type="checkbox" onclick="checkAll(this)"></td>';
+				}
+			?>
 			<th id = "first-table-column" class = "asset-list"><strong>County</strong></th>
 			<th class = "asset-list"><strong>Total</strong></th>
 			<th class = "asset-list"><strong>Trade</strong></th>
@@ -70,7 +75,10 @@ while($row = mysqli_fetch_array($res)){
 			//echo $oneYearLater;
 			$date2 = $later;
 		}
-		
+		//this makes the form for passing the details about the counties when you need to send out bulk messages 
+		if(isset ($_GET['sms'])){
+			echo'<form action="srth67jerththwrth.php">';
+		}
 		foreach ($counties as $county){
 			
 					
@@ -132,9 +140,12 @@ while($row = mysqli_fetch_array($res)){
 					$res4 = mysqli_query($con,$sql4);
 					$privateOverdueCount=mysqli_num_rows($res4);
 
-	?>
-			<tr>	
-				<!--<td><a href = "profile.php?customerid=<?php //echo $customerid;?>&companyid=0 " class="name"><?php //echo ucwords($results['first_name']).' '.ucwords($results['last_name']);?></a></td>-->
+			echo'
+			<tr>';
+			if(isset ($_GET['sms'])){
+				echo'<td id = "checkbox"><input type="checkbox" name="name1" value ="'.$county.'" /></td>';
+			}
+		?>
 				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'"><u>'.ucwords($county).'</u></a>'.'<br>';
 				//echo $date1.'hi '.$date2;?></td>
 				<td><?php echo $tradeCount+$privateCount ?></td>
@@ -142,7 +153,12 @@ while($row = mysqli_fetch_array($res)){
 				<td><?php echo $privateCount ?></td>
 				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'&overdue=yes"><u>'.($tradeOverdueCount + $privateOverdueCount).'</u></a>';?></td>
 			</tr>
+			
 	<?php
+		}
+		if(isset ($_GET['sms'])){
+			echo'<input type="submit" value="Next">
+				</form>';
 		}
 		mysqli_close($con);
 	?>
