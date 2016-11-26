@@ -166,7 +166,7 @@ if(isset($_GET['filter'])){
 														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter table" ><i class="fa fa-filter"></i></a>';
 													}
 												}
-												echo'<a href="services.php?sms=set" class="btn btn-default" data-toggle="tooltip" title="SMS" ><i class="fa fa-envelope"></i></a>';
+												echo'<a href="'.$url.'?sms=set" class="btn btn-default" data-toggle="tooltip" title="SMS" ><i class="fa fa-envelope"></i></a>';
 												?>
                                             </div>
 											
