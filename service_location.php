@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
 
 <?php
+//$date1 = $_GET['date1'];
+//$date2 = $_GET['date2'];
 /*if(isset($_POST['date1']) || isset($_POST['date2'])){
 						if($_POST['date1'] != '' || $_POST['date2'] != ''){*/
 //array of all the counties
@@ -37,7 +39,7 @@ while($row = mysqli_fetch_array($res)){
 	<thead>
 		<tr class = "blue-row">
 			<?php
-				if(isset ($_GET['sms'])){
+				if(isset ($_GET['sms']) && $_GET['sms']=="set"){
 					echo'<td id = "checkbox_header"><input type="checkbox" onclick="checkAll(this)"></td>';
 				}
 			?>
@@ -75,23 +77,32 @@ while($row = mysqli_fetch_array($res)){
 			//echo $oneYearLater;
 			$date2 = $later;
 		}
+		
+		//get a year previous to date 1
+		$time = new DateTime($date1);
+		$oldDate1 = $time->modify('-1 year')->format('Y-m-d');
+		
+		//get a year previous to date 2
+		$time2 = new DateTime($date2);
+		$oldDate2 = $time2->modify('-1 year')->format('Y-m-d');
+					
 		//this makes the form for passing the details about the counties when you need to send out bulk messages 
-		if(isset ($_GET['sms'])){
-			echo'<form action="srth67jerththwrth.php">';
+		if(isset ($_GET['sms'])&& $_GET['sms']=="set"){
+			echo'<form action="print.php" method ="GET">';
+			//pass the dates here
+			echo '<input type="hidden" name="date1" value="'.$date1.'">
+			<input type="hidden" name="date2" value="'.$date2.'">
+			<input type="hidden" name="oldDate1" value="'.$oldDate1.'">
+			<input type="hidden" name="oldDate2" value="'.$oldDate2.'">';
 		}
+		
 		foreach ($counties as $county){
 			
 					
 
 					//echo $date1;
 					//echo $date2;
-					//get a year previous to date 1
-					$time = new DateTime($date1);
-					$oldDate1 = $time->modify('-1 year')->format('Y-m-d');
 					
-					//get a year previous to date 2
-					$time2 = new DateTime($date2);
-					$oldDate2 = $time2->modify('-1 year')->format('Y-m-d');
 					
 					//THIS IS FOR THE TRADE STOCK																																			
 					$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
@@ -142,8 +153,8 @@ while($row = mysqli_fetch_array($res)){
 
 			echo'
 			<tr>';
-			if(isset ($_GET['sms'])){
-				echo'<td id = "checkbox"><input type="checkbox" name="name1" value ="'.$county.'" /></td>';
+			if(isset ($_GET['sms']) && $_GET['sms']=="set"){
+				echo'<td id = "checkbox"><input type="checkbox" name="checkbox[]" value ="'.$county.'" /></td>';
 			}
 		?>
 				<td><?php echo '<a href = "services.php?county='.$county.'&type=all&date1='.$date1.'&date2='.$date2.'"><u>'.ucwords($county).'</u></a>'.'<br>';
@@ -156,7 +167,7 @@ while($row = mysqli_fetch_array($res)){
 			
 	<?php
 		}
-		if(isset ($_GET['sms'])){
+		if(isset ($_GET['sms'])&& $_GET['sms']=="set"){
 			echo'<input type="submit" value="Next">
 				</form>';
 		}

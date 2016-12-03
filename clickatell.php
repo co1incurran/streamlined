@@ -3,7 +3,7 @@
  $password = urlencode("12345678a");
  $api_id = urlencode("3608086");
  //this is for sending to mutiple numbers
- $toList = array(urlencode("0851084442"),urlencode("0833235706"));
+ $toList = array(urlencode("0851084442"),urlencode("1111111111"));
  
  $to = implode(',', $toList);
 // $to = urlencode("353851084442");

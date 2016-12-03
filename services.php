@@ -166,7 +166,13 @@ if(isset($_GET['filter'])){
 														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter table" ><i class="fa fa-filter"></i></a>';
 													}
 												}
-												echo'<a href="'.$url.'?sms=set" class="btn btn-default" data-toggle="tooltip" title="SMS" ><i class="fa fa-envelope"></i></a>';
+												$cleanUrl = strtok($url, '?');
+												//this is for showing and hiding the checkboxes on the service list, the checkboxes are used for choosing who to send sms to.
+												if(isset($_GET['sms'])&& $_GET['sms']== "set"){
+													echo'<a href="'.$cleanUrl.'?sms=unset" class="btn btn-default" data-toggle="tooltip" title="SMS" ><i class="fa fa-envelope"></i></a>';
+												}else{
+													echo'<a href="'.$cleanUrl.'?sms=set" class="btn btn-default" data-toggle="tooltip" title="SMS" ><i class="fa fa-envelope"></i></a>';
+												}
 												?>
                                             </div>
 											
