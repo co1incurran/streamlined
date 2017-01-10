@@ -82,7 +82,10 @@ while($row = mysqli_fetch_array($res)){
 		'creation_date'=>$row[11],
 		'created_by'=>$row[12],
 		'new'=>$row[13],
-		'complete_date'=>$row[14]
+		'complete_date'=>$row[14],
+		'contactd'=>$row[15],
+		
+		
 	));
 }
 // print_r (array_values($result));
@@ -149,6 +152,8 @@ foreach($result2 as $results2){
 										<th class = "asset-list"><strong>Stage</strong></th>
 										<th class = "asset-list"><strong>Description</strong></th>
 										<th class = "asset-list"><strong>Completion Date</strong></th>
+										<th class = "asset-list"><strong>Met with</strong></th>
+										<th class = "asset-list"><strong>Project Ref</strong></th>
 										<th class = "asset-list"><strong>Punctuality</strong></th>
 										<th class = "asset-list"><strong>Result</strong></th>
 										<th class = "asset-list"><strong>Next Action</strong></th>
@@ -162,14 +167,21 @@ foreach($result2 as $results2){
 								$rowClass = 'white-row';
 							} 
 							$complete = $results['complete'];
-							
+							$activityid = $results['activityid'];
+							echo $activityid.'<br>';
 							echo '<tr class = "' .$rowClass. '">
 										<td class = "asset-list"></td>
 										<td class = "asset-list">'. ucwords($results['type']) . '</td>
 										<td class = "asset-list">'. ucwords($results['description']) . '</td>';
 										$date1 = $results['complete_date'];
 										$completeDate = date("d/m/Y", strtotime($date1));
-										echo '<td class = "asset-list">'. ($completeDate) . '</td>';
+										echo '<td class = "asset-list">'. ($completeDate) . '</td>
+										<td class = "asset-list">Met with</td>
+										<td class = "asset-list"></td>';
+										$sql_project_ref = "SELECT planning_number FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = $activityid);";
+										$res = mysqli_query($con,$sql_project_ref);
+										mysqli_num_rows();
+										echo $sql_project_ref.'<br>';
 										//<td class = "asset-list">'; 
 										$class = '';
 										$message ='';

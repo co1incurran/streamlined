@@ -182,6 +182,7 @@ $('#jobType').on('change',function(){
 											require_once 'php/history.php';
 											//echo 'history';
 										}elseif($page == 'task'){
+											
 											require_once 'php/profile_task_history.php';
 											//echo 'tasks';
 										}

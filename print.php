@@ -176,15 +176,15 @@ if(isset($_GET['filter'])){
 																'mobile_phone_num'=>$row[3]
 																)
 															);
-														}
-														
+														} 
+														//need to get the data for sending the text messages into the array that we can send the texts messages to the people who require a service 
 												///////////////////////////////////////////////////////////////////////////////////////////////////
 
 														//get the company names and phone numbers so we can send them a text
 														$sql2 = "SELECT company.companyid, company.name, workers.first_name, workers.last_name, workers.mobile_phone_num FROM company, workers, works_with WHERE county = '$county' AND company.companyid IN(SELECT companyid FROM company_requires WHERE jobid IN(SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' ))) AND company.companyid = works_with.companyid AND works_with.workerid = workers.workerid ;";
 														//AND workers.mobile_phone_num != ''
 														$res2 = mysqli_query($con,$sql2);
-													//	echo $sql2.'<br>';
+														//echo $sql2.'<br>';
 														
 														while($row = mysqli_fetch_array($res2)){
 															array_push($result2,
@@ -226,10 +226,7 @@ if(isset($_GET['filter'])){
 															</tr>
 														</thead>
 													<tbody>';
-													
-													//print_r (array_values($result));
-													//print_r (array_values($result2));
-												}
+												} 
 
 												//echo $date1.'<br>';
 												//echo $date2.'<br>';
