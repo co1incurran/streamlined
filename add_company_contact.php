@@ -47,7 +47,7 @@ echo'
 						<input id="firstname" name="firstname" type="text" required maxlength = "20">
 						
 						<label for="lastname"><small>Last Name</small></label>
-						<input id="lastname" name="lastname" type="text" required maxlength = "30">
+						<input id="lastname" name="lastname" type="text" maxlength = "30">
 						
 						<label for="email"><small>Email</small></label>
 						<input id="email" name="email" type="email" maxlenght = "50">

@@ -99,8 +99,23 @@ echo '<div class="main-section">
 											 //menu for the business card
 											 
 											 echo '<h3>Contacts: '.$counter.'</h3>
-								</hgroup>
-								</header>
+								</hgroup>';
+								if(isset ($_GET['page'])){
+									$page = $_GET['page'];
+									if($page == 'contacts'){
+										echo'
+										<div class="btn-group pull-right">';
+										
+											$url = $_SERVER['REQUEST_URI'];
+											$url = str_replace('&', '%26', $url);
+											echo'
+											<a href="add_a_contact_to_project.php?url='.$url.'&projectid='.$projectid.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>
+										
+
+										</div>';
+									}
+								}
+								echo '</header>
 								<section class="panel-body" style = "width:100%">
 									<table align="center">
 										<thead><tr class = "blue-row">

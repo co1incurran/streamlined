@@ -1,4 +1,5 @@
 <?php
+//the account info needs to be changed once the system is up and running
  $username = urlencode("colincurran");
  $password = urlencode("12345678a");
  $api_id = urlencode("3608086");

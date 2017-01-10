@@ -62,6 +62,7 @@ while($row = mysqli_fetch_array($res2)){
 }
 //print_r (array_values($result2));
 
+/*
 foreach($results as $r){
 	
 	
@@ -69,10 +70,11 @@ foreach($results as $r){
 ?>	 
 
 	
-<!-- ... -->
+//<!-- ... -->
 </tbody> 
     </table> 
-	
+*/
+echo'	
 	<table id="companyNames" class="tablesorter filterable">
 		<thead>
 			<tr class = "blue-row">				
@@ -87,8 +89,8 @@ foreach($results as $r){
 			</tr>
 		</thead>
 		
-		<tbody>
-	<?php
+		<tbody>';
+	//<?php
 	$i=1;
 		foreach ($result as $results){
 			$companyid = $results['companyid'];

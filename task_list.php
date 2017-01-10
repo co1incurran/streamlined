@@ -591,7 +591,7 @@ while($row = mysqli_fetch_array($res)){
 							//put in the link to the project details here
 							if($project == false){
 								echo'<td>';
-								echo '<a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'" class="name">';
+								echo '<a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task" class="name">';
 								
 									if($customerid >= 1){
 										echo ucwords($row['first_name']).' '.ucwords($row['last_name']);
@@ -623,7 +623,7 @@ while($row = mysqli_fetch_array($res)){
 								
 							}elseif($project == true){
 								echo'<td>';
-								echo '<a href = "project_profile.php?projectid='.$projectid.'" class="name">
+								echo '<a href = "project_profile.php?projectid='.$projectid.'&page=taskhistory" class="name">
 								Project: '.$planningNumber.'
 								</a></td>';
 								if($status != 'global' && $status != 'globalcomplete' ){

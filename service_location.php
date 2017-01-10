@@ -88,7 +88,7 @@ while($row = mysqli_fetch_array($res)){
 					
 		//this makes the form for passing the details about the counties when you need to send out bulk messages 
 		if(isset ($_GET['sms'])&& $_GET['sms']=="set"){
-			echo'<form action="print.php" method ="GET">';
+			echo'<form action="print.php" method ="POST">';
 			//pass the dates here
 			echo '<input type="hidden" name="date1" value="'.$date1.'">
 			<input type="hidden" name="date2" value="'.$date2.'">

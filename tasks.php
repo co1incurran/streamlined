@@ -170,14 +170,7 @@ if(isset($_GET['filter'])){
 												
 												?>
                                             </div>
-											<?php
-											if(isset ($_GET['filter'])){
-													echo'
-													<div class="btn-group pull-right">
-														<a href="#" class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar"><i class="fa fa-question"></i></a></li>
-													</div>';
-												}
-											?>
+										
                                             <div class="view-switcher">
 											<?php
 											
