@@ -168,7 +168,7 @@ foreach($result2 as $results2){
 							} 
 							$complete = $results['complete'];
 							$activityid = $results['activityid'];
-							echo $activityid.'<br>';
+							//echo $activityid.'<br>';
 							echo '<tr class = "' .$rowClass. '">
 										<td class = "asset-list"></td>
 										<td class = "asset-list">'. ucwords($results['type']) . '</td>
@@ -176,12 +176,22 @@ foreach($result2 as $results2){
 										$date1 = $results['complete_date'];
 										$completeDate = date("d/m/Y", strtotime($date1));
 										echo '<td class = "asset-list">'. ($completeDate) . '</td>
-										<td class = "asset-list">Met with</td>
-										<td class = "asset-list"></td>';
+										<td class = "asset-list">Met with</td>';
+										
 										$sql_project_ref = "SELECT planning_number FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = $activityid);";
 										$res = mysqli_query($con,$sql_project_ref);
-										mysqli_num_rows();
-										echo $sql_project_ref.'<br>';
+										if(mysqli_num_rows($res)>0){
+											
+											while($row = mysql_fetch_array($res)) {
+												echo '<td class = "asset-list">'.$row['planning_number'].'</td>';
+											}
+											
+										}else{
+
+											echo '<td class = "asset-list">N/A</td>';
+										}
+										//echo $sql_project_ref.'<br>';
+									
 										//<td class = "asset-list">'; 
 										$class = '';
 										$message ='';
