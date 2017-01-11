@@ -49,20 +49,24 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="save_asset.php" id="form" method="post" name="form">
+				<form action="deactivate_users.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Users</h2>
+					<small><a href = "#">Create user</a></small>
 					<hr>
 					</select><br>';
 					foreach ($users as $u){
 						$user = ucwords($u['first_name']).' '. ucwords($u['last_name']);
-						echo'<input type="checkbox" name="'.$u['first_name'].' '.$u['last_name'].'" value="'.$u['first_name'].' '.$u['last_name'].'" id="'.$u['first_name'].' '.$u['last_name'].'"><label for="'.$u['first_name'].' '.$u['last_name'].'"> '.ucwords($u['first_name']).' '. ucwords($u['last_name']).'</label><br>';
+						echo'<input type="checkbox" name="checkbox[]" value="'.$u['first_name'].' '.$u['last_name'].'" id="checkbox"><label for="'.$u['first_name'].' '.$u['last_name'].'"> '.ucwords($u['first_name']).' '. ucwords($u['last_name']).'</label><br>';
 						//echo '<li>'.$user.'</li>';
-						
 					}
-					echo'					
-					<input type="submit" id="submit" value="Save">
-					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
+					echo' 					
+					<input type="submit" id="submit" value="Deactivate">
+					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->';
+					if(!isset ($_GET['showall'])){
+						echo '<a href = "users.php?showall=set"id="submit">Show all</a>';
+					}
+					echo'
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>
 			</div>
