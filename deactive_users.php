@@ -58,11 +58,11 @@ echo'
 					<hr>
 					</select><br>';
 					if($num_rows<1){
-						echo 'There are currently no deactivated user accounts.';
+						echo 'There is currently no deactivated user accounts.';
 					}else{
 						foreach ($users as $u){
 							$user = ucwords($u['first_name']).' '. ucwords($u['last_name']);
-							echo'<input type="checkbox" name="checkbox[]" value="'.$u['userid'].'" id="checkbox"><label for="'.$u['first_name'].' '.$u['last_name'].'"> '.ucwords($u['first_name']).' '. ucwords($u['last_name']).'</label><br>';
+							echo'<label><input type="checkbox" name="checkbox[]" value="'.$u['userid'].'" id="checkbox">'.ucwords($u['first_name']).' '. ucwords($u['last_name']).'</label> <br>';
 							//echo '<li>'.$user.'</li>';
 						}
 					}
