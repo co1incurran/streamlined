@@ -67,7 +67,7 @@ echo'
 						echo '<a href = "deactive_users.php"id="submit">Show deactive users</a>';
 					}
 					echo'
-					<a onclick="goBack()" id="submit">Cancel</a>
+					<a href = "contacts.php"id="submit">Cancel</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->

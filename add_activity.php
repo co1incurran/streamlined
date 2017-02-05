@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 	if(!isset ($_SESSION['username'])){
 		header("location:index.html");
@@ -73,7 +72,7 @@ echo'
 					echo'
 					<label for="assign"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control" required>';
-						$sql = "SELECT userid FROM users;";
+						$sql = "SELECT userid FROM users WHERE active = '1';";
 						$res = mysqli_query($con,$sql);
 
 					if (mysqli_num_rows($res) > 0) {

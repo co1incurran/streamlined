@@ -37,28 +37,28 @@ if(isset($_GET['status'])){
 	//echo $status;
 	
 	if($status == 'all'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid ASC; ";
 	}elseif($status == 'today'){
 		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$currentDate'; ";
 	}elseif($status == 'tomorrow'){
 		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$tomorrow'; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY jobid DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY jobid ASC; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY jobid DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY jobid ASC; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date < '$currentDate' ORDER BY jobid DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date < '$currentDate' ORDER BY jobid ASC; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT * FROM jobs WHERE complete = '1' AND add_asset != '1' ORDER BY complete_date DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '1' AND add_asset != '1' ORDER BY complete_date ASC; ";
 		//this changes the variable which is previously set about 20 lines above
 		$dateType = 'Complete Date';
 		//this is used to set the dagte to the complete date
 		$datePicker = 'complete_date';
 	}else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid ASC; ";
 	}
 }else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid ASC; ";
 }
 
 

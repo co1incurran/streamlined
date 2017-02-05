@@ -154,7 +154,7 @@ $('#jobType').on('change',function(){
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-area-chart"></i> Task History </a></li>
 								<li><a id="add_asset" class = "icons" href="add_asset.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-gift"></i> Add Asset </a></li>';
 								if($companyid != 0){
-											echo '<li><a id="add_contact" class = "icons" href="add_contact.php?url='.$url.'&customerid='.$customerid.'&companyid='
+											echo '<li><a id="add_contact" class = "icons" href="add_company_worker.php?url='.$url.'&customerid='.$customerid.'&companyid='
 											.$companyid.'"><i class="fa fa-users"></i> Add Contact </a></li>';
 								}
 								echo'
