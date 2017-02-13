@@ -12,6 +12,13 @@ table.tablesorter {
 tr td{
 	background-color: white;
 }
+td#td-header {
+    text-align: center;
+}
+#td-header{
+	background-color: rgb(176,212,229);
+	text-align: center;
+}
 td#checkbox_header{
 	background-color: rgb(176,212,229);
 	padding-right: 0em;

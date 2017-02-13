@@ -23,7 +23,7 @@ if(isset($_POST['delete'])){
 <html>
 	<head>
 	<title>Contact deleted</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -56,7 +56,7 @@ echo'
 <html>
 	<head>
 	<title>Delete contact</title>
-	<link href=".css/elements.css" rel="stylesheet">
+	<link href="css/elements.css" rel="stylesheet">
 	<script src="js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

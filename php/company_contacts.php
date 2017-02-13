@@ -25,7 +25,8 @@ while($row = mysqli_fetch_array($res)){
 		'address_line4'=>$row[5],
 		'county'=>$row[6],
 		'country'=>$row[7],
-		'sage_id'=>$row[8]
+		'sage_id'=>$row[8],
+		'sector'=>$row[9]
 	));
 }
 
@@ -61,7 +62,8 @@ echo '<div class="main-section">
 									 <hgroup>';
 									 
 										/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
-											 echo	'<h2>'. ucwords($results['name']).'<br></h2>';
+											 echo	'<h2>'. ucwords($results['name']).'<a id="edit" href="edit_company_details.php?url='.$url.'&companyid='.$companyid.'&name='.$results['name'].'&address_line1='.$results['address_line1'].'&address_line2='.$results['address_line2'].'&address_line3='.$results['address_line3'].'&address_line4='.$results['address_line4'].'&county='.$results['county'].'&country='.$results['country'].'&sage_id='.$results['sage_id'].'&sector='.$results['sector'].'"><i class="fa fa-gear"></i></a><a id="add_contact" href="add_company_worker.php?url='.$url.'&customerid='.$customerid.'&companyid='
+											.$companyid.'" class="btn btn-default profile_button" data-toggle="tooltip" title="View as a List"><i class="fa fa-plus"></i><strong> Add Contact </strong></a><br></h2>';
 												$ad1 = ucwords($results['address_line1']);
 												$ad2 = ucwords($results['address_line2']);
 												$ad3 = ucwords($results['address_line3']);
@@ -108,9 +110,7 @@ echo '<div class="main-section">
 										
 											$url = $_SERVER['REQUEST_URI'];
 											$url = str_replace('&', '%26', $url);
-											echo'
-											<a href="add_a_contact_to_project.php?url='.$url.'&projectid='.$projectid.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Add Contact</strong></a>
-										
+											echo'										
 
 										</div>';
 									}

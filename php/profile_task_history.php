@@ -29,7 +29,8 @@ if((isset($_GET['companyid'])) && $companyid != 0){
 		'address_line4'=>$row2[5],
 		'county'=>$row2[6],
 		'country'=>$row2[7],
-		'sage_id'=>$row2[8]
+		'sage_id'=>$row2[8],
+		'sector'=>$row2[9]
 	));
 	}
 	$set = false;
@@ -107,9 +108,9 @@ foreach($result2 as $results2){
 									 <span class="avatar"></span>
 									 <hgroup>';
 									 if($set == true){
-										 echo '<h2>'. ucwords($results2['first_name']).' '.ucwords($results2['last_name']).'<br></h2>';
+										 echo '<h2>'. ucwords($results2['first_name']).' '.ucwords($results2['last_name']).'<a id="add_contact" href = "add_activity.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'" class="btn btn-default profile_button" data-toggle="tooltip" title="View as a List"><i class="fa fa-plus"></i><strong> Add Task </strong></a><br></h2>';
 									 }else{
-										 echo '<h2>'. ucwords($results2['name']).'<br></h2>';
+										 echo '<h2>'. ucwords($results2['name']).'<a id="edit" href="edit_company_details.php?url='.$url.'&companyid='.$companyid.'&name='.$results2['name'].'&address_line1='.$results2['address_line1'].'&address_line2='.$results2['address_line2'].'&address_line3='.$results2['address_line3'].'&address_line4='.$results2['address_line4'].'&county='.$results2['county'].'&country='.$results2['country'].'&sage_id='.$results2['sage_id'].'&sector='.$results2['sector'].'"><i class="fa fa-gear"></i></a><a id="add_contact" href = "add_activity.php?url='.$url.'&customerid='.$customerid.'&companyid='.$companyid.'" class="btn btn-default profile_button" data-toggle="tooltip" title="View as a List"><i class="fa fa-plus"></i><strong> Add Task </strong></a><br></h2>';
 									 }
 												
 												$ad1 = ucwords($results2['address_line1']);

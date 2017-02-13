@@ -53,6 +53,9 @@ body {
     overflow: -moz-scrollbars-vertical;
     background: #8ec2da;
 }
+.profile_button{
+	float:right;
+}
 #submit {
     text-decoration: none;
 	margin: auto;
@@ -109,7 +112,7 @@ i#outbox-counter{
 	font-style: normal;
 }
 #edit{
-	float:right;
+	
 	color:black;
 	padding-bottom: 5px;
 	padding-left: 5px;
