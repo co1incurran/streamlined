@@ -177,9 +177,8 @@ if(isset($_GET['filter'])){
 																)
 															);
 														} 
-														//need to get the data for sending the text messages into the array that we can send the texts messages to the people who require a service 
-												///////////////////////////////////////////////////////////////////////////////////////////////////
-
+														
+														
 														//get the company names and phone numbers so we can send them a text
 														$sql2 = "SELECT company.companyid, company.name, workers.first_name, workers.last_name, workers.mobile_phone_num FROM company, workers, works_with WHERE county = '$county' AND company.companyid IN(SELECT companyid FROM company_requires WHERE jobid IN(SELECT jobid FROM uses WHERE stockid IN(SELECT stockid FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' ))) AND company.companyid = works_with.companyid AND works_with.workerid = workers.workerid ;";
 														//AND workers.mobile_phone_num != ''
@@ -196,30 +195,44 @@ if(isset($_GET['filter'])){
 																)
 															);
 														}
+														//put all the phone numbers from the 2 above arrays into one array
+														$nums = array();
+														foreach($result as $r1){
+															array_push($nums,
+															$r1['mobile_phone_num']
+															);
+														}
+														
+													}
+													print_r (array_values($nums));
+													echo '<br>';
 														//print_r (array_values($result2));
 														
 														//$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))); ";
 														//echo $sql1.'<br>';
-													}
+													
+													////////////////////////////////////////////////////////////
+													//PUT A WHILE LOOP HERE TO SHOW ALL THE CUSTOMERS IN A TABLE 
+													////////////////////////////////////////////////////////////
+													//MAKE AN ARRAY OF ALL THE PHONE NUMBERS
+													
+														
+													
 													print_r (array_values($result));
 													echo '<br>';
 													echo '<br>';
-													print_r (array_values($result2));
+												//	print_r (array_values($result2));
 													echo'
 													<table id="privateCustomers" class="tablesorter filterable" align="center">
 														<thead>
 															<tr class = "blue-row">
 
 																<th id = "first-table-column" class = "asset-list"><strong>Customer</strong></th>
-
 																<th class = "asset-list"><strong>Phone</strong></th>
-
 																<th class = "asset-list"><strong>Mobile</strong></th>
-
 																<th class = "asset-list"><strong>Address</strong></th>
 																<th class = "asset-list"><strong>City</strong></th>
 																<th class = "asset-list"><strong>County</strong></th>
-
 																<th class = "asset-list"><strong>Last Contacted</strong></th>
 																<th class = "asset-list"><strong>Assets</strong></th>
 
@@ -291,12 +304,3 @@ if(isset($_GET['filter'])){
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
