@@ -155,11 +155,12 @@ if(isset($_GET['filter'])){
 												$oldDate1 = $_POST["oldDate1"];
 												$oldDate2 = $_POST["oldDate2"];
 												//echo $date1;
-
+												$counter = 0;
 												if(isset($_POST['checkbox'])){
 													//echo 'checkbox is set';
 													$result = array();
 													$result2 = array();
+													
 													foreach($_POST['checkbox'] as $county) {
 														//echo $county.'<br>';
 														//get the private customers names and phone numbers so we can send them a text
@@ -176,6 +177,7 @@ if(isset($_GET['filter'])){
 																'mobile_phone_num'=>$row[3]
 																)
 															);
+															$counter++;
 														} 
 														
 														
@@ -194,19 +196,31 @@ if(isset($_GET['filter'])){
 																'worker_mobile'=>$row[4]
 																)
 															);
-														}
-														//put all the phone numbers from the 2 above arrays into one array
-														$nums = array();
-														foreach($result as $r1){
-															array_push($nums,
-															$r1['mobile_phone_num']
-															);
+															$counter++;
 														}
 														
 													}
+													$nums = array();
+													//put all the phone numbers from the 2 above arrays into one array
+														foreach($result as $r1){
+															if($r1['mobile_phone_num'] != ''){
+																array_push($nums,
+																$r1['mobile_phone_num']
+																);
+															}
+														}
+														
+														foreach($result2 as $r2){
+															if($r2['worker_mobile'] != ''){
+																array_push($nums,
+																$r2['worker_mobile']
+																);
+															}
+														}
+														echo $counter.'<br>';
 													print_r (array_values($nums));
-													echo '<br>';
-														//print_r (array_values($result2));
+													echo '<br><br>';
+														//print_r (array_values($result2));	
 														
 														//$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))); ";
 														//echo $sql1.'<br>';
@@ -221,8 +235,18 @@ if(isset($_GET['filter'])){
 													print_r (array_values($result));
 													echo '<br>';
 													echo '<br>';
-												//	print_r (array_values($result2));
+													print_r (array_values($result2));
+													foreach($nums as $n){
+													  echo '<input type="hidden" name="numbers[]" value="'. $n. '">';
+													}
 													echo'
+													<form action="send_sms.php" id="form" method="post" name="form">';
+															foreach($nums as $n){
+															  echo '<input type="hidden" name="numbers[]" value="'. $n. '">';
+															}
+															echo'
+															<input type="submit" id="submit" value="Send">
+													</form>
 													<table id="privateCustomers" class="tablesorter filterable" align="center">
 														<thead>
 															<tr class = "blue-row">

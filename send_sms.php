@@ -1,4 +1,14 @@
 <?php 
+
+//print_r($_POST['numbers']);
+$nums = array();
+foreach($_POST['numbers'] as $n) {
+			array_push($nums,
+			urlencode($n)
+			);
+		}
+	print_r (array_values($nums));
+
 	$username = urlencode("colin.c");
 	$password = urlencode("SKDcGDUSMfLHAB");
 	$api_id = urlencode("3619671");
@@ -11,4 +21,5 @@
 	//$message = $_POST['message'];
 	$message = urlencode($message);
 	echo file_get_contents("https://api.clickatell.com/http/sendmsg" . "?user=$username&password=$password&api_id=$api_id&to=$to&text=$message");
+
 ?>
