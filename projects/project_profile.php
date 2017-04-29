@@ -181,6 +181,7 @@ $('#jobType').on('change',function(){
 									$sql = "SELECT * FROM projects WHERE projectid ='$projectid' ; ";
 									//echo $sql;
 									$res = mysqli_query($con,$sql);
+									
 									$result = array();
 
 									 
