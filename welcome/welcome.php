@@ -15,7 +15,7 @@
 <title>Enable Supplies - CRM System</title>
 
 <!-- Compiled and minified Bootstrap CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -23,7 +23,7 @@
 <!-- Compiled and minified FontAwesome CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" media="screen" href="css/style.css" />
+<link rel="stylesheet" media="screen" href="../css/style.css" />
 
 </head>
 <body>
@@ -189,6 +189,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <!-- Main Script -->
-    <script src="js/global.js"></script>
+    <script src="../js/global.js"></script>
 </body>
 </html>

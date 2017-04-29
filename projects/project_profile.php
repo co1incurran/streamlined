@@ -186,7 +186,7 @@ $('#jobType').on('change',function(){
 									 
 									while($row = mysqli_fetch_array($res)){
 										array_push($result,
-											array('companyid'=>$row[0],
+											array('projectid'=>$row[0],
 											'planning_number'=>$row[1],
 											'est_start_date'=>$row[2],
 											'address_line1'=>$row[3],
@@ -200,14 +200,26 @@ $('#jobType').on('change',function(){
 											'closed'=> $row[11]
 										));
 									}
-									 //print_r (array_values($result));
-									 //echo '<br>';
+								
+									//print_r (array_values($result));
+									//echo '<br>';
 
 									//used to ensure a proper page reload if details are updated
 									$url = $_SERVER['REQUEST_URI'];
 									$url = str_replace('&', '%26', $url);
 
 									foreach ($result as $results){
+										$planningNumber = $results['planning_number'];
+										$startDate = $results['est_start_date'];
+										$address1 = $results['address_line1'];
+										$address2 = $results['address_line2'];
+										$address3 = $results['address_line3'];
+										$address4 = $results['address_line4'];
+										$county = $results['country'];
+										$country = $results['county'];
+										$regarding = $results['regarding'];
+										$notes = $results['notes'];
+										
 										echo '<div class="main-section">
 													
 														<div class="container-fluid no-padding">
@@ -234,7 +246,7 @@ $('#jobType').on('change',function(){
 																		 <span class="avatar"></span>
 																		 <hgroup>';
 																			/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
-																				 echo	'<h4><strong>Ref: </strong>'. ucwords($results['planning_number']).'</h4>';//.'<a id="edit" href="edit_company_details.php?url='.$url.'&companyid='.$companyid.'&name='.$results['name'].'&address_line1='.$results['address_line1'].'&address_line2='.$results['address_line2'].'&address_line3='.$results['address_line3'].'&address_line4='.$results['address_line4'].'&county='.$results['county'].'&country='.$results['country'].'&sage_id='.$results['sage_id'].'&sector='.$results['sector'].'"><i class="fa fa-gear"></i></a><br><br></h2>';
+																				 echo	'<h2><strong>Ref: </strong>'. ucwords($results['planning_number']).'<a id="edit" href="edit_project_details.php?url='.$url.'&projectid='.$projectid.'&planningNumber='.$planningNumber.'&startDate='.$startDate.'&address1='.$address1.'&address2='.$address2.'&address3='.$address3.'&address4='.$address4.'&county='.$county.'&country='.$country.'&regarding='.$regarding.'&notes='.$notes.'"><i class="fa fa-gear"></i></a></h2>';
 																					$ad1 = ucwords($results['address_line1']);
 																					$ad2 = ucwords($results['address_line2']);
 																					$ad3 = ucwords($results['address_line3']);

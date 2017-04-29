@@ -6,27 +6,28 @@ define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$url= $_POST['url'];
-$projectid= $_POST['projectid'];
-$userName= $_POST['userName'];
-$planningNumber = $_POST['planningNumber'];
-$startDate= $_POST['startDate'];
-$address1= $_POST['address1'];
-$address2= $_POST['address2'];
-$address3 = $_POST['address3'];
-$address4= $_POST['address4'];
-$county= $_POST['county'];
-$country= $_POST['country'];
-$regarding = $_POST['regarding'];
-$notes= $_POST['notes'];
+$url= $_GET['url'];
+$projectid= $_GET['projectid'];
+//$userName= $_GET['userName'];
+$userName= '';
+$planningNumber = $_GET['planningNumber'];
+$startDate= $_GET['startDate'];
+$address1= $_GET['address1'];
+$address2= $_GET['address2'];
+$address3 = $_GET['address3'];
+$address4= $_GET['address4'];
+$county= $_GET['county'];
+$country= $_GET['country'];
+$regarding = $_GET['regarding'];
+$notes= $_GET['notes'];
 
 echo'
 <!DOCTYPE html>
 <html>
 	<head>
 	<title>Project details</title>
-	<link href="css/elements.css" rel="stylesheet">
-	<script src="js/popup.js"></script>
+	<link href="../css/elements.css" rel="stylesheet">
+	<script src="../js/popup.js"></script>
 	<style>
 		#add_task {
 			float: right;
@@ -63,7 +64,7 @@ echo'
 					
 					
 					<select id="location" class="drop_down"  name = "county" class="form-control" required>';
-					if(isset ($_POST['county'])){
+					if(isset ($_GET['county'])){
 						echo '<option value="'.$county.'" selected = "selected">'.ucwords($county).'</option>';
 					}else{
 						echo '<option value="" disabled selected>Select a county</option>';
