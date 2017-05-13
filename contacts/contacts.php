@@ -49,7 +49,7 @@ if(isset($_GET['filter'])){
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="welcome.php">Enable Supplies</a>
+                      <a class="navbar-brand" href="../welcome/welcome.php">Enable Supplies</a>
                     </div>
     
                   
