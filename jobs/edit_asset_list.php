@@ -1,12 +1,7 @@
 <?php
 include'../include/session.php';
 
-define("DB_HOST", "127.0.0.1");
-define("DB_USER", "user");
-define("DB_PASSWORD", "1234");
-define("DB_DATABASE", "database");
- 
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+include'../include/db_connection.php';
 
 $sql2 = "SELECT * FROM asset_type ORDER BY asset_type; ";
 $res2 = mysqli_query($con,$sql2);

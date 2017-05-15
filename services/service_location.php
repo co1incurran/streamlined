@@ -10,27 +10,6 @@ $counties = array('antrim', 'armagh', 'carlow', 'cavan', 'clare', 'cork', 'derry
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-/*$sql = "SELECT stockid, serialid, name, model, installation_date, service_date, next_service FROM stock; ";
- 
-$res = mysqli_query($con,$sql);
-
-$result = array();
- 
-while($row = mysqli_fetch_array($res)){
-	array_push($result,
-		array('stockid'=>$row[0],
-		'serialid'=>$row[1],
-		'name'=>$row[2],
-		'model'=>$row[3],
-		'installation_date'=>$row[4],
-		'service_date'=>$row[5],
-		'next_service'=>$row[6]
-	));
-}*/
-//print_r (array_values($result));
-
-//Puts all the customer names in a table
-//echo '<section class="panel-body">';
 ?>	 
 
 	
@@ -111,23 +90,6 @@ while($row = mysqli_fetch_array($res)){
 					//selects all the stock in each county that is for private use (owned by a private customer)
 					$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date1' AND '$date2' OR service_date BETWEEN '$oldDate1' AND '$oldDate2' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))); ";
 					//echo $sql2.'<br>';
-					
-					
-				/*}else{
-					$date1 = '';
-					$date2 = '';
-					//echo $currentDate;
-					//echo $futureDate;
-					//$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE service_date BETWEEN '$date' AND '$currentDate' OR next_service BETWEEN '$currentDate' AND '$futureDate'  AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";
-					//echo $sql;
-					$sql = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))) AND (service_date BETWEEN '$date' AND '$currentDate' OR next_service BETWEEN '$currentDate' AND '$futureDate'); ";
-				//	echo $sql.'<br>';
-					
-					//selects all the stock in each county that is for private use (owned by a private customer)
-					$sql2 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM customer_requires WHERE customerid IN(SELECT customerid FROM customer WHERE county = '$county'))) AND (service_date BETWEEN '$date' AND '$currentDate' OR next_service BETWEEN '$currentDate' AND '$futureDate'); ";
-					//echo $sql2.'<br>';
-
-				}*/
 				
 					//this gets the overdue sevices of the trade stock
 					$sql3 = "SELECT stockid, installation_date, service_date, next_service FROM stock WHERE next_service BETWEEN '$date' AND '$currentDate' OR service_date <= '$date' AND stockid IN(SELECT stockid FROM uses WHERE jobid IN (SELECT jobid FROM company_requires WHERE companyid IN(SELECT companyid FROM company WHERE county = '$county'))); ";

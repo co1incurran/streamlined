@@ -1,5 +1,6 @@
 <?php
-include'../include/session.php'
+include'../include/session.php';
+include'../include/db_connection.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,15 +39,9 @@ include'../include/session.php'
     
                   
                      <?php
-						define("DB_HOST", "127.0.0.1");
-						define("DB_USER", "user");
-						define("DB_PASSWORD", "1234");
-						define("DB_DATABASE", "database");
-						
 						//this is used to check if there is new tasks assigned to the user 
 						$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn' AND created_by != '$userLoggedOn') ORDER BY creation_date; ";
 						//echo $sql;
-						$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
 						$res = mysqli_query($con,$sql);
 						$rowCount = mysqli_num_rows($res);

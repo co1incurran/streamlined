@@ -1,5 +1,5 @@
 <?php
-include'../include/session.php'
+include'../include/session.php';
 $url= $_POST['url'];
 $contactType = $_POST['contactType'];
 //echo $url.'<br>'.$contactType;

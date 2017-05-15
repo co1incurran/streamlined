@@ -1,11 +1,6 @@
 <?php
-include'../include/session.php'
-define("DB_HOST", "127.0.0.1");
-define("DB_USER", "user");//remember to chanege these when all is working
-define("DB_PASSWORD", "1234");
-define("DB_DATABASE", "database");
- 
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+include'../include/session.php';
+include'../include/db_connection.php';
 
 //I need to get the id of the user and change the active value to false in the table
 foreach($_POST['checkbox'] as $userid) {
