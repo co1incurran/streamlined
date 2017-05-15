@@ -1,4 +1,6 @@
 <?php
+
+
 $sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY creation_date DESC;" ;
 //echo $sql;
 $res8 = mysqli_query($con,$sql);

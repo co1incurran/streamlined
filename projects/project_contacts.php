@@ -1,4 +1,5 @@
 <?php
+
 //print_r (array_values($result));
 //used for getting the url of this page for when it is needed for the variables 
 $url = $_SERVER['REQUEST_URI'];

@@ -1,4 +1,6 @@
-<?php		
+<?php	
+//include'../include/session.php';
+	
 		//BELOW THIS IS FOR ACTIVITIES THAT HAVE BEEN COMPLETED
 $sql2 = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY complete_date DESC;" ;
 //echo $sql;
