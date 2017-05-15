@@ -1,4 +1,5 @@
 <?php
+include'../include/session.php'
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");//remember to chanege these when all is working
 define("DB_PASSWORD", "1234");

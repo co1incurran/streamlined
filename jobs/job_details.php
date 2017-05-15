@@ -1,4 +1,6 @@
 <?php
+include'../include/session.php'
+
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
@@ -45,7 +47,7 @@ echo'
 				<form action="update_job_details.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Job details</h2>
-					<small><a href = "jobs.php?history=true&jobid='.$jobid.'">Job Histroy</a></small>
+					
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">

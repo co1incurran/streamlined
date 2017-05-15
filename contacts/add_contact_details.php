@@ -1,4 +1,5 @@
 <?php
+include'../include/session.php'
 $url= $_POST['url'];
 $contactType = $_POST['contactType'];
 //echo $url.'<br>'.$contactType;
@@ -98,14 +99,14 @@ echo'
 						echo'
 						<form action="add_contact_details.php" id="form" method="post" name="form">
 							<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-							<h2>Is this lead a trade or private customer?</h2>
+							<h2>Lead type</h2>
 							<hr>
 							<input type="hidden" name="url" id="url" value="'.$url.'">
 							<input type="hidden" name="contactType" id="contactType" value="'.$contactType.'">
 						
 							<label for="contact"><small>Lead type:</small></label><br><br>
-							<input type="radio" name="leadtype" value="company" checked> Trade<br>
-							<input type="radio" name="leadtype" value="private customer"> Private<br>
+							<label><input type="radio" name="leadtype" value="company" checked> Company<br></label>
+							<label><input type="radio" name="leadtype" value="private customer"> Private Customer<br></label>
 							
 							<input type="submit" id="submit" value="Next">
 							<a onclick="goBack()" id="submit">Cancel</a>

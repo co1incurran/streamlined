@@ -1,12 +1,18 @@
 <?php
+include'../include/session.php'
+
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
 define("DB_DATABASE", "database");
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
-$url= $_GET['url'];
+if(isset($_GET['url'])){
+	$url= $_GET['url'];
+}elseif(isset($_POST['url'])){
+	$url= $_POST['url'];
+}
+	
 if(isset($_GET['customerid'])){
 	$customerid= $_GET['customerid'];
 }
@@ -23,6 +29,18 @@ if(isset($_GET['activityid'])){
 	$activityid = $_GET['activityid'];
 }else{
 	$activityid = false;
+}
+
+if(isset($_POST['choose-contact'])){
+	$radioButton = explode("_", $_POST['choose-contact']);
+	$type = $radioButton[0];
+	$id = $radioButton[1];
+
+	if($type == "company"){
+		$companyid = $id;
+	}elseif($type == "privatecustomer"){
+		$customerid = $id;
+	}
 }
 
 echo'
@@ -50,11 +68,11 @@ echo'
 					}
 					echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">';
-					if(isset($_GET['customerid'])){
+					if(isset($customerid)){
 						echo'<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">';
 					}
 					
-					if(isset($_GET['companyid'])){
+					if(isset($companyid)){
 						echo'<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
 					}
 					if(isset($_GET['projectid'])){

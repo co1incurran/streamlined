@@ -154,7 +154,7 @@ if($type == 'all' || $type == 'privatecustomer'){
 	?>
 			<tr>	
 				<!--<td><a href = "profile.php?customerid=<?php //echo $customerid;?>&companyid=0 " class="name"><?php //echo ucwords($results['first_name']).' '.ucwords($results['last_name']);?></a></td>-->
-				<td><?php echo '<a href = "profile.php?customerid=0&companyid='.$companyid.'" class="name">'.ucwords($r['name']);?></a></td>
+				<td><?php echo '<a href = "../profile/profile.php?customerid=0&companyid='.$companyid.'" class="name">'.ucwords($r['name']);?></a></td>
 				<td>
 				<?php
 					$ad1 = ucwords($r['address_line1']);

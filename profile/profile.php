@@ -1,10 +1,5 @@
 <?php
-//this is the session to ensure a user is logged in
-	session_start();
-	if(!isset ($_SESSION['username'])){
-		header("location:index.html");
-	}
-	$userLoggedOn = $_SESSION['username'];
+include'../include/session.php'
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +48,7 @@ $('#jobType').on('change',function(){
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="welcome.php">Enable Supplies</a>
+                      <a class="navbar-brand" href="../welcome/welcome.php">Enable Supplies</a>
                     </div>
     
                   
@@ -94,18 +89,20 @@ $('#jobType').on('change',function(){
 							
                                <?php
 								// this is used to make a notification icon in the tasks tab when a user gets new tasks
-									echo '<li><a href="tasks.php"><i id = "'.$iId.'">'.$amount.' '.'</i><i id = "'.$iId.'" class="fa fa-inbox"></i> Tasks Inbox </a></li>'; 
+									echo '<li><a href="../task/tasks.php"><i id = "'.$iId.'">'.$amount.' '.'</i><i id = "'.$iId.'" class="fa fa-inbox"></i> Tasks Inbox </a></li>'; 
 								?>
-								<li><a href="tasks_outbox.php"><i id = "outbox-counter"><?php echo $count.' '; ?></i><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
-                                <li><a href="jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
+								<li><a href="../task/tasks_outbox.php"><i id = "outbox-counter"><?php echo $count.' '; ?></i><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
+                                <li><a href="../jobs/jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
+								<li><a href="../services/services.php"><i class="fa fa-medkit"></i> Services</a></li>
+							<li><a href="../projects/projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
+							<li><a href="../sms/sms.php"><i class="fa fa-comment"></i> SMS</a></li>
                             <li class="dropdown">
-                                 <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
+                                 <a href="#" id = "../account/logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
                                     <li><a href="#">Users</a></li>
                                     <li><a href="#">Groups</a></li>
-                                    <li><a href="logout.php">Log out</a></li>
+                                    <li><a href="../account/logout.php">Log out</a></li>
                                 </ul>
                             </li>
                         </ul>

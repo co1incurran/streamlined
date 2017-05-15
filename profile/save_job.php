@@ -1,4 +1,6 @@
 <?php
+include'../include/session.php'
+
 define("DB_HOST", "127.0.0.1");
 define("DB_USER", "user");
 define("DB_PASSWORD", "1234");
@@ -157,8 +159,8 @@ if (mysqli_num_rows($result) > 0) {
 } 
 if(isset($_POST['customerid']) && $customerid != 0){
 	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$cleancustomerid'); ";
-	//echo $customerid;
-	//echo '<br>'. $jobid;
+	//echo $cleancustomerid;
+	//echo '<br>'. $sql3;
 }elseif((isset($_POST['companyid']) && $companyid != 0) || (isset($_POST['projectid'])&& $_POST['projectid'] != '')){
 	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$cleancompanyid', '$jobid'); ";
 	//echo $companyid;
@@ -166,8 +168,9 @@ if(isset($_POST['customerid']) && $customerid != 0){
 	//echo $companyid;
 	//echo $customerid;
 	//echo $projectid;
-	$result2 = mysqli_query($con,$sql3);
+	
 }
+$result2 = mysqli_query($con,$sql3);
 
 $sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
 $result4 = mysqli_query($con,$sql4);

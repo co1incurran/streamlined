@@ -1,4 +1,5 @@
 <?php
+include'../include/session.php'
 $url= $_POST['url'];
 $contactType = $_POST['contactType'];
 $companyName = $_POST["companyname"];

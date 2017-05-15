@@ -1,4 +1,6 @@
 <?php
+include'../include/session.php';
+
 $url= $_POST['url'];
 $customerid= $_POST['customerid'];
 $companyid= $_POST['companyid'];

@@ -1,4 +1,5 @@
 <?php
+include'../include/session.php'
 $url= $_GET['url'];
 echo'
 <!DOCTYPE html>
@@ -22,9 +23,9 @@ echo'
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					
 					<label for="contact"><small>Contact type:</small></label><br><br>
-					<input type="radio" name="contactType" value="company" > Trade Customer<br>
-					<input type="radio" name="contactType" value="private customer"> Private Customer<br>
-					<input type="radio" name="contactType" value="lead" checked> Lead<br>
+					<label><input type="radio" name="contactType" value="company" checked> Company<br></label>
+					<label><input type="radio" name="contactType" value="private customer"> Private Customer<br></label>
+					<label><input type="radio" name="contactType" value="lead" > Lead<br></label>
 					<input type="submit" id="submit" value="Next">
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>

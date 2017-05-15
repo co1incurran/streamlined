@@ -35,30 +35,32 @@ $status = '';
 if(isset($_GET['status'])){
 	$status = $_GET['status'];
 	//echo $status;
+	//THE 'add asset = 1 means an asset was aaded to that company or person and it had to be added as a new job.
+	//The asset being added was not not part of an actual job it was just.
 	
 	if($status == 'all'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid ASC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
 	}elseif($status == 'today'){
 		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$currentDate'; ";
 	}elseif($status == 'tomorrow'){
 		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date = '$tomorrow'; ";
 	}elseif($status == 'week'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY jobid ASC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$monday' AND '$sunday' ORDER BY jobid DESC; ";
 	}elseif($status == 'month'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY jobid ASC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date BETWEEN '$startMonth' AND '$endMonth' ORDER BY jobid DESC; ";
 	}elseif($status == 'overdue'){
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date < '$currentDate' ORDER BY jobid ASC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' AND due_date < '$currentDate' ORDER BY jobid DESC; ";
 	}elseif($status == 'completed'){
-		$sql = "SELECT * FROM jobs WHERE complete = '1' AND add_asset != '1' ORDER BY complete_date ASC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '1' AND add_asset != '1' ORDER BY complete_date DESC; ";
 		//this changes the variable which is previously set about 20 lines above
 		$dateType = 'Complete Date';
 		//this is used to set the dagte to the complete date
 		$datePicker = 'complete_date';
 	}else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid ASC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
 	}
 }else{
-		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid ASC; ";
+		$sql = "SELECT * FROM jobs WHERE complete = '0' AND add_asset != '1' ORDER BY jobid DESC; ";
 }
 
 
@@ -103,6 +105,7 @@ while($row = mysqli_fetch_array($res)){
 	<thead>
 		<tr class = "blue-row">
 			<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
+			<th class = "asset-list"><strong>Job Number</strong></th>
 			<th class = "asset-list"><strong>Type</strong></th>
 			<th class = "asset-list"><strong>Details</strong></th>
 			<?php
@@ -116,7 +119,6 @@ while($row = mysqli_fetch_array($res)){
 			<th class = "asset-list"><strong><?php echo $dateType; ?></strong></th>
 			<th class = "asset-list"><strong>Days Open</strong></th>
 			<th class = "asset-list"><strong>Assets</strong></th>
-			<th class = "asset-list"><strong>Job Number</strong></th>
 			<th class = "asset-list"><strong>Customer</strong></th>
 			<th class = "asset-list"><strong>County</strong></th>
 		</tr>
@@ -199,7 +201,9 @@ while($row = mysqli_fetch_array($res)){
 						echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'"><i class="fa fa-check-square-o"></i></a></td>';
 					}
 					?>
-				
+				<td>
+					<?php echo $results['job_number'];?>
+				</td>
 				<td>
 				<?php 					
 					echo'
@@ -292,10 +296,7 @@ while($row = mysqli_fetch_array($res)){
 					?>
 				</td>
 				
-				<td>
-					<?php echo $results['job_number'];?>
-				</td>
-				<td><a href = "profile.php?customerid=<?php echo $customerid.'&companyid='.$companyid?>" class="name">
+				<td><a href = "../profile/profile.php?customerid=<?php echo $customerid.'&companyid='.$companyid?>" class="name">
 				<?php
 					if($customerid >= 1){
 						echo ucwords($row['first_name']).' '.ucwords($row['last_name']);

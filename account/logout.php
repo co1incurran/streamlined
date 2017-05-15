@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+	include'../include/session.php'
 	session_destroy();
 	if(!isset ($_SESSION['username'])){
 		//this bring you bac to the login page once you log out

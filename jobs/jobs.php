@@ -1,11 +1,3 @@
-<?php
-//this is the session to ensure a user is logged in
-	session_start();
-	if(!isset ($_SESSION['username'])){
-		header("location:index.html");
-	}
-	$userLoggedOn = $_SESSION['username'];
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +5,7 @@
 <!--<script type="text/javascript" src="__jquery.tablesorter/jquery.tablesorter.js"></script>-->
 <!--<script type="text/javascript" src="table_filter/ddtf.js"></script>-->
 <?php
+include'../include/session.php';
 if(isset($_GET['filter'])){
 	echo'
 	<script type="text/javascript" language="javascript" src="../TableFilter/tablefilter.js"></script>';
@@ -126,13 +119,13 @@ if(isset($_GET['filter'])){
                                 <div class="col-md-7 no-padding">
                                     <div class="main-content panel panel-default no-margin">
                                         <header class="panel-heading clearfix">
-
+										<?php
+											$url = $_SERVER['REQUEST_URI'];
+											echo'
                                             <div class="btn-group pull-right">
-                                                <a href="calendar.html" class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar"><i class="fa fa-calendar"></i></a></li>
+                                                <a href="choose_contact.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create job"><i class="fa fa-plus"></i><strong> Create Job</strong></a>
                                             </div>
-											<div class="btn-group pull-right" id="filter-button">
-												<?php
-												$url = $_SERVER['REQUEST_URI'];
+											<div class="btn-group pull-right" id="filter-button">';
 												//$url = str_replace('&', '%26', $url);
 												if(isset($_GET['filter'])){
 													if(isset($_GET['status'])){
@@ -142,7 +135,7 @@ if(isset($_GET['filter'])){
 														$link = substr($url, 0, strrpos($url, "?filter"));
 														//echo $link.'2';
 													}
-													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+													echo'<a href="'.$link.'" class="btn btn-default" data-toggle="tooltip" title="Filter" ><i class="fa fa-filter"></i></a>';
 												}else{
 													if(isset($_GET['status'])){
 														if(isset ($_GET['filter'])){
@@ -150,16 +143,16 @@ if(isset($_GET['filter'])){
 														
 															//echo $link.'3'.$url;
 															echo'
-															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+															<a href="'.$link.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter" ><i class="fa fa-filter"></i></a>';
 														}else{
 															echo'
-															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+															<a href="'.$url.'&filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter" ><i class="fa fa-filter"></i></a>';
 														}
 													}else{
 														$link = substr($url, 0, strrpos($url, "?filter"));
 														//echo $link.'4';
 														echo'
-														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-filter"></i></a>';
+														<a href="'.$link.'?filter=set" class="btn btn-default" data-toggle="tooltip" title="Filter" ><i class="fa fa-filter"></i></a>';
 													}
 												}
 												//echo $url;
