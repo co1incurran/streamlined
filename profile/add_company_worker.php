@@ -1,4 +1,6 @@
 <?php
+include'../include/session.php'
+
 $url= $_GET['url'];
 $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];

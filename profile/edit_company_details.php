@@ -1,4 +1,6 @@
 <?php
+include'../include/session.php'
+
 $url = $_GET['url'];
 $companyid = $_GET['companyid'];
 $name = ucwords($_GET['name']);
