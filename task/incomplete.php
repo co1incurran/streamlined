@@ -3,7 +3,11 @@ include'../include/session.php';
 include'../include/db_connection.php';
 
 $url= $_GET['url'];
-$activityid = $_GET['activityid'];
+if(isset($_GET['activityid'])){
+	$activityid = $_GET['activityid'];
+}elseif(isset($_GET['jobid'])){
+	$jobid = $_GET['jobid'];
+}
 echo'
 <!DOCTYPE html>
 <html>
@@ -23,9 +27,13 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Are you sure you want to mark this task as incomplete?</h2>
 					<hr>
-					<input type="hidden" name="url" id="url" value="'.$url.'">
-					<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
-					<input type="submit" id="submit" value="Yes">
+					<input type="hidden" name="url" id="url" value="'.$url.'">';
+					if(isset($_GET['activityid'])){
+						echo'<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">';
+					}elseif(isset($_GET['jobid'])){
+						echo'<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">';
+					}
+					echo'<input type="submit" id="submit" value="Yes">
 					<a onclick="goBack()" id="submit">No</a>
 				</form>
 			</div>

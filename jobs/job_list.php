@@ -198,7 +198,7 @@ while($row = mysqli_fetch_array($res)){
 							echo'<td id= "complete-button"><a href="complete_job.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
 						}
 					}else{
-						echo'<td id= "complete-button"><a href="incomplete_job.php?url='.$url.'&activityid='.$jobid.'"><i class="fa fa-check-square-o"></i></a></td>';
+						echo'<td id= "complete-button"><a href="../task/incomplete.php?url='.$url.'&jobid='.$jobid.'"><i class="fa fa-check-square-o"></i></a></td>';
 					}
 					?>
 				<td>

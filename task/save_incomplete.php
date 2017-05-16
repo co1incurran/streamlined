@@ -4,10 +4,16 @@ include'../include/db_connection.php';
 
 //Back URL
 $url= $_POST["url"];
-$activityid= $_POST["activityid"];
 
-//put the data into the completed activity row in the activty table
-$sql1 = "UPDATE activity SET complete = 0 WHERE activityid = $activityid;";
+if(isset($_POST["activityid"])){
+	echo 'here';
+	$activityid= $_POST["activityid"];
+	$sql1 = "UPDATE activity SET complete = 0 WHERE activityid = $activityid;";
+}elseif(isset($_POST["jobid"])){
+	$jobid= $_POST["jobid"];
+	$sql1 = "UPDATE jobs SET complete = 0 WHERE jobid = $jobid;";
+}
+echo $sql1;
 $res1 = mysqli_query($con,$sql1);
 
 mysqli_close($con);
@@ -15,7 +21,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Marked as incomplete</title>
-	<link href="../css/elements.css" rel="stylesheet">
+	<link href=".../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
