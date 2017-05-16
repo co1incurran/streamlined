@@ -57,7 +57,41 @@ echo'
 						<input id="address2" name="address2" type="text" placeholder="Address line 2 (Optional)" maxlength = "35">
 						<input id="address3" name="address3" type="text" placeholder="Address line 3 (Optional)" maxlength = "35">
 						<input id="address4" name="address4" type="text" placeholder="Town/City" required maxlength = "35">
-						<input id="county" name="county" type="text" placeholder= "County" maxlength = "20">
+						<select id="county" class="drop_down"  name = "county" class="form-control" required>
+							<option value="" disabled selected>Select a county</option>
+							<option value= "antrim">Antrim</option>
+							<option value= "armagh">Armagh</option>
+							<option value= "carlow">Carlow</option>
+							<option value= "cavan">Cavan</option>
+							<option value= "clare">Clare</option>
+							<option value= "cork">Cork</option>
+							<option value= "derry">Derry</option>
+							<option value= "donegal">Donegal</option>
+							<option value= "down">Down</option>
+							<option value= "dublin">Dublin</option>
+							<option value= "fermanagh">Fermanagh</option>
+							<option value= "galway">Galway</option>
+							<option value= "kerry">Kerry</option>
+							<option value= "kildare">Kildare</option>
+							<option value= "kilkenny">Kilkenny</option>
+							<option value= "laois">Laois</option>
+							<option value= "leitrim">Leitrim</option>
+							<option value= "limerick">Limerick</option>
+							<option value= "longford">Longford</option>
+							<option value= "louth">Louth</option>
+							<option value= "mayo">Moyo</option>
+							<option value= "meath">Meath</option>
+							<option value= "monaghan">Monaghan</option>
+							<option value= "offaly">Offaly</option>
+							<option value= "roscommon">Roscommon</option>
+							<option value= "sligo">Sligo</option>
+							<option value= "tipperary">Tipperary</option>
+							<option value= "tyrone">Tyrone</option>
+							<option value= "waterford">Waterford</option>
+							<option value= "westmeath">Westmeath</option>
+							<option value= "wexford">Wexford</option>
+							<option value= "wicklow">Wicklow</option>
+						</select>
 						<input id="country" name="country" type="text" value="Ireland" maxlength = "28">
 						
 						<label for="sageid"><small>Sage ID</small></label>
@@ -83,7 +117,41 @@ echo'
 							<input id="address2" name="address2" type="text" placeholder="Address line 2 (Optional)" maxlength = "35">
 							<input id="address3" name="address3" type="text" placeholder="Address line 3 (Optional)" maxlength = "35">
 							<input id="address4" name="address4" type="text" placeholder="Town/City" required maxlength = "35">
-							<input id="county" name="county" type="text" placeholder= "County" maxlength = "20">
+							<select id="county" class="drop_down"  name = "county" class="form-control" required>
+								<option value="" disabled selected>Select a county</option>
+								<option value= "antrim">Antrim</option>
+								<option value= "armagh">Armagh</option>
+								<option value= "carlow">Carlow</option>
+								<option value= "cavan">Cavan</option>
+								<option value= "clare">Clare</option>
+								<option value= "cork">Cork</option>
+								<option value= "derry">Derry</option>
+								<option value= "donegal">Donegal</option>
+								<option value= "down">Down</option>
+								<option value= "dublin">Dublin</option>
+								<option value= "fermanagh">Fermanagh</option>
+								<option value= "galway">Galway</option>
+								<option value= "kerry">Kerry</option>
+								<option value= "kildare">Kildare</option>
+								<option value= "kilkenny">Kilkenny</option>
+								<option value= "laois">Laois</option>
+								<option value= "leitrim">Leitrim</option>
+								<option value= "limerick">Limerick</option>
+								<option value= "longford">Longford</option>
+								<option value= "louth">Louth</option>
+								<option value= "mayo">Moyo</option>
+								<option value= "meath">Meath</option>
+								<option value= "monaghan">Monaghan</option>
+								<option value= "offaly">Offaly</option>
+								<option value= "roscommon">Roscommon</option>
+								<option value= "sligo">Sligo</option>
+								<option value= "tipperary">Tipperary</option>
+								<option value= "tyrone">Tyrone</option>
+								<option value= "waterford">Waterford</option>
+								<option value= "westmeath">Westmeath</option>
+								<option value= "wexford">Wexford</option>
+								<option value= "wicklow">Wicklow</option>
+							</select>
 							<input id="country" name="country" type="text" value="Ireland" maxlength = "28">
 							
 							<label for="sector"><small>Sector</small></label>

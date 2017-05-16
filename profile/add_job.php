@@ -125,8 +125,8 @@ echo'
 					<label for="notes"><small>Notes</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="notes" name="notes" type="text"></textarea>
 					
-					<label for="job_number"><small>Job number</small></label>
-					<input id="job_number" name="job_number" type="text" maxlength="20">
+					<!--<label for="job_number"><small>Job number</small></label>
+					<input id="job_number" name="job_number"  type="text" maxlength="20">-->
 					
 					<label for="po_number"><small>PO number</small></label>
 					<input id="po_number" name="po_number" type="text" maxlength="30" >

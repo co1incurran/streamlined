@@ -1,6 +1,29 @@
 <?php
 include'../include/session.php';
 include'../include/db_connection.php';
+
+//this is for getting the last job number so it can be incremented to create the next one.
+$sql10 = "SELECT job_number FROM jobs ORDER BY jobid DESC LIMIT 1;";
+$res10 = mysqli_query($con,$sql10);
+$jobNumber = mysqli_fetch_assoc($res10);
+$jobNumber = $jobNumber['job_number'];
+
+list($year, $number) = explode('-', $jobNumber);
+//echo $jobNumber.'<br>';
+//echo $year.'<br>';
+//echo $number.'<br>';
+//check if the last job was in the same year as this new job we are about to create
+if($year = date("y")){
+	$number++;
+}else{
+	$year = date("y");
+	$number = 1;
+}
+$number = str_pad($number, 4, '0', STR_PAD_LEFT);
+//echo $number.'<br>';
+$newJobNumber = $year.'-'.$number;
+echo $newJobNumber.'<br>';
+
 //Back URL
 $url= $_POST["url"];
 
@@ -103,11 +126,11 @@ $notes = trim($notes);
 $filternotes = filter_var($notes, FILTER_SANITIZE_STRING);
 $cleannotes= mysqli_real_escape_string($con, $filternotes);
 
-//JOB NUMBER
+/*//JOB NUMBER
 $job_number = $_POST["job_number"];
 $job_number = trim($job_number);
 $filterjobnumber = filter_var($job_number, FILTER_SANITIZE_STRING);
-$cleanjobnumber= mysqli_real_escape_string($con, $filterjobnumber);
+$cleanjobnumber= mysqli_real_escape_string($con, $filterjobnumber);*/
 
 //Quote NUMBER
 $quoteNumber = $_POST["quote_number"];
@@ -138,7 +161,7 @@ $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
 
-$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes, quote_number) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes', '$cleanQuoteNumber'); ";
+$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes, quote_number) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$newJobNumber', '$cleannumberOfAssets', '$cleannotes', '$cleanQuoteNumber'); ";
 
 $res = mysqli_query($con,$sql);
 //echo $sql;
@@ -173,7 +196,7 @@ $result4 = mysqli_query($con,$sql4);
 $date = new DateTime();
 $timestamp = $date->getTimestamp();
 //this adds the data to the job history table as the first entry for this job
-$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes, timestamp) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$cleanjobnumber', '$cleannumberOfAssets', '$cleannotes', '$timestamp'); ";
+$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes, timestamp) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$newJobNumber', '$cleannumberOfAssets', '$cleannotes', '$timestamp'); ";
 
 $res5 = mysqli_query($con,$sql5);
 //echo $sql5;
