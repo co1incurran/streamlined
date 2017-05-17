@@ -180,7 +180,7 @@ if(isset($_GET['filter'])){
 												}
 												if (!isset ($_GET['history'])){
 													echo'
-													<h2>' .$setter. '<a href="#"> &darr;</a></h2>
+													<h2 class="panel-title"><a href="#">'.$setter.'<i class="transparent">&darr;</i></a></h2>
 													<ul>
 														<li><a href="jobs.php?status=all">All jobs</a></li>
 														<li><a href="jobs.php?status=today">Today</a></li>

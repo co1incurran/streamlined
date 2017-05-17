@@ -212,7 +212,7 @@ if(isset($_GET['filter'])){
 												
 												
 											?>
-                                                <h2><?php echo $setter; ?> <a href="#"> &darr; </a></h2>
+                                                <h2 class="panel-title"><?php echo'<a href="#">'.$setter.'<i class="transparent">&darr;</i></a>'; ?></h2>
                                                 <ul>
 												<?php
 													if($admin == true){

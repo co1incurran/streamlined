@@ -184,7 +184,7 @@ if(isset($_GET['filter'])){
 													$setter= 'Services';
 												}
 											?>
-                                                <h2 class="panel-title"><?php echo $setter; ?> <a href="#">&darr;</a></h2>
+                                                <h2 class="panel-title"><?php echo'<a href="#">'.$setter.'<i class="transparent">&darr;</i></a>'; ?></h2>
                                                 <ul>
                                                     
                                                     <li><a href="services.php?type=service">Services&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>

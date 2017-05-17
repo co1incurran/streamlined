@@ -476,11 +476,13 @@ body.login {
 }
 
 .main-content > header .view-switcher > h2 > a {
-    background: transparent url(../images/arrow-updown.png) no-repeat center center;
-    display: inline-block;
-    text-indent: -999em;
+    background: transparent url(../images/arrow-updown.png) no-repeat center right;
     width: 10px;
     height: 17px;
+	text-decoration: none;
+}
+.transparent{
+	opacity: 0;
 }
 
 .main-content > header .view-switcher ul {

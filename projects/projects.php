@@ -179,7 +179,7 @@ if(isset($_GET['filter'])){
 													$setter= 'On going';
 												}
 											?>
-                                                <h2 class="panel-title"><?php echo $setter; ?> <a href="projects.php?type=<?php echo $type; ?>">&darr;</a></h2>
+												<h2 class="panel-title"><?php echo'<a href="#">'.$setter.'<i class="transparent">&darr;</i></a>'; ?></h2>
                                                 <ul>
                                                     <li><a href="projects.php?type=ongoing">On going </a></li>
                                                     <li><a href="projects.php?type=closed">Closed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>

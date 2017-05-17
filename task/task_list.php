@@ -117,20 +117,21 @@ if($outbox == true){
 								if(isset($_POST['date2']) && $_POST['date2'] != ''){
 								$date2  = $_POST['date2'];
 								}
-								$sql = "SELECT * FROM activity WHERE complete = '0' AND new ='0' AND due_date >='$date1' AND due_date <='$date2' ORDER BY due_date ; ";
+								//AND new ='0'
+								$sql = "SELECT * FROM activity WHERE complete = '0' AND new !='1' AND due_date >='$date1' AND due_date <='$date2' ORDER BY due_date ; ";
 								//echo $sql;
 							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
 								$date2  = $_POST['date2'];
-							$sql = "SELECT * FROM activity WHERE complete = '0' AND new ='0' AND due_date <='$date2' ORDER BY due_date ; ";
+							$sql = "SELECT * FROM activity WHERE complete = '0' AND new !='1' AND due_date <='$date2' ORDER BY due_date ; ";
 								//echo $sql;
 							}else{
-								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0' ORDER BY activityid DESC; ";
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND new !='1' ORDER BY activityid DESC; ";
 							}
 						}else{
-							$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '0' ORDER BY activityid DESC; ";
+							$sql = "SELECT * FROM activity WHERE complete = '0' AND new !='1' ORDER BY activityid DESC; ";
 						}
 					}else{
-						$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '0' ORDER BY activityid DESC; ";
+						$sql = "SELECT * FROM activity WHERE complete = '0' AND NEW !='1' ORDER BY activityid DESC; ";
 					}
 					
 					$global = true;
