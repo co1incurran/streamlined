@@ -1,7 +1,7 @@
 <?php
 
 
-$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY creation_date DESC;" ;
+$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY activityid DESC;" ;
 //echo $sql;
 $res8 = mysqli_query($con,$sql);
 //$row = mysqli_fetch_assoc($res);
@@ -150,11 +150,11 @@ foreach ($result as $results){
 						
 						<td class = "asset-list">';
 									if($results['type'] == 'prospecting'){
-										echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="../task/prospecting_results.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
 									}elseif ($type == 'create job number'){
-										echo'<td id= "complete-button"><a href="add_job.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="../profile/add_job.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
 									}else{
-										echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
+										echo'<td id= "complete-button"><a href="../task/activity_results.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
 									}
 						echo			
 						'</td>

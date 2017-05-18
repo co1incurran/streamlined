@@ -121,7 +121,7 @@ if($cleannextaction != 'no further action'){
 	//put the activity into the activty table
 	$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
 	$res2 = mysqli_query($con,$sql2);
-	//echo $sql2.'<br>';
+	echo $sql2.'<br>';
 
 	//get the activityid of the asset
 		$sql3 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";

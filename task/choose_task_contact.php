@@ -85,8 +85,7 @@ echo'
 			<div id="popupContact">
 			<!-- Contact Us Form -->
 				<form action="../profile/add_activity.php" id="form" method="post" name="form">
-					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Who is the job for?</h2>
+					<h2>Who is the task for?</h2>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 						<div id="users">

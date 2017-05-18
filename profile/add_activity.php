@@ -2,6 +2,31 @@
 include'../include/session.php';
 include'../include/db_connection.php';
 
+if(isset($_POST['url'])){
+	$url= $_POST['url'];
+	//echo $url;
+}elseif(isset($_GET['url'])){
+	$url= $_GET['url'];
+	//echo $url;
+}
+					
+if(isset($_GET['companyid'])){
+	$companyid= $_GET['companyid'];
+}elseif(isset($_GET['customerid'])){
+	$customerid= $_GET['customerid'];
+}
+
+if(isset($_POST['choose-contact'])){
+	$radioButton = explode("_", $_POST['choose-contact']);
+	$type = $radioButton[0];
+	$id = $radioButton[1];
+
+	if($type == "company"){
+		$companyid = $id;
+	}elseif($type == "privatecustomer"){
+		$customerid = $id;
+	}
+}
 
 echo'
 <!DOCTYPE html>
@@ -22,18 +47,15 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Add task</h2>
 					<hr>';
-					if(isset($_GET['url'])){
-						$url= $_GET['url'];
+					if(isset($url)){
 						echo '<input type="hidden" name="url" id="url" value="'.$url.'">';
 					}
 					
-					if(isset($_GET['companyid'])){
-						$companyid= $_GET['companyid'];
+					if(isset($companyid)){
 						echo '<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
 					}
 					
-					if(isset($_GET['customerid'])){
-						$customerid= $_GET['customerid'];
+					if(isset($customerid)){
 						echo '<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">';
 					}
 					
@@ -63,7 +85,7 @@ echo'
 					<label for="assign"><small>Assign to</small></label>
 					<select id="assign"class="drop_down"  name = "assign" class="form-control" required>';
 						$sql = "SELECT userid FROM users WHERE active = '1';";
-						$res = mysqli_query($con,$sql);
+						$res = mysqli_query($con,$sql); 
 
 					if (mysqli_num_rows($res) > 0) {
 						echo'<option value="" disabled="disabled" selected="selected">Please select</option>';

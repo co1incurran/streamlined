@@ -174,7 +174,6 @@ if(isset($_GET['filter'])){
 												?>
                                             </div>
 											
-
                                             <div class="view-switcher">
 											<?php
 												if(isset ($_GET['contact'])){

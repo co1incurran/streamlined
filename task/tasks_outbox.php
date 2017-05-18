@@ -1,6 +1,7 @@
 <?php
 include'../include/session.php';
 include'../include/db_connection.php';
+$url = $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -126,7 +127,7 @@ if(isset($_GET['filter'])){
                                         <header class="panel-heading clearfix">
 
                                             <div class="btn-group pull-right">
-                                                <a href="calendar.html" class="btn btn-default" data-toggle="tooltip" title="View the Task Calendar"><i class="fa fa-calendar"></i></a></li>
+                                                <a href="choose_task_contact.php?url=<?php echo $url ?>" class="btn btn-default" data-toggle="tooltip" title="Create a task"><i class="fa fa-plus"></i><strong> Create Task</strong></a></li>
                                             </div>
 											<div class="btn-group pull-right" id="filter-button">
 												<?php

@@ -71,7 +71,7 @@ if(isset($_POST['type'])){
 }
 
 if($outbox == true){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY creation_date DESC; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY activityid DESC; ";
 	}else{
 			if(isset($_GET['status'])){
 				$status = $_GET['status'];
@@ -93,7 +93,7 @@ if($outbox == true){
 							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
 								$date2  = $_POST['date2'];
 									$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date <='$date2' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
-								echo $sql;
+								//echo $sql;
 							}else{
 								$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
 							}
@@ -117,6 +117,8 @@ if($outbox == true){
 								if(isset($_POST['date2']) && $_POST['date2'] != ''){
 								$date2  = $_POST['date2'];
 								}
+								
+								
 								//AND new ='0'
 								$sql = "SELECT * FROM activity WHERE complete = '0' AND new !='1' AND due_date >='$date1' AND due_date <='$date2' ORDER BY due_date ; ";
 								//echo $sql;
@@ -216,7 +218,7 @@ if($outbox == true){
 					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";
 				}
 			}else{
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";//ORDER BY due_date
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
 			}
 	}
 
@@ -578,7 +580,7 @@ while($row = mysqli_fetch_array($res)){
 								if($heading == 'Result'){
 									//this is where i need to make the result of a create job number a hyerlink
 									if($type == 'create job number'){
-										echo '<a href="profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history" class="name">'.ucwords($result).'</a>';
+										echo '<a href="../profile/profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history" class="name">'.ucwords($result).'</a>';
 									}else{
 										echo ucwords($result);
 									}
@@ -592,7 +594,7 @@ while($row = mysqli_fetch_array($res)){
 							//put in the link to the project details here
 							if($project == false){
 								echo'<td>';
-								echo '<a href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task" class="name">';
+								echo '<a href = "../profile/profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task" class="name">';
 								
 									if($customerid >= 1){
 										echo ucwords($row['first_name']).' '.ucwords($row['last_name']);
@@ -624,7 +626,7 @@ while($row = mysqli_fetch_array($res)){
 								
 							}elseif($project == true){
 								echo'<td>';
-								echo '<a href = "project_profile.php?projectid='.$projectid.'&page=taskhistory" class="name">
+								echo '<a href = "../projects/project_profile.php?projectid='.$projectid.'&page=taskhistory" class="name">
 								Project: '.$planningNumber.'
 								</a></td>';
 								if($status != 'global' && $status != 'globalcomplete' ){

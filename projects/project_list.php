@@ -7,12 +7,12 @@ $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 //this is for deciding to show ongoing or closed projects
 if(isset($_GET['type'])){
 	if($type == 'ongoing'){
-		$sql = "SELECT * FROM projects WHERE closed = '0'; ";
+		$sql = "SELECT * FROM projects WHERE closed = '0' ORDER BY projectid DESC; ";
 	}else{
 		$sql = "SELECT * FROM projects WHERE closed = '1'; ";
 	}
 }else{
-		$sql = "SELECT * FROM projects WHERE closed = '0'; ";
+		$sql = "SELECT * FROM projects WHERE closed = '0' ORDER BY projectid DESC;; ";
 }
 
 $res = mysqli_query($con,$sql);
