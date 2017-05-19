@@ -93,7 +93,7 @@ foreach ($result as $results){
 		$userName = $row2['userid'];
 		$employee = ucwords($row2['first_name'].' '.$row2['last_name']);
 		
-		//this is for displaying a unchecked or a checked checkbox 
+		//this is for displaying an unchecked or a checked checkbox 
 		 if($results['complete'] == 1){
 			$completed = '<i class="fa fa-check-square-o"></i>';
 		 }else{

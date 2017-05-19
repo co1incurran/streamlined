@@ -8,6 +8,8 @@ $res9 = mysqli_query($con,$sql2);
 //$row = mysqli_fetch_assoc($res);
 $result = array();
 
+$url = $_SERVER['REQUEST_URI'];
+
 while($row2 = mysqli_fetch_array($res9)){
 	array_push($result,
 		array('activityid'=>$row2[0],
@@ -80,7 +82,7 @@ foreach ($result as $results){
 		
 		//this is for displaying a unchecked or a checked checkbox 
 		 if($results['complete'] == 1){
-			$completed = '<i class="fa fa-check-square-o"></i>';
+			$completed = '<a href="../task/incomplete.php?url='.$url.'&activityid='.$activityid.'" ><i class="fa fa-check-square-o"></i></a>';
 		 }else{
 			$completed = '<i class="fa fa-square-o"></i></i>';
 		 }	
@@ -161,7 +163,7 @@ foreach ($result as $results){
 							<input type="hidden" name="nextActionDescription" id="nextActionDescription" value="'.$nextActionDescription.'">
 							
 							'.$icon.' '.'<input type="submit" id="job-type" value="'.ucwords($results['type']).'">
-							
+							 
 						</form></td>
 						<td class = "asset-list">'.$results['description'].'</td>
 						<td class = "asset-list">'.$newDate.'</td>

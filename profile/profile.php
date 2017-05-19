@@ -145,6 +145,7 @@ $('#jobType').on('change',function(){
 							echo'
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> Job History </a></li>
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-area-chart"></i> Task History </a></li>
+								<li><a class = "icons" id="convert" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-repeat"></i> Convert to Customer </a></li>
 							</ul>';
 								
 									//if you are looking at companies

@@ -85,6 +85,7 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Edit Contact</h2>
 					<small><a href = "delete_contact.php?url='.$url.'&companyid='.$companyid.'">Delete contact</a></small>
+					<small><a href = "#?url='.$url.'&companyid='.$companyid.'">Convert to company</a></small>
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">

@@ -216,7 +216,7 @@ $res7 = mysqli_query($con,$sql7);
 if(isset($_POST['activityid'])){
 	$date = date("Y-m-d");
 	$activityid = $_POST['activityid'];
-	$sql8 = "UPDATE activity SET complete  = '1', result = 'Job Number: $cleanjobnumber', complete_date = '$date' WHERE activityid = '$activityid' ;";
+	$sql8 = "UPDATE activity SET complete  = '1', result = 'Job Number: '$newJobNumber', complete_date = '$date' WHERE activityid = '$activityid' ;";
 	$res8 = mysqli_query($con,$sql8);	
 	//echo $sql8;
 }
@@ -236,7 +236,7 @@ echo'
 <html>
 	<head>
 	<title>Job Created</title>
-	<link href="../css/elements.css" rel="stylesheet">
+	<link href=".../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

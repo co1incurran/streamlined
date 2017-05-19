@@ -3,7 +3,7 @@ include'../include/session.php';
 include'../include/db_connection.php';
 //Back URL
 $url= $_POST["url"];
-
+//echo $url;
 //the user that created the task
 $userLoggedOn = $_POST['userLoggedOn'];
 
@@ -30,7 +30,7 @@ if(isset($_POST['projectid'])){
 	$filterprojectid = filter_var($projectid, FILTER_SANITIZE_STRING);
 	$cleanprojectid= mysqli_real_escape_string($con, $filterprojectid);
 	
-	$url = $url.'?projectid='.$projectid;
+	//$url = $url.'?projectid='.$projectid;
 }
 
 //activity type
@@ -133,7 +133,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Task added</title>
-	<link href=".../css/elements.css" rel="stylesheet">
+	<link href="../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
