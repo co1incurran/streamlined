@@ -94,6 +94,9 @@ table.work-details{
     display: block;	
 	text-decoration: none;
 }
+#icons li a .convert{
+	float: right;
+}
 ul#icons li{
 	float: left;
 	padding-right: 1em;
