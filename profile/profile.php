@@ -186,7 +186,7 @@ $('#jobType').on('change',function(){
 											require_once 'profile_task_history.php';
 											//echo 'tasks';
 										}
-									//}	
+									//}
 									//if you are looking at private customers
 									}else{
 											if(isset($_GET['page'])) {

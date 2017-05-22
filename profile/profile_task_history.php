@@ -191,7 +191,7 @@ foreach($result2 as $results2){
 
 											echo '<td class = "asset-list">N/A</td>';
 										}
-										//echo $sql_project_ref.'<br>';
+										//echo $sql_project_ref.'<br>'; 
 									
 										//<td class = "asset-list">'; 
 										$class = '';
