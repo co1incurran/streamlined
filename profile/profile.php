@@ -1,6 +1,8 @@
 <?php
 include'../include/session.php';
 include'../include/db_connection.php';
+
+$url = $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -134,7 +136,7 @@ $('#jobType').on('change',function(){
 							
 							echo'
 							<section class="col-md-9 no-padding">';
-							$url = $_SERVER['REQUEST_URI'];
+							
 							$url = str_replace('&', '%26', $url);
 							echo'
 							<ul id = "icons">
@@ -144,8 +146,20 @@ $('#jobType').on('change',function(){
 							}
 							echo'
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> Job History </a></li>
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-area-chart"></i> Task History </a></li>
-								<li><a class = "icons" id="convert" href = "convert_to_company.php?companyid='.$companyid.'"><i class="fa fa-repeat"></i> Convert to Customer </a></li>
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-area-chart"></i> Task History </a></li>';
+							if(isset($_GET["type"])){
+								//this is for showing the convert to company button
+								$type = $_GET["type"];
+									if($type == 'project'){
+										echo'
+										<li><a class = "icons" id="convert" href = "convert_to_company.php?type=project&companyid='.$companyid.'&url='.$url.'"><i class="fa fa-repeat"></i> Convert to Customer </a></li>';
+									}
+									if($type == 'lead'){
+										echo'
+										<li><a class = "icons" id="convert" href = "convert_to_company.php?type=lead&companyid='.$companyid.'&url='.$url.'"><i class="fa fa-repeat"></i> Convert to Customer </a></li>';
+									}
+							}
+							echo'
 							</ul>';
 								
 									//if you are looking at companies

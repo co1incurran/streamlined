@@ -79,7 +79,7 @@ while($row = mysqli_fetch_array($res)){
 		
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
-				<td><a href = "../profile/profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo 'Project:'. ucwords($results['name']);?></a></td>
+				<td><a href = "../profile/profile.php?type=project&customerid=0&companyid=<?php echo $companyid;?>" class="name"><?php echo 'Project:'. ucwords($results['name']);?></a></td>
 				<?php
 					$ad1 = ucwords($results['address_line1']);
 					$ad2 = ucwords($results['address_line2']);
@@ -171,7 +171,7 @@ while($row = mysqli_fetch_array($res)){
 					if($mostRecent != 0){
 						$mostRecent = date("d/m/Y", strtotime($mostRecent));
 					}else{
-						$mostRecent = '';
+						$mostRecent = 'N/A';
 					}
 				?>
 				

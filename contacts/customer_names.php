@@ -145,8 +145,12 @@ while($row = mysqli_fetch_array($res)){
 				<td>
 					<?php 
 						$date = $results['last_contacted'];
-						$properDate = date("d/m/Y", strtotime($date));
-						echo $properDate; 
+						if($date == NULL){
+							$date = 'N/A';
+						}else{
+							$date = date("d/m/Y", strtotime($date));
+						}
+						echo $date; 
 					?>
 				</td>
 				<td><?php echo $assetCount ?></td>

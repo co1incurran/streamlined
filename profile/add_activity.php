@@ -12,7 +12,8 @@ if(isset($_POST['url'])){
 					
 if(isset($_GET['companyid'])){
 	$companyid= $_GET['companyid'];
-}elseif(isset($_GET['customerid'])){
+}
+if(isset($_GET['customerid'])){
 	$customerid= $_GET['customerid'];
 }
 

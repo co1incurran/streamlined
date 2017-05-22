@@ -1,5 +1,12 @@
 <?php
 include'../include/session.php';
+if(isset($_GET['url'])){
+	$url= $_GET['url'];
+}
+
+//if(isset($_GET['type'])){
+	//$type= $_GET['type'];
+//}
 					
 if(isset($_GET['companyid'])){
 	$companyid= $_GET['companyid'];
@@ -27,7 +34,15 @@ echo'
 					if(isset($companyid)){
 						echo '<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
 					}
+					
+					//if(isset($type)){
+					//	echo '<input type="hidden" name="type" id="type" value="'.$type.'">';
+					//}
 
+					if(isset($url)){
+						echo '<input type="hidden" name="url" id="url" value="'.$url.'">';
+					}
+					
 					echo'				
 					<input type="submit" id="submit" value="Yes">
 					<!--<a href="javascript:%20check_empty()" id="submit">Yes</a>-->

@@ -183,7 +183,7 @@ foreach($result2 as $results2){
 										$res = mysqli_query($con,$sql_project_ref);
 										if(mysqli_num_rows($res)>0){
 											
-											while($row = mysql_fetch_array($res)) {
+											while($row = mysqli_fetch_array($res)) {
 												echo '<td class = "asset-list">'.$row['planning_number'].'</td>';
 											}
 											

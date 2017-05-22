@@ -71,7 +71,7 @@ while($row = mysqli_fetch_array($res)){
 		
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
-				<td><a href = "../profile/profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo ucwords($results['name']);?></a></td>
+				<td><a href = "../profile/profile.php?type=lead&customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo ucwords($results['name']);?></a></td>
 				<?php
 					$ad1 = ucwords($results['address_line1']);
 					$ad2 = ucwords($results['address_line2']);
@@ -180,9 +180,10 @@ while($row = mysqli_fetch_array($res)){
 					//this calculates the last contacted date
 					$lastContacted = $results['last_contacted'];
 					if($lastContacted == NULL){
-						$lastContacted = '2000-01-01';
+						$lastContacted = 'N/A';
+					}else{
+						$lastContacted = date("d/m/Y", strtotime($lastContacted));
 					}
-					$lastContacted = date("d/m/Y", strtotime($lastContacted));
 				?>
 				
 				<td><?php echo $days; ?></td>

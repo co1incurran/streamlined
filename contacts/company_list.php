@@ -174,9 +174,10 @@ while($row = mysqli_fetch_array($res)){
 					
 					$lastContacted = $results['last_contacted'];
 					if($lastContacted == NULL){
-						$lastContacted = '2000-01-01';
+						$lastContacted = 'N/A';
+					}else{
+						$lastContacted = date("d/m/Y", strtotime($lastContacted));
 					}
-					$lastContacted = date("d/m/Y", strtotime($lastContacted));
 				?>
 				
 				<td><?php echo $number; ?></td>

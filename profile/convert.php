@@ -12,7 +12,8 @@ if(isset($_POST['companyid'])){
 }
 
 //put the activity into the activty table
-$sql = "UPDATE company SET ;";
+$sql = "UPDATE company SET project = 0, lead = 0 WHERE companyid = $companyid;";
+//echo $sql;
 $res = mysqli_query($con,$sql);
 //echo $sql1;
 
@@ -21,7 +22,7 @@ mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
 	<head>
-	<title>Task added</title>
+	<title>Converted</title>
 	<link href="../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
@@ -34,7 +35,7 @@ echo'<!DOCTYPE html>
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Task added</h2>
+					<h2>Converted</h2>
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
 				</form>
