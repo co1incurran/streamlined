@@ -1,5 +1,6 @@
 <?php
 include'../include/db_connection.php';
+include'../include/session.php';
 //Back URL
 $url= $_POST["url"];
 $contactType = $_POST['contactType'];

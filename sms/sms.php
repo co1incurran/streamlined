@@ -136,16 +136,35 @@ $('#jobType').on('change',function(){
 									<div class="btn-group pull-right">';
 										$url = $_SERVER['REQUEST_URI'];
 										//$url = str_replace('&', '%26', $url);
-										echo'													
-										<a href="add_a_contact_to_project.php?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Create SMS</strong></a>			
+										if(isset ($_GET['page'])){
+												$page = $_GET['page'];
+												if($page  =='templates'){
+													echo '<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a SMS template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
+												}elseif($page  =='account'){
+													echo'<a href="add_a_contact_to_project.php?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Create SMS</strong></a>';
+												}elseif($page  =='history'){
+													echo'<a href="add_a_contact_to_project.php?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Create SMS</strong></a>';
+												}
+											}else{
+													echo'<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a SMS template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
+												}
+										echo'		
 									</div>
-									 <span class="avatar"></span>
+									 
 									 <hgroup>';
-										/*<a href="documentation/index.html" class="btn btn-default pull-right" rel="#overlay"><i class="fa fa-question-circle"></i></a>';*/
-											 echo	'<h2><strong>Ref: </strong><a id="edit" href="#"><i class="fa fa-gear"></i></a></h2>';
-												
-												echo'<h4><strong>Location: </strong></h4>
-											<h4><strong>Regarding: </strong></h4>
+											if(isset ($_GET['page'])){
+												$page = $_GET['page'];
+												if($page  =='templates'){
+													echo '<h2>Templates </h2>';
+												}elseif($page  =='account'){
+													echo'<h2>Account </h2>';
+												}elseif($page  =='history'){
+													echo'<h2>History </h2>';
+												}
+											}else{
+													echo'<h2>Templates </h2>';
+												}
+											 echo'
 											
 								</hgroup>
 								</header>
