@@ -34,7 +34,7 @@ class Rest
     /**
      * @var string
      */
-    private $apiToken = '';
+    private $apiToken = 'RR-c473ITya9rzoEB55Cdw==';
 
     /**
      * Create a new API connection

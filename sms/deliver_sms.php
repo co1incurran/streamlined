@@ -1,5 +1,5 @@
 <?php 
-
+/*
 //print_r($_POST['numbers']);
 $nums = array();
 if(isset($_POST['numbers'])){
@@ -12,15 +12,13 @@ if(isset($_POST['numbers'])){
 			}
 	print_r (array_values($nums));
 }
-
-	$username = urlencode("colin.c");
-	$password = urlencode("SKDcGDUSMfLHAB");
-	$api_id = urlencode("3619671");
+*/
+	include'../include/clickatell_account_details.php';
 	//$number = $_POST['mobilenumber'];
-	//$toList = array(urlencode("353851084442"),urlencode("number 3"));
+	$toList = array(urlencode("353851084442"),urlencode("number 3"));
 	//$toList = array(urlencode($number),urlencode("number 2"),urlencode("number 3"));
 	 
-	$to = implode(',', $nums);
+	$to = implode(',', $toList);
 	$message = "message";
 	//$message = $_POST['message'];
 	$message = urlencode($message);

@@ -10,12 +10,9 @@ $url = str_replace('&', '%26', $url);
 					<thead><tr class = "blue-row">
 					<td class = "asset-list"></td>
 					<td class = "asset-list"><strong>Name</strong></td>
-					<td class = "asset-list"><strong>Job Title</strong></td>
-					<td class = "asset-list"><strong>Phone</strong></td>
-					<td class = "asset-list"><strong>Mobile</strong></td>
-					<td class = "asset-list"><strong>Email</strong></td>
-					<td class = "asset-list"><strong>Fax</strong></td>
-					<td class = "asset-list"><strong>Employer</strong></td>
+					<td class = "asset-list"><strong>Date</strong></td>
+					<td class = "asset-list"><strong>Time</strong></td>
+					<td class = "asset-list"><strong>Message</strong></td>
 					</thead>
 					<tbody>';
 

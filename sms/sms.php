@@ -6,7 +6,16 @@ include'../include/db_connection.php';
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.js"></script>
+<?php
+if(isset($_GET['filter'])){
+	echo'
+	<script type="text/javascript" language="javascript" src="../TableFilter/tablefilter.js"></script>';
+}else{
+	echo'
+	<script type="text/javascript" src="../__jquery.tablesorter/jquery.tablesorter.js"></script>';
+}
+?>
 
 <title>Enable Supplies - CRM System</title>
 
@@ -119,9 +128,10 @@ $('#jobType').on('change',function(){
 							
 							echo'
 							<ul id = "icons">
+								
 								<li><a class = "icons" href ="sms.php?page=templates"><i class="fa fa-file"></i> Templates </a></li>
-								<li><a class = "icons" href ="sms.php?page=history"><i class="fa fa-history"></i> History </a></li>
-								<li><a class = "icons" href = "sms.php?page=account"><i class="fa fa-eur"></i> Account </a></li>
+								<li><a class = "icons" href ="sms.php?page=send"><i class="fa fa-envelope"></i> Send SMS </a></li>
+								<li><a class = "icons" href ="sms.php?page=log"><i class="fa fa-history"></i> SMS Log </a></li>
 							</ul>';
 					?>
 					
@@ -136,30 +146,31 @@ $('#jobType').on('change',function(){
 									<div class="btn-group pull-right">';
 										$url = $_SERVER['REQUEST_URI'];
 										//$url = str_replace('&', '%26', $url);
+										$balance = include"get_balance.php";
 										if(isset ($_GET['page'])){
 												$page = $_GET['page'];
 												if($page  =='templates'){
-													echo '<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a SMS template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
-												}elseif($page  =='account'){
-													echo'<a href="add_a_contact_to_project.php?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Create SMS</strong></a>';
-												}elseif($page  =='history'){
-													echo'<a href="add_a_contact_to_project.php?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="View as a List" ><i class="fa fa-plus"></i> <strong>Create SMS</strong></a>';
+													echo '<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
+												}elseif($page  =='send'){
+													//make this a dropdown with 2 choices: use template and create new message
+													echo'<a href="#?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="Create a message" ><i class="fa fa-plus"></i> <strong>Send SMS</strong></a>';
 												}
 											}else{
-													echo'<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a SMS template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
+													echo'<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
 												}
 										echo'		
 									</div>
 									 
 									 <hgroup>';
+											
 											if(isset ($_GET['page'])){
 												$page = $_GET['page'];
 												if($page  =='templates'){
 													echo '<h2>Templates </h2>';
-												}elseif($page  =='account'){
-													echo'<h2>Account </h2>';
-												}elseif($page  =='history'){
-													echo'<h2>History </h2>';
+												}elseif($page  =='log'){
+													echo'<h2>SMS Log</h2>';
+												}elseif($page  =='send'){
+													echo'<h2>Send SMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>'.$balance.'</small></h2>';
 												}
 											}else{
 													echo'<h2>Templates </h2>';
@@ -174,10 +185,10 @@ $('#jobType').on('change',function(){
 										if($page == 'templates'){
 											require_once 'templates.php';
 											
-										}elseif($page == 'account'){
+										}elseif($page == 'send'){
 										
-											require_once 'account.php';
-										}elseif($page == 'history'){
+											require_once 'send_sms.php';
+										}elseif($page == 'log'){
 											
 											require_once 'history.php';
 										}
@@ -225,6 +236,13 @@ $('#jobType').on('change',function(){
 
     <!-- Main Script -->
     <script src="../js/global.js"></script>
+	<script>
+    $(document).ready(function() 
+        { 
+            $("#names").tablesorter(); 
+        } 
+    );
+    </script>
 
     <script type="text/javascript">
     $(document).ready(function(){
