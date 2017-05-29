@@ -1,62 +1,96 @@
-<link rel="stylesheet" href="../__jquery.tablesorter/themes/blue/style_table.css">
+<link rel="stylesheet" href="__jquery.tablesorter/themes/blue/style_table.css">
 <?php
 
  
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
 
-$sql = "SELECT * FROM company WHERE lead != 1 AND project != 1 ORDER BY name; ";
+$sql = "SELECT * FROM customer WHERE mobile_phone_num != ''; ";
  
 $res = mysqli_query($con,$sql);
 
 $result = array();
 
+
+ 
 while($row = mysqli_fetch_array($res)){
 	array_push($result,
-		array('companyid'=>$row[0],
-		'name'=>$row[1],
-		'address_line1'=>$row[2],
-		'address_line2'=>$row[3],
-		'address_line3'=>$row[4],
-		'address_line4'=>$row[5],
-		'county'=>$row[6],
-		'country'=>$row[7],
-		'sage_id'=>$row[8],
-		'sector'=>$row[9],
-		'lead'=>$row[10],
-		'hide'=>$row[11],
-		'project'=>$row[12],
-		'projectid'=>$row[13],
-		'last_contacted'=>$row[14]
+		array('customerid'=>$row[0],
+		'name_prefix'=>$row[1],
+		'first_name'=>$row[2],
+		'last_name'=>$row[3],
+		'phone_num'=>$row[4],
+		'mobile_phone_num'=>$row[5],
+		'email'=>$row[6],
+		'fax'=>$row[7],
+		'address_line1'=>$row[8],
+		'address_line2'=>$row[9],
+		'address_line3'=>$row[10],
+		'address_line4'=>$row[11],
+		'county'=>$row[12],
+		'country'=>$row[13],
+		'last_contacted'=>$row[14],
+		'pref_contact_type'=>$row[15],
+		'sage_id'=>$row[16],
+		'lead'=>$row[17],
+		'hide'=>$row[18]
 	));
 }
-//print_r (array_values($result));listing list-view clearfix
+//print_r (array_values($result));
 
-//Puts all the customer names in a table
-//echo '<section class="panel-body">';
+$sql2 = "SELECT * FROM workers WHERE mobile_phone_num != ''; ";
+ 
+$res2 = mysqli_query($con,$sql2);
+
+$result2 = array();
+
+
+ 
+while($row = mysqli_fetch_array($res2)){
+	array_push($result2,
+		array('workerid'=>$row[0],
+		'name_prefix'=>$row[1],
+		'first_name'=>$row[2],
+		'last_name'=>$row[3],
+		'phone_num'=>$row[4],
+		'mobile_phone_num'=>$row[5],
+		'email'=>$row[6],
+		'fax'=>$row[7],
+		'job_title'=>$row[8],
+		'pref_contact_type'=>$row[9],
+		'last_contacted'=>$row[10]
+	));
+}
+//print_r (array_values($result2));
+
+/*
+foreach($results as $r){
+	
+	
+}
 ?>	 
 
 	
-<!-- 
+//<!-- ... -->
 </tbody> 
-    </table> -->
-	
+    </table> 
+*/
+echo'	
 	<table id="companyNames" class="tablesorter filterable">
 		<thead>
 			<tr class = "blue-row">				
 				<!--<th class = "asset-list"></th>-->
-				<th id = "first-table-column" class = "asset-list"><strong>Company</strong></th>
-				<th><strong>Address</strong></th>
-				<th><strong>City</strong></th>
+				<th id = "first-table-column" class = "asset-list"><strong>Name</strong></th>
+				<th><strong>Mobile</strong></th>
 				<th><strong>County</strong></th>
-				<th><strong>Phone Number</strong></th>
-				<th><strong>Last Contacted</strong></th>
-				<th><strong>Sector </strong></th>
-				<th><strong>Assets </strong></th>			
+				<th><strong>County</strong></th>
+				<th><strong>Last Service</strong></th>
+				<th><strong>Service Due</strong></th>
+				<th><strong>Inspection Due</strong></th>			
 			</tr>
 		</thead>
 		
-		<tbody>
-	<?php
+		<tbody>';
+	//<?php
 	$i=1;
 		foreach ($result as $results){
 			$companyid = $results['companyid'];
@@ -82,7 +116,7 @@ while($row = mysqli_fetch_array($res)){
 		
 	?>
 			<tr class = "<?php echo $rowClass;?>">	
-				<td><a href = "../profile/profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo ucwords($results['name']);?></a></td>
+				<td><a href = "profile.php?customerid=0&companyid=<?php echo $companyid;?> " class="name"><?php echo ucwords($results['name']);?></a></td>
 				<?php
 					$ad1 = ucwords($results['address_line1']);
 					$ad2 = ucwords($results['address_line2']);
@@ -150,38 +184,35 @@ while($row = mysqli_fetch_array($res)){
 					?>
 				</td>
 				<?php
-					//for getting the number of a contact in the company (preferably a mobile number pf the most recently added worker)
-					$sql3 = "SELECT mobile_phone_num FROM `workers` WHERE mobile_phone_num != '' AND workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid') ORDER BY workerid DESC LIMIT 1; ";
+					//for getting the date of last contacted 
+					$sql3 = "SELECT last_contacted FROM `workers` WHERE workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid'); ";
 					$res3 = mysqli_query($con,$sql3);
-					if (mysqli_num_rows($res3) != 0) {
-						$row3 = mysqli_fetch_assoc($res3);
-						$number = $row3["mobile_phone_num"];
-					}else{
-						$sql4 = "SELECT phone_num FROM `workers` WHERE phone_num != '' AND workerid IN (SELECT workerid FROM works_with WHERE companyid = '$companyid') ORDER BY workerid DESC LIMIT 1; ";
-						$res4 = mysqli_query($con,$sql4);
-						if (mysqli_num_rows($res4) != 0) {
-							$row3 = mysqli_fetch_assoc($res4);
-							$number = $row3["phone_num"];
-						}else{
-							$number = '';
-						}
+					$result3 = array();
+
+					while($row = mysqli_fetch_array($res3)){
+					array_push($result3,
+					array('last_contacted'=>$row[0]
+					));
+					} 
+					//print_r (array_values($result3));
+					$mostRecent =0;
+					foreach ($result3 as $results3){
+						  $curDate= $results3['last_contacted'];
+						  if ($curDate > $mostRecent) {
+							 $mostRecent = $curDate;
+							 //$ok = $mostRecent;
+							 //echo 'in the if';
+						  }
 					}
-					
-					//echo $sql3.'<br>';
-					
-					
-					
-					
-					$lastContacted = $results['last_contacted'];
-					if($lastContacted == NULL){
-						$lastContacted = 'N/A';
+					//$mostRecent = $results['last_contacted'];
+					if($mostRecent != 0){
+						$mostRecent = date("d/m/Y", strtotime($mostRecent));
 					}else{
-						$lastContacted = date("d/m/Y", strtotime($lastContacted));
+						$mostRecent = '';
 					}
 				?>
 				
-				<td><?php echo $number; ?></td>
-				<td><?php echo $lastContacted; ?></td>
+				<td><?php echo $mostRecent; ?></td>
 				<td><?php echo ucwords($results['sector']); ?></td>
 				<td><?php echo $assetCount ?></td>
 			</tr>

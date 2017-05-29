@@ -50,7 +50,6 @@ if(isset($_GET['filter'])){
     
                   
                     <?php
-						
 						//this is used to check if there is new tasks assigned to the user 
 						$sql = "SELECT * FROM activity WHERE complete = '0' AND new = '1' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn' AND created_by != '$userLoggedOn') ORDER BY creation_date; ";
 						//echo $sql;

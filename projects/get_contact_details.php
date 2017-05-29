@@ -193,9 +193,7 @@ echo'
 					
 						<div id="users">
 						  <input id = "searchbox" class="search" placeholder="Search" />
-							<!--<button class="sort" data-sort="name">
-							Sort by name
-						  </button>-->
+							
 
 						  <ul id="search-list" class="list">';
 						  foreach($bigArray as $bigA){
