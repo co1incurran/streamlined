@@ -1,4 +1,15 @@
-<link rel="stylesheet" href="../__jquery.tablesorter/themes/blue/style_table.css">
+<script type="text/javascript">
+//this is for checking all the boxes when the top checkbox is pressed
+function checkAll(bx) {
+  var cbs = document.getElementsByTagName('input');
+  for(var i=0; i < cbs.length; i++) {
+    if(cbs[i].type == 'checkbox') {
+      cbs[i].checked = bx.checked;
+    }
+  }
+}
+
+</script>
 <?php
 
 $url = $_SERVER['REQUEST_URI'];
@@ -9,7 +20,7 @@ echo'<style>
 		}
 
 		#myInput {
-		  background-image: url("/css/searchicon.png");
+		  background-image: url("../css/search.png");
 		  background-position: 10px 10px;
 		  background-repeat: no-repeat;
 		  width: 100%;
@@ -17,53 +28,16 @@ echo'<style>
 		  padding: 12px 20px 12px 40px;
 		  border: 1px solid #ddd;
 		  margin-bottom: 12px;
-		}';
-
-	/*	#myTable {
-		  border-collapse: collapse;
-		  width: 100%;
-		  border: 1px solid #ddd;
-		  font-size: 18px;
 		}
-
-		#myTable th, #myTable td {
-		  text-align: left;
-		  padding: 12px;
-		}
-
-		#myTable tr {
-		  border-bottom: 1px solid #ddd;
-		}
-
-		#myTable tr.header, #myTable tr:hover {
-		  background-color: #f1f1f1;
-		}*/
-		echo'
 		</style>
 		</head>
 		<body>
 
 		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names...." title="Type in a name">';
-		
-		//get all the company names
-/*$sql = "SELECT companyid, name FROM company; ";
-//echo $sql;
 
-$res = mysqli_query($con,$sql);
-$result = array();
-//put all the company names and ids into an array
-while($row = mysqli_fetch_array($res)){
-	array_push($result,
-		array('companyid'=>$row[0],
-		'name'=>$row[1]
-	));
-}
-print_r (array_values($result));*/
-
-////////////////////////////////////////////////////////////////////////////
 
 //get all the private customers names
-$sql2 = "SELECT customerid, first_name, last_name, mobile_phone_num, county FROM customer; ";
+$sql2 = "SELECT customerid, first_name, last_name, mobile_phone_num, county FROM customer WHERE mobile_phone_num != ''; ";
 //echo $sql;
 
 $res2 = mysqli_query($con,$sql2);
@@ -80,10 +54,8 @@ while($row2 = mysqli_fetch_array($res2)){
 }
 //print_r (array_values($result2));
 
-/////////////////////////////////////////////////////////////////////////////
-
 //get all the workers names
-$sql3 = "SELECT workerid, first_name, last_name, mobile_phone_num FROM workers; ";
+$sql3 = "SELECT workerid, first_name, last_name, mobile_phone_num FROM workers WHERE mobile_phone_num != ''; ";
 //echo $sql;
 
 $res3 = mysqli_query($con,$sql3);
@@ -99,21 +71,9 @@ while($row3 = mysqli_fetch_array($res3)){
 }
 //print_r (array_values($result3));
 
-
-
 //this is where i put all the contents of the 3 above arrays into one large array
 $bigArray = array();
-//putting in the companies
-/*foreach ($result as $r1){
-	$type = 'company';
-	$id = $r1['companyid'];
-	$name = $r1['name'];
-	array_push($bigArray,
-		array('type' => $type,
-		'id' => $id,
-		'name' => $name
-	));
-}*/
+
 //putting in the private customers
 foreach($result2 as $r2){
 	$type = 'privatecustomer';
@@ -144,7 +104,6 @@ foreach($result3 as $r3){
 	$id = $r3['workerid'];
 	$name = $r3['first_name'].' '.$r3['last_name'].' - '.ucwords($companyName);
 	
-	//$name = preg_replace_callback('/O\'[a-z]', 'strtoupper("$0")', $name);
 	array_push($bigArray,
 		array('type' => $type,
 		'id' => $id,
@@ -163,7 +122,8 @@ usort($bigArray, 'compareByName');
 
 echo'<table id="myTable">
 		<thead>
-			<tr class = "blue-row">				
+			<tr class = "blue-row">	
+				<td id = "checkbox"><input type="checkbox" onclick="checkAll(this)"></td>
 				<th><strong>Name</strong></th>
 				<th><strong>Number </strong></th>
 				<th><strong>County </strong></th>			
@@ -173,58 +133,21 @@ echo'<table id="myTable">
 		<tbody>';
 foreach($bigArray as $b){
 	echo'<tr>
-			<td>'.$b['name'].'</td>
+			<td id = "checkbox"><input type="checkbox" name="checkbox[]" value ="'.$b['type'].'-'.$b['id'].'" /></td>
+			<td>'.ucwords($b['name']).'</td>
 			<td>'.$b['number'].'</td>
-			<td>'.$b['county'].'</td>	
+			<td>'.ucwords($b['county']).'</td>	
 		</tr>';
 }
-echo'</tbody>
-	</table>';
 
 
-//asort($bigArray);
-//print_r (array_values($bigArray));
+echo        	'<input type="submit" value="Next">
+			</form>
+		</tbody>
+	</table>
 
-		/*<table id="myTable">
-		  <tr class="header">
-			<th style="width:60%;">Name</th>
-			<th style="width:40%;">Country</th>
-		  </tr>
-		  <tr>
-			<td>Alfreds Futterkiste</td>
-			<td>Germany</td>
-		  </tr>
-		  <tr>
-			<td>Berglunds snabbkop</td>
-			<td>Sweden</td>
-		  </tr>
-		  <tr>
-			<td>Island Trading</td>
-			<td>UK</td>
-		  </tr>
-		  <tr>
-			<td>Koniglich Essen</td>
-			<td>Germany</td>
-		  </tr>
-		  <tr>
-			<td>Laughing Bacchus Winecellars</td>
-			<td>Canada</td>
-		  </tr>
-		  <tr>
-			<td>Magazzini Alimentari Riuniti</td>
-			<td>Italy</td>
-		  </tr>
-		  <tr>
-			<td>North/South</td>
-			<td>UK</td>
-		  </tr>
-		  <tr>
-			<td>Paris specialites</td>
-			<td>France</td>
-		  </tr>
-		</table>*/
-echo'
-		<script>
+	<script>
+	<!-- this is the code for the search bar in the "send sms" page -->
 		function myFunction() {
 		  var input, filter, table, tr, td, i;
 		  input = document.getElementById("myInput");
@@ -232,11 +155,11 @@ echo'
 		  table = document.getElementById("myTable");
 		  tr = table.getElementsByTagName("tr");
 		  for (i = 0; i < tr.length; i++) {
-		  td = tr[i].getElementsByTagName("td")[0];
-		  td2 = tr[i].getElementsByTagName("td")[1];
-			
-			if (td || td2)  {
-			  if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+		  td = tr[i].getElementsByTagName("td")[1];
+		  td2 = tr[i].getElementsByTagName("td")[2];
+		  td3 = tr[i].getElementsByTagName("td")[3];
+			if (td || td2 || td3)  {
+			  if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1 || td3.innerHTML.toUpperCase().indexOf(filter) > -1) {
 				tr[i].style.display = "";
 			  } else {
 				tr[i].style.display = "none";
@@ -244,5 +167,5 @@ echo'
 			}
 		  }
 		}
-		</script>';
+	</script>';
 ?>

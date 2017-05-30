@@ -153,7 +153,7 @@ $('#jobType').on('change',function(){
 													echo '<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
 												}elseif($page  =='send'){
 													//make this a dropdown with 2 choices: use template and create new message
-													echo'<a href="#?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="Create a message" ><i class="fa fa-plus"></i> <strong>Send SMS</strong></a>';
+													echo'<a id="sendsms" href="#?url='.$url.'&projectid=" class="btn btn-default" data-toggle="tooltip" title="Send a message" ><i class="fa fa-plus"></i> <strong>Send SMS</strong></a>';
 												}
 											}else{
 													echo'<a href="create_template.php?url='.$url.'" class="btn btn-default" data-toggle="tooltip" title="Create a template" ><i class="fa fa-plus"></i> <strong>Create Template</strong></a>';
@@ -260,6 +260,7 @@ $('#jobType').on('change',function(){
     $("#properJob").hide()
     }
 });
+
 </script>
 
 </body>
