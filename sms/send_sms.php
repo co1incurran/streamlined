@@ -23,16 +23,15 @@ echo'<style>
 		  background-image: url("../css/search.png");
 		  background-position: 10px 10px;
 		  background-repeat: no-repeat;
-		  width: 100%;
+		  width: 95%;
 		  font-size: 16px;
 		  padding: 12px 20px 12px 40px;
 		  border: 1px solid #ddd;
-		  margin-bottom: 12px;
 		}
 		</style>
 		</head>
 		<body>
-
+        
 		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names...." title="Type in a name">';
 
 
@@ -131,9 +130,11 @@ echo'<table id="myTable">
 		</thead>
 		
 		<tbody>';
+		echo'<form action="create_sms.php" method ="POST">
+		<input type="hidden" name="url" value="'.$url.'">';
 foreach($bigArray as $b){
 	echo'<tr>
-			<td id = "checkbox"><input type="checkbox" name="checkbox[]" value ="'.$b['type'].'-'.$b['id'].'" /></td>
+			<td id = "checkbox"><input type="checkbox" name="checkbox[]" value ="'.$b['type'].'-'.$b['id'].'-'.$b['number'].'" /></td>
 			<td>'.ucwords($b['name']).'</td>
 			<td>'.$b['number'].'</td>
 			<td>'.ucwords($b['county']).'</td>	
@@ -141,7 +142,7 @@ foreach($bigArray as $b){
 }
 
 
-echo        	'<input type="submit" value="Next">
+echo        	'<input id = "sendmessage" class="btn btn-default" type="submit" value="Send">
 			</form>
 		</tbody>
 	</table>

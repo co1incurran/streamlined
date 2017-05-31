@@ -12,6 +12,12 @@
 html, body {
     height: 100%;
 }
+#sendmessage {
+	margin-top: 6px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    margin-left: 8px;
+}
 #wrapper {
     min-height: 100%;
     height: auto !important;

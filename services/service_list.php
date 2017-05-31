@@ -25,8 +25,7 @@ while($row = mysqli_fetch_array($res)){
 
 //Puts all the customer names in a table
 //echo '<section class="panel-body">';
-?>	 
-
+?> 
 	
 <!-- ... -->
 <table id="serviceList" class="tablesorter filterable" align="center">
@@ -42,7 +41,7 @@ while($row = mysqli_fetch_array($res)){
 
 		</tr>
 	</thead>
-<tbody>
+	<tbody>
 	<?php
 		//get the current date
 		$date = date('Y/m/d');

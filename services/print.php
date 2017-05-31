@@ -170,7 +170,7 @@ if(isset($_GET['filter'])){
 																)
 															);
 															$counter++;
-														} 
+														}
 														
 														
 														//get the company names and phone numbers so we can send them a text
