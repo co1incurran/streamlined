@@ -168,7 +168,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Activity added</title>
-	<link href="./css/elements.css" rel="stylesheet">
+	<link href="../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -179,8 +179,14 @@ echo'<!DOCTYPE html>
 			<div id="popupContact">
 			<!-- Contact Us Form -->
 				<form action="" id="form" method="post" name="form">
-					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Task added</h2>
+					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->';
+					//if "no further action" is needed is should say "No Further Action"
+					if($cleannextaction != 'no further action'){
+						echo'<h2>Task added</h2>';
+					}else{
+						echo'<h2>No further action</h2>';
+					}
+					echo'
 					<hr>
 					<a href="'.$url.'" id="submit">OK</a>
 				</form>

@@ -117,24 +117,24 @@ if($alreadyExists == false){
 			
 			if(isset($_POST['companyid'])&& $_POST['companyid'] !=0){
 					$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
-					echo '1<br>';
+					//echo '1<br>';
 			}elseif(isset($_POST['customerid'])){
 					$sql4 = "INSERT INTO customer_activity (customerid, activityid) VALUES ('$cleancustomerid', '$activityid');";
-					echo '2<br>';
+					//echo '2<br>';
 				
 			}elseif(isset($_POST['projectid'])){
 				$sql4 = "INSERT INTO project_activity (projectid, activityid) VALUES ('$cleanprojectid', '$activityid');";
-					echo '3<br>';
+					//echo '3<br>';
 			}
 			$res4 = mysqli_query($con,$sql4);
-			echo $sql4;
+			//echo $sql4;
 }
 mysqli_close($con);
 echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Task added</title>
-	<link href=".../css/elements.css" rel="stylesheet">
+	<link href="../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

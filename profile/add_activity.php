@@ -108,7 +108,7 @@ echo'
 					<input id="date" name="date" type="date" required>
 					
 					<label for="time"><small>Time</small></label>
-					<input id="time" name="time" type="time" required>
+					<input id="time" name="time" type="time">
 					
 					<input type="submit" id="submit" value="Save">
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->
