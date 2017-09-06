@@ -61,6 +61,9 @@ echo'
 					<label for="description"><small>Description</small></label>
 					<textarea maxlength="200" class ="form-textarea" id="description" placeholder = "Description" name="description" type="text"></textarea>
 					
+					<label for="met_with"><small>Who did you meet with?</small></label>
+					<input id="met_with" name="met_with" type="text" maxlength = "50">
+					
 					<label for="next_action"><small>Next action</small></label>
 					<select id="next_action" class="drop_down"  name = "next_action" class="form-control">
 						<option value= "no further action">No further action</option>

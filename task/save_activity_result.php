@@ -60,6 +60,12 @@ $description = trim($description);
 $filterdescription = filter_var($description, FILTER_SANITIZE_STRING);
 $cleandescription = mysqli_real_escape_string($con, $filterdescription);
 
+//met with
+$met_with = $_POST["met_with"];
+$met_with = trim($met_with);
+$filtermet_with = filter_var($met_with, FILTER_SANITIZE_STRING);
+$cleanmet_with = mysqli_real_escape_string($con, $filtermet_with);
+
 //next action
 $nextaction = $_POST["next_action"];
 $nextaction = trim($nextaction);
@@ -88,7 +94,7 @@ $creationdate = $dt->format('Y-m-d');
 $currentDate = $creationdate;
 
 //put the data into the completed activity row in the activty table
-$sql1 = "UPDATE activity SET complete = 1, prospecting_type = '$cleantype', result = '$cleanresult', result_description= '$cleandescription', next_action = '$cleannextaction', complete_date = '$currentDate' WHERE activityid = $activityid;";
+$sql1 = "UPDATE activity SET complete = 1, prospecting_type = '$cleantype', result = '$cleanresult', result_description= '$cleandescription', met_with = '$cleanmet_with', next_action = '$cleannextaction', complete_date = '$currentDate' WHERE activityid = $activityid;";
 $res1 = mysqli_query($con,$sql1);
 //echo $sql1.'<br>';
 //make a new activity for the next action data
@@ -168,7 +174,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Activity added</title>
-	<link href="../css/elements.css" rel="stylesheet">
+	<link href=".../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->

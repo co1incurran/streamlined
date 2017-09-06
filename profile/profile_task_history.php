@@ -84,12 +84,14 @@ while($row = mysqli_fetch_array($res)){
 		'created_by'=>$row[12],
 		'new'=>$row[13],
 		'complete_date'=>$row[14],
-		'contactd'=>$row[15],
+		'contacted'=>$row[15],
+		'project_ref_num'=>$row[16],
+		'met_with'=>$row[17]
 		
 		
 	));
 }
-// print_r (array_values($result));
+//print_r (array_values($result));
  //echo '<br>';
 
  
@@ -177,7 +179,7 @@ foreach($result2 as $results2){
 										$date1 = $results['complete_date'];
 										$completeDate = date("d/m/Y", strtotime($date1));
 										echo '<td class = "asset-list">'. ($completeDate) . '</td>
-										<td class = "asset-list">Met with</td>';
+										<td class = "asset-list">'.$results['met_with']. '</td>';
 										
 										$sql_project_ref = "SELECT planning_number FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = $activityid);";
 										$res = mysqli_query($con,$sql_project_ref);

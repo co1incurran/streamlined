@@ -26,10 +26,13 @@ while($row2 = mysqli_fetch_array($res9)){
 		'creation_date'=>$row2[11],
 		'created_by' =>$row2[12],
 		'new' =>$row2[13],
-		'complete_date' =>$row2[14]
+		'complete_date' =>$row2[14],
+		'contacted'=>$row[15],
+		'project_ref_num'=>$row[16],
+		'met_with'=>$row[17]
 	));
 }
-//print_r (array_values($result));
+print_r (array_values($result));
 	
 	//making the table header for the completed tasks
 				echo'
@@ -45,6 +48,7 @@ while($row2 = mysqli_fetch_array($res9)){
 								<th class = "asset-list"><strong>Description</strong></th>
 								<th class = "asset-list"><strong>Due Date</strong></th>
 								<th class = "asset-list"><strong>Complete Date</strong></th>
+								<th class = "asset-list"><strong>Met With</strong></th>
 								<th class = "asset-list"><strong>Punctuality</strong></th>
 								<th class = "asset-list"><strong>Result</strong></th>
 								<th class = "asset-list"><strong>Next Action</strong></th>
@@ -72,7 +76,8 @@ foreach ($result as $results){
 			
 			$completeDate = $results['complete_date'];
 			$completeDate = date("d/m/Y", strtotime($completeDate));
-	
+			$met_with = $results['met_with'];
+	//echo $met_with.'<br>';
 
 		$sql2 = "SELECT userid, first_name, last_name FROM users WHERE userid IN (SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
 		$res2 = mysqli_query($con,$sql2);
@@ -167,7 +172,8 @@ foreach ($result as $results){
 						</form></td>
 						<td class = "asset-list">'.$results['description'].'</td>
 						<td class = "asset-list">'.$newDate.'</td>
-						<td class = "asset-list">'.$completeDate.'</td>';
+						<td class = "asset-list">'.$completeDate.'</td>
+						<td class = "asset-list">'.$met_with.'</td>';
 						//THIS IS WHERE I IMPLEMENT THE Punctuality FEATURE
 								$doneDate = strtotime($results['complete_date']);
 								$dueDate = strtotime($results['due_date']);
