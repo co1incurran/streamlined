@@ -3,7 +3,7 @@
 	
 		//BELOW THIS IS FOR ACTIVITIES THAT HAVE BEEN COMPLETED
 $sql2 = "SELECT * FROM activity WHERE complete = '1' AND activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY complete_date DESC;" ;
-//echo $sql;
+//echo $sql2.'<br>';
 $res9 = mysqli_query($con,$sql2);
 //$row = mysqli_fetch_assoc($res);
 $result = array();
@@ -27,12 +27,12 @@ while($row2 = mysqli_fetch_array($res9)){
 		'created_by' =>$row2[12],
 		'new' =>$row2[13],
 		'complete_date' =>$row2[14],
-		'contacted'=>$row[15],
-		'project_ref_num'=>$row[16],
-		'met_with'=>$row[17]
+		'contacted'=>$row2[15],
+		'project_ref_num'=>$row2[16],
+		'met_with'=>$row2[17]
 	));
 }
-print_r (array_values($result));
+//print_r (array_values($result)); 
 	
 	//making the table header for the completed tasks
 				echo'

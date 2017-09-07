@@ -1005,11 +1005,11 @@ td,th {
 	-moz-box-sizing:border-box;
 	box-sizing:border-box
 }
-:after,:before {
+/*:after,:before {
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box
-}
+}*/
 html {
 	font-size:10px;
 	-webkit-tap-highlight-color:rgba(0,0,0,0)
@@ -3494,7 +3494,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 .navbar-collapse.in {
 	overflow-y:auto
 }
-@media (min-width:768px) {
+@media (min-width:0px) {
 	.navbar-collapse {
 		width:auto;
 		border-top:0;
@@ -3639,7 +3639,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 		background-image:none
 	}
 }
-@media (min-width:768px) {
+/*@media (min-width:768px) {*/
 	.navbar-nav {
 		float:left;
 		margin:0
@@ -3651,7 +3651,7 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 		padding-top:15px;
 		padding-bottom:15px
 	}
-}
+/*}*/
 .navbar-form {
 	padding:10px 15px;
 	margin-top:8px;
@@ -3889,6 +3889,9 @@ select[multiple].input-group-sm>.form-control,select[multiple].input-group-sm>.i
 }
 .navbar-inverse .navbar-toggle .icon-bar {
 	background-color:#fff
+}
+#bs-example-navbar-collapse-1{
+	min-width: 995px;
 }
 .navbar-inverse .navbar-collapse,.navbar-inverse .navbar-form {
 	border-color:#101010

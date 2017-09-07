@@ -41,15 +41,15 @@ if(isset($_GET['filter'])){
         <header>
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
-                    <div class="navbar-header">
+                    <!--<div class="navbar-header">
                       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                      </button>
+                      </button>-->
                       <a class="navbar-brand" href="../welcome/welcome.php">Enable Supplies</a>
-                    </div>
+                   <!-- </div>-->
     
                   
                     <?php						

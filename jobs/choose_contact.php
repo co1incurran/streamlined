@@ -84,7 +84,7 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="../profile/add_activity.php" id="form" method="post" name="form">
+				<form action="../profile/add_job.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Who is the job for?</h2>
 					<hr>

@@ -16,8 +16,8 @@ echo'
 <html>
 	<head>
 	<title>Users activated</title>
-	<link href="css/elements.css" rel="stylesheet">
-	<script src="js/popup.js"></script>
+	<link href="../css/elements.css" rel="stylesheet">
+	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
 	<body>
@@ -28,7 +28,7 @@ echo'
 			<!-- Contact Us Form -->
 				<form action="set_users_deactive.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Users Activated</h2>
+					<h2>Activated</h2>
 							
 					<a href = "users.php"id="submit">Ok</a>
 					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->';

@@ -59,6 +59,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     overflow: -moz-scrollbars-vertical;
     background: #8ec2da;
+	min-width: 995px;
 }
 .profile_button{
 	float:right;
