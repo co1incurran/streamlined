@@ -64,6 +64,7 @@ while($row = mysqli_fetch_array($res)){
 				<th><strong>Location</strong></th>
 				<!--<th><strong>Contact</strong></th>-->
 				<th><strong>Assigned to</strong></th>
+				<th><strong>Last Contacted</strong></th>
 			</tr>
 		</thead>
 		
@@ -304,9 +305,28 @@ while($row = mysqli_fetch_array($res)){
 					$sql3 = "SELECT first_name, last_name FROM users WHERE userid IN (SELECT userid FROM managed_by WHERE projectid = '$projectid');" ;
 					$res3 = mysqli_query($con,$sql3);
 					$row3 = mysqli_fetch_assoc($res3);*/
+					
+					//this is for getting the "last contacted" date for the project
+					$sql4 = "SELECT complete_date FROM activity WHERE activityid IN (SELECT activityid FROM project_activity WHERE projectid = '$projectid') ORDER BY complete_date DESC;" ;
+					
+					$res4 = mysqli_query($con,$sql4);
+					$row4 = mysqli_fetch_assoc($res4);
+					$lastContacted = $row4['complete_date'];
+
 				?>
 				
 				<td><?php echo ucwords($row3['first_name']).' '. ucwords($row3['last_name']); ?></td>
+				
+				<td>
+					<?php
+					//this displays the last contacted date 
+						if($lastContacted != ""){
+							echo date("d/m/Y", strtotime($lastContacted)); 
+						}else{
+							echo "Not Contacted";
+						}
+					?>
+				</td>
 				
 			</tr>
 	<?php

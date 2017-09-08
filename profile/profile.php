@@ -45,12 +45,12 @@ $('#jobType').on('change',function(){
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                     <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                      </button>
+                      </button>-->
                       <a class="navbar-brand" href="../welcome/welcome.php">Enable Supplies</a>
                     </div>
     
@@ -145,8 +145,10 @@ $('#jobType').on('change',function(){
 								echo'<li><a class = "icons" href ="profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=contacts"><i class="fa fa-book"></i> Contacts </a></li>';
 							}
 							echo'
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=jobs"><i class="fa fa-wrench"></i> Jobs Outstanding </a></li>
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=todotasks"><i class="fa fa-list-ol"></i> Tasks Outstanding </a></li>
 								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=history"><i class="fa fa-history"></i> Job History </a></li>
-								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-area-chart"></i> Task History </a></li>';
+								<li><a class = "icons" href = "profile.php?customerid='.$customerid.'&companyid='.$companyid.'&page=task"><i class="fa fa-undo"></i> Task History </a></li>';
 							if(isset($_GET["type"])){
 								//this is for showing the convert to company button
 								$type = $_GET["type"];
@@ -180,11 +182,13 @@ $('#jobType').on('change',function(){
 											require_once 'company_contacts.php';
 										}elseif($page == 'history'){
 											require_once 'history.php';
-											//echo 'history';
+										}elseif($page == 'jobs'){
+											require_once 'outstanding_jobs.php';
+										}elseif($page == 'todotasks'){
+											require_once 'outstanding_tasks.php';
 										}elseif($page == 'task'){
-											
-											require_once 'profile_task_history.php';
-											//echo 'tasks';
+										require_once 'profile_task_history.php';
+										//echo 'tasks';
 										}
 									//}
 									//if you are looking at private customers
@@ -203,9 +207,11 @@ $('#jobType').on('change',function(){
 											}elseif($page == 'history'){
 												require_once 'history.php';
 												//echo 'history';
-											}/*elseif($page == 'notes'){
-												require_once 'customer_notes.php';
-											}*/elseif($page == 'task'){
+											}elseif($page == 'jobs'){
+												require_once 'outstanding_jobs.php';
+											}elseif($page == 'todotasks'){
+												require_once 'outstanding_tasks.php';
+											}elseif($page == 'task'){
 												require_once 'profile_task_history.php';
 												//echo 'tasks';
 											}
