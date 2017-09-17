@@ -137,11 +137,11 @@ if($outbox == true){
 					}
 					
 					$global = true;
-					
+					//this
 					
 				}elseif($status == 'globalcomplete' && $admin == true){
 					//these 2 ifs are to ensure there is a date entered
-					if(isset($_POST['date1']) || isset($_POST['date1'])){
+					if(isset($_POST['date1']) || isset($_POST['date2'])){
 						if($_POST['date1'] != '' || $_POST['date2'] != ''){
 							//this checks if the date checker feature is used
 							if(isset($_POST['date1']) && $_POST['date1'] != ''){
@@ -150,20 +150,20 @@ if($outbox == true){
 								if(isset($_POST['date2']) && $_POST['date2'] != ''){
 								$date2  = $_POST['date2'];
 								}
-								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0' AND complete_date >='$date1' AND complete_date <='$date2'; ";
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND complete_date >='$date1' AND complete_date <='$date2'; ";
 								//echo $sql;
 							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
 								$date2  = $_POST['date2'];
-								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0' AND complete_date <= '$date2'; ";
+								$sql = "SELECT * FROM activity WHERE complete = '1' AND complete_date <= '$date2'; ";
 								//echo $sql;
 							}else{
-								$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+								$sql = "SELECT * FROM activity WHERE complete = '1';";
 							}
 						}else{
-							$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+							$sql = "SELECT * FROM activity WHERE complete = '1'; ";
 						}
 					}else{
-						$sql = "SELECT * FROM activity WHERE complete = '1' AND new ='0'; ";
+						$sql = "SELECT * FROM activity WHERE complete = '1'; ";
 					}
 				
 					$global = true;

@@ -95,7 +95,7 @@ if(isset($_GET['filter'])){
                                  <a href="#" id = "logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Account</a></li>
-                                    <li><a href="#">Users</a></li>
+                                    <li><a href="../account/users.php">Users</a></li>
                                     <li><a href="#">Groups</a></li>
                                     <li><a href="../account/logout.php">Log out</a></li>
                                 </ul>
