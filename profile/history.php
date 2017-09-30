@@ -149,7 +149,7 @@ foreach($result2 as $results2){
 										<th class = "asset-list"><strong>Job Number</strong></th>
 										<th class = "asset-list"><strong>Job Type</strong></th>
 										<th class = "asset-list"><strong>Status</strong></th>
-										<th class = "asset-list"><strong>Due Date</strong></th>
+										<th class = "asset-list"><strong>Completion Date</strong></th>
 										<th class = "asset-list"><strong>Job Sheet Reference</strong></th>
 										<th class = "asset-list"><strong>PO Number</strong></th>
 										</thead>';

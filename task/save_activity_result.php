@@ -87,6 +87,10 @@ $cleandate= mysqli_real_escape_string($con, $date);
 $time = $_POST["time"];
 $time = trim($time);
 $cleantime = mysqli_real_escape_string($con, $time);
+//this is for formatting the time to match that of the empty time column in the database
+if($cleantime ==''){
+	$cleantime ='00:00:00';
+}
 
 //get the current date 
 $dt = new DateTime();
@@ -129,11 +133,14 @@ if($cleannextaction != 'no further action'){
 	$sqlChecker = "SELECT * FROM assigned_activity WHERE userid = '$assign' AND activityid IN (SELECT activityid FROM activity WHERE type = '$cleannextaction' AND description = '$cleannextActivityDescription' AND due_date = '$cleandate' AND time  = '$cleantime' AND creation_date = '$creationdate' AND created_by = '$userLoggedOn') ;";
 	//echo $sqlChecker;
 	$resChecker = mysqli_query($con,$sqlChecker);
+	//echo $sqlChecker.'<br>';
+	//echo mysqli_num_rows($resChecker).'<br>';
 	if(mysqli_num_rows($resChecker) <= 0){
 		//put the activity into the activty table
 		$sql2 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleannextaction', '$cleannextActivityDescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
+		//echo $sql2.'<br>';
 		$res2 = mysqli_query($con,$sql2);
-		echo $sql2.'<br>';
+		//echo $sql2.'<br>';
 
 		//get the activityid of the asset
 			$sql3 = "SELECT activityid FROM activity ORDER BY activityid DESC LIMIT 1; ";
@@ -181,7 +188,7 @@ echo'<!DOCTYPE html>
 <html>
 	<head>
 	<title>Activity added</title>
-	<link href=".../css/elements.css" rel="stylesheet">
+	<link href="../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
