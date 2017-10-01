@@ -145,13 +145,25 @@ foreach($result2 as $results2){
 									echo'		 
 									<table align="center">
 										<thead class = "blue-row">
-										<th class = "asset-list"></th>
-										<th class = "asset-list"><strong>Job Number</strong></th>
-										<th class = "asset-list"><strong>Job Type</strong></th>
-										<th class = "asset-list"><strong>Status</strong></th>
-										<th class = "asset-list"><strong>Due Date</strong></th>
-										<th class = "asset-list"><strong>Job Sheet Reference</strong></th>
-										<th class = "asset-list"><strong>PO Number</strong></th>
+											<tr class = "blue-row">
+												<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
+												<th class = "asset-list"><strong>Job Number</strong></th>
+												<th class = "asset-list"><strong>Type</strong></th>
+												<th class = "asset-list"><strong>Details</strong></th>
+												<?php
+													if($status =='completed' ){
+														echo'<th class = "asset-list"><strong>Invoice</strong></th>';
+													}else{
+														echo'<th class = "asset-list"><strong>Status</strong></th>';
+													}
+												?>
+												
+												<th class = "asset-list"><strong><?php echo $dateType; ?></strong></th>
+												<th class = "asset-list"><strong>Days Open</strong></th>
+												<th class = "asset-list"><strong>Assets</strong></th>
+												<th class = "asset-list"><strong>Customer</strong></th>
+												<th class = "asset-list"><strong>County</strong></th>
+											</tr>
 										</thead>';
 										$i = 1;
 						foreach ($result as $results){

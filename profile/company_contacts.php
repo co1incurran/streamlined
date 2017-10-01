@@ -146,8 +146,12 @@ echo '<div class="main-section">
 										<td class = "asset-list">'.ucwords($results3['job_title']).'</td>';
 										$date1 = $results3['last_contacted'];
 										$properDate1 = date("d/m/Y", strtotime($date1));
-										echo '<td class = "asset-list">'. ($properDate1) . '</td>
-								</tr>';
+										if($properDate1 = 01/01/2000){
+											echo '<td class = "asset-list">N/A</td>';
+										}else{
+											echo '<td class = "asset-list">'. ($properDate1) . '</td>';
+										}
+								'</tr>';
 								
 								$i++;
 						}
