@@ -155,6 +155,10 @@ foreach($result2 as $results2){
 										<th class = "asset-list"><strong>Type</strong></th>
 										<th class = "asset-list"><strong>Description</strong></th>
 										<th class = "asset-list"><strong>Due Date</strong></th>
+										<th class = "asset-list"><strong>Days open</strong></th>
+										<th class = "asset-list"><strong>Time</strong></th>
+										<th class = "asset-list"><strong>Creation Date</strong></th>
+										<th class = "asset-list"><strong>Assigned to</strong></th>
 										<th class = "asset-list"><strong>Created by</strong></th>
 										</thead>';
 										$i = 1;
@@ -171,10 +175,33 @@ foreach($result2 as $results2){
 										<td class = "asset-list"></td>
 										<td class = "asset-list">'. ucwords($results['type']) . '</td>
 										<td class = "asset-list">'. ucwords($results['description']) . '</td>';
-										$date1 = $results['complete_date'];
-										$completeDate = date("d/m/Y", strtotime($date1));
-										echo '<td class = "asset-list">'. ($completeDate) . '</td>
-										<td class = "asset-list">'.$results['met_with']. '</td>';
+										$dueDate = $results['due_date'];
+										$dueDate = date("d/m/Y", strtotime($dueDate));
+										
+										echo '<td class = "asset-list">'. ($dueDate) . '</td>
+										<td>';
+										$openDate = $results['creation_date'];
+										$openDate = strtotime($openDate);
+										
+										//get the current date 
+										$dt = new DateTime();
+										$installdate = $dt->format('Y-m-d');
+										
+										
+										//convert it to a timestamp
+										
+										//Get the current timestamp.
+										$now = time();
+										
+										//Calculate the difference.
+										$difference = $now - $openDate;
+											$days = floor($difference / (60*60*24) );
+											echo $days;
+								
+										echo'
+										</td>
+										<td class = "asset-list">'.date('h:ia', strtotime($results['time'])). '</td>
+										<td>'.date("d/m/Y", strtotime($results['creation_date'])).'</td>';
 										
 										$sql_project_ref = "SELECT planning_number FROM projects WHERE projectid IN (SELECT projectid FROM project_activity WHERE activityid = $activityid);";
 										$res = mysqli_query($con,$sql_project_ref);
