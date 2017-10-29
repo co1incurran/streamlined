@@ -212,45 +212,17 @@ foreach($result2 as $results2){
 											}
 											
 										}else{
-
-											echo '<td class = "asset-list">N/A</td>';
+										//to get the employee the task is assigned to
+										$sql4 = "SELECT userid, first_name, last_name FROM users WHERE userid IN(SELECT userid FROM assigned_activity WHERE activityid = '$activityid');";
+										$res4 = mysqli_query($con,$sql4);
+										$user = mysqli_fetch_assoc($res4);
+										$userName = $user['userid'];
+										$employee = ucwords($user["first_name"]).' '.ucwords($user["last_name"]);
+										//todo get the name of the person here
+											echo '<td class = "asset-list">'.$employee.'</td>';
 										}
-										//echo $sql_project_ref.'<br>'; 
-									
-										//<td class = "asset-list">'; 
-										$class = '';
-										$message ='';
-											//THIS IS WHERE I IMPLEMENT THE Punctuality FEATURE
-											$doneDate = strtotime($results['complete_date']);
-											$dueDate = strtotime($results['due_date']);
-											$difference = $doneDate - $dueDate;
-											$days = floor($difference / (60*60*24) );
-											if($days < 0){
-												$days = $days * -1;
-												$word = 'day';
-												//to be grammatically correct
-												if($days > 1){
-													$word = 'days';
-												}
-												$message = $days.' '.$word.' early';
-												
-											}elseif($days == 0){
-												$message = 'On time';
-											}else{
-												$word = 'day';
-												//to be grammatically correct
-												if($days > 1){
-													$word = 'days';
-												}
-												$message = $days.' '.$word.' late';
-												$class = 'red';
-											}
-											echo'
-										<td class = '.$class.'>';
-										echo $message;
-										 echo'</td>
-										<td class = "asset-list">'. ucwords($results['result']) . '</td>
-										<td class = "asset-list">'. ucwords($results['next_action']) . '</td>
+										
+										echo'
 										<td class = "asset-list">'. ucwords($results['created_by']) . '</td>
 								</tr>';
 								$i++;

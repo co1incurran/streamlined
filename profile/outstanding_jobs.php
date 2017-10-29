@@ -150,19 +150,10 @@ foreach($result2 as $results2){
 												<th class = "asset-list"><strong>Job Number</strong></th>
 												<th class = "asset-list"><strong>Type</strong></th>
 												<th class = "asset-list"><strong>Details</strong></th>
-												<?php
-													if($status =='completed' ){
-														echo'<th class = "asset-list"><strong>Invoice</strong></th>';
-													}else{
-														echo'<th class = "asset-list"><strong>Status</strong></th>';
-													}
-												?>
 												
-												<th class = "asset-list"><strong><?php echo $dateType; ?></strong></th>
+												<th class = "asset-list"><strong>Creation Date</strong></th>
 												<th class = "asset-list"><strong>Days Open</strong></th>
 												<th class = "asset-list"><strong>Assets</strong></th>
-												<th class = "asset-list"><strong>Customer</strong></th>
-												<th class = "asset-list"><strong>County</strong></th>
 											</tr>
 										</thead>';
 										$i = 1;
