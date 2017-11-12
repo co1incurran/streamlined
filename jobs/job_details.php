@@ -4,6 +4,7 @@ include'../include/db_connection.php';
 $userName = $_POST['username'];
 $url= $_POST['url'];
 $jobid= $_POST['jobid'];
+//$job_number= $_POST['job_number'];
 $complete= $_POST['complete'];
 
 $jobType= $_POST['jobType'];
@@ -45,6 +46,7 @@ echo'
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="jobid" id="jobid" value="'.$jobid.'">
+					<input type="hidden" name="jobNumber" id="jobNumber" value="'.$jobNumber.'">
 					
 					<label for="date"><small>Due date</small></label>
 					<input id="date" name="date" value ="'.$dueDate.'" type="date" required>

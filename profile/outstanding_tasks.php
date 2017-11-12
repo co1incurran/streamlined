@@ -173,6 +173,7 @@ foreach($result2 as $results2){
 							//echo $activityid.'<br>';
 							echo '<tr class = "' .$rowClass. '">
 										<td class = "asset-list"></td>
+										
 										<td class = "asset-list">'. ucwords($results['type']) . '</td>
 										<td class = "asset-list">'. ucwords($results['description']) . '</td>';
 										$dueDate = $results['due_date'];

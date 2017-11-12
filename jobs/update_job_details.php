@@ -46,7 +46,7 @@ $filternotes = filter_var($notes, FILTER_SANITIZE_STRING);
 $cleannotes= mysqli_real_escape_string($con, $filternotes);
 
 //JOB NUMBER
-$job_number = $_POST["job_number"];
+$job_number = $_POST["jobNumber"];
 $job_number = trim($job_number);
 $filterjobnumber = filter_var($job_number, FILTER_SANITIZE_STRING);
 $cleanjobnumber= mysqli_real_escape_string($con, $filterjobnumber);
