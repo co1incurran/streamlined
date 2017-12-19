@@ -6,7 +6,6 @@ $customerid= $_GET['customerid'];
 $companyid= $_GET['companyid'];
 $jobid = $_GET['jobid'];
 $number0fAssets = $_GET['numberOfAssets']; 
-
 echo'
 <!DOCTYPE html>
 <html>

@@ -98,7 +98,7 @@ while($row = mysqli_fetch_array($res)){
 
 
 $url = $_SERVER['REQUEST_URI'];
-//$url = str_replace('&', '%26', $url);
+$url = str_replace('&', '%26', $url);
 foreach($result2 as $results2){
 	echo '<div class="main-section">
 				
@@ -153,7 +153,8 @@ foreach($result2 as $results2){
 									<table align="center">
 										<thead class = "blue-row">
 											<tr class = "blue-row">
-												<td id = "td-header" class = "asset-list"><i class="fa fa-check"></i></td>
+												<th></th>
+												<th id = "td-header" class = "asset-list"><i class="fa fa-check"></i></th>
 												<th class = "asset-list"><strong>Job Number</strong></th>
 												<th class = "asset-list"><strong>Type</strong></th>
 												<th class = "asset-list"><strong>Details</strong></th>
@@ -221,7 +222,14 @@ foreach($result2 as $results2){
 							$complete = $results['complete'];
 							
 							echo '<tr class = "' .$rowClass. '">
-										<td class = "asset-list"></td>
+										<td class = "asset-list">';
+											if($results['job_type'] == 'installation'){
+											echo'<td id= "complete-button"><a href="../jobs/installation_number.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'&numberOfAssets='.$numberOfAssets.'"><i class="fa fa-square-o"></i></a></td>';
+											}else{
+												echo'<td id= "complete-button"><a href="../jobs/complete_job.php?url='.$url.'&jobid='.$jobid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
+											}
+										echo
+										'</td>
 										<td class = "asset-list">'. ($results['job_number']) . '</td>
 										<td class = "asset-list">
 											<form action="../jobs/job_details.php" id="job-list" method="post" name="job-list">

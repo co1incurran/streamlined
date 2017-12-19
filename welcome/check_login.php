@@ -17,14 +17,18 @@ include'../include/db_connection.php';
 
 // username and password sent from form 
 $username = $_POST['username']; 
-$password = $_POST['password']; 
+$password = hash('sha512', $_POST['password']); 
+echo $password;
 
 // To protect MySQL injection (more detail about MySQL injection)
 $username = stripslashes($username);
-$password = stripslashes($password);
+//$password = stripslashes($password);
+
+//hashing
+//$hashed = hash('sha512', $data);
 
 $username = mysqli_real_escape_string($con, $username);
-$password = mysqli_real_escape_string($con, $password);
+//$password = mysqli_real_escape_string($con, $password);
 
 $sql="SELECT * FROM users WHERE userid='$username' AND password='$password'";
 $res = mysqli_query($con,$sql);
@@ -44,6 +48,8 @@ if($count==1){
 	//echo ("{$_SESSION['username']}");
 }
 else {
+	//echo $password.'<br>';
+	//echo $sql.'<br>';
 	echo "Wrong Username or Password".'<br>';
 	
 }

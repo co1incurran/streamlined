@@ -11,6 +11,7 @@ if(isset($_POST['totalNumberOfAssets'])){
 }
 
 $url = $_POST['url'];
+
 $customerid = $_POST['customerid'];
 $companyid = $_POST['companyid'];
 $jobid = $_POST['jobid'];

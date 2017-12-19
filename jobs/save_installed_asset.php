@@ -3,14 +3,14 @@ include'../include/session.php';
 include'../include/db_connection.php';
 
 //Back URL
-$url= $_POST["url"];
+$url= $_POST['url'];
 
 $totalNumberOfAssets = $_POST['totalNumberOfAssets'];
 
 $jobid = $_POST["jobid"];
 $jobid = trim($jobid);
 $filterjobid = filter_var($jobid, FILTER_SANITIZE_STRING);
-$cleanjobid= mysqli_real_escape_string($con, $filterjobid);
+$cleanjobid = mysqli_real_escape_string($con, $filterjobid);
 
 $numberOfAssets = $_POST['numberofassets'];
 //asset quantity

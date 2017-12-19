@@ -172,8 +172,15 @@ foreach($result2 as $results2){
 							$activityid = $results['activityid'];
 							//echo $activityid.'<br>';
 							echo '<tr class = "' .$rowClass. '">
-										<td class = "asset-list"></td>
-										
+										<td class = "asset-list"></td>';
+										/*if($results['type'] == 'prospecting'){
+											echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
+										}elseif ($type == 'create job number'){
+											echo'<td id= "complete-button"><a href="../profile/add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
+										}else{
+											echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'" ><i class="fa fa-square-o"></i></a></td>';
+										}*/
+										echo'
 										<td class = "asset-list">'. ucwords($results['type']) . '</td>
 										<td class = "asset-list">'. ucwords($results['description']) . '</td>';
 										$dueDate = $results['due_date'];

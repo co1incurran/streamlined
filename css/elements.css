@@ -96,6 +96,23 @@ padding-left:40px;
 font-size:16px;
 font-family:raleway
 }
+#user-password {
+    width: 82%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    padding-left: 40px;
+    font-size: 16px;
+    font-family: raleway;
+}
+
+#retype-password{
+    width: 82%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    padding-left: 40px;
+    font-size: 16px;
+    font-family: raleway;
+}
 input[type=email] {
 width:82%;
 padding:10px;

@@ -34,7 +34,7 @@ echo'
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Edit Users</title>
+	<title>Create User</title>
 	<link href="../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
@@ -45,24 +45,23 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="set_users_deactive.php" id="form" method="post" name="form">
+				<form action="save_new_user.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Edit Users</h2>
-					<small><a href = "create_user.php">Create user</a></small>
+					<h2>Create User</h2>
 					<hr>
-					</select><br>';
-					foreach ($users as $u){
-						$user = ucwords($u['first_name']).' '. ucwords($u['last_name']);
-						echo'<label><input type="checkbox" name="checkbox[]" value="'.$u['userid'].'" id="checkbox">'.ucwords($u['first_name']).' '. ucwords($u['last_name']).'</label> <br>';
-						//echo '<li>'.$user.'</li>';
-					}
-					echo' 					
-					<input type="submit" id="submit" value="Deactivate">
-					<!--<a href="javascript:%20check_empty()" id="submit">Save</a>-->';
-					if(!isset ($_GET['showall'])){
-						echo '<a href = "deactive_users.php"id="submit">Show deactive users</a>';
-					}
-					echo'
+					</select><br>
+						
+						<input placeholder="Username" id="username" name="username" required type="text" maxlenght = "50">
+						
+						<input id="email" name="email" type="email" maxlenght = "50">
+
+						
+						<input id= "user-password" placeholder="Password" required name="user-password" type="password">
+
+						<input id ="retype-password" placeholder="Re-type password"  required name="retype-password" type="password">
+					
+						<input type="submit" id="submit" value="Save">
+						
 					<a href = "../contacts/contacts.php"id="submit">Cancel</a>
 				</form>
 			</div>

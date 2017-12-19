@@ -2289,7 +2289,7 @@ output {
 }
 .form-control {
 	display:block;
-	width:100%;
+	width:80%;
 	height:34px;
 	padding:6px 12px;
 	font-size:14px;
@@ -2304,6 +2304,18 @@ output {
 	-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 	-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 	transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+
+#username{
+	margin: auto;
+}
+#password{
+	margin: auto;
+}
+#login-btn{
+	width: 40%;
+	margin-left: 30%;
+	margin-right: 30%
 }
 .form-control:focus {
 	border-color:#66afe9;
@@ -2342,7 +2354,7 @@ input[type=search] {
 	.input-group-lg input[type=date],.input-group-lg input[type=time],.input-group-lg input[type=datetime-local],.input-group-lg input[type=month],input[type=date].input-lg,input[type=time].input-lg,input[type=datetime-local].input-lg,input[type=month].input-lg {
 		line-height:46px
 	}
-}
+} 
 .form-group {
 	margin-bottom:15px
 }
