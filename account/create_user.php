@@ -53,12 +53,20 @@ echo'
 						
 						<input placeholder="Username" id="username" name="username" required type="text" maxlenght = "50">
 						
-						<input id="email" name="email" type="email" maxlenght = "50">
+						<input id="email" required placeholder ="Email" name="email" type="email" maxlenght = "50">
 
 						
 						<input id= "user-password" placeholder="Password" required name="user-password" type="password">
 
 						<input id ="retype-password" placeholder="Re-type password"  required name="retype-password" type="password">
+						
+						<br></br><label>Security Questions:</label>
+						
+						<br></br><label for= "dob" ><small>Date of birth</small></label>
+						<input id="dob" required placeholder = "Date of birth" name="dob" type="date" >
+						
+						<label for= "dob" ><small>Mother&#39s maiden name</small></label>
+						<input id="maiden-name" required type="text" maxlenght = "50">
 					
 						<input type="submit" id="submit" value="Save">
 						
