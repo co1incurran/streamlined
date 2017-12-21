@@ -1,34 +1,7 @@
 <?php
 include'../include/session.php';
-include'../include/db_connection.php';
-//$url= $_GET['url'];
-//$customerid= $_GET['customerid'];
-//$companyid= $_GET['companyid'];
+//include'../include/db_connection.php';
 
-//this is for getting the list of manufacturers
-$sql = "SELECT name FROM manufacturers ORDER BY name; ";
-$res = mysqli_query($con,$sql);
-$manufacturers = array();
-//store them in an array
-while($row = mysqli_fetch_array($res)){
-	array_push($manufacturers,
-		array('name'=>$row[0]
-	));
-}
-
-$sql2 = "SELECT userid, first_name, last_name FROM users WHERE active = 1 ORDER BY first_name, last_name; ";
-$res2 = mysqli_query($con,$sql2);
-$users = array();
-
-while($row = mysqli_fetch_array($res2)){
-	array_push($users,
-		array('userid'=>$row[0],
-			'first_name'=>$row[1],
-			'last_name'=>$row[2]
-	));
-}
-//print_r (array_values($users));
-mysqli_close($con);
 
 echo'
 <!DOCTYPE html>
@@ -54,7 +27,6 @@ echo'
 						<input placeholder="Username" id="username" name="username" required type="text" maxlenght = "50">
 						
 						<input id="email" required placeholder ="Email" name="email" type="email" maxlenght = "50">
-
 						
 						<input id= "user-password" placeholder="Password" required name="user-password" type="password">
 
@@ -70,7 +42,7 @@ echo'
 					
 						<input type="submit" id="submit" value="Save">
 						
-					<a href = "../contacts/contacts.php"id="submit">Cancel</a>
+					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->
