@@ -16,6 +16,7 @@
 	echo '<br>';
 	mysqli_close($con);
 	echo '<br>';
+	
 	if(isset ($_POST["username"])){
 		$username = $_POST["username"];
 		//$username = "Colin";
