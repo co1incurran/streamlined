@@ -2,6 +2,28 @@
 include'../include/session.php';
 //include'../include/db_connection.php';
 
+	if(isset ($_GET["email"])){
+		$email = $_GET["email"];
+		$emailValue = 'value = "'.$email.'"';
+		//echo $emailValue;
+	}else{
+		$emailValue = '';
+	}
+	
+	
+	if(isset ($_GET["dob"])){
+		$dob = $_GET["dob"];
+		$dobValue = 'value = "'.$dob.'"';
+	}else{
+		$dobValue = '';
+	}
+	
+	if(isset ($_GET["maidenName"])){
+		$maidenName = $_GET["maidenName"];
+		$maidenNameValue = 'value = "'.$maidenName.'"';
+	}else{
+		$maidenNameValue = '';
+	}
 
 echo'
 <!DOCTYPE html>
@@ -26,7 +48,9 @@ echo'
 						
 						<input placeholder="Username" id="username" name="username" required type="text" maxlenght = "50">
 						
-						<input id="email" required placeholder ="Email" name="email" type="email" maxlenght = "50">
+						<input id="email" required '.$emailValue.' placeholder ="Email" name="email" type="email" maxlenght = "50">
+						
+						
 						
 						<input id= "user-password" placeholder="Password" required name="user-password" type="password">
 
@@ -35,10 +59,10 @@ echo'
 						<br></br><label>Security Questions:</label>
 						
 						<br></br><label for= "dob" ><small>Date of birth</small></label>
-						<input id="dob" required placeholder = "Date of birth" name="dob" type="date" >
+						<input id="dob" required '.$dobValue.' placeholder = "Date of birth" name="dob" type="date" >
 						
-						<label for= "dob" ><small>Mother&#39s maiden name</small></label>
-						<input id="maiden-name" required type="text" maxlenght = "50">
+						<label for= "maiden-name" ><small>Mother&#39s maiden name</small></label>
+						<input id="maiden-name" '.$maidenNameValue.' name = "maiden-name" required type="text" maxlenght = "50">
 					
 						<input type="submit" id="submit" value="Save">
 						
