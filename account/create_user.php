@@ -5,11 +5,24 @@ include'../include/session.php';
 	if(isset ($_GET["email"])){
 		$email = $_GET["email"];
 		$emailValue = 'value = "'.$email.'"';
-		//echo $emailValue;
+		
 	}else{
 		$emailValue = '';
 	}
 	
+	if(isset ($_GET["taken"])){
+		//message to say the username is already taken
+		$warning = '<label for= "username" ><small id="errorMessage">This username is already taken</small></label>';
+	}else{
+		$warning = '';
+	}
+	
+	if(isset ($_GET["match"])){
+		//message to say the passwords match
+		$message= '<label for= "user-password" ><small id="errorMessage">The passwords do not match</small></label>';
+	}else{
+		$message = '';
+	}
 	
 	if(isset ($_GET["dob"])){
 		$dob = $_GET["dob"];
@@ -18,12 +31,34 @@ include'../include/session.php';
 		$dobValue = '';
 	}
 	
+	if(isset ($_GET["firstname"])){
+		$fname = $_GET["firstname"];
+		$fnameValue = 'value = "'.$fname.'"';
+	}else{
+		$fnameValue = '';
+	}
+	
+	if(isset ($_GET["lastname"])){
+		$lname = $_GET["lastname"];
+		$lnameValue = 'value = "'.$lname.'"';
+	}else{
+		$lnameValue = '';
+	}
+
+	if(isset ($_GET["username"])){
+		$username = $_GET["username"];
+		$usernameValue = 'value = "'.$username.'"';
+	}else{
+		$usernameValue = '';
+	}
+	
 	if(isset ($_GET["maidenName"])){
 		$maidenName = $_GET["maidenName"];
 		$maidenNameValue = 'value = "'.$maidenName.'"';
 	}else{
 		$maidenNameValue = '';
 	}
+	//get the password and then encrypt it and store the encrypted version
 
 echo'
 <!DOCTYPE html>
@@ -45,13 +80,16 @@ echo'
 					<h2>Create User</h2>
 					<hr>
 					</select><br>
+						'.$warning.'
+						<input placeholder="Username" '.$usernameValue.' id="username" name="username" required type="text" maxlenght = "50">
 						
-						<input placeholder="Username" id="username" name="username" required type="text" maxlenght = "50">
+						<input placeholder="First name" '.$fnameValue.' id="firstname" name="firstname" required type="text" maxlenght = "20">
+						
+						<input placeholder="Last name" '.$lnameValue.' id="lastname" name="lastname" required type="text" maxlenght = "30">
 						
 						<input id="email" required '.$emailValue.' placeholder ="Email" name="email" type="email" maxlenght = "50">
 						
-						
-						
+						'.$message.'
 						<input id= "user-password" placeholder="Password" required name="user-password" type="password">
 
 						<input id ="retype-password" placeholder="Re-type password"  required name="retype-password" type="password">
@@ -62,9 +100,9 @@ echo'
 						<input id="dob" required '.$dobValue.' placeholder = "Date of birth" name="dob" type="date" >
 						
 						<label for= "maiden-name" ><small>Mother&#39s maiden name</small></label>
-						<input id="maiden-name" '.$maidenNameValue.' name = "maiden-name" required type="text" maxlenght = "50">
+						<input id="maiden-name" '.$maidenNameValue.' name = "maiden-name" placeholder = "Maiden name" required type="text" maxlenght = "50">
 					
-						<input type="submit" id="submit" value="Save">
+						<input type="submit" id="submit" value="Save"> 
 						
 					<a onclick="goBack()" id="submit">Cancel</a>
 				</form>

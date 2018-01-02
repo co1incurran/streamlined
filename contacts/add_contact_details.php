@@ -178,6 +178,7 @@ echo'
 							
 							<input type="submit" id="submit" value="Next">
 							<a onclick="goBack()" id="submit">Cancel</a>
+							
 						</form>';
 					}
 					echo'

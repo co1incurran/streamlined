@@ -18,7 +18,7 @@ include'../include/db_connection.php';
 // username and password sent from form 
 $username = $_POST['username']; 
 $password = hash('sha512', $_POST['password']); 
-echo $password;
+//echo $password;
 
 // To protect MySQL injection (more detail about MySQL injection)
 $username = stripslashes($username);
@@ -40,9 +40,10 @@ $count = mysqli_num_rows($res);
 if($count==1){
 
 	// Register $myusername, $mypassword and redirect to file "welcome.php"
-	$_SESSION['username'] = "$username";
-	$_SESSION['password'] = "$password";
+	$_SESSION['username'] = $username;
+	$_SESSION['password'] = $password;
 	//$_SESSION['mypassword'] = "$mypassword";
+	
 	
 	header("location:welcome.php");
 	//echo ("{$_SESSION['username']}");

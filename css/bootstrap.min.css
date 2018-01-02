@@ -26,6 +26,21 @@ audio:not([controls]) {
 a {
 	background-color:transparent
 }
+#forgotpass{
+	color: #23527c;
+    text-decoration: underline;
+	float: right;
+	padding-right: 10px;
+}
+.security{
+	margin: auto;
+}
+.security-label{
+	padding-left: 37px;
+}
+.changepswd-label{
+	margin-bottom: 0;
+}
 a:active,a:hover {
 	outline:0
 }
