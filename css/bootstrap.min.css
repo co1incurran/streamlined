@@ -38,6 +38,11 @@ a {
 .security-label{
 	padding-left: 37px;
 }
+#cancel-changing-password{
+	margin-left: 80%;
+	color: #337ab7;
+	text-decoration: underline;
+}
 .changepswd-label{
 	margin-bottom: 0;
 }
