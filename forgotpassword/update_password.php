@@ -74,7 +74,6 @@
 				<section class="panel-body">
 					<!--<div class="alert alert-info"></div>-->
 					<form id="form" action="../index.html" method="post" class="form-horizontal">
-						
 						<div class="form-group">
 							<div class="col-sm-12">
 								

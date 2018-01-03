@@ -157,8 +157,13 @@ $('#jobType').on('change',function(){
 										<li><a class = "icons" id="convert" href = "convert_to_company.php?type=project&companyid='.$companyid.'&url='.$url.'"><i class="fa fa-repeat"></i> Convert to Customer </a></li>';
 									}
 									if($type == 'lead'){
-										echo'
-										<li><a class = "icons" id="convert" href = "convert_to_company.php?type=lead&companyid='.$companyid.'&url='.$url.'"><i class="fa fa-repeat"></i> Convert to Customer </a></li>';
+										if($companyid != 0){
+											echo'
+											<li><a class = "icons" id="convert" href = "convert_to_company.php?type=lead&companyid='.$companyid.'&url='.$url.'"><i class="fa fa-repeat"></i> Convert to Customer </a></li>';
+										}else{
+											echo'
+											<li><a class = "icons" id="convert" href = "convert_to_customer.php?type=lead&customerid='.$customerid.'&url='.$url.'"><i class="fa fa-repeat"></i> Convert to Customer </a></li>';
+										}
 									}
 							}
 							echo'

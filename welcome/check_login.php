@@ -1,19 +1,7 @@
 <?php
-/*
-$host="localhost"; // Host name 
-$username=""; // Mysql username 
-$password=""; // Mysql password 
-$db_name="test"; // Database name 
-$tbl_name="members"; // Table name
-*/
 session_start();
 
 include'../include/db_connection.php';
-
-
-// Connect to server and select databse.
-//mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
-//mysql_select_db("$db_name")or die("cannot select DB");
 
 // username and password sent from form 
 $username = $_POST['username']; 
@@ -51,7 +39,51 @@ if($count==1){
 else {
 	//echo $password.'<br>';
 	//echo $sql.'<br>';
-	echo "Wrong Username or Password".'<br>';
-	
+	//echo "Wrong Username or Password".'<br>';
+	echo'
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Enable Supplies - CRM System</title>
+
+	<!-- Compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+	<!-- Compiled and minified FontAwesome CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" media="screen" href="../css/style.css" />
+
+	</head>
+	<body class="login">
+		<div class="login-box main-content panel panel-default">
+		  <header class="panel-heading"><h2 class="panel-title">Wrong login details</h2></header>
+			<section class="panel-body">
+				<!--<div class="alert alert-info"></div>-->
+				<form id="form" action="../index.html" method="post" class="form-horizontal">
+					
+					<div class="form-group">
+					  <div class="col-sm-12">
+						<!--<span class="pull-left">
+							<input type="checkbox" id="remember" class="" value="1" name="remember"/>
+							<label class="choice" for="remember">Remember me</label>
+						</span>-->
+						
+						<button id= "login-btn" type="submit">Try again</button>
+					</div>
+				</div>
+				<a id = "forgotpass" href = "../forgotpassword/changepassword.php"><small>Forgot your password?</small></a>
+				</form>
+				<!--<ul><li><strong>HELP!</strong>&nbsp;<a href="#">I forgot my password!</a></li></ul>-->
+			</section>
+		</div>
+	</body>
+	</html>';
 }
 ?>

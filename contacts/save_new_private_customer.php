@@ -1,5 +1,5 @@
 <?php
-include'../include/session.php'
+include'../include/session.php';
 include'../include/db_connection.php';
 //Back URL
 $url= $_POST["url"];

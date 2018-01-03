@@ -8,8 +8,9 @@ if(isset($_GET['url'])){
 	//$type= $_GET['type'];
 //}
 					
-if(isset($_GET['companyid'])){
-	$companyid= $_GET['companyid'];
+if(isset($_GET['customerid'])){
+	$customerid= $_GET['customerid'];
+	echo $customerid;
 }
 
 echo'
@@ -27,16 +28,14 @@ echo'
 			<!-- Popup Div Starts Here -->
 			<div id="popupContact">
 			<!-- Contact Us Form -->
-				<form action="convert.php" id="form" method="post" name="form">
+				<form action="convert_customer.php" id="form" method="post" name="form">
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
-					<h2>Convert to company contact?</h2>
+					<h2>Convert lead to customer?</h2>
 					<hr>';					
-					if(isset($companyid)){
-						echo '<input type="hidden" name="companyid" id="companyid" value="'.$companyid.'">';
+					if(isset($customerid)){
+						echo '<input type="hidden" name="customerid" id="customerid" value="'.$customerid.'">';
 					}
 					
-					
-
 					if(isset($url)){
 						echo '<input type="hidden" name="url" id="url" value="'.$url.'">';
 					}

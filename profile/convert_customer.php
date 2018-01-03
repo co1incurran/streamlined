@@ -7,12 +7,12 @@ $url= $_POST["url"];
 
 
 //COMPANYID
-if(isset($_POST['companyid'])){
-	$companyid = $_POST["companyid"];
+if(isset($_POST['customerid'])){
+	$customerid = $_POST["customerid"];
 }
 
 //put the activity into the activty table
-$sql = "UPDATE company SET project = 0, lead = 0 WHERE companyid = $companyid;";
+$sql = "UPDATE customer SET lead = 0 WHERE customerid = $customerid;";
 //echo $sql;
 $res = mysqli_query($con,$sql);
 //echo $sql1;
@@ -37,7 +37,7 @@ echo'<!DOCTYPE html>
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Converted</h2>
 					<hr>
-					<a href="../profile/profile.php?customerid=0&companyid='.$companyid.'" id="submit">OK</a>
+					<a href="../profile/profile.php?customerid='.$customerid.'&companyid=0" id="submit">OK</a>
 				</form>
 			</div>
 		<!-- Popup Div Ends Here -->

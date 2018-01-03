@@ -126,8 +126,8 @@ if($contactType == 'lead'){
 }
 
 if (mysqli_num_rows($result) == 0){
-
-	$sql = "INSERT INTO company (name, address_line1, address_line2, address_line3, address_line4, county, country, sage_id, sector, lead) VALUES ('$cleanCompanyName', '$cleanAddress1', '$cleanAddress2', '$cleanAddress3', '$cleanAddress4', '$cleanCounty', '$cleanCountry', '$cleanSageid', '$cleanSector', '$lead'); ";
+	$date = date('Y-m-d');
+	$sql = "INSERT INTO company (name, address_line1, address_line2, address_line3, address_line4, county, country, sage_id, sector, lead, creation_date) VALUES ('$cleanCompanyName', '$cleanAddress1', '$cleanAddress2', '$cleanAddress3', '$cleanAddress4', '$cleanCounty', '$cleanCountry', '$cleanSageid', '$cleanSector', '$lead', '$date'); ";
 
 	$res = mysqli_query($con,$sql);
 	//echo $sql.'<br>';

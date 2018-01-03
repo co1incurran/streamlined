@@ -22,7 +22,7 @@ if($year = date("y")){
 $number = str_pad($number, 4, '0', STR_PAD_LEFT);
 //echo $number.'<br>';
 $newJobNumber = $year.'-'.$number;
-echo $newJobNumber.'<br>';
+//echo $newJobNumber.'<br>';
 
 //Back URL
 $url= $_POST["url"];
@@ -236,7 +236,7 @@ echo'
 <html>
 	<head>
 	<title>Job Created</title>
-	<link href=".../css/elements.css" rel="stylesheet">
+	<link href="../css/elements.css" rel="stylesheet">
 	<script src="../js/popup.js"></script>
 	</head>
 <!-- Body Starts Here -->
@@ -267,3 +267,4 @@ echo'
 <!-- Body Ends Here -->
 </html>';
 ?>
+Thanks you too :) ya come down for 5:30/6 
