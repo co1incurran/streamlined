@@ -145,7 +145,7 @@ while($row = mysqli_fetch_array($res)){
 				<td>
 					<?php 
 						$date = $results['last_contacted'];
-						if($date == NULL){
+						if($date == NULL || $date == 2000/01/01){
 							$date = 'N/A';
 						}else{
 							$date = date("d/m/Y", strtotime($date));
