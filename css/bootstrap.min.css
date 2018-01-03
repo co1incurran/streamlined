@@ -23,6 +23,10 @@ audio:not([controls]) {
 [hidden],template {
 	display:none
 }
+#changepswd-errmsg{
+	padding-left: 37px;
+	color: red;
+}
 a {
 	background-color:transparent
 }

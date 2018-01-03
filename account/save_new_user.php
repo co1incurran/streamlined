@@ -10,11 +10,6 @@
 	while($row = mysqli_fetch_array($res2)){
 		$usernames[] = $row['userid'];
 	}
-	//print_r (array_values($usernames));
-	//echo '<br>';
-	//print_r (array_values($names));
-//	echo '<br>';
-//	echo '<br>';
 	
 	if(isset ($_POST["email"])){
 		$email = $_POST["email"];
