@@ -140,7 +140,7 @@ foreach ($result as $results){
 						<td class = "asset-list"></td>
 						<td class = "asset-list">'.$completed.'</td>
 						<td class = "asset-list">
-						<form action="task_details.php" id="job-list" method="post" name="job-list">
+						<form action="../task/task_details.php" id="job-list" method="post" name="job-list">
 							<input type="hidden" name="url" id="url" value="'.$url.'">
 							
 							<input type="hidden" name="userName" id="userName" value="'.$userName.'">
