@@ -326,7 +326,6 @@ while($row = mysqli_fetch_array($res)){
 				$date = $dueDate;
 			}
 			
-			
 			//this is the setter for projects or not a project
 			$project = false;
 			

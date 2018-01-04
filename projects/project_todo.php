@@ -155,11 +155,11 @@ foreach ($result as $results){
 										echo'<td id= "complete-button"><a href="../profile/add_job.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
 									}else{
 										echo'<td id= "complete-button"><a href="../task/activity_results.php?url='.$url.'&activityid='.$activityid.'&projectid='.$projectid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
-									}
+									} 
 						echo			
 						'</td>
 						<td class = "asset-list">
-						<form action="task_details.php" id="job-list" method="post" name="job-list">
+						<form action="../task/task_details.php" id="job-list" method="post" name="job-list">
 							<input type="hidden" name="url" id="url" value="'.$url.'">
 							
 							<input type="hidden" name="userName" id="userName" value="'.$userName.'">

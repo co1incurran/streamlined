@@ -226,7 +226,8 @@ if(isset($_GET['filter'])){
                                                     <li><a href="tasks.php?status=all">My tasks</a></li>
                                                     <li><a href="tasks.php?status=today">Today</a></li>
                                                     <li><a href="tasks.php?status=tomorrow">Tomorrow</a></li>
-                                                    <li><a href="tasks.php?status=week">This week</a></li>
+                                                    
+													<li><a href="tasks.php?status=week">This week</a></li>
                                                     <li><a href="tasks.php?status=month">This month</a></li>
 													<li><a href="tasks.php?status=overdue">Over due</a></li>
 													<li><a href="tasks.php?status=completed">Completed</a></li>

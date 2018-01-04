@@ -152,6 +152,7 @@ foreach($result2 as $results2){
 									<table align="center">
 										<thead class = "blue-row">
 										<th class = "asset-list"></th>
+										<th id = "td-header" class = "asset-list"><i class="fa fa-check"></i></th>
 										<th class = "asset-list"><strong>Type</strong></th>
 										<th class = "asset-list"><strong>Description</strong></th>
 										<th class = "asset-list"><strong>Due Date</strong></th>
@@ -163,6 +164,73 @@ foreach($result2 as $results2){
 										</thead>';
 										$i = 1;
 						foreach ($result as $results){
+							
+							$activityid = $results['activityid'];
+							$complete = $results['complete'];
+							$type = $results['type'];
+							$prospectingType = $results['prospecting_type'];
+							$description = $results['description'];
+							$dueDate = $results['due_date'];
+							$time = $results['time'];
+							$result = $results['result'];
+							$resultDescription = $results['result_description'];
+							$nextAction = $results['next_action'];
+							$nextActionDescription = $results['next_action_description'];
+							$creationDate = $results['creation_date'];
+							$createdBy = $results['created_by'];
+							$new = $results['new'];
+							$completeDate = $results['complete_date'];
+							
+							//this picks which icon to put next to the task type
+							if ($results['type'] == 'prospecting'){
+								$icon = '<i class="fa fa-binoculars"> </i>';
+							}
+							elseif ($results['type'] == 'qualifying'){
+								$icon = '<i class="fa fa-spinner"></i>';
+							}
+							elseif ($results['type'] == 'presentation'){
+								$icon = '<i class="fa fa-bar-chart"></i>';
+							}
+							elseif ($results['type'] == 'deliver quote'){
+								$icon = '<i class="fa fa-tag"></i>';
+							}
+							elseif ($results['type'] == 'closing meeting'){
+								$icon = '<i class="fa fa-lock"></i>';
+								echo ' ';
+							}
+							elseif ($results['type'] == 'generate quote'){
+								$icon = '<i class="fa fa-print"></i>';
+								echo ' ';
+							}
+							elseif ($results['type'] == 'followup meeting'){
+								$icon = '<i class="fa fa-coffee"></i>';
+							}
+							elseif ($results['type'] == 'other'){
+								$icon = '<i class="fa fa-question"></i>';
+							}
+							elseif ($results['type'] == 'order parts'){
+								$icon = '<i class="fa fa-file-powerpoint-o"></i>';
+							}
+							elseif ($results['type'] == 'get PO number'){
+								$icon = '<i class="fa fa-file-o"></i>';
+							}
+							elseif ($results['type'] == 'create job number'){
+								$icon = '<i class="fa fa-file-text"></i>';
+							}
+							else {
+								$icon = '<i class="fa fa-question"></i>';
+							}
+							
+			
+			
+							$activityid = $results['activityid'];
+							$sql3 = "SELECT userid FROM assigned_activity WHERE activityid = '$activityid'; ";
+							//echo $sql3;
+							//echo $sql2.'<br>';
+							$res3 = mysqli_query($con,$sql3);
+							$row3 = mysqli_fetch_assoc($res3);
+							$userName = $row3["userid"];
+							
 							if (1 != $i % 2){
 								$rowClass = 'blue-row';
 							}else{
@@ -173,15 +241,40 @@ foreach($result2 as $results2){
 							//echo $activityid.'<br>';
 							echo '<tr class = "' .$rowClass. '">
 										<td class = "asset-list"></td>';
-										/*if($results['type'] == 'prospecting'){
-											echo'<td id= "complete-button"><a href="prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
+										$type = $results['type'];
+										if($type == 'prospecting'){
+											echo'<td id= "complete-button"><a href="../task/prospecting_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'"><i class="fa fa-square-o"></i></a></td>';
 										}elseif ($type == 'create job number'){
-											echo'<td id= "complete-button"><a href="../profile/add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&projectid='.$projectid.'"><i class="fa fa-square-o"></i></a></td>';
+											echo'<td id= "complete-button"><a href="../profile/add_job.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'"><i class="fa fa-square-o"></i></a></td>';
 										}else{
-											echo'<td id= "complete-button"><a href="activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'&projectid='.$projectid.'" ><i class="fa fa-square-o"></i></a></td>';
-										}*/
+											echo'<td id= "complete-button"><a href="../task/activity_results.php?url='.$url.'&activityid='.$activityid.'&customerid='.$customerid.'&companyid='.$companyid.'&userName = '.$userName.'" ><i class="fa fa-square-o"></i></a></td>';
+										}
+										
 										echo'
-										<td class = "asset-list">'. ucwords($results['type']) . '</td>
+						
+											<form action="../task/task_details.php" id="job-list" method="post" name="job-list">
+												<input type="hidden" name="url" id="url" value="'.$url.'">
+												<input type="hidden" name="userName" id="userName" value="'.$userName.'">
+												<input type="hidden" name="activityid" id="activityid" value="'.$activityid.'">
+												
+												<input type="hidden" name="complete" id="complete" value="'.$complete.'">
+												<input type="hidden" name="type" id="type" value="'.$type.'">
+												
+												<input type="hidden" name="prospectingType" id="prospectingType" value="'.$prospectingType.'">
+												<input type="hidden" name="description" id="description" value="'.$description.'">
+												
+												<input type="hidden" name="dueDate" id="dueDate" value="'.$dueDate.'">
+												<input type="hidden" name="time" id="time" value="'.$time.'">
+												
+												<input type="hidden" name="result" id="result" value="'.$result.'">
+												<input type="hidden" name="resultDescription" id="resultDescription" value="'.$resultDescription.'">
+												
+												<input type="hidden" name="nextAction" id="nextAction" value="'.$nextAction.'">
+												<input type="hidden" name="nextActionDescription" id="nextActionDescription" value="'.$nextActionDescription.'">
+												<!--'.$icon.' '.'-->
+												<td>'.$icon.' <button type="submit" id="job-type" > '.ucwords($results['type']).'</button></td>
+											</form>
+											
 										<td class = "asset-list">'. ucwords($results['description']) . '</td>';
 										$dueDate = $results['due_date'];
 										$dueDate = date("d/m/Y", strtotime($dueDate));
@@ -242,5 +335,6 @@ foreach($result2 as $results2){
 			echo '</div>
 			</div>';
 }
+
 mysqli_close($con);
 ?>
