@@ -94,7 +94,7 @@ if($cleantime ==''){
 
 //get the current date 
 $dt = new DateTime();
-$creationdate = $dt->format('Y-m-d');
+$creationdate = $dt->format('Y-m-d H:i:s');
 $currentDate = $creationdate;
 
 //put the data into the completed activity row in the activty table

@@ -97,8 +97,12 @@ $alreadyExists = false;
 	}
 
 if($alreadyExists == false){
+	if($cleanassign == $userLoggedOn){
 		//put the activity into the activty table
+		$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by, new) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn', '0');";
+	}else{
 		$sql1 = "INSERT INTO activity (type, description, due_date, time, creation_date, created_by) VALUES ('$cleanactivitytype', '$cleanactivitydescription', '$cleandate', '$cleantime', '$creationdate', '$userLoggedOn');";
+	}
 		$res1 = mysqli_query($con,$sql1);
 		//echo $sql1;
 
@@ -114,7 +118,7 @@ if($alreadyExists == false){
 			$sql3 = "INSERT INTO assigned_activity (userid, activityid) VALUES ('$cleanassign', '$activityid');";
 			$res3 = mysqli_query($con,$sql3);
 			//echo $sql3;
-			
+			//get the rest of the stuff here to sort it out properly and then get the rest
 			if(isset($_POST['companyid'])&& $_POST['companyid'] !=0){
 					$sql4 = "INSERT INTO company_activity (companyid, activityid) VALUES ('$cleancompanyid', '$activityid');";
 					//echo '1<br>';

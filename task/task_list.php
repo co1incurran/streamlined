@@ -19,7 +19,7 @@ $sunday = date("Y-m-d", strtotime("sunday this week"));
 //echo '<br>'.$monday;
 //echo '<br>'.$sunday.'<br>';
 
-//getting the start and end dates if the current month
+//getting the start and end dates of the current month
 // First day of the month.
 $startMonth = date('Y-m-01', strtotime($currentDate)).'<br>';
 
@@ -71,12 +71,12 @@ if(isset($_POST['type'])){
 }
 
 if($outbox == true){
-		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY activityid DESC; ";
+		$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid != '$userLoggedOn' AND created_by = '$userLoggedOn') ORDER BY due_date; ";
 	}else{
 			if(isset($_GET['status'])){
 				$status = $_GET['status'];
 				//echo $status;
-				
+
 				if($status == 'all' || $_GET['status'] == ''){
 					//this is how the date picker feature is implemented
 					if(isset($_POST['date1']) || isset($_POST['date1'])){
@@ -95,13 +95,13 @@ if($outbox == true){
 									$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date <='$date2' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 								//echo $sql;
 							}else{
-								$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
+								$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 							}
 						}else{
-							$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
+							$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 						}
 					}else{
-						$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
+						$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 					}
 					
 					
@@ -120,20 +120,20 @@ if($outbox == true){
 								
 								
 								//AND new ='0'
-								$sql = "SELECT * FROM activity WHERE complete = '0' AND new !='1' AND due_date >='$date1' AND due_date <='$date2' ORDER BY due_date ; ";
+								$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date >='$date1' AND due_date <='$date2' ORDER BY due_date ; ";
 								//echo $sql;
 							}elseif((!isset($_POST['date1']) || $_POST['date1'] == '' )&& isset($_POST['date2'])){
 								$date2  = $_POST['date2'];
-							$sql = "SELECT * FROM activity WHERE complete = '0' AND new !='1' AND due_date <='$date2' ORDER BY due_date ; ";
+							$sql = "SELECT * FROM activity WHERE complete = '0' AND due_date <='$date2' ORDER BY due_date ; ";
 								//echo $sql;
 							}else{
-								$sql = "SELECT * FROM activity WHERE complete = '1' AND new !='1' ORDER BY activityid DESC; ";
+								$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY due_date; ";
 							}
 						}else{
-							$sql = "SELECT * FROM activity WHERE complete = '0' AND new !='1' ORDER BY activityid DESC; ";
+							$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 						}
 					}else{
-						$sql = "SELECT * FROM activity WHERE complete = '0' AND NEW !='1' ORDER BY activityid DESC; ";
+						$sql = "SELECT * FROM activity WHERE complete = '0' ORDER BY due_date; ";
 					}
 					
 					$global = true;
@@ -157,13 +157,13 @@ if($outbox == true){
 								$sql = "SELECT * FROM activity WHERE complete = '1' AND complete_date <= '$date2'; ";
 								//echo $sql;
 							}else{
-								$sql = "SELECT * FROM activity WHERE complete = '1';";
+								$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY complete_date DESC;";
 							}
 						}else{
-							$sql = "SELECT * FROM activity WHERE complete = '1'; ";
+							$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY complete_date DESC; ";
 						}
 					}else{
-						$sql = "SELECT * FROM activity WHERE complete = '1'; ";
+						$sql = "SELECT * FROM activity WHERE complete = '1' ORDER BY complete_date DESC; ";
 					}
 				
 					$global = true;
@@ -215,15 +215,14 @@ if($outbox == true){
 				}elseif($status == 'project'){
 					$sql = "SELECT * FROM activity WHERE activityid IN (SELECT activityid FROM project_activity where projectid = '$projectid') AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC LIMIT 1;";
 				}else{
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY creation_date DESC; ";
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 				}
 			}else{
-					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY activityid DESC; ";
+					$sql = "SELECT * FROM activity WHERE complete = '0' AND activityid IN (SELECT activityid FROM assigned_activity WHERE userid = '$userLoggedOn') ORDER BY due_date; ";
 			}
 	}
 
 $con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-
 
 $res = mysqli_query($con,$sql);
 
