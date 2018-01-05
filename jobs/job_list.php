@@ -158,7 +158,7 @@ while($row = mysqli_fetch_array($res)){
 				$companyid = $row["companyid"];
 			}
 			
-			//this gets the user who is assigned the job
+			
 			$sql3 = "SELECT userid FROM assigned WHERE jobid = '$jobid'; ";
 			//echo $sql3;
 			//echo $sql2.'<br>';

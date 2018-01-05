@@ -18,12 +18,13 @@ if($year = date("y")){
 }else{
 	$year = date("y");
 	$number = 1;
+	
 }
 $number = str_pad($number, 4, '0', STR_PAD_LEFT);
 //echo $number.'<br>';
 $newJobNumber = $year.'-'.$number;
 //echo $newJobNumber.'<br>';
-
+//get the rest of the stuff for the data the 
 //Back URL
 $url= $_POST["url"];
 
