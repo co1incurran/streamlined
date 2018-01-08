@@ -161,58 +161,74 @@ $cleannumberOfAssets= mysqli_real_escape_string($con, $filternumberOfAssets);
 $dt = new DateTime();
 $creationdate = $dt->format('Y-m-d');
 
-
-$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes, quote_number) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$newJobNumber', '$cleannumberOfAssets', '$cleannotes', '$cleanQuoteNumber'); ";
-
-$res = mysqli_query($con,$sql);
-//echo $sql;
-
-$sql2 = "SELECT jobid FROM jobs ORDER BY jobid DESC LIMIT 1; ";
+/*$sql2 = "SELECT jobid, job_number FROM jobs ORDER BY jobid DESC LIMIT 1; ";
 $result = mysqli_query($con,$sql2);
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
         $jobid = $row["jobid"];
+		$jn = $row["job_number"];
     }
-} 
+} */
+
+//this is done to check if the job already exists to prevent duplicate jobs from being created 
 if(isset($_POST['customerid']) && $customerid != 0){
-	$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$cleancustomerid'); ";
-	//echo $cleancustomerid;
-	//echo '<br>'. $sql3;
+	$sql10 = "SELECT * FROM jobs WHERE complete = '0' AND job_type = '$cleanjobtype' AND job_description = '$cleanjobdescription' AND job_status = '$cleanstatus' AND due_date = '$cleandate' AND  creation_date = '$creationdate' AND sage_reference = '$cleansagereference' AND po_number = '$cleanponumber' AND number_of_assets = '$cleannumberOfAssets' AND notes = '$cleannotes' AND quote_number = '$cleanQuoteNumber' AND jobid IN(SELECT jobid FROM customer_requires WHERE customerid ='$cleancustomerid');";
+	//echo $sql10;
 }elseif((isset($_POST['companyid']) && $companyid != 0) || (isset($_POST['projectid'])&& $_POST['projectid'] != '')){
-	$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$cleancompanyid', '$jobid'); ";
-	//echo $companyid;
-	//echo '<br>'. $jobid;
-	//echo $companyid;
-	//echo $customerid;
-	//echo $projectid;
-	
+	$sql10 = "SELECT * FROM jobs WHERE complete = '0' AND job_type = '$cleanjobtype' AND job_description = '$cleanjobdescription' AND job_status = '$cleanstatus' AND due_date = '$cleandate' AND  creation_date = '$creationdate' AND sage_reference = '$cleansagereference' AND po_number = '$cleanponumber' AND number_of_assets = '$cleannumberOfAssets' AND notes = '$cleannotes' AND quote_number = '$cleanQuoteNumber' AND jobid IN(SELECT jobid FROM company_requires WHERE companyid ='$cleancompanyid');";
+	//echo $sql10;
 }
-$result2 = mysqli_query($con,$sql3);
+$resChecker = mysqli_query($con,$sql10);
+if(mysqli_num_rows($resChecker) < 1){
+			
 
-$sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
-$result4 = mysqli_query($con,$sql4);
+		$sql = "INSERT INTO jobs (complete, job_type, job_description, job_status, due_date, creation_date, sage_reference, po_number, job_number, number_of_assets, notes, quote_number) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$newJobNumber', '$cleannumberOfAssets', '$cleannotes', '$cleanQuoteNumber'); ";
 
-//this gets the current timestamp
-$date = new DateTime();
-$timestamp = $date->getTimestamp();
-//this adds the data to the job history table as the first entry for this job
-$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes, timestamp) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$newJobNumber', '$cleannumberOfAssets', '$cleannotes', '$timestamp'); ";
+		$res = mysqli_query($con,$sql);
+		//echo $sql;
 
-$res5 = mysqli_query($con,$sql5);
-//echo $sql5;
+		$sql2 = "SELECT jobid FROM jobs ORDER BY jobid DESC LIMIT 1; ";
+		$result = mysqli_query($con,$sql2);
+		if (mysqli_num_rows($result) > 0) {
+			// output data of each row
+			while($row = mysqli_fetch_assoc($result)) {
+				$jobid = $row["jobid"];
+			}
+		}
+		if(isset($_POST['customerid']) && $customerid != 0){
+			$sql3 = "INSERT INTO customer_requires (jobid, customerid) VALUES ('$jobid', '$cleancustomerid'); ";
+			//echo $cleancustomerid;
+			//echo '<br>'. $sql3;
+		}elseif((isset($_POST['companyid']) && $companyid != 0) || (isset($_POST['projectid'])&& $_POST['projectid'] != '')){
+			$sql3 = "INSERT INTO company_requires (companyid, jobid) VALUES ('$cleancompanyid', '$jobid'); ";
+
+		}
+		$result2 = mysqli_query($con,$sql3);
+
+		$sql4 = "INSERT INTO assigned (userid, jobid) VALUES ('$cleanassigned','$jobid');";
+		$result4 = mysqli_query($con,$sql4);
+
+		//this gets the current timestamp
+		$date = new DateTime();
+		$timestamp = $date->getTimestamp();
+		//this adds the data to the job history table as the first entry for this job
+		$sql5 = "INSERT INTO job_history (complete, job_type, job_description, job_status, due_date, updated_date, sage_reference, po_number, job_number, number_of_assets, notes, timestamp) VALUES ('0', '$cleanjobtype', '$cleanjobdescription', '$cleanstatus', '$cleandate', '$creationdate', '$cleansagereference', '$cleanponumber', '$newJobNumber', '$cleannumberOfAssets', '$cleannotes', '$timestamp'); ";
+
+		$res5 = mysqli_query($con,$sql5);
+		//echo $sql5;
 
 
-$sql6 = "SELECT historyid FROM job_history ORDER BY historyid DESC LIMIT 1; ";
-//echo $sql6;
-$res6 = mysqli_query($con,$sql6);
-$row6= mysqli_fetch_assoc($res6);
-$historyid = $row6["historyid"];
+		$sql6 = "SELECT historyid FROM job_history ORDER BY historyid DESC LIMIT 1; ";
+		//echo $sql6;
+		$res6 = mysqli_query($con,$sql6);
+		$row6= mysqli_fetch_assoc($res6);
+		$historyid = $row6["historyid"];
 
-$sql7 = "INSERT INTO jobs_to_history (jobid, historyid) VALUES ($jobid, $historyid);";
-$res7 = mysqli_query($con,$sql7);
-//echo $sql7;
-
+		$sql7 = "INSERT INTO jobs_to_history (jobid, historyid) VALUES ($jobid, $historyid);";
+		$res7 = mysqli_query($con,$sql7);
+		//echo $sql7;
+}
 //The below code if for handling jobs created form the "create job number" task
 if(isset($_POST['activityid'])){
 	$date = date("Y-m-d");
@@ -220,7 +236,7 @@ if(isset($_POST['activityid'])){
 	$sql8 = "UPDATE activity SET complete  = '1', result = 'Job Number: '$newJobNumber', complete_date = '$date' WHERE activityid = '$activityid' ;";
 	$res8 = mysqli_query($con,$sql8);	
 	//echo $sql8;
-}
+} 
 //this ensures that all leads are converted to customers
 if(isset ($_POST['customerid']) && $cleancustomerid > 0){
 	$sql9 = "UPDATE customer SET lead  = '0' WHERE customerid = '$cleancustomerid' ;";

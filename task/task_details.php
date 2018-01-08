@@ -198,6 +198,11 @@ echo'
 					<select id="assign"class="drop_down"  name = "assign" class="form-control">';
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
+						
+						$sql2 = "SELECT userid from assigned_activity WHERE activityid = '$activityid'";
+						$res2 = mysqli_query($con,$sql2);
+						$result = mysqli_fetch_assoc($res2);
+						
 
 						if (mysqli_num_rows($res) > 0) {
 						while($row = mysqli_fetch_assoc($res)) {
