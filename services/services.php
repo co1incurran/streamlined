@@ -282,9 +282,7 @@ if(isset($_GET['filter'])){
     
     <footer>
         <div id="footer-inner" class="container">
-            <div>
-                <span class="pull-right"><a href="#">Documentation</a> | <a href="#">Feedback</a></span>Last account activity from 127.0.0.1 - <a href="#">Details</a> | &copy; 2016. All rights reserved. Designed by Colin Curran
-            </div>
+           
         </div>
     </footer>
 

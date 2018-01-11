@@ -199,10 +199,10 @@ echo'
 						$sql = "SELECT userid FROM users;";
 						$res = mysqli_query($con,$sql);
 						
-						$sql2 = "SELECT userid from assigned_activity WHERE activityid = '$activityid'";
+						/*$sql2 = "SELECT userid from assigned_activity WHERE activityid = '$activityid'";
 						$res2 = mysqli_query($con,$sql2);
-						$result = mysqli_fetch_assoc($res2);
-						
+						$result = mysqli_fetch_assoc($res)*/
+						//get more of the data for the rest of the 
 
 						if (mysqli_num_rows($res) > 0) {
 						while($row = mysqli_fetch_assoc($res)) {

@@ -41,7 +41,7 @@ echo'
 					<!--<img id="close" src="images/3.png" onclick ="div_hide()">-->
 					<h2>Project details</h2>
 					<small><a href = "delete_project.php?url='.$url.'&projectid='.$projectid.'">Delete project</a></small>
-					<small><a id = "add_task" href = "add_activity.php?url=projects.php&projectid='.$projectid.'&userName='.$userName.'">Add task</a></small>
+					
 					<hr>
 					<input type="hidden" name="url" id="url" value="'.$url.'">
 					<input type="hidden" name="projectid" id="projectid" value="'.$projectid.'">

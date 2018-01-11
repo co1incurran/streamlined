@@ -91,9 +91,9 @@ $('#jobType').on('change',function(){
 								?>
 								<li><a href="../task/tasks_outbox.php"><i id = "outbox-counter"><?php echo $count.' '; ?></i><i class="fa fa-sign-out"></i> Tasks Outbox </a></li>
                                 <li><a href="../jobs/jobs.php"><i class="fa fa-wrench"></i> Jobs</a></li>
-								<li><a href="../services/services.php"><i class="fa fa-medkit"></i> Services</a></li>
+								<!--<li><a href="../services/services.php"><i class="fa fa-medkit"></i> Services</a></li>-->
 							<li><a href="../projects/projects.php"><i class="fa fa-pie-chart"></i> Projects</a></li>
-							<li><a href="../sms/sms.php"><i class="fa fa-comment"></i> SMS</a></li>
+							<!--<li><a href="../sms/sms.php"><i class="fa fa-comment"></i> SMS</a></li>-->
                             <li class="dropdown">
                                  <a href="#" id = "../account/logout" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<i class="fa fa-cog"></i>--> <?php echo $userLoggedOn.' '; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -235,9 +235,7 @@ $('#jobType').on('change',function(){
     
     <footer>
         <div id="footer-inner" class="container">
-            <div>
-                <span class="pull-right"><a href="#">Documentation</a> | <a href="#">Feedback</a></span>Last account activity from 127.0.0.1 - <a href="#">Details</a> | &copy; 2016. All rights reserved. Designed by Colin Curran
-            </div>
+
         </div>
     </footer>
 
