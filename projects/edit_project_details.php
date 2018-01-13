@@ -65,7 +65,6 @@ echo'
 					}else{
 						echo '<option value="" disabled selected>Select a county</option>';
 					}
-					
 					echo'
 						<option value= "antrim">Antrim</option>
 						<option value= "armagh">Armagh</option>
