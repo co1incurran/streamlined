@@ -237,7 +237,7 @@ if(isset($_POST['activityid'])){
 	$res8 = mysqli_query($con,$sql8);	
 	//echo $sql8;
 } 
-//this ensures that all leads are converted to customers
+//this ensures that all leads are converted to customers 
 if(isset ($_POST['customerid']) && $cleancustomerid > 0){
 	$sql9 = "UPDATE customer SET lead  = '0' WHERE customerid = '$cleancustomerid' ;";
 	$res9 = mysqli_query($con,$sql9);
@@ -245,7 +245,8 @@ if(isset ($_POST['customerid']) && $cleancustomerid > 0){
 	$sql9 = "UPDATE company SET lead  = '0' WHERE companyid = '$cleancompanyid' ;";
 	$res9 = mysqli_query($con,$sql9);
 }
-
+//get the rest of the stuff needed for the rest of the data
+//get the rest of the 
 
 mysqli_close($con);
 echo'
